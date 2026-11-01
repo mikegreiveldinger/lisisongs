@@ -6,7 +6,7 @@
 
 Der Wind pfiff über die Hügel von Schottland, und Lisi zog ihre gelbe Mütze ein Stückchen tiefer über die Ohren. Der Bommel wippte bei jedem Schritt. Der gelbe Schal war zweimal um den Hals gewickelt – und trotzdem kribbelte die Kälte an der Nasenspitze.
 
-Neben ihr hüpfte Nora über den Kies und versuchte, auf keine einzige Pfütze zu treten. „Achtundzwanzig Pfützen", verkündete sie. „Ich hab mitgezählt."
+Neben ihr hüpfte ihre große Schwester Nora über den Kies. Nora war schon neun und einen ganzen Kopf größer als Lisi. Um den Hals trug sie den rot-grün karierten Schottenschal, den Tante Ly ihr geschenkt hatte, und sie versuchte, auf keine einzige Pfütze zu treten. „Achtundzwanzig Pfützen", verkündete sie. „Ich hab mitgezählt."
 
 „Papa", sagte Lisi und blieb mitten auf dem Weg stehen. „Warum ist das Schloss rosa?"
 
@@ -28,7 +28,7 @@ Lisi und Nora rissen gleichzeitig die Arme hoch. So schnell, dass Lisis Bommel h
 
 „Zwei Rätsellöserinnen", sagte Morag zufrieden. „Das ist gut. Für dieses Rätsel braucht man nämlich zwei Dinge: Augen, die genau hinschauen – und einen Mund, der sich traut zu fragen."
 
-Lisi und Nora sahen sich an. Sie wussten sofort, wer von ihnen was war.
+Lisi und Nora sahen sich an. Sie waren Schwestern. Sie wussten sofort, wer von ihnen was war.
 
 ---
 
@@ -248,7 +248,7 @@ Morag richtete sich auf und lächelte. „Aber wisst ihr, was ich glaube? Ich gl
 
 ## Auf dem Heimweg
 
-Später, als die drei im Dunkeln über den Kiesweg zurück zum Auto gingen, steckten sich Lisi und Nora die Anstecker mit dem geflügelten Herz an ihre Schals. Sie glänzten im Licht der Fledermaus-Taschenlampen.
+Später, als die drei im Dunkeln über den Kiesweg zurück zum Auto gingen, steckten sich Lisi und Nora die Anstecker mit dem geflügelten Herz an ihre Schals – Lisi an den gelben, Nora an den karierten von Tante Ly. Sie glänzten im Licht der Fledermaus-Taschenlampen.
 
 Ein letztes Mal drehten sie sich um. Das rosa Schloss stand still unter dem Sternenhimmel, und in einem der Turmfenster bewegte sich etwas Kleines, Buschiges.
 
