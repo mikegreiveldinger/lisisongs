@@ -288,6 +288,56 @@ Lisi dachte nach. Dann lächelte sie.
 
 ---
 
+## Die Moral der Geschichte 💛 {#moral}
+
+*Was lernen wir?*
+
+- **Nachfragen ist mutig.** Lisi traut sich zu fragen, auch wenn die Treppe knarrt und ihr Herz klopft. Genau so löst sie das Rätsel.
+- **Zusammen ist man stärker.** Nora schaut genau hin, Lisi fragt nach. Jede kann etwas anderes – und zusammen finden sie den Schatz.
+- **Hinter Gruseligem steckt oft etwas ganz Harmloses.** Das „Gespenst“ war nur ein Eichhörnchen. Wer nachschaut, braucht weniger Angst zu haben.
+
+---
+
+## Quiz: Was weißt du noch? {#quiz}
+
+### 1. Wie viele geflügelte Herzen zählen Lisi und Nora im Saal der Ahnen? {#frage-1}
+
+A) Drei
+B) Fünf
+C) Sieben
+D) Zehn
+
+[→ zur Lösung](#loesung-1)
+
+### 2. Warum hat der Herzog nur eine einzige Nacht in seinem Schloss geschlafen? {#frage-2}
+
+A) Weil die Matratze zu hart war.
+B) Weil er sich über die Kosten ärgerte, krank wurde und zurück in sein altes Haus zog.
+C) Weil ein Gespenst ihn vertrieben hat.
+D) Weil das Schloss noch nicht fertig war.
+
+[→ zur Lösung](#loesung-2)
+
+### 3. Wer machte im Turmzimmer „tock … tock … tock“? {#frage-3}
+
+A) Ein Gespenst
+B) Morag
+C) Der Wind
+D) Ein rotes Eichhörnchen mit einer Haselnuss
+
+[→ zur Lösung](#loesung-3)
+
+### 4. Was steht auf der Karte in der Schatzkiste? {#frage-4}
+
+A) Wer zuerst kommt, mahlt zuerst.
+B) Fröhliches Halloween!
+C) Wer hinschaut, der sieht. Wer fragt, der findet.
+D) Pssst, nicht verraten!
+
+[→ zur Lösung](#loesung-4)
+
+---
+
 ## Kleiner Refrain zum Mitsingen
 
 *(passend zu „Lisi fragt nach")*
@@ -311,3 +361,32 @@ Lisi dachte nach. Dann lächelte sie.
 - Das **geflügelte Herz** der Familie Douglas taucht im ganzen Schloss in Stein, Holz und Metall auf. Es erinnert an Sir James Douglas, der das Herz von König Robert the Bruce auf einen Kreuzzug mitnahm.
 - Um das Schloss leben tatsächlich viele **rote Eichhörnchen**.
 - Und ja: Man erzählt sich Geistergeschichten über Drumlanrig, unter anderem von einer Dame in einem langen Kleid. Die Kürbis-Schatzsuche mit Morag ist dagegen frei erfunden.
+
+---
+
+## Die Lösungen {#loesungen}
+
+### 1. C) Sieben {#loesung-1}
+
+Sechs Herzen finden sie schnell – das siebte entdeckt Nora ganz versteckt am Stuhlbein. Mit der 7 geht die Truhe auf.
+
+[← zurück zur Frage](#frage-1)
+
+### 2. B) Weil er sich über die Kosten ärgerte, krank wurde und zurück in sein altes Haus zog. {#loesung-2}
+
+Das Schloss war so teuer, dass der Herzog sich furchtbar ärgerte. Nach der ersten Nacht wurde er krank und kam nie wieder. Noras Matratzen-Idee war lustig, aber falsch.
+
+[← zurück zur Frage](#frage-2)
+
+### 3. D) Ein rotes Eichhörnchen mit einer Haselnuss {#loesung-3}
+
+Auf dem Fensterbrett saß ein rotes Eichhörnchen und klopfte mit seiner Haselnuss gegen die Scheibe – Nora nannte es das „Gespensthörnchen“.
+
+[← zurück zur Frage](#frage-3)
+
+### 4. C) Wer hinschaut, der sieht. Wer fragt, der findet. {#loesung-4}
+
+Nora ist die, die genau hinschaut, und Lisi die, die nachfragt – zusammen haben sie den Schatz gefunden.
+
+[← zurück zur Frage](#frage-4)
+
