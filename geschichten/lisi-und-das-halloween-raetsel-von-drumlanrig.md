@@ -4,9 +4,13 @@
 
 ---
 
+![Ankunft am rosa Schloss](bilder/drumlanrig/szene-01.jpg)
+
 Der Wind pfiff über die Hügel von Schottland, und Lisi zog ihre gelbe Mütze ein Stückchen tiefer über die Ohren. Der Bommel wippte bei jedem Schritt. Der gelbe Schal war zweimal um den Hals gewickelt – und trotzdem kribbelte die Kälte an der Nasenspitze.
 
-Neben ihr hüpfte ihre große Schwester Nora über den Kies. Nora war schon neun und einen ganzen Kopf größer als Lisi. Um den Hals trug sie den rot-grün karierten Schottenschal, den Tante Ly ihr geschenkt hatte, und sie versuchte, auf keine einzige Pfütze zu treten. „Achtundzwanzig Pfützen", verkündete sie. „Ich hab mitgezählt."
+Neben ihr hüpfte ihre große Schwester Nora über den Kies. Nora war schon neun und einen ganzen Kopf größer als Lisi. Aus ihrem Rucksack schaute ihr Kuschelschaf heraus, das überallhin mitkommen durfte, und sie versuchte, auf keine einzige Pfütze zu treten. „Achtundzwanzig Pfützen", verkündete sie. „Ich hab mitgezählt."
+
+Hinter den beiden stapften Mama und Papa mit ihren Rucksäcken. Mama hatte ihren bunten Lieblingsschal umgebunden, und Papa trug, wie immer, seine orange Kappe.
 
 „Papa", sagte Lisi und blieb mitten auf dem Weg stehen. „Warum ist das Schloss rosa?"
 
@@ -31,6 +35,8 @@ Lisi und Nora rissen gleichzeitig die Arme hoch. So schnell, dass Lisis Bommel h
 Lisi und Nora sahen sich an. Sie waren Schwestern. Sie wussten sofort, wer von ihnen was war.
 
 ---
+
+![Morag überreicht die Pergamentrolle](bilder/drumlanrig/szene-02.jpg)
 
 ## Das erste Rätsel
 
@@ -59,6 +65,8 @@ Morag lächelte geheimnisvoll. „Schaut euch einfach gut um. Es ist überall. W
 
 ## Herzen, Herzen, Herzen
 
+![Das Herz mit Flügeln](bilder/drumlanrig/szene-03.jpg)
+
 Die beiden sahen sich um. In der großen Eingangshalle hingen dunkle Gemälde mit ernsten Damen und Herren in Spitzenkragen. Ein Kronleuchter glitzerte an der Decke.
 
 Nora entdeckte es zuerst. Sie zupfte Lisi am Schal und zeigte stumm nach oben – über einen Türbogen.
@@ -73,11 +81,11 @@ Da war noch eins, geschnitzt ins Holz der Treppe. Und noch eins auf einem Wappen
 
 „Warum hat das Herz Flügel?", fragte Lisi. Natürlich fragte sie nach.
 
-Ein alter Mann mit Schottenmütze, der gerade eine Kerze anzündete, drehte sich zu ihnen um. „Das ist das Zeichen der Familie Douglas, ihr zwei", sagte er. „Vor vielen hundert Jahren hatte ein Ritter namens James Douglas eine wichtige Aufgabe: Er sollte das Herz seines Königs, Robert the Bruce, auf eine weite Reise mitnehmen. Seitdem trägt die Familie das Herz in ihrem Wappen. Und weil das Herz gereist ist, hat es Flügel bekommen."
+Eine alte Dame mit rotem Lockenhaar und karierter Schottenmütze, die gerade eine Kerze anzündete, drehte sich zu ihnen um. „Das ist das Zeichen der Familie Douglas, ihr zwei", sagte sie. „Vor vielen hundert Jahren hatte ein Ritter namens James Douglas eine wichtige Aufgabe: Er sollte das Herz seines Königs, Robert the Bruce, auf eine weite Reise mitnehmen. Seitdem trägt die Familie das Herz in ihrem Wappen. Und weil das Herz gereist ist, hat es Flügel bekommen."
 
 „Das Herz von einem König?", fragte Lisi mit großen Augen. „Ein echtes?"
 
-„Ein echtes", sagte der Mann. „In einem kleinen Kästchen aus Silber. Aber das ist eine andere Geschichte."
+„Ein echtes", sagte die alte Dame. „In einem kleinen Kästchen aus Silber. Aber das ist eine andere Geschichte."
 
 Nora schüttelte sich ein bisschen. „Ein Herz in einem Kästchen. Iiih."
 
@@ -90,6 +98,8 @@ Nora schüttelte sich ein bisschen. „Ein Herz in einem Kästchen. Iiih."
 ---
 
 ## Im Saal der Ahnen
+
+![Im Saal der Ahnen](bilder/drumlanrig/szene-04.jpg)
 
 Der Saal mit den Ahnenbildern war lang und ein bisschen dunkel. Nur die Kürbislaternen auf den Fensterbänken warfen orangefarbenes Licht auf den Holzboden. Von den Wänden schauten die alten Herzöge und Herzoginnen herunter. Einer hatte eine riesige Lockenperücke. Eine Dame hielt einen kleinen Hund im Arm.
 
@@ -132,11 +142,11 @@ Diesmal las Lisi vor:
 
 Papa lachte. „Das ist mal eine gute Frage."
 
-Und weil es eine gute Frage war, fragte Lisi nach. Die beiden liefen zurück zu dem alten Mann mit der Schottenmütze.
+Und weil es eine gute Frage war, fragte Lisi nach. Die beiden liefen zurück zu der alten Dame mit der Schottenmütze.
 
 „Entschuldigung! Warum hat der Herzog nur eine Nacht in seinem Schloss geschlafen?"
 
-Der Mann kicherte so sehr, dass seine Kerze wackelte. „Ah, der erste Herzog von Queensberry! William Douglas hieß er. Er hat das Schloss vor über dreihundert Jahren bauen lassen. Und es hat so viel Geld gekostet, dass er sich furchtbar darüber geärgert hat. Er soll auf die Rechnungen geschrieben haben: *Der Teufel soll dem die Augen auspicken, der hier hineinschaut!*"
+Die alte Dame kicherte so sehr, dass ihre Kerze wackelte. „Ah, der erste Herzog von Queensberry! William Douglas hieß er. Er hat das Schloss vor über dreihundert Jahren bauen lassen. Und es hat so viel Geld gekostet, dass er sich furchtbar darüber geärgert hat. Er soll auf die Rechnungen geschrieben haben: *Der Teufel soll dem die Augen auspicken, der hier hineinschaut!*"
 
 „Oh", sagte Lisi. „Der war aber schlecht gelaunt."
 
@@ -146,11 +156,13 @@ Der Mann kicherte so sehr, dass seine Kerze wackelte. „Ah, der erste Herzog vo
 
 „Und wo hat er geschlafen?", fragte Lisi.
 
-Der Mann zwinkerte. „Na, im Schlafzimmer des Herzogs. Oben, im Turm. Die Treppe hoch und dann immer den Kürbissen nach."
+Die alte Dame zwinkerte. „Na, im Schlafzimmer des Herzogs. Oben, im Turm. Die Treppe hoch und dann immer den Kürbissen nach."
 
 ---
 
 ## Die Wendeltreppe
+
+![Die Wendeltreppe](bilder/drumlanrig/szene-05.jpg)
 
 Die Treppe zum Turm war eng und drehte sich im Kreis, immer rundherum, rundherum. Die Stufen waren ausgetreten von vielen, vielen Füßen. An der Wand hingen kleine Laternen, und die Schatten der beiden Mädchen tanzten neben ihnen her – einmal riesig, einmal winzig.
 
@@ -188,6 +200,8 @@ Das Eichhörnchen sah die beiden an, als wollte es sagen: *Was gibt's da zu lach
 
 ---
 
+![Das Eichhörnchen-Gespenst](bilder/drumlanrig/szene-06.jpg)
+
 ## Das dritte Rätsel
 
 Auf dem Kopfkissen des Himmelbetts lag die dritte Pergamentrolle. Daneben lag ein Schlüssel. Ein großer, alter, rostiger Schlüssel mit einem geflügelten Herz am Griff.
@@ -207,15 +221,19 @@ Die beiden rannten zum Fenster. Draußen war es inzwischen dunkel geworden. Unte
 
 „Dreihundertzwölf", sagte Nora. „Ungefähr."
 
+![Der Riesenkürbis](bilder/drumlanrig/szene-07.jpg)
+
 Aber einer war größer als alle anderen. Ein *gigantischer* Kürbis, so groß wie eine Schubkarre, mitten auf dem Rasen vor dem Brunnen. Er grinste mit einem breiten Zahnlückenlachen.
 
 „Da!", riefen beide. „Da unten!"
 
-Sie flitzten die Wendeltreppe hinunter, rundherum, rundherum, so schnell, dass ihnen ein bisschen schwindelig wurde. Papa kam kaum hinterher.
+Sie flitzten die Wendeltreppe hinunter, rundherum, rundherum, so schnell, dass ihnen ein bisschen schwindelig wurde. Mama und Papa kamen kaum hinterher.
 
 ---
 
 ## Der Schatz
+
+![Der Schatz](bilder/drumlanrig/szene-08.jpg)
 
 Neben dem Riesenkürbis stand eine kleine Holzkiste mit einem eisernen Schloss. Nora hielt die Kiste fest, Lisi steckte den Schlüssel hinein und drehte ihn um. Es knirschte – dann sprang der Deckel auf.
 
@@ -248,7 +266,9 @@ Morag richtete sich auf und lächelte. „Aber wisst ihr, was ich glaube? Ich gl
 
 ## Auf dem Heimweg
 
-Später, als die drei im Dunkeln über den Kiesweg zurück zum Auto gingen, steckten sich Lisi und Nora die Anstecker mit dem geflügelten Herz an ihre Schals – Lisi an den gelben, Nora an den karierten von Tante Ly. Sie glänzten im Licht der Fledermaus-Taschenlampen.
+![Auf dem Heimweg](bilder/drumlanrig/szene-09.jpg)
+
+Später, als die vier im Dunkeln über den Kiesweg zurück zum Auto gingen, steckten sich Lisi und Nora die Anstecker mit dem geflügelten Herz an – Lisi an ihren gelben Pulli, Nora an ihre lila Strickjacke. Sie glänzten im Licht der Fledermaus-Taschenlampen.
 
 Ein letztes Mal drehten sie sich um. Das rosa Schloss stand still unter dem Sternenhimmel, und in einem der Turmfenster bewegte sich etwas Kleines, Buschiges.
 
