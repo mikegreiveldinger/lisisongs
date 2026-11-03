@@ -284,6 +284,11 @@ img.leer{filter:grayscale(1);opacity:.3}
 .urkunde-karte span{display:block;font-size:1.9rem;color:var(--marke-dunkel);letter-spacing:.06em}
 .urkunde-karte b{display:block;color:var(--tinte);margin-top:4px}
 @keyframes urkundeRein{0%{transform:translateY(-40vh) rotate(-20deg);opacity:0}70%{transform:translateY(0) rotate(3deg);opacity:1}100%{transform:rotate(-2deg)}}
+.mem.fuenf{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;width:min(100%,560px)}
+.mem.fuenf .card{width:calc(25% - 8px)}
+@media (min-width:560px){.mem.fuenf .card{width:calc(20% - 8px)}}
+.mem.fuenf .card .face{font-size:.98rem}
+.fx .langsam{animation-duration:.9s!important}
 </style>
 
 <div class="regenbogen"></div>
@@ -363,31 +368,31 @@ const RAW = [
 
 /* Sieger- und Trostsequenz je Thema */
 const SHOW = {
-  tiere:{titel:'Tier-Profi!', text:'Alle Tiere feiern mit dir eine Parade!', fx:'laufen', dinge:['🐶','🐱','🐴','🐮','🐷','🐔','🦆','🐰','🐻','🐸','🐿️'],
+  tiere:{trostFx:{art:'gehen', ding:'🐣'}, titel:'Tier-Profi!', text:'Alle Tiere feiern mit dir eine Parade!', fx:'laufen', dinge:['🐶','🐱','🐴','🐮','🐷','🐔','🦆','🐰','🐻','🐸','🐿️'],
     trost:'Auch ein kleines Küken lernt erst laufen. Wir üben die Tiere zusammen nochmal.'},
-  essen:{titel:'Lecker gelernt!', text:'Es regnet Leckereien, nur für dich!', fx:'regnen', dinge:['🍎','🍌','🍓','🍰','🍦','🥨','🧀','🍐','🥕','🍞'],
+  essen:{trostFx:{art:'steigen', dinge:['🍎','🥨','🍓']}, titel:'Lecker gelernt!', text:'Es regnet Leckereien, nur für dich!', fx:'regnen', dinge:['🍎','🍌','🍓','🍰','🍦','🥨','🧀','🍐','🥕','🍞'],
     trost:'Kochen braucht Übung, Wörter auch. Probieren wir es nochmal?'},
-  pflanzen:{titel:'Alles blüht!', text:'Für dich wächst ein ganzer Garten!', fx:'wachsen', dinge:['🌻','🌷','🌹','🌳','🌲','🌵','🌴','🌼','🌱','💐','🌾'],
+  pflanzen:{trostFx:{art:'wandeln', von:'🌱', zu:'🌷'}, titel:'Alles blüht!', text:'Für dich wächst ein ganzer Garten!', fx:'wachsen', dinge:['🌻','🌷','🌹','🌳','🌲','🌵','🌴','🌼','🌱','💐','🌾'],
     trost:'Auch die kleinste Pflanze wächst jeden Tag ein bisschen. Genau wie du.'},
-  natur:{titel:'Natur-Entdecker!', text:'Schmetterlinge, Bienen und Käfer fliegen dir zu!', fx:'flattern', dinge:['🦋','🐝','🐞','🦋','🐝','🦋','🐞','🪶'],
+  natur:{trostFx:{art:'gehen', ding:'🐌', d:14}, titel:'Natur-Entdecker!', text:'Schmetterlinge, Bienen und Käfer fliegen dir zu!', fx:'flattern', dinge:['🦋','🐝','🐞','🦋','🐝','🦋','🐞','🪶'],
     trost:'Eine Schnecke ist langsam und kommt trotzdem an. Du schaffst das auch!'},
-  wetter:{titel:'Sonnenschein für dich!', text:'Nach dem Regen kommt ein Regenbogen, nur für dich!', fx:'wetter', dinge:['☀️','🌈','☁️','❄️','⚡','🌬️'],
+  wetter:{trostFx:{art:'regenSonne'}, titel:'Sonnenschein für dich!', text:'Nach dem Regen kommt ein Regenbogen, nur für dich!', fx:'wetter', dinge:['☀️','🌈','☁️','❄️','⚡','🌬️'],
     trost:'Nach dem Regen kommt immer die Sonne. Komm, wir üben nochmal.'},
-  kleidung:{titel:'Mode-Profi!', text:'Deine Kleider tanzen im Kreis um dich herum!', fx:'kreis', dinge:['🧣','🧤','🧥','👗','👟','🎩','👕','🧢','👢','🧦'],
+  kleidung:{trostFx:{art:'steigen', dinge:['🧣','🧤','🧦']}, titel:'Mode-Profi!', text:'Deine Kleider tanzen im Kreis um dich herum!', fx:'kreis', dinge:['🧣','🧤','🧥','👗','👟','🎩','👕','🧢','👢','🧦'],
     trost:'Auch beim Anziehen geht mal ein Knopf daneben. Noch ein Versuch?'},
-  koerper:{titel:'Von Kopf bis Fuß super!', text:'Alle klatschen für dich!', fx:'laufen', dinge:['👏','🙌','👍','✋','🦶','💪','👏','🙌'],
+  koerper:{trostFx:{art:'wandeln', von:'💪', zu:'🤗'}, titel:'Von Kopf bis Fuß super!', text:'Alle klatschen für dich!', fx:'laufen', dinge:['👏','🙌','👍','✋','🦶','💪','👏','🙌'],
     trost:'Dein Kopf hat heute schon viel gelernt. Gleich klappt es noch besser.'},
-  zuhause:{titel:'Hier kennst du dich aus!', text:'Dein Zuhause leuchtet vor Freude!', fx:'platzen', dinge:['🏠','💡','🕯️','🧸','⚽','🛋️','🔑','☕','🛏️'],
+  zuhause:{trostFx:{art:'wandeln', von:'🏠', zu:'🏡'}, titel:'Hier kennst du dich aus!', text:'Dein Zuhause leuchtet vor Freude!', fx:'platzen', dinge:['🏠','💡','🕯️','🧸','⚽','🛋️','🔑','☕','🛏️'],
     trost:'Zuhause ist man nie allein. Wir üben zusammen weiter.'},
-  schule:{titel:'Klassenbeste!', text:'Lisi überreicht dir eine Urkunde!', fx:'schule', dinge:['✏️','📏','📕','✂️','🖍️','🎒','🔔','📎'],
+  schule:{trostFx:{art:'steigen', dinge:['✏️','📕','📏']}, titel:'Klassenbeste!', text:'Lisi überreicht dir eine Urkunde!', fx:'schule', dinge:['✏️','📏','📕','✂️','🖍️','🎒','🔔','📎'],
     trost:'In der Schule lernt man jeden Tag etwas Neues. Du bist auf einem guten Weg!'},
-  geographie:{titel:'Welt-Entdecker!', text:'Du reist einmal um die ganze Welt!', fx:'welt', dinge:['🌍','🏝️','🏔️','🌋','🏰','🗺️','🧭','🇱🇺','🌊','🏜️'],
+  geographie:{trostFx:{art:'gehen', ding:'⛵', d:12}, titel:'Welt-Entdecker!', text:'Du reist einmal um die ganze Welt!', fx:'welt', dinge:['🌍','🏝️','🏔️','🌋','🏰','🗺️','🧭','🇱🇺','🌊','🏜️'],
     trost:'Auch große Entdecker haben sich mal verlaufen. Wir finden den Weg zusammen.'},
-  fahrzeuge:{titel:'Vollgas!', text:'Alle Fahrzeuge fahren eine Ehrenrunde für dich!', fx:'laufen', schnell:true, dinge:['🚗','🚌','🚂','🚲','🚜','🚒','🛴','🚚','🚀'],
+  fahrzeuge:{trostFx:{art:'gehen', ding:'🚲', d:9}, titel:'Vollgas!', text:'Alle Fahrzeuge fahren eine Ehrenrunde für dich!', fx:'laufen', schnell:true, dinge:['🚗','🚌','🚂','🚲','🚜','🚒','🛴','🚚','🚀'],
     trost:'Auch Rennfahrer üben jeden Tag. Starten wir noch eine Runde?'},
-  farben:{titel:'Kunterbunt!', text:'Lisi malt dir ein Bild aus lauter Farbklecksen!', fx:'klecks', dinge:[],
+  farben:{trostFx:{art:'kleckse'}, titel:'Kunterbunt!', text:'Lisi malt dir ein Bild aus lauter Farbklecksen!', fx:'klecks', dinge:[],
     trost:'Auch Maler mischen mal die falsche Farbe. Noch ein Versuch?'},
-  zahlen:{titel:'Zahlen-Held!', text:'Eins, zwei, drei: ein Feuerwerk aus Zahlen!', fx:'platzen', zahlen:true, dinge:['1','2','3','4','5','6','7','8','9','10'],
+  zahlen:{trostFx:{art:'steigen', dinge:['1','2','3']}, titel:'Zahlen-Held!', text:'Eins, zwei, drei: ein Feuerwerk aus Zahlen!', fx:'platzen', zahlen:true, dinge:['1','2','3','4','5','6','7','8','9','10'],
     trost:'Zählen lernt man Schritt für Schritt. Wir zählen gleich nochmal zusammen.'}
 };
 
@@ -733,34 +738,48 @@ function qBuchstaben(){
   });
 }
 
-/* Memory: 10 Paare = 20 Karten. Sterne = 20 minus Fehlversuche über 8 (ein paar Fehlversuche gehören beim Memory dazu). */
+/* Memory: 20 Aufgaben = 20 Paare, verteilt auf 4 Kartenrunden mit je 5 Paaren (10 Karten).
+   Pro Kartenrunde gibt es 5 Sterne; jeder Fehlversuch nach den ersten zwei kostet einen Stern. */
 function memory(){
-  const words = shuffle(G.t.words).slice(0,10);
-  const cards = shuffle(words.flatMap(w=>[{w,k:'p'},{w,k:'t'}]));
-  G.pairs=words.length; G.found=0; G.flops=0; G.total=G.pairs; G.done=0; bar();
-  $('#stand').textContent=`0/${G.pairs} Paare`;
+  const words=G.t.words, used=new Set(), boards=[];
+  for(let b=0;b<4;b++){
+    let cand=shuffle(words.filter(w=>!used.has(w.id)));
+    if(cand.length<5) cand=cand.concat(shuffle(words.filter(w=>!cand.includes(w))));
+    const board=cand.slice(0,5); board.forEach(w=>used.add(w.id)); boards.push(board);
+  }
+  G.boards=boards; G.found=0; G.correct=0; G.total=RUNDE; G.done=0;
+  memoryBoard(0);
+}
+function memoryBoard(nr){
+  if(!G) return;
+  const words=G.boards[nr], cards=shuffle(words.flatMap(w=>[{w,k:'p'},{w,k:'t'}]));
+  let found=0, flops=0, open=[], lock=false;
+  bar(); $('#stand').textContent=`${G.found}/${RUNDE} Paare`;
   $('#stage').innerHTML = `
-    <div class="task">Finde die Paare!</div>
-    <div class="mem zehn">${cards.map((c,i)=>`<button class="tile card" data-i="${i}" aria-label="Karte ${i+1}"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
-  talk('Dreh zwei Karten um. Passen Bild und Wort zusammen?','look');
-  let open=[], lock=false;
+    <div class="task">Kartenrunde ${nr+1} von 4: Finde die Paare!</div>
+    <div class="mem fuenf">${cards.map((c,i)=>`<button class="tile card pop" data-i="${i}" aria-label="Karte ${i+1}" style="animation-delay:${i*.04}s"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
+  talk(nr===0?'Dreh zwei Karten um. Passen Bild und Wort zusammen?':'Neue Karten! Du schaffst das.','look');
   const els=[...$('#stage').querySelectorAll('.card')];
   els.forEach(el=>el.onclick=()=>{
     const i=+el.dataset.i, c=cards[i];
-    if(lock||el.classList.contains('open')||el.classList.contains('done')) return;
+    if(!G||lock||el.classList.contains('open')||el.classList.contains('done')) return;
     el.classList.add('open'); sfx.flip();
     if(c.k==='t') say(spoken(c.w));
     open.push(i);
     if(open.length<2) return;
     const [a,b]=open; open=[];
     if(cards[a].w===cards[b].w){
-      [a,b].forEach(j=>{els[j].classList.remove('open');els[j].classList.add('done','pop');els[j].disabled=true});
-      G.found++; G.done=G.found; bar(); $('#stand').textContent=`${G.found}/${G.pairs} Paare`;
+      [a,b].forEach(j=>{els[j].classList.remove('open','pop');void els[j].offsetWidth;els[j].classList.add('done','pop');els[j].disabled=true});
+      found++; G.found++; G.done=G.found; bar(); $('#stand').textContent=`${G.found}/${RUNDE} Paare`;
       sfx.good(); talk(rnd(PRAISE),'cheer');
       later(()=>say(spoken(cards[a].w)),300);
-      if(G.found===G.pairs){ G.correct=Math.max(0,Math.min(RUNDE, RUNDE-Math.max(0,G.flops-8))); later(()=>G&&finish(),1600); }
+      if(found===words.length){
+        G.correct += Math.max(0, words.length-Math.max(0,flops-2));
+        if(nr<3) later(()=>memoryBoard(nr+1),1500);
+        else later(()=>G&&finish(),1600);
+      }
     } else {
-      lock=true; G.flops++;
+      lock=true; flops++;
       [cards[a].w,cards[b].w].forEach(w=>G.missed.set(w.id,w));
       later(()=>{ els[a].classList.remove('open'); els[b].classList.remove('open'); lock=false; talk('Merk dir, wo die Karten liegen!','think'); },1100);
     }
@@ -773,7 +792,7 @@ function finish(){
   const prev=starsOf(t.id,gid);
   progress[t.id]=progress[t.id]||{}; progress[t.id][gid]=Math.max(prev,score); store.set('runden20',progress);
   G=null;
-  (score>=SIEG_AB ? sieg : trost)(t, gid, score, prev, gid==='memory'?[]:missed);
+  (score>=SIEG_AB ? sieg : trost)(t, gid, score, prev, missed);
 }
 
 /* ---------- Siegersequenz ---------- */
@@ -848,6 +867,18 @@ function sieg(t, gid, score, prev){
   $('#toTopic').onclick=()=>topicView(t);
 }
 
+/* Ruhige, tröstende Animation passend zum Thema */
+function trostFx(f, tf){
+  if(!tf) return;
+  const E=x=>`<span class="e">${x}</span>`;
+  if(tf.art==='gehen'){ const s=span('laufen',`<span class="e langsam">${tf.ding}</span>`,{'--d':(tf.d||11)+'s','--v':'.6s'}); s.style.top='80vh'; f.appendChild(s); }
+  if(tf.art==='steigen'){ tf.dinge.forEach((d,i)=>{ const s=span('schweben',E(d),{'--d':R(6,8)+'s','--v':(.6+i*.9)+'s','--w':R(-6,6)+'vw'}); s.style.left=R(8,84)+'vw'; f.appendChild(s); }); }
+  if(tf.art==='wandeln'){ const s=span('wachsen gross',E(tf.von),{'--v':'.8s'}); s.style.left='calc(50vw - .5em)'; f.appendChild(s);
+    later(()=>{ s.innerHTML=E(tf.zu); s.classList.remove('wachsen'); void s.offsetWidth; s.classList.add('wachsen'); s.style.setProperty('--v','0s'); }, 3000); }
+  if(tf.art==='regenSonne'){ for(let i=0;i<10;i++){ const s=span('regnen',E('💧'),{'--d':R(3,4.5)+'s','--v':R(0,1.8)+'s','--r':'0deg'}); s.style.left=R(4,92)+'vw'; f.appendChild(s); }
+    const sun=span('wachsen gross',E('☀️'),{'--v':'2.6s'}); sun.style.left='8vw'; sun.style.bottom='62vh'; f.appendChild(sun); }
+  if(tf.art==='kleckse'){ ['#FF9EC4','#4ea8de','#f2c14e','#4fb984'].forEach((c,i)=>{ const z=R(50,80); const s=span('klecks','',{'--v':(.5+i*.7)+'s'}); Object.assign(s.style,{width:z+'px',height:z+'px',left:R(4,80)+'vw',top:R(60,84)+'vh',background:c}); f.appendChild(s); }); }
+}
 /* ---------- Trostsequenz ---------- */
 function trost(t, gid, score, prev, missed){
   const show=SHOW[t.id];
@@ -871,7 +902,8 @@ function trost(t, gid, score, prev, missed){
   later(()=>{ img.src=IMG.lacht; act(img,'hop'); app.querySelector('.herz').hidden=false; }, 1300);
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
     const f=fxLayer();
-    for(let i=0;i<9;i++){ const s=span('schweben',`<img src="${IMG.herz}" alt="">`,{'--d':R(5,7)+'s','--v':R(.5,3.5)+'s','--w':R(-8,8)+'vw','--s':R(30,52)+'px'}); s.style.left=R(4,88)+'vw'; f.appendChild(s); }
+    for(let i=0;i<5;i++){ const s=span('schweben',`<img src="${IMG.herz}" alt="">`,{'--d':R(6,8)+'s','--v':R(1,4)+'s','--w':R(-8,8)+'vw','--s':R(30,46)+'px'}); s.style.left=R(4,88)+'vw'; f.appendChild(s); }
+    trostFx(f, show.trostFx);
   }
   sfx.trost(); later(()=>say(`Nicht schlimm! Du hast ${score} Sterne gesammelt. ${show.trost}`), 400);
   later(()=>zaehle($('#zahl'), score), 900);
