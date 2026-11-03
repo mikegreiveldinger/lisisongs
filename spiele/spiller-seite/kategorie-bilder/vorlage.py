@@ -51,3 +51,17 @@ DEUTSCH = GEMEINSAM.replace("var(--bg)","linear-gradient(180deg,#ffd9a0 0%,#ffe9
 <img class="logo" src="../../lisis-woerterwelt/marke/lisi-logo.png">
 </div></body></html>"""
 open(sys.argv[1]+"/rechenspiele.html","w").write(RECHNEN); open(sys.argv[1]+"/deutsch.html","w").write(DEUTSCH)
+
+ENGLISCH = GEMEINSAM.replace("var(--bg)","linear-gradient(180deg,#bfe3c6 0%,#e3f4e2 60%,#fff8ec 100%)") + f"""
+<div class="wiese2"></div><div class="wiese"></div><div class="wolke w1"></div><div class="wolke w2"></div>
+<div class="eyebrow">WORD ADVENTURE WITH LISI</div>
+<h1 style="--gr:200px">{bunt("English")}</h1>
+<div class="art" style="left:90px;top:410px;background:#2f7fb3">a</div>
+<div class="art" style="left:260px;top:440px;background:#d9504c">an</div>
+<div class="zahl" style="left:430px;top:420px;font-size:92px">ABC</div>
+<div class="karte" style="left:60px;top:640px;transform:rotate(-7deg);--f:#9b7fd4"><img src="../../lisis-woerterwelt/bilder-gemalt/tiere-eule.webp"></div>
+<div class="karte" style="left:290px;top:680px;transform:rotate(5deg);--f:#f7a541"><img src="../../lisis-woerterwelt/bilder-gemalt/wetter-regenschirm.webp"></div>
+<img class="lisi" src="lisi-geht.png" style="right:40px;bottom:30px;height:580px">
+<img class="logo" src="../../lisis-woerterwelt/marke/lisi-logo.png">
+</div></body></html>"""
+open(sys.argv[1]+"/english.html","w").write(ENGLISCH)

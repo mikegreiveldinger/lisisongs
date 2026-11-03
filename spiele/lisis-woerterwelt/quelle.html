@@ -15,7 +15,7 @@
   --rot:#ef6f6c; --orange:#f7a541; --gelb:#f2c14e; --gruen:#4fb984; --blau:#4ea8de; --lila:#9b7fd4;
   --marke:#f3bb1c; --marke-dunkel:#d99a00; --creme:#fff4dc;
   --gut:#e3f6ea; --falsch:#fde8e8;
-  --der:#2f7fb3; --die:#d9504c; --das:#33946a;
+  --der:#2f7fb3; --die:#d9504c; --das:#33946a; --a:#2f7fb3; --an:#d9504c;
   --blau-schatten:#2f7fb3; --gruen-schatten:#33946a; --gelb-schatten:#c99a10;
   --f-titel:Fredoka,"Trebuchet MS",system-ui,sans-serif;
   --f-text:Andika,"Trebuchet MS",system-ui,sans-serif;
@@ -132,6 +132,8 @@ img.leer{filter:grayscale(1);opacity:.3}
 .arts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:min(100%,420px)}
 .art{padding:16px 0;font-size:1.7rem;font-weight:700;border-width:4px}
 .art[data-a="der"]{color:var(--der);border-color:#cfe6f6}.art[data-a="die"]{color:var(--die);border-color:#fbd3d2}.art[data-a="das"]{color:var(--das);border-color:#cdeedb}
+.art[data-a="a"]{color:var(--a);border-color:#cfe6f6}.art[data-a="an"]{color:var(--an);border-color:#fbd3d2}
+.arts.zwei{grid-template-columns:repeat(2,1fr);width:min(100%,300px)}
 .slots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
 .slot{width:42px;height:54px;border-bottom:5px solid var(--linie);display:grid;place-items:center;font-size:2rem;font-weight:700}
 .slot.on{border-color:var(--marke)}
@@ -453,11 +455,17 @@ const EN_SHOW = {
   farben:{titel:'All the colours!',text:'Lisi is painting you a picture full of colourful splashes!',trost:'Even painters mix the wrong colour sometimes. One more try?'},
   zahlen:{titel:'Number hero!',text:'One, two, three: a firework of numbers!',trost:'You learn to count step by step. Let’s count together again.'}
 };
+/* Englisch: a oder an – nur für zählbare Nomen. Ohne Artikel bleiben Stoffnamen (bread, milk, rain …),
+   Mehrzahlwörter (trousers, glasses, scissors), Eigennamen, Farben, Zahlen und Adjektive. */
+const EN_OHNE_ARTIKEL = new Set(['bread','cheese','milk','soup','ice cream','wheat','rain','snow','wind','fog','lightning','sun','Earth','wood','fire',
+  'paper','trousers','glasses','scissors','sea']);
+const enArtikel = w => /^[aeiou]/i.test(w) ? 'an' : 'a';
 if(EN){ RAW.forEach(t=>{ t.name=EN_THEMA[t.id]; Object.assign(SHOW[t.id], EN_SHOW[t.id]); }); }
 
 const slug = w => w.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const TOPICS = RAW.map((t,ti)=>({...t, farbe:FARBEN[ti%6], words:t.words.map(([a,w,x],i)=>{
-  const it={id:t.id+'-'+slug(w), a:EN?null:a, w:EN?EN_WORT[w]:w, de:w};
+  const ew=EN_WORT[w];
+  const it={id:t.id+'-'+slug(w), a:EN?(a&&!EN_OHNE_ARTIKEL.has(ew)?enArtikel(ew):null):a, w:EN?ew:w, de:w};
   if(t.id==='farben') it.c=x; else if(t.id==='zahlen') it.n=x;
   else if(/^T-?\d+$/.test(x)) it.th=+x.slice(1); else it.e=x;
   return it;
@@ -466,7 +474,7 @@ const TOPICS = RAW.map((t,ti)=>({...t, farbe:FARBEN[ti%6], words:t.words.map(([a
 const GAMES = [
   {id:'hoeren', bild:'finger', name:T('Hören und tippen','Listen and tap'), desc:T('Lisi sagt ein Wort. Tipp auf das richtige Bild.','Lisi says a word. Tap the right picture.')},
   {id:'lesen', bild:'lupe', name:T('Wort finden','Find the word'), desc:T('Welches Wort gehört zum Bild?','Which word goes with the picture?')},
-  {id:'artikel', bild:'denkt', name:'Der, die oder das?', desc:'Welcher Begleiter passt?', nouns:true},
+  {id:'artikel', bild:'denkt', name:T('Der, die oder das?','A or an?'), desc:T('Welcher Begleiter passt?','Which little word fits?'), nouns:true},
   {id:'buchstaben', bild:'rolle', name:T('Buchstaben legen','Spell the word'), desc:T('Leg das Wort Buchstabe für Buchstabe.','Build the word letter by letter.')},
   {id:'memory', bild:'krone', name:T('Memory','Memory'), desc:T('Finde Bild und Wort, die zusammengehören.','Find the picture and word that belong together.')}
 ];
@@ -677,7 +685,7 @@ function wordList(t){
   hush();
   app.innerHTML = `
     <div class="head">${back(t.name)}<h2>${T('Alle Wörter','All words')}</h2></div>
-    ${nouns(t).length?`<div class="legend"><span style="--c:var(--der)">der</span><span style="--c:var(--die)">die</span><span style="--c:var(--das)">das</span></div>`:''}
+    ${nouns(t).length?(EN?`<div class="legend"><span style="--c:var(--a)">a</span><span style="--c:var(--an)">an</span></div>`:`<div class="legend"><span style="--c:var(--der)">der</span><span style="--c:var(--die)">die</span><span style="--c:var(--das)">das</span></div>`):''}
     <div class="wordgrid">
       ${t.words.map(it=>`
         <button class="tile wcard" data-id="${it.id}" style="--c:${artColor(it.a)}">
@@ -719,6 +727,18 @@ function startGame(t,gid,fokus=[]){
   $('#quit').onclick=()=>{ G=null; topicView(t); };
   if(gid==='memory') return memory();
   let pool = gid==='artikel' ? nouns(t) : t.words;
+  if(EN && gid==='artikel' && !fokus.length){
+    /* Englisch: damit nicht immer "a" richtig ist, kommen 5 von 12 Wörtern mit "an" dazu – wenn nötig aus anderen Themen */
+    let an = pool.filter(w=>w.a==='an');
+    if(an.length<3) an = an.concat(shuffle(TOPICS.flatMap(x=>x.words).filter(w=>w.a==='an' && !an.includes(w))));
+    const nAn = 5, aW = pool.filter(w=>w.a==='a');
+    const runde = [];
+    for(let i=0;i<nAn;i++) runde.push(an[i%an.length]);
+    const aMix = shuffle(aW); for(let i=0;runde.length<RUNDE;i++) runde.push(aMix[i%aMix.length]);
+    G.queue = shuffle(runde);
+    for(let i=1;i<G.queue.length;i++) if(G.queue[i]===G.queue[i-1]){ const j=(i+2)%G.queue.length; [G.queue[i],G.queue[j]]=[G.queue[j],G.queue[i]]; }
+    return next();
+  }
   if(gid==='buchstaben'){ const short=pool.filter(w=>w.w.length<=7); if(short.length>=6) pool=short; }
   G.queue = baueRunde(pool, fokus);
   next();
@@ -791,8 +811,8 @@ function qArtikel(){
   $('#stage').innerHTML = `
     <div class="picbig pop">${pic(c)}</div>
     <div class="sentence wd"><span class="blank" id="blank">?</span><span>${c.w}</span></div>
-    <div class="arts">${['der','die','das'].map(a=>`<button class="tile art wd" data-a="${a}">${a}</button>`).join('')}</div>`;
-  talk('Der, die oder das? Was klingt richtig?','happy');
+    <div class="arts${EN?' zwei':''}">${(EN?['a','an']:['der','die','das']).map(a=>`<button class="tile art wd" data-a="${a}">${a}</button>`).join('')}</div>`;
+  talk(T('Der, die oder das? Was klingt richtig?','A or an? Which one sounds right?'),'happy');
   $('#stage').querySelectorAll('.art').forEach(b=>b.onclick=()=>{
     if(G.busy||b.disabled) return;
     if(b.dataset.a===c.a){

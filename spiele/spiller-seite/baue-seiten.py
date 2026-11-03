@@ -41,7 +41,7 @@ h1,h2,h3{{font-family:Fredoka,"Trebuchet MS",sans-serif;font-weight:600;line-hei
 .titel span:nth-child(6n+1){{color:var(--rot)}}.titel span:nth-child(6n+2){{color:var(--orange)}}.titel span:nth-child(6n+3){{color:var(--gruen)}}
 .titel span:nth-child(6n+4){{color:var(--blau)}}.titel span:nth-child(6n+5){{color:var(--lila)}}.titel span:nth-child(6n+6){{color:#e0a800}}
 .raster{{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;margin-top:12px}}
-.raster.zwei{{grid-template-columns:repeat(2,minmax(0,420px));justify-content:center;gap:28px}}
+.raster.zwei{{grid-template-columns:repeat(3,minmax(0,340px));justify-content:center;gap:24px}}
 .kachel{{--f:var(--blau);display:flex;flex-direction:column;background:#fff;border:5px solid var(--f);border-radius:28px;overflow:hidden;text-decoration:none;
   box-shadow:0 8px 0 rgba(47,42,68,.07),0 16px 30px rgba(47,42,68,.08);transition:transform .15s}}
 .kachel:hover,.kachel:focus-visible{{transform:translateY(-4px)}}
@@ -55,6 +55,7 @@ h1,h2,h3{{font-family:Fredoka,"Trebuchet MS",sans-serif;font-weight:600;line-hei
 .neu{{display:inline-block;font:600 13px Fredoka,sans-serif;color:#fff;background:var(--rot);border-radius:999px;padding:2px 10px;margin-left:6px;vertical-align:2px}}
 .fuss{{margin-top:48px;text-align:center;font-size:14px;color:var(--sanft)}}
 @media (max-width:560px){{.raster{{grid-template-columns:1fr 1fr;gap:12px}}.raster.zwei{{grid-template-columns:1fr 1fr;gap:12px}}
+  .raster.zwei .kachel:nth-child(3):last-child{{grid-column:1/-1;justify-self:center;width:calc(50% - 6px)}}
   .kachel{{border-width:4px;border-radius:20px}}.kachel .text{{padding:8px 10px 12px}}.kachel h3,.zwei .kachel h3{{font-size:1.05rem}}.kachel .text p{{display:none}}.hallo img{{width:92px}}}}
 @media (prefers-reduced-motion: reduce){{.kachel{{transition:none}}}}
 </style>
@@ -89,11 +90,12 @@ def kachel(href, bild, titel, text, extra=""):
 zurueck = '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> Alle Spiele</a>'
 zu_lisi = '<a class="pille" href="https://lisi.lu"><img src="marke/symbol-finger.png" alt=""> Zu lisi.lu</a>'
 
-start = seite("Lisi Spiele", "Lisi Spiele: Rechenspiele und Deutsch für Kinder von 4 bis 8 Jahren, direkt auf Tablet oder Computer.", "", zu_lisi,
-  hallo("", "Spielen und lernen", "Hallo, ich bin Lisi! Möchtest du rechnen oder Wörter lernen? Tipp auf ein Bild.") + f"""
+start = seite("Lisi Spiele", "Lisi Spiele: Rechenspiele, Deutsch und Englisch für Kinder von 4 bis 8 Jahren, direkt auf Tablet oder Computer.", "", zu_lisi,
+  hallo("", "Spielen und lernen", "Hallo, ich bin Lisi! Möchtest du rechnen, Deutsch oder Englisch lernen? Tipp auf ein Bild. <i lang=\"en\">Hello! Tap a picture to play.</i>") + f"""
   <div class="raster zwei">
 {kachel("rechenspiele/", "kacheln/kategorie-rechenspiele.jpg", "Rechenspiele", "Zählen, Plus und Minus, Mal und Geteilt")}
 {kachel("deutsch/", "kacheln/kategorie-deutsch.jpg", "Deutsch", "Wörter hören, lesen und lernen")}
+{kachel("english/", "kacheln/kategorie-english.jpg", "English", "Learn English words with Lisi")}
   </div>""")
 
 rechnen = seite("Rechenspiele – Lisi Spiele", "Rechenspiele mit Lisi: Regenbogenreise, Schatzinsel der Zahlen, Karte der Wunder und Perlentaucher.", "../", zurueck,
@@ -111,7 +113,16 @@ deutsch = seite("Deutsch – Lisi Spiele", "Deutsch lernen mit Lisi: Lisis Wört
 {kachel("woerterwelt/", "../kacheln/woerterwelt.jpg", "Lisis Wörterwelt", "Deutsche Wörter hören, lesen und legen: der, die, das, Buchstaben und Memory.", '<span class="neu">Neu</span>')}
   </div>""")
 
+english = seite("English – Lisi Spiele", "Learn English with Lisi: Lisi’s Word World with listening, reading, a or an, spelling and memory.", "../",
+  '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> All games</a>',
+  hallo("../", "English", "Hello! Here you can learn English words. Listen, read and play!") + f"""
+  <div class="raster">
+{kachel("word-world/", "../kacheln/word-world.jpg", "Lisi’s Word World", "Listen, read and spell English words: a or an, letters and memory.", '<span class="neu">New</span>')}
+  </div>""").replace('<html lang="de">', '<html lang="en">')
+
 (hier / "index.html").write_text(start, encoding="utf-8")
+(hier / "english").mkdir(exist_ok=True)
+(hier / "english" / "index.html").write_text(english, encoding="utf-8")
 (hier / "rechenspiele" / "index.html").write_text(rechnen, encoding="utf-8")
 (hier / "deutsch" / "index.html").write_text(deutsch, encoding="utf-8")
-print("OK: 3 Seiten gebaut")
+print("OK: 4 Seiten gebaut")
