@@ -4,7 +4,7 @@ Alle {{pfad}}-Platzhalter (Bilder aus marke/, Schriften aus schriften/) werden a
 damit das Spiel als einzelne Datei überall läuft: offline, auf dem Tablet, in der Nextcloud.
 Aufruf: python3 baue.py
 """
-import base64, mimetypes, pathlib, re
+import base64, json, mimetypes, pathlib, re
 
 hier = pathlib.Path(__file__).parent
 quelle = (hier / "quelle.html").read_text(encoding="utf-8")
@@ -15,7 +15,15 @@ def einbetten(m):
     typ = typen.get(datei.suffix) or mimetypes.guess_type(datei.name)[0]
     return f"data:{typ};base64," + base64.b64encode(datei.read_bytes()).decode()
 
+# Wortbilder (bilder/<codepunkte>.webp) als Tabelle Emoji -> data:-URI
+def codepunkte(e): return "-".join(f"{ord(c):04x}" for c in e if ord(c) != 0xFE0F)
+emojis = {e for e in re.findall(r"'([^\x00-\x7F]{1,12})'", quelle) if not re.search(r"[A-Za-zÄÖÜäöüß●]", e)}
+bilder = {}
+for e in sorted(emojis):
+    datei = hier / "bilder" / f"{codepunkte(e)}.webp"
+    if datei.exists(): bilder[e] = "data:image/webp;base64," + base64.b64encode(datei.read_bytes()).decode()
+quelle = quelle.replace("/*{{BILDER}}*/{}", json.dumps(bilder, ensure_ascii=False))
 html = re.sub(r"\{\{([\w./-]+)\}\}", einbetten, quelle)
 ziel = hier / "lisis-woerterwelt.html"
 ziel.write_text("<!doctype html>\n<html lang=\"de\">\n" + html + "\n</html>\n", encoding="utf-8")
-print(f"OK: {ziel.name} ({ziel.stat().st_size / 1024:.0f} KB)")
+print(f"OK: {ziel.name} ({ziel.stat().st_size / 1024:.0f} KB, {len(bilder)} Wortbilder)")

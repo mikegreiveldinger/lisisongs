@@ -287,6 +287,15 @@ img.leer{filter:grayscale(1);opacity:.3}
 @media (min-width:560px){.mem.fuenf .card{width:calc(20% - 8px)}}
 .mem.fuenf .card .face{font-size:.98rem}
 .fx .langsam{animation-duration:.9s!important}
+/* Fluent-3D-Bilder: Größe folgt der Schriftgröße des Bildrahmens */
+.emo img,.big img,.e img,.ico img{display:block;width:1.2em;height:1.2em;object-fit:contain;-webkit-user-drag:none}
+.emo,.big,.e{display:inline-grid;place-items:center}
+.picbig .emo img{filter:drop-shadow(0 6px 6px rgba(47,42,68,.15))}
+.ico{display:inline-block;vertical-align:-.2em}.ico img{width:1.25em;height:1.25em}
+.fx .e img{width:1.3em;height:1.3em}
+.choice .emo{font-size:clamp(4.4rem,21vw,6.6rem)}
+.wcard .emo{font-size:3.4rem}
+.chip .emo{font-size:1.7rem}
 </style>
 
 <div class="regenbogen"></div>
@@ -320,8 +329,8 @@ const RAW = [
     ['die','Birne','🍐'],['die','Tomate','🍅'],['der','Kürbis','🎃'],['die','Suppe','🍲'],['die','Brezel','🥨']]},
   {id:'pflanzen', name:'Pflanzen', icon:'🌻', words:[
     ['die','Rose','🌹'],['die','Tulpe','🌷'],['die','Sonnenblume','🌻'],['der','Kaktus','🌵'],['der','Baum','🌳'],
-    ['die','Tanne','🌲'],['die','Palme','🌴'],['das','Kleeblatt','🍀'],['die','Blüte','🌸'],['das','Blatt','🍃'],
-    ['die','Pflanze','🌱'],['die','Kastanie','🌰'],['die','Seerose','🪷'],['die','Ähre','🌾'],['das','Gänseblümchen','🌼'],['der','Blumenstrauß','💐']]},
+    ['die','Tanne','🌲'],['die','Palme','🌴'],['das','Kleeblatt','🍀'],['das','Blatt','🍃'],
+    ['der','Keimling','🌱'],['die','Kastanie','🌰'],['die','Seerose','🪷'],['die','Ähre','🌾'],['das','Gänseblümchen','🌼'],['der','Blumenstrauß','💐']]},
   {id:'natur', name:'Natur', icon:'🐞', words:[
     ['der','Marienkäfer','🐞'],['die','Biene','🐝'],['der','Schmetterling','🦋'],['die','Schnecke','🐌'],['die','Ameise','🐜'],
     ['die','Spinne','🕷️'],['der','Wurm','🪱'],['das','Nest','🪺'],['die','Feder','🪶'],['der','Stein','🪨'],
@@ -348,7 +357,7 @@ const RAW = [
     ['der','Computer','💻'],['die','Glocke','🔔'],['der','Kuli','🖊️'],['die','Büroklammer','📎'],['das','Mikroskop','🔬'],
     ['das','Papier','📄'],['die','Urkunde','📜']]},
   {id:'geographie', name:'Geographie', icon:'🌍', words:[
-    ['die','Erde','🌍'],['die','Landkarte','🗺️'],['der','Kompass','🧭'],['der','Berg','⛰️'],['das','Gebirge','🏔️'],
+    ['die','Erde','🌍'],['die','Landkarte','🗺️'],['der','Kompass','🧭'],['der','Berg','⛰️'],
     ['der','Vulkan','🌋'],['die','Insel','🏝️'],['die','Wüste','🏜️'],['das','Meer','🌊'],['der','Strand','🏖️'],
     ['die','Stadt','🏙️'],['das','Dorf','🏘️'],['die','Brücke','🌉'],['das','Schloss','🏰'],
     [null,'Luxemburg','🇱🇺'],[null,'Deutschland','🇩🇪'],[null,'Frankreich','🇫🇷'],[null,'Schottland','🏴󠁧󠁢󠁳󠁣󠁴󠁿']]},
@@ -408,6 +417,21 @@ const GAMES = [
   {id:'buchstaben', bild:'rolle', name:'Buchstaben legen', desc:'Leg das Wort Buchstabe für Buchstabe.'},
   {id:'memory', bild:'krone', name:'Memory', desc:'Finde Bild und Wort, die zusammengehören.'}
 ];
+/* Wörter, die sich zu ähnlich sehen oder Oberbegriffe voneinander sind. Sie erscheinen nie gleichzeitig als Antwort
+   und nie auf derselben Memory-Kartenrunde. */
+const AEHNLICH = [
+  ['Vogel','Huhn','Ente','Eule'], ['Hase','Maus'], ['Apfel','Tomate'], ['Kuchen','Eis'],
+  ['Baum','Tanne','Palme'], ['Blatt','Kleeblatt','Keimling'], ['Rose','Blumenstrauß'],
+  ['Regen','Gewitter','Wolke','Blitz'], ['Wind','Sturm'], ['Schnee','Schneemann'], ['heiß','warm','kühl','kalt'],
+  ['Hut','Kappe'], ['Schuh','Stiefel'], ['T-Shirt','Hemd'], ['Kleid','Badeanzug'],
+  ['Mund','Zunge'], ['Hand','Daumen','Arm'], ['Tür','Fenster','Haus'],
+  ['Bleistift','Kuli','Wachsmalstift','Pinsel'], ['Buch','Heft'], ['Papier','Urkunde'], ['Schule','Lehrerin'],
+  ['Insel','Strand','Meer'], ['Stadt','Dorf'], ['Erde','Landkarte'], ['Berg','Vulkan'],
+  ['Schiff','Boot'], ['Laster','Feuerwehr'], ['Bus','Auto'],
+  ['Spinne','Ameise','Marienkäfer'], ['Holz','Stein'],
+  ['rot','rosa'], ['weiß','grau']
+];
+const aehnlich = (a,b) => a!==b && AEHNLICH.some(g=>g.includes(a.w)&&g.includes(b.w));
 const nouns = t => t.words.filter(w=>w.a);
 const gamesFor = t => GAMES.filter(g=>!(g.nouns && nouns(t).length<6));
 
@@ -479,8 +503,16 @@ const sfx = {
 const $ = s => document.querySelector(s);
 const app = $('#app');
 const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; };
-const pick = (arr,n,not) => shuffle(arr.filter(x=>x!==not)).slice(0,n);
+function pick(arr,n,not){
+  const out=[];
+  for(const x of shuffle(arr)){ if(out.length>=n) break;
+    if(x===not || aehnlich(x,not) || out.some(o=>aehnlich(o,x))) continue; out.push(x); }
+  return out;
+}
 const rnd = a => a[Math.floor(Math.random()*a.length)];
+const BILD = /*{{BILDER}}*/{};
+/* Fluent-3D-Bild statt Emoji, wenn vorhanden */
+const em = (e, cls='emo') => `<span class="${cls}">${BILD[e]?`<img src="${BILD[e]}" alt="" draggable="false">`:e}</span>`;
 const MOOD = {happy:'lacht', cheer:'jubelt', think:'denkt', look:'lupe'};
 const lisi = (mood='happy', cls='neu') => `<span class="lisi-box"><img class="lisi ${cls}" src="${IMG[MOOD[mood]]}" alt="Lisi" draggable="false"></span>`;
 function act(img, cls){ if(!img) return; img.classList.remove('neu','hop','nein','reden','wackeln','rein'); void img.offsetWidth; img.classList.add(cls); }
@@ -495,7 +527,7 @@ function pic(it){
   if(it.c) return `<span class="swatch" style="--sw:${it.c}"></span>`;
   if(it.n) return `<span class="num"><b>${it.n}</b><i>${'●'.repeat(it.n)}</i></span>`;
   if(it.th!==undefined) return thermo(it.th);
-  return `<span class="emo">${it.e}</span>`;
+  return em(it.e);
 }
 const artColor = a => a ? `var(--${a})` : 'var(--orange)';
 const punkte = n => `<span class="punkte${n?'':' leer'}" aria-label="${n} von ${RUNDE} Sternen"><img src="${IMG.stern}" alt="">${n}<small>/${RUNDE}</small></span>`;
@@ -541,7 +573,7 @@ function home(){
     <div class="topics">
       ${TOPICS.map(t=>{ const s=topicStars(t); return `
         <button class="tile topic" data-t="${t.id}" style="--f:${t.farbe}">
-          <span class="big" aria-hidden="true">${t.icon}</span>
+          ${em(t.icon,'big')}
           <h3>${t.name}</h3>
           <span class="meter"><i style="width:${Math.round(s/RUNDE*100)}%"></i></span>
           <small>${s} von ${RUNDE} Sternen</small>
@@ -562,7 +594,7 @@ function topicView(t){
     <div class="head">${back('Alle Themen')}</div>
     <div class="hero">
       ${lisi('look')}
-      <div class="bubble"><b>${t.icon} ${t.name}</b>${t.words.length} Wörter warten auf dich. Jede Runde hat ${RUNDE} Aufgaben. ${best?`Dein bestes Ergebnis: ${best} Sterne.`:'Was wollen wir spielen?'}</div>
+      <div class="bubble"><b>${em(t.icon,'ico')} ${t.name}</b>${t.words.length} Wörter warten auf dich. Jede Runde hat ${RUNDE} Aufgaben. ${best?`Dein bestes Ergebnis: ${best} Sterne.`:'Was wollen wir spielen?'}</div>
     </div>
     <div class="games">
       <button class="tile game" data-g="woerter">
@@ -741,9 +773,10 @@ function qBuchstaben(){
 function memory(){
   const words=G.t.words, used=new Set(), boards=[];
   for(let b=0;b<4;b++){
-    let cand=shuffle(words.filter(w=>!used.has(w.id)));
-    if(cand.length<5) cand=cand.concat(shuffle(words.filter(w=>!cand.includes(w))));
-    const board=cand.slice(0,5); board.forEach(w=>used.add(w.id)); boards.push(board);
+    const cand=shuffle(words.filter(w=>!used.has(w.id))).concat(shuffle(words.filter(w=>used.has(w.id))));
+    const board=[];
+    for(const w of cand){ if(board.length<5 && !board.includes(w) && !board.some(o=>aehnlich(o,w))) board.push(w); }
+    board.forEach(w=>used.add(w.id)); boards.push(board);
   }
   G.boards=boards; G.found=0; G.correct=0; G.total=RUNDE; G.done=0;
   memoryBoard(0);
@@ -799,10 +832,10 @@ const R=(a,b)=>a+Math.random()*(b-a);
 function span(cls, html, vars){ const s=document.createElement('span'); s.className=cls; s.innerHTML=html;
   Object.entries(vars||{}).forEach(([k,v])=>s.style.setProperty(k,v)); return s; }
 function spielFx(f, show){
-  const D=show.dinge, E=x=>`<span class="e">${x}</span>`;
+  const D=show.dinge, E=x=>em(x,'e');
   const mode=show.fx;
   if(mode==='laufen'){
-    D.forEach((d,i)=>{ const s=span('laufen',`<span class="e">${d}</span>`,{'--d':(show.schnell?R(2.4,3.4):R(5,7))+'s','--v':(i*.35)+'s'}); s.style.top=R(58,84)+'vh'; f.appendChild(s); });
+    D.forEach((d,i)=>{ const s=span('laufen',em(d,'e'),{'--d':(show.schnell?R(2.4,3.4):R(5,7))+'s','--v':(i*.35)+'s'}); s.style.top=R(58,84)+'vh'; f.appendChild(s); });
   }
   if(mode==='regnen'||mode==='wetter'){
     for(let i=0;i<26;i++){ const s=span('regnen',E(rnd(mode==='wetter'?['☀️','☁️','❄️','💧','💧']:D)),{'--d':R(2.6,4.2)+'s','--v':R(0,2.6)+'s','--r':R(-260,260)+'deg'}); s.style.left=R(0,94)+'vw'; f.appendChild(s); }
@@ -832,7 +865,7 @@ function spielFx(f, show){
     const k=span('kreis',''); const n=D.length;
     D.forEach((d,i)=>k.appendChild(span('',E(d),{'--a':(i/n*360)+'deg','--rad':'min(40vw,210px)'})));
     f.appendChild(k);
-    if(mode==='welt'){ const p=span('laufen',`<span class="e">✈️</span>`,{'--d':'3.6s','--v':'.4s'}); p.style.top='10vh'; f.appendChild(p); }
+    if(mode==='welt'){ const p=span('laufen',em('✈️','e'),{'--d':'3.6s','--v':'.4s'}); p.style.top='10vh'; f.appendChild(p); }
   }
 }
 function zaehle(el, bis){
@@ -868,8 +901,8 @@ function sieg(t, gid, score, prev){
 /* Ruhige, tröstende Animation passend zum Thema */
 function trostFx(f, tf){
   if(!tf) return;
-  const E=x=>`<span class="e">${x}</span>`;
-  if(tf.art==='gehen'){ const s=span('laufen',`<span class="e langsam">${tf.ding}</span>`,{'--d':(tf.d||11)+'s','--v':'.6s'}); s.style.top='80vh'; f.appendChild(s); }
+  const E=x=>em(x,'e');
+  if(tf.art==='gehen'){ const s=span('laufen',em(tf.ding,'e langsam'),{'--d':(tf.d||11)+'s','--v':'.6s'}); s.style.top='80vh'; f.appendChild(s); }
   if(tf.art==='steigen'){ tf.dinge.forEach((d,i)=>{ const s=span('schweben',E(d),{'--d':R(6,8)+'s','--v':(.6+i*.9)+'s','--w':R(-6,6)+'vw'}); s.style.left=R(8,84)+'vw'; f.appendChild(s); }); }
   if(tf.art==='wandeln'){ const s=span('wachsen gross',E(tf.von),{'--v':'.8s'}); s.style.left='calc(50vw - .5em)'; f.appendChild(s);
     later(()=>{ s.innerHTML=E(tf.zu); s.classList.remove('wachsen'); void s.offsetWidth; s.classList.add('wachsen'); s.style.setProperty('--v','0s'); }, 3000); }
