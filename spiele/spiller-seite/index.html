@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lisi Spiele</title>
+<meta name="description" content="Lisi Spiele: Rechenspiele und Wörterspiele für Kinder von 4 bis 8 Jahren, direkt auf Tablet oder Computer.">
+<link rel="icon" type="image/png" href="marke/favicon.png">
+<style>
+/* Lisi-Hausstil wie stories.lisi.lu: Papier mit bunten Punkten, Regenbogenstreifen, weiße Karten mit farbigem Rand. */
+@font-face{font-family:Andika;font-weight:400;font-display:swap;src:url(schriften/andika-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Andika;font-weight:700;font-display:swap;src:url(schriften/andika-latin-700-normal.woff2) format("woff2")}
+@font-face{font-family:Fredoka;font-weight:600;font-display:swap;src:url(schriften/fredoka-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Fredoka;font-weight:700;font-display:swap;src:url(schriften/fredoka-latin-700-normal.woff2) format("woff2")}
+:root{--papier:#fff8ec;--tinte:#2f2a44;--sanft:#6b6480;--linie:#e6e0f0;--rot:#ef6f6c;--orange:#f7a541;--gelb:#f2c14e;
+  --gruen:#4fb984;--blau:#4ea8de;--lila:#9b7fd4;--marke:#f3bb1c;--marke-dunkel:#d99a00;color-scheme:light}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{color:var(--tinte);font-family:Andika,"Trebuchet MS",system-ui,sans-serif;font-size:18px;line-height:1.5;background-color:var(--papier);
+  background-image:radial-gradient(circle at 12% 18%,#ffe3c2 0 6px,transparent 7px),radial-gradient(circle at 82% 8%,#d9f0ff 0 8px,transparent 9px),
+  radial-gradient(circle at 70% 70%,#e4f6e9 0 7px,transparent 8px),radial-gradient(circle at 30% 85%,#f1e6ff 0 6px,transparent 7px);background-size:260px 260px}
+a{color:inherit}
+.regenbogen{height:8px;background:linear-gradient(90deg,var(--rot),var(--orange),var(--gelb),var(--gruen),var(--blau),var(--lila))}
+.seite{max-width:1100px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 40px}
+h1,h2,h3{font-family:Fredoka,"Trebuchet MS",sans-serif;font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+.kopf{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.marke{display:flex;align-items:center;gap:10px;font:600 20px Fredoka,sans-serif;text-decoration:none;background:#fff;border-radius:999px;
+  padding:4px 18px 4px 4px;box-shadow:0 3px 0 rgba(47,42,68,.08)}
+.marke img{width:44px;height:44px;border-radius:50%;box-shadow:0 0 0 3px #fff,0 0 0 5px var(--marke)}
+.marke b{color:var(--marke-dunkel);font-weight:700}
+.pille{font:600 16px Fredoka,sans-serif;color:var(--sanft);text-decoration:none;background:#fff;border-radius:999px;padding:7px 15px;box-shadow:0 3px 0 rgba(47,42,68,.08);display:inline-flex;align-items:center;gap:8px}
+.pille img{height:1em;transform:scaleX(-1)}
+.hallo{display:flex;align-items:flex-end;gap:12px;margin:26px 0 8px}
+.hallo img{width:120px;flex:none}
+.blase{position:relative;background:#fff;border:3px solid var(--linie);border-radius:22px;padding:14px 18px;margin-bottom:24px;max-width:560px}
+.blase::after{content:"";position:absolute;left:-12px;bottom:22px;width:18px;height:18px;background:#fff;border-left:3px solid var(--linie);border-bottom:3px solid var(--linie);transform:rotate(45deg)}
+.titel{font-size:clamp(34px,6.5vw,54px);font-weight:700;margin-bottom:4px}
+.titel span:nth-child(6n+1){color:var(--rot)}.titel span:nth-child(6n+2){color:var(--orange)}.titel span:nth-child(6n+3){color:var(--gruen)}
+.titel span:nth-child(6n+4){color:var(--blau)}.titel span:nth-child(6n+5){color:var(--lila)}.titel span:nth-child(6n+6){color:#e0a800}
+.bereich{margin-top:34px}
+.bereich-kopf{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.bereich h2{font-size:clamp(28px,5vw,38px);color:var(--f)}
+.bereich p{margin:0;color:var(--sanft)}
+.spiele{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.spiel{display:flex;flex-direction:column;background:#fff;border:5px solid var(--f);border-radius:28px;overflow:hidden;text-decoration:none;
+  box-shadow:0 8px 0 rgba(47,42,68,.07),0 16px 30px rgba(47,42,68,.08);transition:transform .15s}
+.spiel:hover,.spiel:focus-visible{transform:translateY(-4px)}
+.spiel:focus-visible{outline:4px solid var(--blau);outline-offset:3px}
+.spiel img{display:block;width:100%;aspect-ratio:1;object-fit:cover}
+.spiel .text{padding:12px 16px 16px}
+.spiel h3{font-size:1.25rem}
+.spiel .text p{font-size:.95rem;color:var(--sanft);margin:2px 0 0}
+.neu{display:inline-block;font:600 13px Fredoka,sans-serif;color:#fff;background:var(--rot);border-radius:999px;padding:2px 10px;margin-left:6px;vertical-align:2px}
+.rechnen{--f:var(--blau)} .woerter{--f:var(--gruen)}
+.rechnen .spiel:nth-child(4n+2){--f:var(--orange)} .rechnen .spiel:nth-child(4n+3){--f:var(--lila)} .rechnen .spiel:nth-child(4n+4){--f:var(--rot)}
+.fuss{margin-top:48px;text-align:center;font-size:14px;color:var(--sanft)}
+@media (prefers-reduced-motion: reduce){.spiel{transition:none}}
+</style>
+</head>
+<body>
+<div class="regenbogen"></div>
+<div class="seite">
+  <header class="kopf">
+    <a class="marke" href="https://lisi.lu"><img src="marke/lisi-logo.png" alt=""><span><b>Lisi</b> Spiele</span></a>
+    <a class="pille" href="https://lisi.lu"><img src="marke/symbol-finger.png" alt=""> Zu lisi.lu</a>
+  </header>
+
+  <div class="hallo">
+    <img src="marke/symbol-lisi-lacht.png" alt="Lisi">
+    <div class="blase">
+      <h1 class="titel" aria-label="Spielen und lernen"><span>S</span><span>p</span><span>i</span><span>e</span><span>l</span><span>e</span><span>n</span> <span>u</span><span>n</span><span>d</span> <span>l</span><span>e</span><span>r</span><span>n</span><span>e</span><span>n</span></h1>
+      Hallo, ich bin Lisi! Such dir ein Spiel aus. Alle Spiele laufen direkt auf dem Tablet oder Computer.
+    </div>
+  </div>
+
+  <section class="bereich rechnen" aria-labelledby="h-rechnen">
+    <div class="bereich-kopf"><h2 id="h-rechnen">Rechenspiele</h2><p>Zählen, Plus und Minus, Mal und Geteilt</p></div>
+    <div class="spiele">
+      <a class="spiel" href="https://regenbogenreise.netlify.app/">
+        <img src="kacheln/regenbogenreise.jpg" alt="" loading="lazy">
+        <div class="text"><h3>Lunas Regenbogenreise</h3><p>Flieg mit dem Einhorn Luna zum Herz mit der richtigen Zahl.</p></div>
+      </a>
+      <a class="spiel" href="https://schatzinselderzahlen.netlify.app/">
+        <img src="kacheln/schatzinsel.jpg" alt="" loading="lazy">
+        <div class="text"><h3>Schatzinsel der Zahlen</h3><p>Rechne dich zum Schatz: Plus, Minus, Mal und Geteilt.</p></div>
+      </a>
+      <a class="spiel" href="https://lisi.lu/abenteuerliches-rechenspiel">
+        <img src="kacheln/karte-der-wunder.jpg" alt="" loading="lazy">
+        <div class="text"><h3>Karte der Wunder</h3><p>Ein abenteuerliches Rechenspiel mit Lisi.</p></div>
+      </a>
+      <a class="spiel" href="https://perlentaucher.netlify.app/">
+        <img src="kacheln/perlentaucher.jpg" alt="" loading="lazy">
+        <div class="text"><h3>Perlentaucher</h3><p>Steuere das U-Boot zur Blase mit der richtigen Zahl.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section class="bereich woerter" aria-labelledby="h-woerter">
+    <div class="bereich-kopf"><h2 id="h-woerter">Wörterspiele</h2><p>Hören, lesen und Wörter lernen</p></div>
+    <div class="spiele">
+      <a class="spiel" href="woerterwelt/">
+        <img src="kacheln/woerterwelt.jpg" alt="" loading="lazy">
+        <div class="text"><h3>Lisis Wörterwelt <span class="neu">Neu</span></h3><p>Deutsche Wörter hören, lesen und legen: der, die, das, Buchstaben und Memory.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <footer class="fuss">© 2026 Mike Greiveldinger · <a href="https://lisi.lu">lisi.lu</a> · info@lisi.lu</footer>
+</div>
+</body>
+</html>
