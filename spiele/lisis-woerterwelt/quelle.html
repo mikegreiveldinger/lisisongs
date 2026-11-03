@@ -315,8 +315,9 @@ const IMG = {
 const FARBEN = ['var(--rot)','var(--orange)','var(--gruen)','var(--blau)','var(--lila)','var(--gelb)'];
 const LAUT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="#fff"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
 const LAUT_KLEIN = on => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/>${on?'<path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>':'<path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'}</svg>`;
-const RUNDE = 20;      // Aufgaben pro Runde = Sterne pro Kategorie
-const SIEG_AB = 15;    // mehr als 14 richtige Antworten
+const RUNDE = 12;      // Aufgaben pro Runde = Sterne pro Kategorie
+const SIEG_AB = 8;     // ab 8 richtigen Antworten Siegersequenz, darunter Trostsequenz
+const KARTENRUNDEN = 3, PAARE = RUNDE / KARTENRUNDEN;   // Memory: 3 Kartenrunden mit je 4 Paaren
 
 /* ---------- Wörter ----------
    [Artikel, Wort, Bild]. Bild ist ein Emoji, bei Farben ein Farbwert, bei Zahlen die Zahl, "T35" ist ein Thermometer mit 35 °C. */
@@ -443,7 +444,7 @@ const store = {
   get(k,d){ try{ const v=localStorage.getItem('lisi-'+k); return v?JSON.parse(v):d }catch(e){ return d } },
   set(k,v){ try{ localStorage.setItem('lisi-'+k, JSON.stringify(v)) }catch(e){} }
 };
-let progress = store.get('runden20', {});   // {thema: {spiel: beste Sternzahl 0–20}}
+let progress = store.get('runden12', {});   // {thema: {spiel: beste Sternzahl 0–12}}
 let settings = store.get('settings', {sound:true, caps:false});
 const starsOf = (t,g) => (progress[t]&&progress[t][g])||0;
 const topicStars = t => Math.max(0,...gamesFor(t).map(g=>starsOf(t.id,g.id)));
@@ -638,7 +639,7 @@ function wordList(t){
 
 /* ---------- Spiel ---------- */
 let G=null;
-/* 20 Aufgaben: zuerst die Übungswörter, dann gemischt; nie zweimal dasselbe Wort direkt hintereinander. */
+/* RUNDE Aufgaben: zuerst die Übungswörter, dann gemischt; nie zweimal dasselbe Wort direkt hintereinander. */
 function baueRunde(pool, fokus){
   const out=[]; let bag=shuffle(fokus.filter(w=>pool.includes(w)));
   while(out.length<RUNDE){
@@ -774,14 +775,14 @@ function qBuchstaben(){
   });
 }
 
-/* Memory: 20 Aufgaben = 20 Paare, verteilt auf 4 Kartenrunden mit je 5 Paaren (10 Karten).
-   Pro Kartenrunde gibt es 5 Sterne; jeder Fehlversuch nach den ersten zwei kostet einen Stern. */
+/* Memory: 12 Aufgaben = 12 Paare, verteilt auf 3 Kartenrunden mit je 4 Paaren (8 Karten).
+   Pro Kartenrunde gibt es 4 Sterne; jeder Fehlversuch nach den ersten zwei kostet einen Stern. */
 function memory(){
   const words=G.t.words, used=new Set(), boards=[];
-  for(let b=0;b<4;b++){
+  for(let b=0;b<KARTENRUNDEN;b++){
     const cand=shuffle(words.filter(w=>!used.has(w.id))).concat(shuffle(words.filter(w=>used.has(w.id))));
     const board=[];
-    for(const w of cand){ if(board.length<5 && !board.includes(w) && !board.some(o=>aehnlich(o,w))) board.push(w); }
+    for(const w of cand){ if(board.length<PAARE && !board.includes(w) && !board.some(o=>aehnlich(o,w))) board.push(w); }
     board.forEach(w=>used.add(w.id)); boards.push(board);
   }
   G.boards=boards; G.found=0; G.correct=0; G.total=RUNDE; G.done=0;
@@ -793,7 +794,7 @@ function memoryBoard(nr){
   let found=0, flops=0, open=[], lock=false;
   bar(); $('#stand').textContent=`${G.found}/${RUNDE} Paare`;
   $('#stage').innerHTML = `
-    <div class="task">Kartenrunde ${nr+1} von 4: Finde die Paare!</div>
+    <div class="task">Kartenrunde ${nr+1} von ${KARTENRUNDEN}: Finde die Paare!</div>
     <div class="mem fuenf">${cards.map((c,i)=>`<button class="tile card pop" data-i="${i}" aria-label="Karte ${i+1}" style="animation-delay:${i*.04}s"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
   talk(nr===0?'Dreh zwei Karten um. Passen Bild und Wort zusammen?':'Neue Karten! Du schaffst das.','look');
   const els=[...$('#stage').querySelectorAll('.card')];
@@ -812,7 +813,7 @@ function memoryBoard(nr){
       later(()=>say(spoken(cards[a].w)),300);
       if(found===words.length){
         G.correct += Math.max(0, words.length-Math.max(0,flops-2));
-        if(nr<3) later(()=>memoryBoard(nr+1),1500);
+        if(nr<KARTENRUNDEN-1) later(()=>memoryBoard(nr+1),1500);
         else later(()=>G&&finish(),1600);
       }
     } else {
@@ -827,7 +828,7 @@ function finish(){
   const t=G.t, gid=G.gid, score=G.correct;
   const missed=[...G.missed.values()];
   const prev=starsOf(t.id,gid);
-  progress[t.id]=progress[t.id]||{}; progress[t.id][gid]=Math.max(prev,score); store.set('runden20',progress);
+  progress[t.id]=progress[t.id]||{}; progress[t.id][gid]=Math.max(prev,score); store.set('runden12',progress);
   G=null;
   (score>=SIEG_AB ? sieg : trost)(t, gid, score, prev, missed);
 }
