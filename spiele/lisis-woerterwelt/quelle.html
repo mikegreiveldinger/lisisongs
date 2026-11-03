@@ -155,7 +155,6 @@ img.leer{filter:grayscale(1);opacity:.3}
 .say{display:flex;align-items:flex-end;gap:10px;min-height:96px}
 .say .lisi{width:92px;flex:none}
 .say .bubble{margin-bottom:18px}
-.hop{animation:hop .5s ease}
 .shake{animation:shake .4s ease}
 .pop{animation:pop .35s ease both}
 @keyframes hop{0%,100%{transform:translateY(0)}35%{transform:translateY(-16px) rotate(-4deg)}65%{transform:translateY(-6px) rotate(3deg)}}
@@ -186,6 +185,103 @@ img.leer{filter:grayscale(1);opacity:.3}
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:50;width:100%;height:100%}
 @media (max-width:420px){.marke{font-size:17px}.marke img{width:36px;height:36px}.pille{font-size:15px;padding:6px 12px}.hero .lisi{width:104px}}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Lisi lebt: schweben, auftauchen, hüpfen, Kopf schütteln, reden ---- */
+.lisi-box{display:inline-block;flex:none;transform-origin:50% 100%;animation:schweben 3.4s ease-in-out infinite}
+.lisi-box .lisi{display:block;width:100%;height:auto;transform-origin:50% 90%;cursor:pointer;user-select:none;-webkit-user-drag:none}
+.hero .lisi-box{width:128px}.say .lisi-box{width:92px}.result .lisi-box{width:170px}
+@media (max-width:420px){.hero .lisi-box{width:104px}}
+.lisi.neu{animation:auftauchen .45s cubic-bezier(.3,1.6,.5,1)}
+.lisi.hop{animation:hopsen .7s cubic-bezier(.3,1.4,.5,1)}
+.lisi.nein{animation:kopfschuetteln .6s ease}
+.lisi.reden{animation:reden .5s ease}
+.lisi.wackeln{animation:wackeln .8s ease}
+.lisi.rein{animation:reinspringen .8s cubic-bezier(.3,1.5,.5,1) both}
+.lisi.dauerjubel{animation:dauerjubel 1s ease-in-out infinite}
+@keyframes schweben{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-6px) rotate(1.5deg)}}
+@keyframes auftauchen{0%{transform:scale(.75) rotate(-6deg);opacity:.4}100%{transform:scale(1);opacity:1}}
+@keyframes hopsen{0%{transform:scale(1,1)}15%{transform:scale(1.12,.86)}45%{transform:translateY(-30px) scale(.94,1.08) rotate(-6deg)}70%{transform:translateY(0) scale(1.08,.92)}85%{transform:scale(.97,1.03)}100%{transform:scale(1)}}
+@keyframes kopfschuetteln{0%,100%{transform:rotate(0)}20%{transform:rotate(-9deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-6deg)}80%{transform:rotate(4deg)}}
+@keyframes reden{0%,100%{transform:scale(1)}30%{transform:scale(1.04,.97)}60%{transform:scale(.98,1.03)}}
+@keyframes wackeln{0%,100%{transform:rotate(0)}25%{transform:rotate(7deg)}50%{transform:rotate(-5deg) translateY(-6px)}75%{transform:rotate(3deg)}}
+@keyframes reinspringen{0%{transform:translateY(120%) scale(.6);opacity:0}60%{transform:translateY(-12%) scale(1.06);opacity:1}100%{transform:translateY(0) scale(1)}}
+@keyframes dauerjubel{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-18px) rotate(3deg)}}
+.bubble.neu{animation:pop .3s ease}
+
+/* ---- Sterne-Pillen ---- */
+.punkte{display:inline-flex;align-items:center;gap:4px;font:700 1rem var(--f-titel);color:var(--tinte);background:var(--creme);
+  border-radius:999px;padding:4px 12px 4px 6px;flex:none;font-variant-numeric:tabular-nums}
+.punkte img{width:22px;height:22px}
+.punkte small{color:var(--sanft);font-weight:600}
+.punkte.leer img{filter:grayscale(1);opacity:.35}
+.stand{font:600 1.05rem var(--f-titel);color:var(--sanft);font-variant-numeric:tabular-nums;min-width:3.4em;text-align:right}
+
+/* ---- Thermometer ---- */
+.thermo{display:flex;flex-direction:column;align-items:center;gap:2px}
+.thermo svg{height:clamp(80px,24vw,120px);width:auto}
+.thermo b{font:700 1.1rem var(--f-titel);color:var(--sanft)}
+.picbig .thermo svg{height:clamp(120px,36vw,160px)}
+.card .face .thermo svg{height:46px}.card .face .thermo b{font-size:.8rem}
+.wcard .thermo svg{height:70px}
+.mem.zehn{grid-template-columns:repeat(4,1fr)}
+@media (min-width:600px){.mem.zehn{grid-template-columns:repeat(5,1fr);width:min(100%,600px)}}
+.mem.zehn .card .face{font-size:.95rem}
+
+/* ---- Sieger- und Trostsequenz ---- */
+.fx{position:fixed;inset:0;pointer-events:none;z-index:40;overflow:hidden}
+.fx > *{position:absolute;line-height:1}
+.fx .e{font-size:clamp(2.2rem,8vw,3.6rem)}
+.result{position:relative;z-index:41}
+.result .stufe{animation:pop .45s cubic-bezier(.3,1.5,.5,1) both}
+.result .titel{margin:0}
+.zaehler{display:flex;align-items:center;gap:10px;font:700 2.4rem var(--f-titel);font-variant-numeric:tabular-nums}
+.zaehler img{width:56px;height:56px}
+.zaehler small{font-size:1.3rem;color:var(--sanft)}
+.buehne{position:relative;display:grid;place-items:center}
+.buehne .medaille{position:absolute;width:96px;top:-34px;right:-56px;animation:baumeln 2.4s ease-in-out infinite;transform-origin:50% 0}
+@keyframes baumeln{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+.trost .buehne .herz{position:absolute;width:62px;top:-8px;right:-40px;animation:pochen 1.2s ease-in-out infinite}
+@keyframes pochen{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}}
+.uebenliste{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:560px}
+.chip{display:flex;align-items:center;gap:8px;padding:6px 14px 6px 8px;border-radius:999px;font-weight:700;font-size:1.05rem}
+.chip .emo{font-size:1.8rem}.chip .swatch{width:30px}.chip .num b{font-size:1.6rem}.chip .num i{display:none}
+.chip .thermo svg{height:34px}.chip .thermo b{display:none}
+.hinweis{color:var(--sanft);font:600 1.05rem var(--f-titel);margin:0}
+/* Bewegungen der Siegersequenz */
+.fx .laufen{left:0;animation:laufen var(--d,6s) linear var(--v,0s) both}
+.fx .laufen > span{display:block;animation:huepfen .5s ease-in-out infinite alternate}
+@keyframes laufen{from{transform:translateX(-20vw)}to{transform:translateX(120vw)}}
+@keyframes huepfen{from{transform:translateY(0) rotate(-6deg)}to{transform:translateY(-22px) rotate(6deg)}}
+.fx .regnen{top:0;animation:regnen var(--d,3.5s) ease-in var(--v,0s) both}
+@keyframes regnen{from{transform:translateY(-15vh) rotate(0)}to{transform:translateY(112vh) rotate(var(--r,200deg))}}
+.fx .wachsen{bottom:-6px;transform-origin:50% 100%;animation:wachsen 1.2s cubic-bezier(.3,1.5,.5,1) var(--v,0s) both}
+.fx .wachsen.gross{font-size:clamp(3rem,12vw,5.2rem)}
+@keyframes wachsen{from{transform:scale(0) translateY(40%)}to{transform:scale(1) translateY(0)}}
+.fx .platzen{left:50%;top:42%;animation:platzen var(--d,1.6s) cubic-bezier(.1,.8,.3,1) var(--v,0s) both}
+@keyframes platzen{0%{transform:translate(-50%,-50%) scale(.2);opacity:0}15%{opacity:1}80%{opacity:1}100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.1) rotate(var(--r,90deg));opacity:0}}
+.fx .flattern{bottom:-10vh;animation:flattern var(--d,5s) ease-in-out var(--v,0s) both}
+@keyframes flattern{0%{transform:translate(0,0)}25%{transform:translate(var(--w),-30vh) rotate(10deg)}50%{transform:translate(calc(var(--w) * -1),-60vh) rotate(-10deg)}75%{transform:translate(var(--w),-90vh) rotate(8deg)}100%{transform:translate(0,-125vh)}}
+.fx .klecks{border-radius:50%;animation:klecks 2.8s cubic-bezier(.3,1.5,.5,1) var(--v,0s) both;opacity:.85}
+@keyframes klecks{0%{transform:scale(0)}25%{transform:scale(1.1)}35%{transform:scale(1)}85%{opacity:.85}100%{transform:scale(1);opacity:0}}
+.fx .kreis{left:50%;top:38%;width:0;height:0;animation:drehen 6s linear both}
+.fx .kreis > span{position:absolute;left:0;top:0;transform:rotate(var(--a)) translateX(var(--rad)) rotate(calc(var(--a) * -1));margin:-.5em 0 0 -.5em}
+@keyframes drehen{from{transform:rotate(0) scale(.3);opacity:0}10%{opacity:1;transform:rotate(36deg) scale(1)}90%{opacity:1}to{transform:rotate(360deg) scale(1);opacity:0}}
+.fx .bogen{left:50%;bottom:-2vh;width:min(130vw,900px);aspect-ratio:2/1;transform:translateX(-50%);border-radius:999px 999px 0 0;
+  background:radial-gradient(circle at 50% 100%,transparent 0 46%,var(--lila) 46% 50%,var(--blau) 50% 55%,var(--gruen) 55% 60%,var(--gelb) 60% 65%,var(--orange) 65% 70%,var(--rot) 70% 75%,transparent 75%);
+  animation:bogen 1.6s ease-out .4s both;opacity:.8}
+@keyframes bogen{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.fx .urkunde{left:50%;top:12%;width:min(78vw,320px);padding:16px 18px;background:#fffdf6;border:5px double var(--marke-dunkel);border-radius:10px;
+  text-align:center;font-family:var(--f-titel);color:var(--tinte);box-shadow:0 10px 30px rgba(47,42,68,.2);animation:urkunde 4.6s cubic-bezier(.3,1.4,.5,1) .3s both}
+.fx .urkunde b{display:block;font-size:2rem;color:var(--marke-dunkel)}
+@keyframes urkunde{0%{transform:translateX(-50%) translateY(-60vh) rotate(-25deg)}20%{transform:translateX(-50%) translateY(0) rotate(-4deg)}80%{opacity:1;transform:translateX(-50%) translateY(0) rotate(-4deg)}100%{opacity:0;transform:translateX(-50%) translateY(-8vh) rotate(-4deg)}}
+.fx .schweben{bottom:-12vh;animation:aufsteigen var(--d,6s) ease-in-out var(--v,0s) both}
+.fx .schweben img{width:var(--s,44px);display:block}
+@keyframes aufsteigen{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.9}50%{transform:translate(var(--w),-55vh) scale(1)}100%{transform:translate(0,-118vh) scale(1.1);opacity:0}}
+.urkunde-karte{width:min(86vw,320px);padding:12px 16px;background:#fffdf6;border:5px double var(--marke-dunkel);border-radius:10px;text-align:center;
+  font:600 1rem var(--f-titel);color:var(--sanft);box-shadow:0 8px 24px rgba(47,42,68,.15);animation:urkundeRein 1s cubic-bezier(.3,1.4,.5,1) .7s both}
+.urkunde-karte span{display:block;font-size:1.9rem;color:var(--marke-dunkel);letter-spacing:.06em}
+.urkunde-karte b{display:block;color:var(--tinte);margin-top:4px}
+@keyframes urkundeRein{0%{transform:translateY(-40vh) rotate(-20deg);opacity:0}70%{transform:translateY(0) rotate(3deg);opacity:1}100%{transform:rotate(-2deg)}}
 </style>
 
 <div class="regenbogen"></div>
@@ -203,8 +299,11 @@ const IMG = {
 const FARBEN = ['var(--rot)','var(--orange)','var(--gruen)','var(--blau)','var(--lila)','var(--gelb)'];
 const LAUT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="#fff"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
 const LAUT_KLEIN = on => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/>${on?'<path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>':'<path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>'}</svg>`;
+const RUNDE = 20;      // Aufgaben pro Runde = Sterne pro Kategorie
+const SIEG_AB = 15;    // mehr als 14 richtige Antworten
 
-/* ---------- Wörter ---------- */
+/* ---------- Wörter ----------
+   [Artikel, Wort, Bild]. Bild ist ein Emoji, bei Farben ein Farbwert, bei Zahlen die Zahl, "T35" ist ein Thermometer mit 35 °C. */
 const RAW = [
   {id:'tiere', name:'Tiere', icon:'🐶', words:[
     ['der','Hund','🐶'],['die','Katze','🐱'],['die','Maus','🐭'],['das','Pferd','🐴'],['die','Kuh','🐮'],
@@ -214,36 +313,86 @@ const RAW = [
     ['der','Apfel','🍎'],['die','Banane','🍌'],['das','Brot','🍞'],['der','Käse','🧀'],['das','Ei','🥚'],
     ['die','Milch','🥛'],['die','Erdbeere','🍓'],['die','Karotte','🥕'],['der','Kuchen','🍰'],['das','Eis','🍦'],
     ['die','Birne','🍐'],['die','Tomate','🍅'],['der','Kürbis','🎃'],['die','Suppe','🍲'],['die','Brezel','🥨']]},
+  {id:'pflanzen', name:'Pflanzen', icon:'🌻', words:[
+    ['die','Rose','🌹'],['die','Tulpe','🌷'],['die','Sonnenblume','🌻'],['der','Kaktus','🌵'],['der','Baum','🌳'],
+    ['die','Tanne','🌲'],['die','Palme','🌴'],['das','Kleeblatt','🍀'],['die','Blüte','🌸'],['das','Blatt','🍃'],
+    ['die','Pflanze','🌱'],['die','Kastanie','🌰'],['die','Seerose','🪷'],['die','Ähre','🌾'],['das','Gänseblümchen','🌼'],['der','Blumenstrauß','💐']]},
+  {id:'natur', name:'Natur', icon:'🐞', words:[
+    ['der','Marienkäfer','🐞'],['die','Biene','🐝'],['der','Schmetterling','🦋'],['die','Schnecke','🐌'],['die','Ameise','🐜'],
+    ['die','Spinne','🕷️'],['der','Wurm','🪱'],['das','Nest','🪺'],['die','Feder','🪶'],['der','Stein','🪨'],
+    ['das','Holz','🪵'],['die','Muschel','🐚'],['der','Pilz','🍄'],['das','Feuer','🔥']]},
+  {id:'wetter', name:'Wetter und Temperatur', icon:'🌦️', words:[
+    ['die','Sonne','☀️'],['der','Regen','🌧️'],['der','Schnee','❄️'],['die','Wolke','☁️'],['der','Wind','🌬️'],
+    ['das','Gewitter','⛈️'],['der','Blitz','⚡'],['der','Regenbogen','🌈'],['der','Nebel','🌫️'],['der','Sturm','🌪️'],
+    ['der','Schneemann','☃️'],['der','Regenschirm','☂️'],[null,'heiß','T35'],[null,'warm','T25'],[null,'kühl','T10'],[null,'kalt','T0']]},
   {id:'kleidung', name:'Kleidung', icon:'🧣', words:[
     ['der','Schal','🧣'],['der','Handschuh','🧤'],['die','Jacke','🧥'],['die','Hose','👖'],['das','Kleid','👗'],
     ['der','Schuh','👟'],['der','Stiefel','👢'],['die','Socke','🧦'],['der','Hut','🎩'],['das','T-Shirt','👕'],
-    ['die','Brille','👓'],['der','Rucksack','🎒'],['die','Kappe','🧢'],['der','Schirm','☂️']]},
+    ['die','Brille','👓'],['das','Hemd','👔'],['die','Kappe','🧢'],['der','Badeanzug','🩱']]},
   {id:'koerper', name:'Mein Körper', icon:'👂', words:[
     ['das','Auge','👁️'],['das','Ohr','👂'],['die','Nase','👃'],['der','Mund','👄'],['die','Hand','✋'],
     ['der','Fuß','🦶'],['das','Bein','🦵'],['der','Zahn','🦷'],['der','Arm','💪'],['die','Zunge','👅'],
     ['der','Daumen','👍'],['das','Herz','❤️']]},
   {id:'zuhause', name:'Zuhause', icon:'🏠', words:[
     ['das','Haus','🏠'],['die','Tür','🚪'],['das','Bett','🛏️'],['der','Stuhl','🪑'],['die','Lampe','💡'],
-    ['die','Uhr','⏰'],['der','Schlüssel','🔑'],['das','Buch','📖'],['der','Ball','⚽'],['der','Teddy','🧸'],
+    ['die','Uhr','⏰'],['der','Schlüssel','🔑'],['das','Sofa','🛋️'],['der','Ball','⚽'],['der','Teddy','🧸'],
     ['die','Tasse','☕'],['der','Löffel','🥄'],['die','Kerze','🕯️'],['das','Fenster','🪟']]},
+  {id:'schule', name:'Schule', icon:'✏️', words:[
+    ['die','Schule','🏫'],['die','Lehrerin','🧑‍🏫'],['der','Bleistift','✏️'],['der','Wachsmalstift','🖍️'],['der','Pinsel','🖌️'],
+    ['die','Schere','✂️'],['das','Lineal','📏'],['das','Heft','📓'],['das','Buch','📕'],['der','Schulranzen','🎒'],
+    ['der','Computer','💻'],['die','Glocke','🔔'],['der','Kuli','🖊️'],['die','Büroklammer','📎'],['das','Mikroskop','🔬'],
+    ['das','Papier','📄'],['die','Urkunde','📜']]},
+  {id:'geographie', name:'Geographie', icon:'🌍', words:[
+    ['die','Erde','🌍'],['die','Landkarte','🗺️'],['der','Kompass','🧭'],['der','Berg','⛰️'],['das','Gebirge','🏔️'],
+    ['der','Vulkan','🌋'],['die','Insel','🏝️'],['die','Wüste','🏜️'],['das','Meer','🌊'],['der','Strand','🏖️'],
+    ['die','Stadt','🏙️'],['das','Dorf','🏘️'],['die','Brücke','🌉'],['das','Schloss','🏰'],
+    [null,'Luxemburg','🇱🇺'],[null,'Deutschland','🇩🇪'],[null,'Frankreich','🇫🇷'],[null,'Schottland','🏴󠁧󠁢󠁳󠁣󠁴󠁿']]},
   {id:'fahrzeuge', name:'Fahrzeuge', icon:'🚗', words:[
     ['das','Auto','🚗'],['der','Bus','🚌'],['der','Zug','🚂'],['das','Fahrrad','🚲'],['das','Flugzeug','✈️'],
     ['das','Schiff','🚢'],['das','Boot','⛵'],['die','Rakete','🚀'],['der','Traktor','🚜'],['der','Hubschrauber','🚁'],
     ['die','Feuerwehr','🚒'],['der','Roller','🛴'],['der','Laster','🚚']]},
-  {id:'natur', name:'Natur und Wetter', icon:'🌈', words:[
-    ['die','Sonne','☀️'],['der','Mond','🌙'],['der','Stern','⭐'],['die','Wolke','☁️'],['der','Regen','🌧️'],
-    ['der','Schnee','❄️'],['der','Baum','🌳'],['die','Blume','🌸'],['der','Regenbogen','🌈'],['das','Blatt','🍂'],
-    ['der','Berg','⛰️'],['der','Pilz','🍄'],['der','Blitz','⚡'],['das','Feuer','🔥']]},
-  {id:'farben', name:'Farben', icon:'🎨', noArt:true, words:[
+  {id:'farben', name:'Farben', icon:'🎨', words:[
     [null,'rot','#E53935'],[null,'blau','#1E6FE0'],[null,'gelb','#FFD31A'],[null,'grün','#2EA44F'],
     [null,'orange','#FF8A1F'],[null,'lila','#8E44C9'],[null,'rosa','#FF9EC4'],[null,'braun','#8B5A2B'],
     [null,'schwarz','#1B1B1B'],[null,'weiß','#FFFFFF'],[null,'grau','#9AA3AA']]},
-  {id:'zahlen', name:'Zahlen', icon:'🔢', noArt:true, words:
+  {id:'zahlen', name:'Zahlen', icon:'🔢', words:
     ['eins','zwei','drei','vier','fünf','sechs','sieben','acht','neun','zehn'].map((w,i)=>[null,w,i+1])}
 ];
+
+/* Sieger- und Trostsequenz je Thema */
+const SHOW = {
+  tiere:{titel:'Tier-Profi!', text:'Alle Tiere feiern mit dir eine Parade!', fx:'laufen', dinge:['🐶','🐱','🐴','🐮','🐷','🐔','🦆','🐰','🐻','🐸','🐿️'],
+    trost:'Auch ein kleines Küken lernt erst laufen. Wir üben die Tiere zusammen nochmal.'},
+  essen:{titel:'Lecker gelernt!', text:'Es regnet Leckereien, nur für dich!', fx:'regnen', dinge:['🍎','🍌','🍓','🍰','🍦','🥨','🧀','🍐','🥕','🍞'],
+    trost:'Kochen braucht Übung, Wörter auch. Probieren wir es nochmal?'},
+  pflanzen:{titel:'Alles blüht!', text:'Für dich wächst ein ganzer Garten!', fx:'wachsen', dinge:['🌻','🌷','🌹','🌳','🌲','🌵','🌴','🌼','🌱','💐','🌾'],
+    trost:'Auch die kleinste Pflanze wächst jeden Tag ein bisschen. Genau wie du.'},
+  natur:{titel:'Natur-Entdecker!', text:'Schmetterlinge, Bienen und Käfer fliegen dir zu!', fx:'flattern', dinge:['🦋','🐝','🐞','🦋','🐝','🦋','🐞','🪶'],
+    trost:'Eine Schnecke ist langsam und kommt trotzdem an. Du schaffst das auch!'},
+  wetter:{titel:'Sonnenschein für dich!', text:'Nach dem Regen kommt ein Regenbogen, nur für dich!', fx:'wetter', dinge:['☀️','🌈','☁️','❄️','⚡','🌬️'],
+    trost:'Nach dem Regen kommt immer die Sonne. Komm, wir üben nochmal.'},
+  kleidung:{titel:'Mode-Profi!', text:'Deine Kleider tanzen im Kreis um dich herum!', fx:'kreis', dinge:['🧣','🧤','🧥','👗','👟','🎩','👕','🧢','👢','🧦'],
+    trost:'Auch beim Anziehen geht mal ein Knopf daneben. Noch ein Versuch?'},
+  koerper:{titel:'Von Kopf bis Fuß super!', text:'Alle klatschen für dich!', fx:'laufen', dinge:['👏','🙌','👍','✋','🦶','💪','👏','🙌'],
+    trost:'Dein Kopf hat heute schon viel gelernt. Gleich klappt es noch besser.'},
+  zuhause:{titel:'Hier kennst du dich aus!', text:'Dein Zuhause leuchtet vor Freude!', fx:'platzen', dinge:['🏠','💡','🕯️','🧸','⚽','🛋️','🔑','☕','🛏️'],
+    trost:'Zuhause ist man nie allein. Wir üben zusammen weiter.'},
+  schule:{titel:'Klassenbeste!', text:'Lisi überreicht dir eine Urkunde!', fx:'schule', dinge:['✏️','📏','📕','✂️','🖍️','🎒','🔔','📎'],
+    trost:'In der Schule lernt man jeden Tag etwas Neues. Du bist auf einem guten Weg!'},
+  geographie:{titel:'Welt-Entdecker!', text:'Du reist einmal um die ganze Welt!', fx:'welt', dinge:['🌍','🏝️','🏔️','🌋','🏰','🗺️','🧭','🇱🇺','🌊','🏜️'],
+    trost:'Auch große Entdecker haben sich mal verlaufen. Wir finden den Weg zusammen.'},
+  fahrzeuge:{titel:'Vollgas!', text:'Alle Fahrzeuge fahren eine Ehrenrunde für dich!', fx:'laufen', schnell:true, dinge:['🚗','🚌','🚂','🚲','🚜','🚒','🛴','🚚','🚀'],
+    trost:'Auch Rennfahrer üben jeden Tag. Starten wir noch eine Runde?'},
+  farben:{titel:'Kunterbunt!', text:'Lisi malt dir ein Bild aus lauter Farbklecksen!', fx:'klecks', dinge:[],
+    trost:'Auch Maler mischen mal die falsche Farbe. Noch ein Versuch?'},
+  zahlen:{titel:'Zahlen-Held!', text:'Eins, zwei, drei: ein Feuerwerk aus Zahlen!', fx:'platzen', zahlen:true, dinge:['1','2','3','4','5','6','7','8','9','10'],
+    trost:'Zählen lernt man Schritt für Schritt. Wir zählen gleich nochmal zusammen.'}
+};
+
 const TOPICS = RAW.map((t,ti)=>({...t, farbe:FARBEN[ti%6], words:t.words.map(([a,w,x],i)=>{
   const it={id:t.id+i, a, w};
-  if(t.id==='farben') it.c=x; else if(t.id==='zahlen') it.n=x; else it.e=x;
+  if(t.id==='farben') it.c=x; else if(t.id==='zahlen') it.n=x;
+  else if(/^T-?\d+$/.test(x)) it.th=+x.slice(1); else it.e=x;
   return it;
 })}));
 
@@ -254,17 +403,18 @@ const GAMES = [
   {id:'buchstaben', bild:'rolle', name:'Buchstaben legen', desc:'Leg das Wort Buchstabe für Buchstabe.'},
   {id:'memory', bild:'krone', name:'Memory', desc:'Finde Bild und Wort, die zusammengehören.'}
 ];
-const gamesFor = t => GAMES.filter(g=>!(g.nouns && t.noArt));
+const nouns = t => t.words.filter(w=>w.a);
+const gamesFor = t => GAMES.filter(g=>!(g.nouns && nouns(t).length<6));
 
 /* ---------- Speicher ---------- */
 const store = {
   get(k,d){ try{ const v=localStorage.getItem('lisi-'+k); return v?JSON.parse(v):d }catch(e){ return d } },
   set(k,v){ try{ localStorage.setItem('lisi-'+k, JSON.stringify(v)) }catch(e){} }
 };
-let progress = store.get('progress', {});
+let progress = store.get('runden20', {});   // {thema: {spiel: beste Sternzahl 0–20}}
 let settings = store.get('settings', {sound:true, caps:false});
 const starsOf = (t,g) => (progress[t]&&progress[t][g])||0;
-const topicStars = t => gamesFor(t).reduce((s,g)=>s+starsOf(t.id,g.id),0);
+const topicStars = t => Math.max(0,...gamesFor(t).map(g=>starsOf(t.id,g.id)));
 const totalStars = () => TOPICS.reduce((s,t)=>s+topicStars(t),0);
 
 /* ---------- Ton ---------- */
@@ -288,8 +438,12 @@ function say(text){
     },60);
   }catch(e){}
 }
+let timers=[];
+const later = (fn,ms) => { const id=setTimeout(fn,ms); timers.push(id); return id; };
 const hush = () => { try{ window.speechSynthesis && speechSynthesis.cancel(); }catch(e){}
-  confettiRun++; const cv=document.getElementById('confetti'); if(cv) cv.hidden=true; };
+  timers.forEach(clearTimeout); timers=[];
+  confettiRun++; const cv=document.getElementById('confetti'); if(cv) cv.hidden=true;
+  document.querySelectorAll('.fx').forEach(f=>f.remove()); };
 const spoken = it => it.a ? it.a+' '+it.w : it.w;
 
 let actx=null;
@@ -311,7 +465,9 @@ const sfx = {
   good:()=>tone([660,880],.16,'triangle',.09),
   bad:()=>tone([220,180],.18,'sine',.12,.14),
   flip:()=>tone([520],.06,'triangle',0,.08),
-  win:()=>tone([523,659,784,1047],.22,'triangle',.12)
+  tick:i=>tone([600+i*25],.07,'triangle',0,.09),
+  win:()=>tone([523,659,784,1047,784,1047,1319],.24,'triangle',.13),
+  trost:()=>tone([392,440,523,659],.32,'sine',.22,.14)
 };
 
 /* ---------- Helfer ---------- */
@@ -319,28 +475,48 @@ const $ = s => document.querySelector(s);
 const app = $('#app');
 const shuffle = a => { a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]} return a; };
 const pick = (arr,n,not) => shuffle(arr.filter(x=>x!==not)).slice(0,n);
+const rnd = a => a[Math.floor(Math.random()*a.length)];
 const MOOD = {happy:'lacht', cheer:'jubelt', think:'denkt', look:'lupe'};
-const lisi = (mood='happy') => `<img class="lisi" src="${IMG[MOOD[mood]]}" alt="Lisi">`;
+const lisi = (mood='happy', cls='neu') => `<span class="lisi-box"><img class="lisi ${cls}" src="${IMG[MOOD[mood]]}" alt="Lisi" draggable="false"></span>`;
+function act(img, cls){ if(!img) return; img.classList.remove('neu','hop','nein','reden','wackeln','rein'); void img.offsetWidth; img.classList.add(cls); }
+const TH = {35:['#ef6f6c',.92], 25:['#f7a541',.66], 10:['#4ea8de',.4], 0:['#2f7fb3',.16]};
+function thermo(v){
+  const [c,l]=TH[v]||['#4ea8de',.5], h=Math.round(66*l);
+  return `<span class="thermo"><svg viewBox="0 0 40 110" aria-hidden="true"><rect x="12" y="5" width="16" height="84" rx="8" fill="#fff" stroke="#c9c2d9" stroke-width="3"/>
+    ${[20,36,52,68].map(y=>`<line x1="28" y1="${y}" x2="33" y2="${y}" stroke="#c9c2d9" stroke-width="2.5"/>`).join('')}
+    <rect x="16.5" y="${84-h}" width="7" height="${h+6}" rx="3.5" fill="${c}"/><circle cx="20" cy="94" r="12" fill="${c}" stroke="#c9c2d9" stroke-width="3"/></svg><b>${v} °C</b></span>`;
+}
 function pic(it){
   if(it.c) return `<span class="swatch" style="--sw:${it.c}"></span>`;
   if(it.n) return `<span class="num"><b>${it.n}</b><i>${'●'.repeat(it.n)}</i></span>`;
+  if(it.th!==undefined) return thermo(it.th);
   return `<span class="emo">${it.e}</span>`;
 }
 const artColor = a => a ? `var(--${a})` : 'var(--orange)';
-const star = (on, extra='') => `<img src="${IMG.stern}" alt=""${on?'':' class="leer"'} ${extra}>`;
-const starRow = n => `<span class="stars" role="img" aria-label="${n} von 3 Sternen">${[1,2,3].map(i=>star(i<=n)).join('')}</span>`;
+const punkte = n => `<span class="punkte${n?'':' leer'}" aria-label="${n} von ${RUNDE} Sternen"><img src="${IMG.stern}" alt="">${n}<small>/${RUNDE}</small></span>`;
 const bunt = s => [...s].map(ch=>ch===' '?' ':`<span>${ch}</span>`).join('');
 const back = label => `<button class="pille" id="back"><img class="finger links" src="${IMG.finger}" alt=""> ${label}</button>`;
 const PRAISE = ['Super!','Toll gemacht!','Prima!','Genau!','Klasse!','Richtig!','Spitze!','Wow, du kannst das!'];
 const OOPS = ['Fast! Probier es nochmal.','Hmm, das war es nicht. Noch ein Versuch!','Nicht schlimm. Versuch ein anderes!'];
-const rnd = a => a[Math.floor(Math.random()*a.length)];
+const KITZEL = ['Hihi, das kitzelt!','Ich frage immer nach!','Du bist super!','Weiter so!','Hallo du!'];
 function applySettings(){ document.body.classList.toggle('caps', !!settings.caps); }
 applySettings();
 
+/* Lisi antippen: sie hüpft und sagt etwas. Ab und zu wackelt sie von selbst. */
+document.addEventListener('click', e=>{
+  const img=e.target.closest && e.target.closest('.lisi'); if(!img) return;
+  act(img,'hop'); say(rnd(KITZEL));
+});
+setInterval(()=>{
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const l=[...document.querySelectorAll('.lisi')].filter(x=>!x.classList.contains('dauerjubel'));
+  if(l.length && Math.random()<.45) act(rnd(l),'wackeln');
+}, 4500);
+
 /* ---------- Startseite ---------- */
 function home(){
-  hush();
-  const n = totalStars(), max = TOPICS.reduce((s,t)=>s+gamesFor(t).length*3,0);
+  hush(); app.style.removeProperty('--f');
+  const n = totalStars(), max = TOPICS.length*RUNDE;
   app.innerHTML = `
     <div class="kopf">
       <span class="marke"><img src="${IMG.logo}" alt=""><span><b>Lisis</b> Wörterwelt</span></span>
@@ -353,17 +529,17 @@ function home(){
     <h1 class="titel" aria-label="Lisis Wörterwelt">${bunt('Lisis Wörterwelt')}</h1>
     <p class="unter">Hören, lesen und spielen mit deutschen Wörtern</p>
     <div class="hero">
-      ${lisi('happy')}
+      ${lisi('happy','rein')}
       <div class="bubble"><b>Hallo, ich bin Lisi!</b>Ich frage immer nach. Komm, wir lernen zusammen neue Wörter. Wähl ein Thema!</div>
     </div>
     <span class="etikett" style="--f:var(--orange)">Themen</span>
     <div class="topics">
-      ${TOPICS.map(t=>{ const s=topicStars(t), m=gamesFor(t).length*3; return `
+      ${TOPICS.map(t=>{ const s=topicStars(t); return `
         <button class="tile topic" data-t="${t.id}" style="--f:${t.farbe}">
           <span class="big" aria-hidden="true">${t.icon}</span>
           <h3>${t.name}</h3>
-          <span class="meter"><i style="width:${Math.round(s/m*100)}%"></i></span>
-          <small>${s} von ${m} Sternen</small>
+          <span class="meter"><i style="width:${Math.round(s/RUNDE*100)}%"></i></span>
+          <small>${s} von ${RUNDE} Sternen</small>
         </button>`}).join('')}
     </div>
     <div class="fuss">Lisi fragt nach · Lisis Wörterwelt</div>`;
@@ -376,11 +552,12 @@ function home(){
 function topicView(t){
   hush();
   app.style.setProperty('--f', t.farbe);
+  const best=topicStars(t);
   app.innerHTML = `
     <div class="head">${back('Alle Themen')}</div>
     <div class="hero">
       ${lisi('look')}
-      <div class="bubble"><b>${t.icon} ${t.name}</b>${t.words.length} Wörter warten auf dich. Was wollen wir spielen?</div>
+      <div class="bubble"><b>${t.icon} ${t.name}</b>${t.words.length} Wörter warten auf dich. Jede Runde hat ${RUNDE} Aufgaben. ${best?`Dein bestes Ergebnis: ${best} Sterne.`:'Was wollen wir spielen?'}</div>
     </div>
     <div class="games">
       <button class="tile game" data-g="woerter">
@@ -391,17 +568,18 @@ function topicView(t){
         <button class="tile game" data-g="${g.id}">
           <span class="gi"><img src="${IMG[g.bild]}" alt=""></span>
           <span class="gt"><h3>${g.name}</h3><p>${g.desc}</p></span>
-          ${starRow(starsOf(t.id,g.id))}
+          ${punkte(starsOf(t.id,g.id))}
         </button>`).join('')}
     </div>`;
-  $('#back').onclick=()=>{ app.style.removeProperty('--f'); home(); };
+  $('#back').onclick=home;
   app.querySelectorAll('.game').forEach(b=>b.onclick=()=> b.dataset.g==='woerter' ? wordList(t) : startGame(t,b.dataset.g));
 }
 
 function wordList(t){
+  hush();
   app.innerHTML = `
     <div class="head">${back(t.name)}<h2>Alle Wörter</h2></div>
-    ${t.noArt?'':`<div class="legend"><span style="--c:var(--der)">der</span><span style="--c:var(--die)">die</span><span style="--c:var(--das)">das</span></div>`}
+    ${nouns(t).length?`<div class="legend"><span style="--c:var(--der)">der</span><span style="--c:var(--die)">die</span><span style="--c:var(--das)">das</span></div>`:''}
     <div class="wordgrid">
       ${t.words.map(it=>`
         <button class="tile wcard" data-id="${it.id}" style="--c:${artColor(it.a)}">
@@ -417,31 +595,50 @@ function wordList(t){
 
 /* ---------- Spiel ---------- */
 let G=null;
-function startGame(t,gid){
+/* 20 Aufgaben: zuerst die Übungswörter, dann gemischt; nie zweimal dasselbe Wort direkt hintereinander. */
+function baueRunde(pool, fokus){
+  const out=[]; let bag=shuffle(fokus.filter(w=>pool.includes(w)));
+  while(out.length<RUNDE){
+    if(!bag.length) bag=shuffle(pool);
+    let i=bag.findIndex(w=>w!==out[out.length-1]); if(i<0) i=0;
+    out.push(bag.splice(i,1)[0]);
+  }
+  return out;
+}
+function startGame(t,gid,fokus=[]){
   hush();
-  G={t, gid, mistakes:0, done:0, total:0, queue:[], retried:new Set(), cur:null, wrongNow:false, busy:false};
+  G={t, gid, correct:0, done:0, total:RUNDE, queue:[], missed:new Map(), cur:null, wrongNow:false, busy:false, fokus};
   app.innerHTML = `
     <div class="play">
       <div class="topbar">
         <button class="tile zu" id="quit" aria-label="Spiel beenden">✕</button>
         <div class="progress" role="progressbar" aria-label="Fortschritt"><i id="bar"></i></div>
+        <span class="stand" id="stand">0/${RUNDE}</span>
       </div>
       <div class="stage" id="stage"></div>
-      <div class="say"><span id="lisiBox">${lisi('happy')}</span><div class="bubble" id="talk"></div></div>
+      <div class="say">${lisi('happy')}<div class="bubble" id="talk"></div></div>
     </div>`;
   $('#quit').onclick=()=>{ G=null; topicView(t); };
   if(gid==='memory') return memory();
-  let pool = t.words;
-  if(gid==='buchstaben'){ const short=t.words.filter(w=>w.w.length<=7); if(short.length>=6) pool=short; }
-  G.queue = shuffle(pool).slice(0,8);
-  G.total = G.queue.length;
+  let pool = gid==='artikel' ? nouns(t) : t.words;
+  if(gid==='buchstaben'){ const short=pool.filter(w=>w.w.length<=7); if(short.length>=6) pool=short; }
+  G.queue = baueRunde(pool, fokus);
   next();
 }
 function talk(text, mood){
-  $('#talk').textContent=text;
-  if(mood){ const box=$('#lisiBox'); box.innerHTML=lisi(mood); if(mood==='cheer') box.firstElementChild.classList.add('hop'); }
+  const b=$('#talk'); if(!b) return;
+  b.textContent=text; b.classList.remove('neu'); void b.offsetWidth; b.classList.add('neu');
+  const img=app.querySelector('.say .lisi');
+  if(mood && img){
+    const src=IMG[MOOD[mood]];
+    if(img.getAttribute('src')!==src) img.src=src;
+    act(img, mood==='cheer'?'hop':mood==='think'?'nein':'reden');
+  } else act(img,'reden');
 }
-function bar(){ const b=$('#bar'); if(b) b.style.width = (G.total? G.done/G.total*100 : 0)+'%'; }
+function bar(){
+  const b=$('#bar'); if(b) b.style.width=(G.done/G.total*100)+'%';
+  const s=$('#stand'); if(s) s.textContent=`${G.done}/${G.total}`;
+}
 function next(){
   if(!G) return;
   bar();
@@ -452,15 +649,14 @@ function next(){
 function wrong(el){
   sfx.bad();
   if(el){ el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
-  if(!G.wrongNow){ G.wrongNow=true; G.mistakes++;
-    if(!G.retried.has(G.cur.id)){ G.retried.add(G.cur.id); G.queue.push(G.cur); G.total++; bar(); } }
+  if(!G.wrongNow){ G.wrongNow=true; G.missed.set(G.cur.id, G.cur); }
   talk(rnd(OOPS),'think');
 }
 function right(){
-  G.busy=true; sfx.good(); G.done++; bar();
-  talk(rnd(PRAISE),'cheer');
-  setTimeout(()=>G&&say(spoken(G.cur)), 250);
-  setTimeout(()=>{ if(G) next(); }, 1500);
+  G.busy=true; sfx.good(); if(!G.wrongNow) G.correct++; G.done++; bar();
+  talk(G.wrongNow?'Jetzt hast du es! Weiter geht es.':rnd(PRAISE),'cheer');
+  later(()=>G&&say(spoken(G.cur)), 250);
+  later(()=>{ if(G) next(); }, 1500);
 }
 const speakBtn = (cls='') => `<button class="speak ${cls}" id="replay" aria-label="Nochmal hören">${LAUT}</button>`;
 
@@ -469,14 +665,14 @@ function qHoeren(){
   $('#stage').innerHTML = `
     ${speakBtn()}
     <div class="task">Was hörst du?</div>
-    <div class="grid4">${opts.map(o=>`<button class="tile choice" data-id="${o.id}" aria-label="Bild">${pic(o)}</button>`).join('')}</div>`;
+    <div class="grid4">${opts.map(o=>`<button class="tile choice pop" data-id="${o.id}" aria-label="Bild">${pic(o)}</button>`).join('')}</div>`;
   talk('Hör gut zu und tipp auf das Bild.','happy');
   const play=()=>say(spoken(c));
-  $('#replay').onclick=play; setTimeout(play,300);
+  $('#replay').onclick=play; later(play,300);
   $('#stage').querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
     if(G.busy||b.disabled) return;
     if(b.dataset.id===c.id){ b.classList.add('ok'); right(); }
-    else { b.classList.add('no'); b.disabled=true; wrong(b); setTimeout(play,500); }
+    else { b.classList.add('no'); b.disabled=true; wrong(b); later(play,500); }
   });
 }
 function qLesen(){
@@ -485,7 +681,7 @@ function qLesen(){
     <div class="picbig pop">${pic(c)}</div>
     <div class="task">Was ist das?</div>
     <div class="words">${opts.map(o=>`<button class="tile wordbtn wd" data-id="${o.id}">${spoken(o)}</button>`).join('')}</div>`;
-  talk(G.t.noArt?'Welches Wort passt?':'Lies genau. Welches Wort passt zum Bild?','look');
+  talk('Lies genau. Welches Wort passt zum Bild?','look');
   $('#stage').querySelectorAll('.wordbtn').forEach(b=>b.onclick=()=>{
     if(G.busy||b.disabled) return;
     if(b.dataset.id===c.id){ b.classList.add('ok'); right(); }
@@ -519,7 +715,7 @@ function qBuchstaben(){
     <div class="slots wd">${letters.map((ch,i)=>`<span class="slot${isL(ch)?'':' full'}" data-i="${i}">${isL(ch)?'':ch}</span>`).join('')}</div>
     <div class="tiles wd">${tiles.map(ch=>`<button class="tile letter">${ch}</button>`).join('')}</div>`;
   talk('Hör zu und leg das Wort. Welcher Buchstabe kommt zuerst?','happy');
-  const play=()=>say(c.w); $('#replay').onclick=play; setTimeout(play,300);
+  const play=()=>say(c.w); $('#replay').onclick=play; later(play,300);
   const mark=()=>app.querySelectorAll('.slot').forEach((s,i)=>s.classList.toggle('on',i===pos));
   mark();
   $('#stage').querySelectorAll('.letter').forEach(b=>b.onclick=()=>{
@@ -535,13 +731,15 @@ function qBuchstaben(){
   });
 }
 
+/* Memory: 10 Paare = 20 Karten. Sterne = 20 minus Fehlversuche über 8 (ein paar Fehlversuche gehören beim Memory dazu). */
 function memory(){
-  const words = shuffle(G.t.words).slice(0,6);
+  const words = shuffle(G.t.words).slice(0,10);
   const cards = shuffle(words.flatMap(w=>[{w,k:'p'},{w,k:'t'}]));
-  G.total=words.length; G.done=0; bar();
+  G.pairs=words.length; G.found=0; G.flops=0; G.total=G.pairs; G.done=0; bar();
+  $('#stand').textContent=`0/${G.pairs} Paare`;
   $('#stage').innerHTML = `
     <div class="task">Finde die Paare!</div>
-    <div class="mem">${cards.map((c,i)=>`<button class="tile card" data-i="${i}" aria-label="Karte ${i+1}"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
+    <div class="mem zehn">${cards.map((c,i)=>`<button class="tile card" data-i="${i}" aria-label="Karte ${i+1}"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
   talk('Dreh zwei Karten um. Passen Bild und Wort zusammen?','look');
   let open=[], lock=false;
   const els=[...$('#stage').querySelectorAll('.card')];
@@ -555,40 +753,128 @@ function memory(){
     const [a,b]=open; open=[];
     if(cards[a].w===cards[b].w){
       [a,b].forEach(j=>{els[j].classList.remove('open');els[j].classList.add('done','pop');els[j].disabled=true});
-      G.done++; bar(); sfx.good(); talk(rnd(PRAISE),'cheer');
-      setTimeout(()=>say(spoken(cards[a].w)),300);
-      if(G.done===G.total) setTimeout(()=>G&&finish(),1600);
+      G.found++; G.done=G.found; bar(); $('#stand').textContent=`${G.found}/${G.pairs} Paare`;
+      sfx.good(); talk(rnd(PRAISE),'cheer');
+      later(()=>say(spoken(cards[a].w)),300);
+      if(G.found===G.pairs){ G.correct=Math.max(0,Math.min(RUNDE, RUNDE-Math.max(0,G.flops-8))); later(()=>G&&finish(),1600); }
     } else {
-      lock=true; G.mistakes++;
-      setTimeout(()=>{ els[a].classList.remove('open'); els[b].classList.remove('open'); lock=false; talk('Merk dir, wo die Karten liegen!','think'); },1100);
+      lock=true; G.flops++;
+      [cards[a].w,cards[b].w].forEach(w=>G.missed.set(w.id,w));
+      later(()=>{ els[a].classList.remove('open'); els[b].classList.remove('open'); lock=false; talk('Merk dir, wo die Karten liegen!','think'); },1100);
     }
   });
 }
 
 function finish(){
-  const t=G.t, gid=G.gid;
-  let stars;
-  if(gid==='memory') stars = G.mistakes<=4?3:G.mistakes<=8?2:1;
-  else { const base=G.total-G.retried.size; stars = G.mistakes===0?3 : G.mistakes<=Math.ceil(base/4)?2:1; }
+  const t=G.t, gid=G.gid, score=G.correct;
+  const missed=[...G.missed.values()];
   const prev=starsOf(t.id,gid);
-  progress[t.id]=progress[t.id]||{}; progress[t.id][gid]=Math.max(prev,stars); store.set('progress',progress);
-  const msg = stars===3?'Wow! Alles richtig. Du bist ein Wörter-Profi!' : stars===2?'Super gemacht! Noch einmal, dann klappt alles.' : 'Gut geübt! Üben macht dich stark.';
+  progress[t.id]=progress[t.id]||{}; progress[t.id][gid]=Math.max(prev,score); store.set('runden20',progress);
   G=null;
+  (score>=SIEG_AB ? sieg : trost)(t, gid, score, prev, gid==='memory'?[]:missed);
+}
+
+/* ---------- Siegersequenz ---------- */
+function fxLayer(){ const f=document.createElement('div'); f.className='fx'; document.body.appendChild(f); return f; }
+const R=(a,b)=>a+Math.random()*(b-a);
+function span(cls, html, vars){ const s=document.createElement('span'); s.className=cls; s.innerHTML=html;
+  Object.entries(vars||{}).forEach(([k,v])=>s.style.setProperty(k,v)); return s; }
+function spielFx(f, show){
+  const D=show.dinge, E=x=>`<span class="e">${x}</span>`;
+  const mode=show.fx;
+  if(mode==='laufen'){
+    D.forEach((d,i)=>{ const s=span('laufen',`<span class="e">${d}</span>`,{'--d':(show.schnell?R(2.4,3.4):R(5,7))+'s','--v':(i*.35)+'s'}); s.style.top=R(58,84)+'vh'; f.appendChild(s); });
+  }
+  if(mode==='regnen'||mode==='wetter'){
+    for(let i=0;i<26;i++){ const s=span('regnen',E(rnd(mode==='wetter'?['☀️','☁️','❄️','💧','💧']:D)),{'--d':R(2.6,4.2)+'s','--v':R(0,2.6)+'s','--r':R(-260,260)+'deg'}); s.style.left=R(0,94)+'vw'; f.appendChild(s); }
+    if(mode==='wetter'){ f.appendChild(span('bogen','')); const s=span('wachsen gross',E('☀️'),{'--v':'1.4s'}); s.style.left='8vw'; s.style.bottom='58vh'; f.appendChild(s); }
+  }
+  if(mode==='wachsen'){
+    const n=Math.max(12,Math.round(innerWidth/55));
+    for(let i=0;i<n;i++){ const s=span('wachsen'+(i%3===0?' gross':''),E(rnd(D)),{'--v':(R(0,1.6))+'s'}); s.style.left=(i/n*100-2+R(-1,1))+'vw'; f.appendChild(s); }
+  }
+  if(mode==='platzen'||mode==='schule'){
+    const runs = mode==='schule'?1:3;
+    for(let r=0;r<runs;r++) for(let i=0;i<14;i++){
+      const a=i/14*Math.PI*2+R(-.2,.2), d=R(28,46);
+      const html = show.zahlen ? `<span class="e" style="font-family:var(--f-titel);font-weight:700;color:${rnd(['#ef6f6c','#f7a541','#4fb984','#4ea8de','#9b7fd4'])}">${D[i%D.length]}</span>` : E(rnd(D));
+      const s=span('platzen',html,{'--dx':Math.cos(a)*d+'vmin','--dy':Math.sin(a)*d+'vmin','--v':(r*1.1+R(0,.2))+'s','--r':R(-120,120)+'deg'});
+      s.style.top=(30+r*8)+'%'; f.appendChild(s);
+    }
+  }
+  if(mode==='flattern'){
+    for(let i=0;i<16;i++){ const s=span('flattern',E(rnd(D)),{'--d':R(4.5,6.5)+'s','--v':R(0,2.5)+'s','--w':R(4,12)+'vw'}); s.style.left=R(2,90)+'vw'; f.appendChild(s); }
+  }
+  if(mode==='klecks'){
+    const cols=['#E53935','#1E6FE0','#FFD31A','#2EA44F','#FF8A1F','#8E44C9','#FF9EC4'];
+    for(let i=0;i<22;i++){ const z=R(40,120); const s=span('klecks','',{'--v':R(0,2)+'s'}); Object.assign(s.style,{width:z+'px',height:z+'px',left:R(-4,92)+'vw',top:R(-4,90)+'vh',background:rnd(cols)}); f.appendChild(s); }
+  }
+  if(mode==='kreis'||mode==='welt'){
+    const k=span('kreis',''); const n=D.length;
+    D.forEach((d,i)=>k.appendChild(span('',E(d),{'--a':(i/n*360)+'deg','--rad':'min(40vw,210px)'})));
+    f.appendChild(k);
+    if(mode==='welt'){ const p=span('laufen',`<span class="e">✈️</span>`,{'--d':'3.6s','--v':'.4s'}); p.style.top='10vh'; f.appendChild(p); }
+  }
+}
+function zaehle(el, bis){
+  let i=0; const step=()=>{ if(!el.isConnected) return; el.textContent=i; if(i>0) sfx.tick(i); if(i<bis){ i++; later(step, 70); } };
+  step();
+}
+function sieg(t, gid, score, prev){
+  const show=SHOW[t.id];
+  hush();
   app.innerHTML = `
-    <div class="result">
-      ${stars===3?`<img class="lisi hop" src="${IMG.medaille}" alt="Medaille" style="width:110px">`:''}
-      ${lisi('cheer')}
-      <h2>Geschafft!</h2>
-      <div class="bigstars">${[1,2,3].map(i=>star(i<=stars,`class="pop${i<=stars?'':' leer'}" style="animation-delay:${i*.18}s"`)).join('')}</div>
-      <div class="bubble">${msg}${stars>prev&&prev>0?' Neuer Rekord!':''}</div>
-      <div class="actions">
+    <div class="result sieg">
+      <div class="buehne stufe">${lisi('cheer','rein')}<img class="medaille" src="${IMG.medaille}" alt=""></div>
+      <h2 class="titel stufe" style="animation-delay:.5s" aria-label="${show.titel}">${bunt(show.titel)}</h2>
+      ${show.fx==='schule'?`<div class="urkunde-karte"><span>Urkunde</span>für tolles Lernen in der Schule<b>${score} von ${RUNDE} Sternen</b></div>`:''}
+      <div class="zaehler stufe" style="animation-delay:.9s"><img src="${IMG.stern}" alt=""><span id="zahl">0</span><small>von ${RUNDE} Sternen</small></div>
+      <div class="bubble stufe" style="animation-delay:1.2s">${score===RUNDE?'Alles richtig! ':''}${show.text}${score>prev&&prev>0?' Neuer Rekord!':''}</div>
+      <div class="actions stufe" style="animation-delay:1.8s">
         <button class="knopf gruen" id="again">Nochmal spielen</button>
         <button class="knopf" id="toTopic"><img class="finger links" src="${IMG.finger}" alt=""> ${t.name}</button>
       </div>
     </div>`;
-  app.querySelector('.result .lisi:not([alt="Medaille"])').classList.add('hop');
-  sfx.win(); say(stars===3?'Wow! Alles richtig!':'Super gemacht!');
-  confetti();
+  const img=app.querySelector('.result .lisi');
+  later(()=>{ img.classList.remove('rein'); img.classList.add('dauerjubel'); }, 900);
+  later(()=>{ img.classList.remove('dauerjubel'); }, 5200);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) spielFx(fxLayer(), show);
+  sfx.win(); later(()=>say(`${show.titel} ${score} Sterne! ${show.text}`), 500);
+  later(()=>zaehle($('#zahl'), score), 1000);
+  later(confetti, 1600);
+  $('#again').onclick=()=>startGame(t,gid);
+  $('#toTopic').onclick=()=>topicView(t);
+}
+
+/* ---------- Trostsequenz ---------- */
+function trost(t, gid, score, prev, missed){
+  const show=SHOW[t.id];
+  hush();
+  const liste = missed.slice(0,8);
+  app.innerHTML = `
+    <div class="result trost">
+      <div class="buehne stufe">${lisi('think')}<img class="herz" src="${IMG.herz}" alt="" hidden></div>
+      <h2 class="titel stufe" style="animation-delay:.4s" aria-label="Schön, dass du geübt hast!">${bunt('Schön geübt!')}</h2>
+      <div class="zaehler stufe" style="animation-delay:.8s"><img src="${IMG.stern}" alt=""><span id="zahl">0</span><small>von ${RUNDE} Sternen</small></div>
+      <div class="bubble stufe" style="animation-delay:1.1s">${show.trost} Ab ${SIEG_AB} Sternen wartet eine Überraschung auf dich!${score>prev&&prev>0?' Und du bist schon besser als beim letzten Mal!':''}</div>
+      ${liste.length?`<p class="hinweis stufe" style="animation-delay:1.5s">Diese Wörter üben wir nochmal. Tipp drauf und hör zu:</p>
+      <div class="uebenliste stufe" style="animation-delay:1.7s">${liste.map(it=>`<button class="tile chip wd" data-id="${it.id}">${pic(it)}${spoken(it)}</button>`).join('')}</div>`:''}
+      <div class="actions stufe" style="animation-delay:2s">
+        ${liste.length?`<button class="knopf gruen" id="practice">Diese Wörter üben</button>`:''}
+        <button class="knopf${liste.length?'':' gruen'}" id="again">Nochmal spielen</button>
+        <button class="knopf" id="toTopic" style="background:var(--lila);box-shadow:0 5px 0 #7a5fb5"><img class="finger links" src="${IMG.finger}" alt=""> ${t.name}</button>
+      </div>
+    </div>`;
+  const img=app.querySelector('.result .lisi');
+  later(()=>{ img.src=IMG.lacht; act(img,'hop'); app.querySelector('.herz').hidden=false; }, 1300);
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const f=fxLayer();
+    for(let i=0;i<9;i++){ const s=span('schweben',`<img src="${IMG.herz}" alt="">`,{'--d':R(5,7)+'s','--v':R(.5,3.5)+'s','--w':R(-8,8)+'vw','--s':R(30,52)+'px'}); s.style.left=R(4,88)+'vw'; f.appendChild(s); }
+  }
+  sfx.trost(); later(()=>say(`Nicht schlimm! Du hast ${score} Sterne gesammelt. ${show.trost}`), 400);
+  later(()=>zaehle($('#zahl'), score), 900);
+  app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ const it=liste.find(w=>w.id===b.dataset.id); say(spoken(it)); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); });
+  const p=$('#practice'); if(p) p.onclick=()=>startGame(t,gid,liste);
   $('#again').onclick=()=>startGame(t,gid);
   $('#toTopic').onclick=()=>topicView(t);
 }
@@ -608,7 +894,7 @@ function confetti(){
     if(run!==confettiRun) return;
     ctx.clearRect(0,0,W,H);
     P.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.a+=p.va;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);ctx.fillStyle=p.c;ctx.fillRect(-p.r,-p.r/2,p.r*2,p.r);ctx.restore();});
-    if(++f<200) requestAnimationFrame(loop); else { ctx.clearRect(0,0,W,H); cv.hidden=true; }
+    if(++f<220) requestAnimationFrame(loop); else { ctx.clearRect(0,0,W,H); cv.hidden=true; }
   })();
 }
 
