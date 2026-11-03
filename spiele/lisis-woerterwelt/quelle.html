@@ -294,6 +294,8 @@ img.leer{filter:grayscale(1);opacity:.3}
 .ico{display:inline-block;vertical-align:-.2em}.ico img{width:1.25em;height:1.25em}
 .fx .e img{width:1.3em;height:1.3em}
 .choice .emo{font-size:clamp(4.4rem,21vw,6.6rem)}
+.emo.gemalt img{width:1.45em;height:1.45em}
+.picbig .emo.gemalt img{filter:none}
 .wcard .emo{font-size:3.4rem}
 .chip .emo{font-size:1.7rem}
 </style>
@@ -403,8 +405,9 @@ const SHOW = {
     trost:'Zählen lernt man Schritt für Schritt. Wir zählen gleich nochmal zusammen.'}
 };
 
+const slug = w => w.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const TOPICS = RAW.map((t,ti)=>({...t, farbe:FARBEN[ti%6], words:t.words.map(([a,w,x],i)=>{
-  const it={id:t.id+i, a, w};
+  const it={id:t.id+'-'+slug(w), a, w};
   if(t.id==='farben') it.c=x; else if(t.id==='zahlen') it.n=x;
   else if(/^T-?\d+$/.test(x)) it.th=+x.slice(1); else it.e=x;
   return it;
@@ -511,6 +514,8 @@ function pick(arr,n,not){
 }
 const rnd = a => a[Math.floor(Math.random()*a.length)];
 const BILD = /*{{BILDER}}*/{};
+/* Gemalte Wortbilder (bilder-gemalt/<wort-id>.webp), gehen vor den 3D-Bildern */
+const GEMALT = /*{{GEMALT}}*/{};
 /* Fluent-3D-Bild statt Emoji, wenn vorhanden */
 const em = (e, cls='emo') => `<span class="${cls}">${BILD[e]?`<img src="${BILD[e]}" alt="" draggable="false">`:e}</span>`;
 const MOOD = {happy:'lacht', cheer:'jubelt', think:'denkt', look:'lupe'};
@@ -527,6 +532,7 @@ function pic(it){
   if(it.c) return `<span class="swatch" style="--sw:${it.c}"></span>`;
   if(it.n) return `<span class="num"><b>${it.n}</b><i>${'●'.repeat(it.n)}</i></span>`;
   if(it.th!==undefined) return thermo(it.th);
+  if(GEMALT[it.id]) return `<span class="emo gemalt"><img src="${GEMALT[it.id]}" alt="" draggable="false"></span>`;
   return em(it.e);
 }
 const artColor = a => a ? `var(--${a})` : 'var(--orange)';

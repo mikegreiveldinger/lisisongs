@@ -23,7 +23,11 @@ for e in sorted(emojis):
     datei = hier / "bilder" / f"{codepunkte(e)}.webp"
     if datei.exists(): bilder[e] = "data:image/webp;base64," + base64.b64encode(datei.read_bytes()).decode()
 quelle = quelle.replace("/*{{BILDER}}*/{}", json.dumps(bilder, ensure_ascii=False))
+# Gemalte Wortbilder (bilder-gemalt/<wort-id>.webp) gehen vor
+gemalt = {p.stem: "data:image/webp;base64," + base64.b64encode(p.read_bytes()).decode()
+          for p in sorted((hier / "bilder-gemalt").glob("*.webp"))}
+quelle = quelle.replace("/*{{GEMALT}}*/{}", json.dumps(gemalt))
 html = re.sub(r"\{\{([\w./-]+)\}\}", einbetten, quelle)
 ziel = hier / "lisis-woerterwelt.html"
 ziel.write_text("<!doctype html>\n<html lang=\"de\">\n" + html + "\n</html>\n", encoding="utf-8")
-print(f"OK: {ziel.name} ({ziel.stat().st_size / 1024:.0f} KB, {len(bilder)} Wortbilder)")
+print(f"OK: {ziel.name} ({ziel.stat().st_size / 1024:.0f} KB, {len(bilder)} 3D-Bilder, {len(gemalt)} gemalte Bilder)")
