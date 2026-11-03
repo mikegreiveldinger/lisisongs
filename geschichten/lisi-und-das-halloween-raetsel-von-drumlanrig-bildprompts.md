@@ -1,17 +1,17 @@
 # Bild-Prompts: Lisi und das Halloween-Rätsel von Drumlanrig Castle
 
-Zum Einfügen in ChatGPT. Am besten zuerst das Lisi-Cover (gelbes Bild aus „Lisi fragt nach") hochladen und dazuschreiben:
-„Das ist Lisi. Bitte halte sie in allen folgenden Bildern genau so: gleiches Gesicht, gleiche Mütze, gleicher Schal, gleicher Malstil."
+Zum Einfügen in ChatGPT oder für das OpenAI-Bildmodell. Als Referenz zuerst das Cover aus „Lisi und Nora in Schottland" hochladen (Nextcloud: `Privat/Lisi Media/Grimm-Maerchen/bilder/2026-10-28-bonus-schottland/seite-00.jpg`, dort sind Lisi, Nora und Papa zusammen zu sehen; gut eignen sich auch `seite-02.jpg` und `seite-06.jpg`) und dazuschreiben:
+„Das sind Lisi (gelbe Mütze und gelber Schal), ihre große Schwester Nora (lange kastanienbraune Haare, lila Strickjacke) und Papa (Glatze, orange Kappe). Bitte halte alle drei in den folgenden Bildern genau so: gleiche Gesichter, gleiche Kleidung, gleicher Malstil."
 
-**Nora:** Falls es schon ein Bild von Nora gibt (z. B. aus „Lisi und Nora in Schottland"), das ebenfalls hochladen: „Das ist Nora, Lisis Begleiterin. Halte auch sie immer gleich." Sonst unten im Stil-Anker die Platzhalter-Beschreibung von Nora anpassen.
+**Nora** ist Lisis große Schwester (ca. 9 Jahre, einen Kopf größer). Von der Schottland-Reise hat sie den rot-grün karierten Schottenschal, den Tante Ly ihr geschenkt hat; den trägt sie in dieser Geschichte draußen.
 
 **Stil-Anker (an jeden Prompt anhängen):**
-> Warm children's book illustration, soft gouache and watercolor texture, gentle paper grain, cozy and slightly spooky but never scary. Lisi: a girl of about 6 with light brown hair in a low ponytail and bangs, big green eyes, rosy cheeks, a mustard-yellow knitted beanie with a big pompom and a thick mustard-yellow knitted scarf. Nora: a girl of the same age who always appears next to Lisi [PLATZHALTER – Aussehen anpassen, z. B. dark curly hair, a red knitted hat and scarf]. Square format, no text.
+> Warm children's book illustration in the same style as the reference pictures, soft watercolor and gouache texture, gentle paper grain, cozy and slightly spooky but never scary. Lisi: a girl of about seven with light-brown hair in a ponytail, green eyes, rosy cheeks, a mustard-yellow knitted beanie with a pom-pom and a thick mustard-yellow scarf. Nora: Lisi's big sister, about nine years old and one head taller than Lisi, long straight chestnut-brown hair falling past her shoulders with a side part, warm brown eyes, thoughtful friendly face, a lilac knitted cardigan over a white-and-navy striped shirt and blue jeans, and a red-and-green tartan scarf. Papa: the girls' cheerful father in his forties, clean-shaven bald head, short light stubble, blue-grey eyes, a big warm grin with laugh lines, an orange baseball cap and a mustard-yellow rain jacket over a turquoise fleece. Square format, no text.
 
 ---
 
 1. **Ankunft am rosa Schloss**
-   Lisi, Nora and Lisi's dad walk up a gravel path toward Drumlanrig Castle in Scotland at dusk – a huge pink sandstone castle with many small turrets and a curved double staircase. Dozens of glowing jack-o'-lanterns line the stairs. Lisi stops and looks up in wonder while Nora hops over puddles.
+   Lisi, her big sister Nora and their dad (Papa) walk up a gravel path toward Drumlanrig Castle in Scotland at dusk – a huge pink sandstone castle with many small turrets and a curved double staircase. Dozens of glowing jack-o'-lanterns line the stairs. Lisi stops and looks up in wonder while Nora hops over puddles.
 
 2. **Morag und die Pergamentrolle**
    At the castle door, a friendly woman in a long green hooded cloak hands Lisi and Nora a parchment scroll tied with a black ribbon. Pumpkins glow around them, both girls eagerly raise their hands.
@@ -35,4 +35,4 @@ Zum Einfügen in ChatGPT. Am besten zuerst das Lisi-Cover (gelbes Bild aus „Li
    Lisi and Nora kneel on the lawn next to the giant pumpkin; Nora holds the chest while Lisi opens a small wooden chest with an old rusty key. Inside: a bag of Scottish fudge, two little bat-shaped flashlights and two brass pins with a winged heart. Morag approaches with a lantern.
 
 9. **Heimweg**
-   Lisi, Nora and Lisi's dad walk away along the gravel path under a starry sky, the pink castle behind them. Brass winged-heart pins shine on both girls' scarves. In one tower window, the silhouette of a small bushy-tailed squirrel.
+   Lisi, Nora and Papa walk away along the gravel path under a starry sky, the pink castle behind them. Brass winged-heart pins shine on Lisi's yellow scarf and Nora's tartan scarf. In one tower window, the silhouette of a small bushy-tailed squirrel.
