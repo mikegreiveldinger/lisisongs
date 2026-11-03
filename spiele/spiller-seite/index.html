@@ -42,6 +42,7 @@ h1,h2,h3{font-family:Fredoka,"Trebuchet MS",sans-serif;font-weight:600;line-heig
 .bereich h2{font-size:clamp(28px,5vw,38px);color:var(--f)}
 .bereich p{margin:0;color:var(--sanft)}
 .spiele{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+@media (max-width:560px){.spiele{grid-template-columns:1fr 1fr;gap:12px}.spiel{border-width:4px;border-radius:20px}.spiel .text{padding:8px 10px 12px}.spiel h3{font-size:1rem}.spiel .text p{display:none}.hallo img{width:96px}}
 .spiel{display:flex;flex-direction:column;background:#fff;border:5px solid var(--f);border-radius:28px;overflow:hidden;text-decoration:none;
   box-shadow:0 8px 0 rgba(47,42,68,.07),0 16px 30px rgba(47,42,68,.08);transition:transform .15s}
 .spiel:hover,.spiel:focus-visible{transform:translateY(-4px)}
