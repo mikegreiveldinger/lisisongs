@@ -1,0 +1,866 @@
+{
+ "hinweis": "Motivbeschreibungen (englisch) für woerter-bilder.py. Hier kann man ein Motiv ändern; danach den betroffenen Bogen oder das Wort neu malen lassen.",
+ "themen": [
+  {
+   "id": "tiere",
+   "name": "Tiere",
+   "woerter": [
+    {
+     "id": "tiere-hund",
+     "wort": "der Hund",
+     "motiv": "a friendly brown-and-white dog (beagle-like) sitting, seen from the front-side"
+    },
+    {
+     "id": "tiere-katze",
+     "wort": "die Katze",
+     "motiv": "a ginger tabby cat sitting upright, tail curled around its paws"
+    },
+    {
+     "id": "tiere-maus",
+     "wort": "die Maus",
+     "motiv": "a small grey house mouse with pink ears and long thin tail, side view"
+    },
+    {
+     "id": "tiere-pferd",
+     "wort": "das Pferd",
+     "motiv": "a chestnut-brown horse with dark mane standing, full body side view"
+    },
+    {
+     "id": "tiere-kuh",
+     "wort": "die Kuh",
+     "motiv": "a black-and-white dairy cow standing in profile, full body"
+    },
+    {
+     "id": "tiere-schwein",
+     "wort": "das Schwein",
+     "motiv": "a pink pig standing in profile, curly tail, full body"
+    },
+    {
+     "id": "tiere-huhn",
+     "wort": "das Huhn",
+     "motiv": "a brown hen with red comb standing, full body side view"
+    },
+    {
+     "id": "tiere-ente",
+     "wort": "die Ente",
+     "motiv": "a mallard duck (male, green head) standing, full body side view"
+    },
+    {
+     "id": "tiere-fisch",
+     "wort": "der Fisch",
+     "motiv": "a single orange-and-silver freshwater fish swimming, side view, no water background"
+    },
+    {
+     "id": "tiere-vogel",
+     "wort": "der Vogel",
+     "motiv": "a small European robin perched on a short twig, side view"
+    },
+    {
+     "id": "tiere-hase",
+     "wort": "der Hase",
+     "motiv": "a brown wild hare sitting with long upright ears, side view"
+    },
+    {
+     "id": "tiere-baer",
+     "wort": "der Bär",
+     "motiv": "a brown bear standing on all four paws, full body side view"
+    },
+    {
+     "id": "tiere-schaf",
+     "wort": "das Schaf",
+     "motiv": "a fluffy white sheep with dark face standing, full body side view"
+    },
+    {
+     "id": "tiere-frosch",
+     "wort": "der Frosch",
+     "motiv": "a green frog sitting, seen from the front-side"
+    },
+    {
+     "id": "tiere-eichhoernchen",
+     "wort": "das Eichhörnchen",
+     "motiv": "a red squirrel with tufted ears and bushy tail sitting upright holding a hazelnut"
+    },
+    {
+     "id": "tiere-eule",
+     "wort": "die Eule",
+     "motiv": "a tawny owl perched on a short branch, facing the viewer"
+    }
+   ]
+  },
+  {
+   "id": "essen",
+   "name": "Essen",
+   "woerter": [
+    {
+     "id": "essen-apfel",
+     "wort": "der Apfel",
+     "motiv": "a single shiny red apple with a short stem and one green leaf"
+    },
+    {
+     "id": "essen-banane",
+     "wort": "die Banane",
+     "motiv": "a single ripe yellow banana"
+    },
+    {
+     "id": "essen-brot",
+     "wort": "das Brot",
+     "motiv": "a round loaf of crusty brown bread"
+    },
+    {
+     "id": "essen-kaese",
+     "wort": "der Käse",
+     "motiv": "a wedge of yellow cheese with a few holes"
+    },
+    {
+     "id": "essen-ei",
+     "wort": "das Ei",
+     "motiv": "a single brown chicken egg, whole, lying on its side"
+    },
+    {
+     "id": "essen-milch",
+     "wort": "die Milch",
+     "motiv": "a clear glass full of white milk"
+    },
+    {
+     "id": "essen-erdbeere",
+     "wort": "die Erdbeere",
+     "motiv": "a single ripe red strawberry with green leaves on top"
+    },
+    {
+     "id": "essen-karotte",
+     "wort": "die Karotte",
+     "motiv": "a single orange carrot with its green leafy top"
+    },
+    {
+     "id": "essen-kuchen",
+     "wort": "der Kuchen",
+     "motiv": "a slice of layered cake with cream and a strawberry on top, on a small plate"
+    },
+    {
+     "id": "essen-eis",
+     "wort": "das Eis",
+     "motiv": "an ice cream cone with two scoops (pink and vanilla)"
+    },
+    {
+     "id": "essen-birne",
+     "wort": "die Birne",
+     "motiv": "a single green-yellow pear with a stem"
+    },
+    {
+     "id": "essen-tomate",
+     "wort": "die Tomate",
+     "motiv": "a single red tomato on the vine with a small green stalk"
+    },
+    {
+     "id": "essen-kuerbis",
+     "wort": "der Kürbis",
+     "motiv": "a single orange pumpkin (not carved)"
+    },
+    {
+     "id": "essen-suppe",
+     "wort": "die Suppe",
+     "motiv": "a bowl of warm orange vegetable soup with a spoon, a little steam"
+    },
+    {
+     "id": "essen-brezel",
+     "wort": "die Brezel",
+     "motiv": "a single golden-brown Bavarian pretzel with coarse salt"
+    }
+   ]
+  },
+  {
+   "id": "pflanzen",
+   "name": "Pflanzen",
+   "woerter": [
+    {
+     "id": "pflanzen-rose",
+     "wort": "die Rose",
+     "motiv": "a single red rose with a green stem and leaves"
+    },
+    {
+     "id": "pflanzen-tulpe",
+     "wort": "die Tulpe",
+     "motiv": "a single red-and-yellow tulip with stem and leaves"
+    },
+    {
+     "id": "pflanzen-sonnenblume",
+     "wort": "die Sonnenblume",
+     "motiv": "a single tall sunflower with stem and leaves"
+    },
+    {
+     "id": "pflanzen-kaktus",
+     "wort": "der Kaktus",
+     "motiv": "a green saguaro-style cactus in a small terracotta pot"
+    },
+    {
+     "id": "pflanzen-baum",
+     "wort": "der Baum",
+     "motiv": "a whole leafy deciduous tree (oak) with round green crown, standing on a little patch of grass"
+    },
+    {
+     "id": "pflanzen-tanne",
+     "wort": "die Tanne",
+     "motiv": "a whole fir tree (conifer), dark green, standing on a little patch of grass"
+    },
+    {
+     "id": "pflanzen-palme",
+     "wort": "die Palme",
+     "motiv": "a whole coconut palm tree with coconuts, on a little patch of sand"
+    },
+    {
+     "id": "pflanzen-kleeblatt",
+     "wort": "das Kleeblatt",
+     "motiv": "a single four-leaf clover with a short stem"
+    },
+    {
+     "id": "pflanzen-blatt",
+     "wort": "das Blatt",
+     "motiv": "a single green beech leaf, flat"
+    },
+    {
+     "id": "pflanzen-keimling",
+     "wort": "der Keimling",
+     "motiv": "a small green seedling sprouting from a mound of dark soil, two leaves"
+    },
+    {
+     "id": "pflanzen-kastanie",
+     "wort": "die Kastanie",
+     "motiv": "two shiny brown horse chestnuts next to their opened spiky green husk"
+    },
+    {
+     "id": "pflanzen-seerose",
+     "wort": "die Seerose",
+     "motiv": "a pink water lily flower floating on a round green lily pad"
+    },
+    {
+     "id": "pflanzen-aehre",
+     "wort": "die Ähre",
+     "motiv": "a single golden wheat ear (spike of grain) with a short stalk"
+    },
+    {
+     "id": "pflanzen-gaensebluemchen",
+     "wort": "das Gänseblümchen",
+     "motiv": "a single daisy flower with white petals and yellow center, short stem"
+    },
+    {
+     "id": "pflanzen-blumenstrauss",
+     "wort": "der Blumenstrauß",
+     "motiv": "a colorful bouquet of mixed flowers tied with a ribbon"
+    }
+   ]
+  },
+  {
+   "id": "natur",
+   "name": "Natur",
+   "woerter": [
+    {
+     "id": "natur-marienkaefer",
+     "wort": "der Marienkäfer",
+     "motiv": "a red ladybird with black spots, seen from above"
+    },
+    {
+     "id": "natur-biene",
+     "wort": "die Biene",
+     "motiv": "a honeybee in flight, side view, fuzzy yellow-and-black body"
+    },
+    {
+     "id": "natur-schmetterling",
+     "wort": "der Schmetterling",
+     "motiv": "a colorful butterfly with open wings (peacock butterfly), seen from above"
+    },
+    {
+     "id": "natur-schnecke",
+     "wort": "die Schnecke",
+     "motiv": "a garden snail with a brown spiral shell crawling, side view"
+    },
+    {
+     "id": "natur-ameise",
+     "wort": "die Ameise",
+     "motiv": "a single red-brown ant, side view, enlarged"
+    },
+    {
+     "id": "natur-spinne",
+     "wort": "die Spinne",
+     "motiv": "a small friendly-looking garden spider sitting on a little web"
+    },
+    {
+     "id": "natur-wurm",
+     "wort": "der Wurm",
+     "motiv": "a pink earthworm curved in an S-shape on a little bit of soil"
+    },
+    {
+     "id": "natur-nest",
+     "wort": "das Nest",
+     "motiv": "a bird nest made of twigs with three light-blue eggs inside"
+    },
+    {
+     "id": "natur-feder",
+     "wort": "die Feder",
+     "motiv": "a single soft bird feather (grey-brown, slightly curved)"
+    },
+    {
+     "id": "natur-stein",
+     "wort": "der Stein",
+     "motiv": "a single smooth grey stone (pebble rock)"
+    },
+    {
+     "id": "natur-holz",
+     "wort": "das Holz",
+     "motiv": "a small pile of three chopped firewood logs"
+    },
+    {
+     "id": "natur-muschel",
+     "wort": "die Muschel",
+     "motiv": "a single scallop seashell, cream and pink"
+    },
+    {
+     "id": "natur-pilz",
+     "wort": "der Pilz",
+     "motiv": "a red fly agaric mushroom with white dots on a little bit of moss"
+    },
+    {
+     "id": "natur-feuer",
+     "wort": "das Feuer",
+     "motiv": "a small campfire of crossed logs with bright flames inside a ring of stones"
+    }
+   ]
+  },
+  {
+   "id": "wetter",
+   "name": "Wetter und Temperatur",
+   "woerter": [
+    {
+     "id": "wetter-sonne",
+     "wort": "die Sonne",
+     "motiv": "a bright shining yellow sun with soft rays in a light blue sky circle"
+    },
+    {
+     "id": "wetter-regen",
+     "wort": "der Regen",
+     "motiv": "a grey cloud with many raindrops falling from it"
+    },
+    {
+     "id": "wetter-schnee",
+     "wort": "der Schnee",
+     "motiv": "snowflakes falling onto a small snow-covered ground with a little snow-covered bush"
+    },
+    {
+     "id": "wetter-wolke",
+     "wort": "die Wolke",
+     "motiv": "a single fluffy white cloud"
+    },
+    {
+     "id": "wetter-wind",
+     "wort": "der Wind",
+     "motiv": "a tree bending in strong wind with leaves blowing away"
+    },
+    {
+     "id": "wetter-gewitter",
+     "wort": "das Gewitter",
+     "motiv": "a dark storm cloud with rain and a bright lightning bolt"
+    },
+    {
+     "id": "wetter-blitz",
+     "wort": "der Blitz",
+     "motiv": "a single bright jagged lightning bolt from a small dark cloud, the bolt is the main subject"
+    },
+    {
+     "id": "wetter-regenbogen",
+     "wort": "der Regenbogen",
+     "motiv": "a bright rainbow arc with a small white cloud at each end"
+    },
+    {
+     "id": "wetter-nebel",
+     "wort": "der Nebel",
+     "motiv": "a few tree silhouettes and a little fence fading in soft white morning fog"
+    },
+    {
+     "id": "wetter-sturm",
+     "wort": "der Sturm",
+     "motiv": "a whirling grey tornado funnel over a small field"
+    },
+    {
+     "id": "wetter-schneemann",
+     "wort": "der Schneemann",
+     "motiv": "a snowman with carrot nose, black hat and red scarf"
+    },
+    {
+     "id": "wetter-regenschirm",
+     "wort": "der Regenschirm",
+     "motiv": "an open red umbrella with a curved handle"
+    }
+   ]
+  },
+  {
+   "id": "kleidung",
+   "name": "Kleidung",
+   "woerter": [
+    {
+     "id": "kleidung-schal",
+     "wort": "der Schal",
+     "motiv": "a long knitted striped scarf, loosely laid in a curve"
+    },
+    {
+     "id": "kleidung-handschuh",
+     "wort": "der Handschuh",
+     "motiv": "a pair of knitted woollen gloves with five fingers"
+    },
+    {
+     "id": "kleidung-jacke",
+     "wort": "die Jacke",
+     "motiv": "a blue zip-up winter jacket with hood, front view"
+    },
+    {
+     "id": "kleidung-hose",
+     "wort": "die Hose",
+     "motiv": "a pair of blue jeans trousers, front view"
+    },
+    {
+     "id": "kleidung-kleid",
+     "wort": "das Kleid",
+     "motiv": "a red summer dress with short sleeves, front view"
+    },
+    {
+     "id": "kleidung-schuh",
+     "wort": "der Schuh",
+     "motiv": "a single children's sneaker (trainer) with laces, side view"
+    },
+    {
+     "id": "kleidung-stiefel",
+     "wort": "der Stiefel",
+     "motiv": "a single yellow rubber rain boot, side view"
+    },
+    {
+     "id": "kleidung-socke",
+     "wort": "die Socke",
+     "motiv": "a single striped knitted sock"
+    },
+    {
+     "id": "kleidung-hut",
+     "wort": "der Hut",
+     "motiv": "a straw sun hat with a ribbon"
+    },
+    {
+     "id": "kleidung-t-shirt",
+     "wort": "das T-Shirt",
+     "motiv": "a plain green short-sleeved T-shirt, front view"
+    },
+    {
+     "id": "kleidung-brille",
+     "wort": "die Brille",
+     "motiv": "a pair of round glasses with dark frames"
+    },
+    {
+     "id": "kleidung-hemd",
+     "wort": "das Hemd",
+     "motiv": "a light blue button-up shirt with collar and long sleeves, front view"
+    },
+    {
+     "id": "kleidung-kappe",
+     "wort": "die Kappe",
+     "motiv": "a blue baseball cap with a visor, side view"
+    },
+    {
+     "id": "kleidung-badeanzug",
+     "wort": "der Badeanzug",
+     "motiv": "a one-piece swimsuit with colorful pattern, front view"
+    }
+   ]
+  },
+  {
+   "id": "koerper",
+   "name": "Mein Körper",
+   "woerter": [
+    {
+     "id": "koerper-auge",
+     "wort": "das Auge",
+     "motiv": "close-up of a single friendly child's eye with eyebrow and lashes, open and looking at the viewer, soft and gentle"
+    },
+    {
+     "id": "koerper-ohr",
+     "wort": "das Ohr",
+     "motiv": "a child's ear, side view, with a little bit of hair"
+    },
+    {
+     "id": "koerper-nase",
+     "wort": "die Nase",
+     "motiv": "close-up of a child's face showing mainly the nose, framed from below the eyes to above the mouth"
+    },
+    {
+     "id": "koerper-mund",
+     "wort": "der Mund",
+     "motiv": "close-up of a smiling child's mouth with lips, framed from below the nose to the chin"
+    },
+    {
+     "id": "koerper-hand",
+     "wort": "die Hand",
+     "motiv": "an open child's hand with five fingers spread, palm facing the viewer"
+    },
+    {
+     "id": "koerper-fuss",
+     "wort": "der Fuß",
+     "motiv": "a bare child's foot with five toes, side view"
+    },
+    {
+     "id": "koerper-bein",
+     "wort": "das Bein",
+     "motiv": "a child's leg in shorts from the hip to a sneaker, standing, side view"
+    },
+    {
+     "id": "koerper-zahn",
+     "wort": "der Zahn",
+     "motiv": "a single white tooth (molar), clean and shiny, like in a children's dental book"
+    },
+    {
+     "id": "koerper-arm",
+     "wort": "der Arm",
+     "motiv": "a child's arm bent at the elbow, showing a little muscle, in a short T-shirt sleeve"
+    },
+    {
+     "id": "koerper-zunge",
+     "wort": "die Zunge",
+     "motiv": "a child sticking out the tongue playfully, close-up of mouth and tongue"
+    },
+    {
+     "id": "koerper-daumen",
+     "wort": "der Daumen",
+     "motiv": "a child's hand giving a thumbs up"
+    },
+    {
+     "id": "koerper-herz",
+     "wort": "das Herz",
+     "motiv": "a classic red heart shape, painted, slightly shiny"
+    }
+   ]
+  },
+  {
+   "id": "zuhause",
+   "name": "Zuhause",
+   "woerter": [
+    {
+     "id": "zuhause-haus",
+     "wort": "das Haus",
+     "motiv": "a cozy detached family house with red roof, door, windows and a chimney"
+    },
+    {
+     "id": "zuhause-tuer",
+     "wort": "die Tür",
+     "motiv": "a single wooden front door with a handle and a small window, closed"
+    },
+    {
+     "id": "zuhause-bett",
+     "wort": "das Bett",
+     "motiv": "a children's bed with a pillow and a blue duvet, side-front view"
+    },
+    {
+     "id": "zuhause-stuhl",
+     "wort": "der Stuhl",
+     "motiv": "a single wooden kitchen chair, three-quarter view"
+    },
+    {
+     "id": "zuhause-lampe",
+     "wort": "die Lampe",
+     "motiv": "a table lamp with a cream lampshade, switched on"
+    },
+    {
+     "id": "zuhause-uhr",
+     "wort": "die Uhr",
+     "motiv": "a round wall clock with numbers and hands"
+    },
+    {
+     "id": "zuhause-schluessel",
+     "wort": "der Schlüssel",
+     "motiv": "a single metal door key"
+    },
+    {
+     "id": "zuhause-sofa",
+     "wort": "das Sofa",
+     "motiv": "a comfortable three-seat sofa with cushions"
+    },
+    {
+     "id": "zuhause-ball",
+     "wort": "der Ball",
+     "motiv": "a classic black-and-white football (soccer ball)"
+    },
+    {
+     "id": "zuhause-teddy",
+     "wort": "der Teddy",
+     "motiv": "a brown teddy bear sitting"
+    },
+    {
+     "id": "zuhause-tasse",
+     "wort": "die Tasse",
+     "motiv": "a ceramic cup with handle on a saucer"
+    },
+    {
+     "id": "zuhause-loeffel",
+     "wort": "der Löffel",
+     "motiv": "a single silver spoon"
+    },
+    {
+     "id": "zuhause-kerze",
+     "wort": "die Kerze",
+     "motiv": "a single white candle with a burning flame on a small holder"
+    },
+    {
+     "id": "zuhause-fenster",
+     "wort": "das Fenster",
+     "motiv": "a single closed house window with white frame and four panes, curtains visible inside"
+    }
+   ]
+  },
+  {
+   "id": "schule",
+   "name": "Schule",
+   "woerter": [
+    {
+     "id": "schule-schule",
+     "wort": "die Schule",
+     "motiv": "a school building with a clock above the entrance and a schoolyard"
+    },
+    {
+     "id": "schule-lehrerin",
+     "wort": "die Lehrerin",
+     "motiv": "a friendly female teacher standing in front of a green chalkboard, holding a book"
+    },
+    {
+     "id": "schule-bleistift",
+     "wort": "der Bleistift",
+     "motiv": "a single yellow graphite pencil with an eraser, sharpened tip"
+    },
+    {
+     "id": "schule-wachsmalstift",
+     "wort": "der Wachsmalstift",
+     "motiv": "three wax crayons (red, blue, yellow) lying side by side"
+    },
+    {
+     "id": "schule-pinsel",
+     "wort": "der Pinsel",
+     "motiv": "a single paintbrush with wooden handle and a bit of blue paint on the bristles"
+    },
+    {
+     "id": "schule-schere",
+     "wort": "die Schere",
+     "motiv": "a pair of children's scissors with rounded tips and red handles"
+    },
+    {
+     "id": "schule-lineal",
+     "wort": "das Lineal",
+     "motiv": "a transparent ruler with centimeter marks"
+    },
+    {
+     "id": "schule-heft",
+     "wort": "das Heft",
+     "motiv": "a closed school exercise book with a plain blue cover"
+    },
+    {
+     "id": "schule-buch",
+     "wort": "das Buch",
+     "motiv": "a thick closed hardcover book with a red cover"
+    },
+    {
+     "id": "schule-schulranzen",
+     "wort": "der Schulranzen",
+     "motiv": "a colorful German school satchel (Schulranzen) backpack"
+    },
+    {
+     "id": "schule-computer",
+     "wort": "der Computer",
+     "motiv": "an open laptop computer showing a blank light screen"
+    },
+    {
+     "id": "schule-glocke",
+     "wort": "die Glocke",
+     "motiv": "a brass school bell with a wooden handle"
+    },
+    {
+     "id": "schule-kuli",
+     "wort": "der Kuli",
+     "motiv": "a single blue ballpoint pen with a click button"
+    },
+    {
+     "id": "schule-bueroklammer",
+     "wort": "die Büroklammer",
+     "motiv": "two silver paper clips"
+    },
+    {
+     "id": "schule-mikroskop",
+     "wort": "das Mikroskop",
+     "motiv": "a school microscope, side view"
+    },
+    {
+     "id": "schule-papier",
+     "wort": "das Papier",
+     "motiv": "a small stack of white paper sheets"
+    },
+    {
+     "id": "schule-urkunde",
+     "wort": "die Urkunde",
+     "motiv": "a rolled certificate scroll tied with a red ribbon and a golden seal"
+    }
+   ]
+  },
+  {
+   "id": "geographie",
+   "name": "Geographie",
+   "woerter": [
+    {
+     "id": "geographie-erde",
+     "wort": "die Erde",
+     "motiv": "the planet Earth as a globe seen from space, showing Europe and Africa, blue oceans and green-brown land"
+    },
+    {
+     "id": "geographie-landkarte",
+     "wort": "die Landkarte",
+     "motiv": "an unfolded old-style paper map with mountains and rivers drawn on it"
+    },
+    {
+     "id": "geographie-kompass",
+     "wort": "der Kompass",
+     "motiv": "a round brass compass with a red needle"
+    },
+    {
+     "id": "geographie-berg",
+     "wort": "der Berg",
+     "motiv": "a single tall mountain with a snowy peak and green slopes"
+    },
+    {
+     "id": "geographie-vulkan",
+     "wort": "der Vulkan",
+     "motiv": "a volcano cone with a small cloud of smoke and a little glowing lava at the top"
+    },
+    {
+     "id": "geographie-insel",
+     "wort": "die Insel",
+     "motiv": "a small tropical island with a palm tree surrounded by turquoise water"
+    },
+    {
+     "id": "geographie-wueste",
+     "wort": "die Wüste",
+     "motiv": "a sandy desert with golden dunes and one cactus under a clear sky"
+    },
+    {
+     "id": "geographie-meer",
+     "wort": "das Meer",
+     "motiv": "the open sea with blue waves under a light sky, no land"
+    },
+    {
+     "id": "geographie-strand",
+     "wort": "der Strand",
+     "motiv": "a sandy beach with a sand castle, bucket and spade at the water's edge"
+    },
+    {
+     "id": "geographie-stadt",
+     "wort": "die Stadt",
+     "motiv": "a skyline of a city with tall buildings and houses close together"
+    },
+    {
+     "id": "geographie-dorf",
+     "wort": "das Dorf",
+     "motiv": "a small village with a few houses with red roofs and a little church among green fields"
+    },
+    {
+     "id": "geographie-bruecke",
+     "wort": "die Brücke",
+     "motiv": "a stone arch bridge over a small river"
+    },
+    {
+     "id": "geographie-schloss",
+     "wort": "das Schloss",
+     "motiv": "a fairy-tale castle with towers and flags on a small hill"
+    },
+    {
+     "id": "geographie-luxemburg",
+     "wort": "Luxemburg",
+     "motiv": "the flag of Luxembourg waving: three horizontal stripes, red on top, white in the middle, light sky blue at the bottom"
+    },
+    {
+     "id": "geographie-deutschland",
+     "wort": "Deutschland",
+     "motiv": "the flag of Germany waving: three horizontal stripes, black on top, red in the middle, gold at the bottom"
+    },
+    {
+     "id": "geographie-frankreich",
+     "wort": "Frankreich",
+     "motiv": "the flag of France waving: three vertical stripes, blue on the left (hoist), white in the middle, red on the right"
+    },
+    {
+     "id": "geographie-schottland",
+     "wort": "Schottland",
+     "motiv": "the flag of Scotland waving: a white diagonal cross (saltire, X-shape) on a blue background"
+    }
+   ]
+  },
+  {
+   "id": "fahrzeuge",
+   "name": "Fahrzeuge",
+   "woerter": [
+    {
+     "id": "fahrzeuge-auto",
+     "wort": "das Auto",
+     "motiv": "a small red family car, side view"
+    },
+    {
+     "id": "fahrzeuge-bus",
+     "wort": "der Bus",
+     "motiv": "a yellow city bus, side view"
+    },
+    {
+     "id": "fahrzeuge-zug",
+     "wort": "der Zug",
+     "motiv": "a red passenger train with two carriages on tracks, side view"
+    },
+    {
+     "id": "fahrzeuge-fahrrad",
+     "wort": "das Fahrrad",
+     "motiv": "a children's bicycle, side view"
+    },
+    {
+     "id": "fahrzeuge-flugzeug",
+     "wort": "das Flugzeug",
+     "motiv": "a white passenger airplane flying, side view"
+    },
+    {
+     "id": "fahrzeuge-schiff",
+     "wort": "das Schiff",
+     "motiv": "a large white cruise ship on a little bit of water, side view"
+    },
+    {
+     "id": "fahrzeuge-boot",
+     "wort": "das Boot",
+     "motiv": "a small wooden sailboat with a white sail on a little bit of water"
+    },
+    {
+     "id": "fahrzeuge-rakete",
+     "wort": "die Rakete",
+     "motiv": "a white-and-red space rocket lifting off with a small flame"
+    },
+    {
+     "id": "fahrzeuge-traktor",
+     "wort": "der Traktor",
+     "motiv": "a green farm tractor with big rear wheels, side view"
+    },
+    {
+     "id": "fahrzeuge-hubschrauber",
+     "wort": "der Hubschrauber",
+     "motiv": "a red-and-white helicopter flying, side view"
+    },
+    {
+     "id": "fahrzeuge-feuerwehr",
+     "wort": "die Feuerwehr",
+     "motiv": "a red fire engine truck with a ladder, side view"
+    },
+    {
+     "id": "fahrzeuge-roller",
+     "wort": "der Roller",
+     "motiv": "a children's kick scooter, side view"
+    },
+    {
+     "id": "fahrzeuge-laster",
+     "wort": "der Laster",
+     "motiv": "a large delivery truck (lorry) with a box trailer, side view"
+    }
+   ]
+  }
+ ]
+}
