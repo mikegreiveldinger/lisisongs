@@ -408,20 +408,69 @@ const SHOW = {
     trost:'Zählen lernt man Schritt für Schritt. Wir zählen gleich nochmal zusammen.'}
 };
 
+/* ---------- Sprache: baue.py setzt 'de' oder 'en' ---------- */
+const SPRACHE = 'de';
+const EN = SPRACHE==='en';
+const T = (de,en) => EN ? en : de;
+const EN_WORT = {
+  Hund:'dog',Katze:'cat',Maus:'mouse',Pferd:'horse',Kuh:'cow',Schwein:'pig',Huhn:'hen',Ente:'duck',Fisch:'fish',Vogel:'bird',Hase:'hare',
+  'Bär':'bear',Schaf:'sheep',Frosch:'frog','Eichhörnchen':'squirrel',Eule:'owl',
+  Apfel:'apple',Banane:'banana',Brot:'bread','Käse':'cheese',Ei:'egg',Milch:'milk',Erdbeere:'strawberry',Karotte:'carrot',Kuchen:'cake',Eis:'ice cream',
+  Birne:'pear',Tomate:'tomato','Kürbis':'pumpkin',Suppe:'soup',Brezel:'pretzel',
+  Rose:'rose',Tulpe:'tulip',Sonnenblume:'sunflower',Kaktus:'cactus',Baum:'tree',Tanne:'fir tree',Palme:'palm tree',Kleeblatt:'clover',Blatt:'leaf',
+  Keimling:'seedling',Kastanie:'chestnut',Seerose:'water lily','Ähre':'wheat','Gänseblümchen':'daisy','Blumenstrauß':'bouquet',
+  'Marienkäfer':'ladybird',Biene:'bee',Schmetterling:'butterfly',Schnecke:'snail',Ameise:'ant',Spinne:'spider',Wurm:'worm',Nest:'nest',Feder:'feather',
+  Stein:'stone',Holz:'wood',Muschel:'shell',Pilz:'mushroom',Feuer:'fire',
+  Sonne:'sun',Regen:'rain',Schnee:'snow',Wolke:'cloud',Wind:'wind',Gewitter:'thunderstorm',Blitz:'lightning',Regenbogen:'rainbow',Nebel:'fog',Sturm:'tornado',
+  Schneemann:'snowman',Regenschirm:'umbrella','heiß':'hot',warm:'warm','kühl':'cool',kalt:'cold',
+  Schal:'scarf',Handschuh:'glove',Jacke:'jacket',Hose:'trousers',Kleid:'dress',Schuh:'shoe',Stiefel:'boot',Socke:'sock',Hut:'hat','T-Shirt':'T-shirt',
+  Brille:'glasses',Hemd:'shirt',Kappe:'cap',Badeanzug:'swimsuit',
+  Auge:'eye',Ohr:'ear',Nase:'nose',Mund:'mouth',Hand:'hand','Fuß':'foot',Bein:'leg',Zahn:'tooth',Arm:'arm',Zunge:'tongue',Daumen:'thumb',Herz:'heart',
+  Haus:'house','Tür':'door',Bett:'bed',Stuhl:'chair',Lampe:'lamp',Uhr:'clock','Schlüssel':'key',Sofa:'sofa',Ball:'ball',Teddy:'teddy',Tasse:'cup',
+  'Löffel':'spoon',Kerze:'candle',Fenster:'window',
+  Schule:'school',Lehrerin:'teacher',Bleistift:'pencil',Wachsmalstift:'crayon',Pinsel:'paintbrush',Schere:'scissors',Lineal:'ruler',Heft:'notebook',
+  Buch:'book',Schulranzen:'school bag',Computer:'computer',Glocke:'bell',Kuli:'pen','Büroklammer':'paper clip',Mikroskop:'microscope',Papier:'paper',
+  Urkunde:'certificate',
+  Erde:'Earth',Landkarte:'map',Kompass:'compass',Berg:'mountain',Vulkan:'volcano',Insel:'island','Wüste':'desert',Meer:'sea',Strand:'beach',Stadt:'city',
+  Dorf:'village','Brücke':'bridge',Schloss:'castle',Luxemburg:'Luxembourg',Deutschland:'Germany',Frankreich:'France',Schottland:'Scotland',
+  Auto:'car',Bus:'bus',Zug:'train',Fahrrad:'bicycle',Flugzeug:'plane',Schiff:'ship',Boot:'boat',Rakete:'rocket',Traktor:'tractor',Hubschrauber:'helicopter',
+  Feuerwehr:'fire engine',Roller:'scooter',Laster:'lorry',
+  rot:'red',blau:'blue',gelb:'yellow','grün':'green',orange:'orange',lila:'purple',rosa:'pink',braun:'brown',schwarz:'black','weiß':'white',grau:'grey',
+  eins:'one',zwei:'two',drei:'three',vier:'four','fünf':'five',sechs:'six',sieben:'seven',acht:'eight',neun:'nine',zehn:'ten'
+};
+const EN_THEMA = {tiere:'Animals',essen:'Food',pflanzen:'Plants',natur:'Nature',wetter:'Weather',kleidung:'Clothes',koerper:'My body',
+  zuhause:'At home',schule:'School',geographie:'Geography',fahrzeuge:'Vehicles',farben:'Colours',zahlen:'Numbers'};
+const EN_SHOW = {
+  tiere:{titel:'Animal expert!',text:'All the animals are having a parade for you!',trost:'Even a little chick has to learn to walk. Let’s practise the animals together again.'},
+  essen:{titel:'Yummy learning!',text:'It’s raining treats, just for you!',trost:'Cooking takes practice, and so do words. Shall we try again?'},
+  pflanzen:{titel:'Everything is blooming!',text:'A whole garden is growing for you!',trost:'Even the smallest plant grows a little every day. Just like you.'},
+  natur:{titel:'Nature explorer!',text:'Butterflies, bees and beetles are flying to you!',trost:'A snail is slow, but it still gets there. You can do it too!'},
+  wetter:{titel:'Sunshine for you!',text:'After the rain comes a rainbow, just for you!',trost:'After the rain, the sun always comes out. Come on, let’s practise again.'},
+  kleidung:{titel:'Fashion star!',text:'Your clothes are dancing in a circle around you!',trost:'Sometimes a button goes in the wrong hole. One more try?'},
+  koerper:{titel:'Super from head to toe!',text:'Everyone is clapping for you!',trost:'Your head has learned a lot today. It will go even better in a moment.'},
+  zuhause:{titel:'You know your way around!',text:'Your home is shining with joy!',trost:'You’re never alone at home. Let’s keep practising together.'},
+  schule:{titel:'Top of the class!',text:'Lisi is giving you a certificate!',trost:'At school you learn something new every day. You’re on a great path!'},
+  geographie:{titel:'World explorer!',text:'You’re travelling all the way around the world!',trost:'Even great explorers get lost sometimes. We’ll find the way together.'},
+  fahrzeuge:{titel:'Full speed!',text:'All the vehicles are doing a lap of honour for you!',trost:'Even racing drivers practise every day. Shall we start another round?'},
+  farben:{titel:'All the colours!',text:'Lisi is painting you a picture full of colourful splashes!',trost:'Even painters mix the wrong colour sometimes. One more try?'},
+  zahlen:{titel:'Number hero!',text:'One, two, three: a firework of numbers!',trost:'You learn to count step by step. Let’s count together again.'}
+};
+if(EN){ RAW.forEach(t=>{ t.name=EN_THEMA[t.id]; Object.assign(SHOW[t.id], EN_SHOW[t.id]); }); }
+
 const slug = w => w.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const TOPICS = RAW.map((t,ti)=>({...t, farbe:FARBEN[ti%6], words:t.words.map(([a,w,x],i)=>{
-  const it={id:t.id+'-'+slug(w), a, w};
+  const it={id:t.id+'-'+slug(w), a:EN?null:a, w:EN?EN_WORT[w]:w, de:w};
   if(t.id==='farben') it.c=x; else if(t.id==='zahlen') it.n=x;
   else if(/^T-?\d+$/.test(x)) it.th=+x.slice(1); else it.e=x;
   return it;
 })}));
 
 const GAMES = [
-  {id:'hoeren', bild:'finger', name:'Hören und tippen', desc:'Lisi sagt ein Wort. Tipp auf das richtige Bild.'},
-  {id:'lesen', bild:'lupe', name:'Wort finden', desc:'Welches Wort gehört zum Bild?'},
+  {id:'hoeren', bild:'finger', name:T('Hören und tippen','Listen and tap'), desc:T('Lisi sagt ein Wort. Tipp auf das richtige Bild.','Lisi says a word. Tap the right picture.')},
+  {id:'lesen', bild:'lupe', name:T('Wort finden','Find the word'), desc:T('Welches Wort gehört zum Bild?','Which word goes with the picture?')},
   {id:'artikel', bild:'denkt', name:'Der, die oder das?', desc:'Welcher Begleiter passt?', nouns:true},
-  {id:'buchstaben', bild:'rolle', name:'Buchstaben legen', desc:'Leg das Wort Buchstabe für Buchstabe.'},
-  {id:'memory', bild:'krone', name:'Memory', desc:'Finde Bild und Wort, die zusammengehören.'}
+  {id:'buchstaben', bild:'rolle', name:T('Buchstaben legen','Spell the word'), desc:T('Leg das Wort Buchstabe für Buchstabe.','Build the word letter by letter.')},
+  {id:'memory', bild:'krone', name:T('Memory','Memory'), desc:T('Finde Bild und Wort, die zusammengehören.','Find the picture and word that belong together.')}
 ];
 /* Wörter, die sich zu ähnlich sehen oder Oberbegriffe voneinander sind. Sie erscheinen nie gleichzeitig als Antwort
    und nie auf derselben Memory-Kartenrunde. */
@@ -437,14 +486,14 @@ const AEHNLICH = [
   ['Spinne','Ameise','Marienkäfer'], ['Holz','Stein'],
   ['rot','rosa'], ['weiß','grau']
 ];
-const aehnlich = (a,b) => a!==b && AEHNLICH.some(g=>g.includes(a.w)&&g.includes(b.w));
+const aehnlich = (a,b) => a!==b && AEHNLICH.some(g=>g.includes(a.de)&&g.includes(b.de));
 const nouns = t => t.words.filter(w=>w.a);
 const gamesFor = t => GAMES.filter(g=>!(g.nouns && nouns(t).length<6));
 
 /* ---------- Speicher ---------- */
 const store = {
-  get(k,d){ try{ const v=localStorage.getItem('lisi-'+k); return v?JSON.parse(v):d }catch(e){ return d } },
-  set(k,v){ try{ localStorage.setItem('lisi-'+k, JSON.stringify(v)) }catch(e){} }
+  get(k,d){ try{ const v=localStorage.getItem((EN?'lisi-en-':'lisi-')+k); return v?JSON.parse(v):d }catch(e){ return d } },
+  set(k,v){ try{ localStorage.setItem((EN?'lisi-en-':'lisi-')+k, JSON.stringify(v)) }catch(e){} }
 };
 let progress = store.get('runden12', {});   // {thema: {spiel: beste Sternzahl 0–12}}
 let settings = store.get('settings', {sound:true, caps:false});
@@ -457,8 +506,9 @@ let voice=null;
 function pickVoice(){
   try{
     const vs=speechSynthesis.getVoices();
-    voice = vs.find(v=>/^de[-_]DE/i.test(v.lang) && /Anna|Petra|Helena|Katja|Marlene|Vicki|Google/i.test(v.name))
-         || vs.find(v=>/^de/i.test(v.lang)) || null;
+    voice = EN
+      ? (vs.find(v=>/^en[-_]GB/i.test(v.lang) && /Kate|Serena|Stephanie|Martha|Google|Female/i.test(v.name)) || vs.find(v=>/^en[-_]GB/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null)
+      : (vs.find(v=>/^de[-_]DE/i.test(v.lang) && /Anna|Petra|Helena|Katja|Marlene|Vicki|Google/i.test(v.name)) || vs.find(v=>/^de/i.test(v.lang)) || null);
   }catch(e){}
 }
 if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
@@ -468,7 +518,7 @@ function say(text){
     speechSynthesis.cancel();
     setTimeout(()=>{
       const u=new SpeechSynthesisUtterance(text);
-      u.lang='de-DE'; if(voice) u.voice=voice; u.rate=.82; u.pitch=1.15;
+      u.lang=EN?'en-GB':'de-DE'; if(voice) u.voice=voice; u.rate=.82; u.pitch=1.15;
       speechSynthesis.speak(u);
     },60);
   }catch(e){}
@@ -539,12 +589,16 @@ function pic(it){
   return em(it.e);
 }
 const artColor = a => a ? `var(--${a})` : 'var(--orange)';
-const punkte = n => `<span class="punkte${n?'':' leer'}" aria-label="${n} von ${RUNDE} Sternen"><img src="${IMG.stern}" alt="">${n}<small>/${RUNDE}</small></span>`;
+const punkte = n => `<span class="punkte${n?'':' leer'}" aria-label="${n} ${T('von','of')} ${RUNDE} ${T('Sternen','stars')}"><img src="${IMG.stern}" alt="">${n}<small>/${RUNDE}</small></span>`;
 const bunt = s => [...s].map(ch=>ch===' '?' ':`<span>${ch}</span>`).join('');
 const back = label => `<button class="pille" id="back"><img class="finger links" src="${IMG.finger}" alt=""> ${label}</button>`;
-const PRAISE = ['Super!','Toll gemacht!','Prima!','Genau!','Klasse!','Richtig!','Spitze!','Wow, du kannst das!'];
-const OOPS = ['Fast! Probier es nochmal.','Hmm, das war es nicht. Noch ein Versuch!','Nicht schlimm. Versuch ein anderes!'];
-const KITZEL = ['Hihi, das kitzelt!','Ich frage immer nach!','Du bist super!','Weiter so!','Hallo du!'];
+const PRAISE = EN ? ['Super!','Well done!','Great!','Exactly!','Brilliant!','That’s right!','Fantastic!','Wow, you can do it!']
+                  : ['Super!','Toll gemacht!','Prima!','Genau!','Klasse!','Richtig!','Spitze!','Wow, du kannst das!'];
+const OOPS = EN ? ['Almost! Try again.','Hmm, that wasn’t it. One more try!','Never mind. Try another one!']
+                : ['Fast! Probier es nochmal.','Hmm, das war es nicht. Noch ein Versuch!','Nicht schlimm. Versuch ein anderes!'];
+const KITZEL = EN ? ['Hee hee, that tickles!','I always ask questions!','You’re super!','Keep going!','Hello you!']
+                  : ['Hihi, das kitzelt!','Ich frage immer nach!','Du bist super!','Weiter so!','Hallo du!'];
+const TITEL = T('Lisis Wörterwelt','Lisi’s Word World');
 function applySettings(){ document.body.classList.toggle('caps', !!settings.caps); }
 applySettings();
 
@@ -565,30 +619,30 @@ function home(){
   const n = totalStars(), max = TOPICS.length*RUNDE;
   app.innerHTML = `
     <div class="kopf">
-      <span class="marke"><img src="${IMG.logo}" alt=""><span><b>Lisis</b> Wörterwelt</span></span>
+      <span class="marke"><img src="${IMG.logo}" alt=""><span>${T('<b>Lisis</b> Wörterwelt','<b>Lisi’s</b> Word World')}</span></span>
       <span class="schalter">
-        <span class="pille sternzahl" title="Deine Sterne"><img src="${IMG.stern}" alt="">${n}<span style="color:var(--sanft);font-weight:600">/ ${max}</span></span>
-        <button class="pille" id="t-caps" aria-pressed="${!!settings.caps}" title="Großbuchstaben">${settings.caps?'ABC':'Abc'}</button>
-        <button class="pille" id="t-sound" aria-pressed="${!!settings.sound}" aria-label="Ton">${LAUT_KLEIN(settings.sound)}</button>
+        <span class="pille sternzahl" title="${T('Deine Sterne','Your stars')}"><img src="${IMG.stern}" alt="">${n}<span style="color:var(--sanft);font-weight:600">/ ${max}</span></span>
+        <button class="pille" id="t-caps" aria-pressed="${!!settings.caps}" title="${T('Großbuchstaben','Capital letters')}">${settings.caps?'ABC':'Abc'}</button>
+        <button class="pille" id="t-sound" aria-pressed="${!!settings.sound}" aria-label="${T('Ton','Sound')}">${LAUT_KLEIN(settings.sound)}</button>
       </span>
     </div>
-    <h1 class="titel" aria-label="Lisis Wörterwelt">${bunt('Lisis Wörterwelt')}</h1>
-    <p class="unter">Hören, lesen und spielen mit deutschen Wörtern</p>
+    <h1 class="titel" aria-label="${TITEL}">${bunt(TITEL)}</h1>
+    <p class="unter">${T('Hören, lesen und spielen mit deutschen Wörtern','Listen, read and play with English words')}</p>
     <div class="hero">
       ${lisi('happy','rein')}
-      <div class="bubble"><b>Hallo, ich bin Lisi!</b>Ich frage immer nach. Komm, wir lernen zusammen neue Wörter. Wähl ein Thema!</div>
+      <div class="bubble"><b>${T('Hallo, ich bin Lisi!','Hello, I’m Lisi!')}</b>${T('Ich frage immer nach. Komm, wir lernen zusammen neue Wörter. Wähl ein Thema!','I always ask questions. Come on, let’s learn new words together. Choose a topic!')}</div>
     </div>
-    <span class="etikett" style="--f:var(--orange)">Themen</span>
+    <span class="etikett" style="--f:var(--orange)">${T('Themen','Topics')}</span>
     <div class="topics">
       ${TOPICS.map(t=>{ const s=topicStars(t); return `
         <button class="tile topic" data-t="${t.id}" style="--f:${t.farbe}">
           ${em(t.icon,'big')}
           <h3>${t.name}</h3>
           <span class="meter"><i style="width:${Math.round(s/RUNDE*100)}%"></i></span>
-          <small>${s} von ${RUNDE} Sternen</small>
+          <small>${s} ${T('von','of')} ${RUNDE} ${T('Sternen','stars')}</small>
         </button>`}).join('')}
     </div>
-    <div class="fuss">Lisi fragt nach · Lisis Wörterwelt</div>`;
+    <div class="fuss">${T('Lisi fragt nach','Lisi asks why')} · ${TITEL}</div>`;
   app.querySelectorAll('.topic').forEach(b=>b.onclick=()=>topicView(TOPICS.find(t=>t.id===b.dataset.t)));
   $('#t-caps').onclick=()=>{ settings.caps=!settings.caps; store.set('settings',settings); applySettings(); home(); };
   $('#t-sound').onclick=()=>{ settings.sound=!settings.sound; store.set('settings',settings); home(); if(settings.sound) sfx.good(); };
@@ -600,15 +654,15 @@ function topicView(t){
   app.style.setProperty('--f', t.farbe);
   const best=topicStars(t);
   app.innerHTML = `
-    <div class="head">${back('Alle Themen')}</div>
+    <div class="head">${back(T('Alle Themen','All topics'))}</div>
     <div class="hero">
       ${lisi('look')}
-      <div class="bubble"><b>${em(t.icon,'ico')} ${t.name}</b>${t.words.length} Wörter warten auf dich. Jede Runde hat ${RUNDE} Aufgaben. ${best?`Dein bestes Ergebnis: ${best} Sterne.`:'Was wollen wir spielen?'}</div>
+      <div class="bubble"><b>${em(t.icon,'ico')} ${t.name}</b>${EN?`${t.words.length} words are waiting for you. Every round has ${RUNDE} tasks. ${best?`Your best result: ${best} stars.`:'What shall we play?'}`:`${t.words.length} Wörter warten auf dich. Jede Runde hat ${RUNDE} Aufgaben. ${best?`Dein bestes Ergebnis: ${best} Sterne.`:'Was wollen wir spielen?'}`}</div>
     </div>
     <div class="games">
       <button class="tile game" data-g="woerter">
         <span class="gi"><img src="${IMG.buch}" alt=""></span>
-        <span class="gt"><h3>Alle Wörter ansehen</h3><p>Tipp auf ein Bild und hör zu.</p></span>
+        <span class="gt"><h3>${T('Alle Wörter ansehen','See all the words')}</h3><p>${T('Tipp auf ein Bild und hör zu.','Tap a picture and listen.')}</p></span>
       </button>
       ${gamesFor(t).map(g=>`
         <button class="tile game" data-g="${g.id}">
@@ -624,7 +678,7 @@ function topicView(t){
 function wordList(t){
   hush();
   app.innerHTML = `
-    <div class="head">${back(t.name)}<h2>Alle Wörter</h2></div>
+    <div class="head">${back(t.name)}<h2>${T('Alle Wörter','All words')}</h2></div>
     ${nouns(t).length?`<div class="legend"><span style="--c:var(--der)">der</span><span style="--c:var(--die)">die</span><span style="--c:var(--das)">das</span></div>`:''}
     <div class="wordgrid">
       ${t.words.map(it=>`
@@ -657,8 +711,8 @@ function startGame(t,gid,fokus=[]){
   app.innerHTML = `
     <div class="play">
       <div class="topbar">
-        <button class="tile zu" id="quit" aria-label="Spiel beenden">✕</button>
-        <div class="progress" role="progressbar" aria-label="Fortschritt"><i id="bar"></i></div>
+        <button class="tile zu" id="quit" aria-label="${T('Spiel beenden','End game')}">✕</button>
+        <div class="progress" role="progressbar" aria-label="${T('Fortschritt','Progress')}"><i id="bar"></i></div>
         <span class="stand" id="stand">0/${RUNDE}</span>
       </div>
       <div class="stage" id="stage"></div>
@@ -700,19 +754,19 @@ function wrong(el){
 }
 function right(){
   G.busy=true; sfx.good(); if(!G.wrongNow) G.correct++; G.done++; bar();
-  talk(G.wrongNow?'Jetzt hast du es! Weiter geht es.':rnd(PRAISE),'cheer');
+  talk(G.wrongNow?T('Jetzt hast du es! Weiter geht es.','Now you’ve got it! Let’s go on.'):rnd(PRAISE),'cheer');
   later(()=>G&&say(spoken(G.cur)), 250);
   later(()=>{ if(G) next(); }, 1500);
 }
-const speakBtn = (cls='') => `<button class="speak ${cls}" id="replay" aria-label="Nochmal hören">${LAUT}</button>`;
+const speakBtn = (cls='') => `<button class="speak ${cls}" id="replay" aria-label="${T('Nochmal hören','Listen again')}">${LAUT}</button>`;
 
 function qHoeren(){
   const c=G.cur, opts=shuffle([c,...pick(G.t.words,3,c)]);
   $('#stage').innerHTML = `
     ${speakBtn()}
-    <div class="task">Was hörst du?</div>
-    <div class="grid4">${opts.map(o=>`<button class="tile choice pop" data-id="${o.id}" aria-label="Bild">${pic(o)}</button>`).join('')}</div>`;
-  talk('Hör gut zu und tipp auf das Bild.','happy');
+    <div class="task">${T('Was hörst du?','What do you hear?')}</div>
+    <div class="grid4">${opts.map(o=>`<button class="tile choice pop" data-id="${o.id}" aria-label="${T('Bild','Picture')}">${pic(o)}</button>`).join('')}</div>`;
+  talk(T('Hör gut zu und tipp auf das Bild.','Listen carefully and tap the picture.'),'happy');
   const play=()=>say(spoken(c));
   $('#replay').onclick=play; later(play,300);
   $('#stage').querySelectorAll('.choice').forEach(b=>b.onclick=()=>{
@@ -725,9 +779,9 @@ function qLesen(){
   const c=G.cur, opts=shuffle([c,...pick(G.t.words,2,c)]);
   $('#stage').innerHTML = `
     <div class="picbig pop">${pic(c)}</div>
-    <div class="task">Was ist das?</div>
+    <div class="task">${T('Was ist das?','What is it?')}</div>
     <div class="words">${opts.map(o=>`<button class="tile wordbtn wd" data-id="${o.id}">${spoken(o)}</button>`).join('')}</div>`;
-  talk('Lies genau. Welches Wort passt zum Bild?','look');
+  talk(T('Lies genau. Welches Wort passt zum Bild?','Read carefully. Which word goes with the picture?'),'look');
   $('#stage').querySelectorAll('.wordbtn').forEach(b=>b.onclick=()=>{
     if(G.busy||b.disabled) return;
     if(b.dataset.id===c.id){ b.classList.add('ok'); right(); }
@@ -760,7 +814,7 @@ function qBuchstaben(){
     </div>
     <div class="slots wd">${letters.map((ch,i)=>`<span class="slot${isL(ch)?'':' full'}" data-i="${i}">${isL(ch)?'':ch}</span>`).join('')}</div>
     <div class="tiles wd">${tiles.map(ch=>`<button class="tile letter">${ch}</button>`).join('')}</div>`;
-  talk('Hör zu und leg das Wort. Welcher Buchstabe kommt zuerst?','happy');
+  talk(T('Hör zu und leg das Wort. Welcher Buchstabe kommt zuerst?','Listen and build the word. Which letter comes first?'),'happy');
   const play=()=>say(c.w); $('#replay').onclick=play; later(play,300);
   const mark=()=>app.querySelectorAll('.slot').forEach((s,i)=>s.classList.toggle('on',i===pos));
   mark();
@@ -794,11 +848,11 @@ function memoryBoard(nr){
   if(!G) return;
   const words=G.boards[nr], cards=shuffle(words.flatMap(w=>[{w,k:'p'},{w,k:'t'}]));
   let found=0, flops=0, open=[], lock=false;
-  bar(); $('#stand').textContent=`${G.found}/${RUNDE} Paare`;
+  bar(); $('#stand').textContent=`${G.found}/${RUNDE} ${T('Paare','pairs')}`;
   $('#stage').innerHTML = `
-    <div class="task">Kartenrunde ${nr+1} von ${KARTENRUNDEN}: Finde die Paare!</div>
-    <div class="mem fuenf">${cards.map((c,i)=>`<button class="tile card pop" data-i="${i}" aria-label="Karte ${i+1}" style="animation-delay:${i*.04}s"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
-  talk(nr===0?'Dreh zwei Karten um. Passen Bild und Wort zusammen?':'Neue Karten! Du schaffst das.','look');
+    <div class="task">${EN?`Card round ${nr+1} of ${KARTENRUNDEN}: find the pairs!`:`Kartenrunde ${nr+1} von ${KARTENRUNDEN}: Finde die Paare!`}</div>
+    <div class="mem fuenf">${cards.map((c,i)=>`<button class="tile card pop" data-i="${i}" aria-label="${T('Karte','Card')} ${i+1}" style="animation-delay:${i*.04}s"><img class="back" src="${IMG.stern}" alt=""><span class="face wd">${c.k==='p'?pic(c.w):spoken(c.w)}</span></button>`).join('')}</div>`;
+  talk(nr===0?T('Dreh zwei Karten um. Passen Bild und Wort zusammen?','Turn over two cards. Do the picture and word match?'):T('Neue Karten! Du schaffst das.','New cards! You can do it.'),'look');
   const els=[...$('#stage').querySelectorAll('.card')];
   els.forEach(el=>el.onclick=()=>{
     const i=+el.dataset.i, c=cards[i];
@@ -810,7 +864,7 @@ function memoryBoard(nr){
     const [a,b]=open; open=[];
     if(cards[a].w===cards[b].w){
       [a,b].forEach(j=>{els[j].classList.remove('open','pop');void els[j].offsetWidth;els[j].classList.add('done','pop');els[j].disabled=true});
-      found++; G.found++; G.done=G.found; bar(); $('#stand').textContent=`${G.found}/${RUNDE} Paare`;
+      found++; G.found++; G.done=G.found; bar(); $('#stand').textContent=`${G.found}/${RUNDE} ${T('Paare','pairs')}`;
       sfx.good(); talk(rnd(PRAISE),'cheer');
       later(()=>say(spoken(cards[a].w)),300);
       if(found===words.length){
@@ -821,7 +875,7 @@ function memoryBoard(nr){
     } else {
       lock=true; flops++;
       [cards[a].w,cards[b].w].forEach(w=>G.missed.set(w.id,w));
-      later(()=>{ els[a].classList.remove('open'); els[b].classList.remove('open'); lock=false; talk('Merk dir, wo die Karten liegen!','think'); },1100);
+      later(()=>{ els[a].classList.remove('open'); els[b].classList.remove('open'); lock=false; talk(T('Merk dir, wo die Karten liegen!','Remember where the cards are!'),'think'); },1100);
     }
   });
 }
@@ -888,11 +942,11 @@ function sieg(t, gid, score, prev){
     <div class="result sieg">
       <div class="buehne stufe">${lisi('cheer','rein')}<img class="medaille" src="${IMG.medaille}" alt=""></div>
       <h2 class="titel stufe" style="animation-delay:.5s" aria-label="${show.titel}">${bunt(show.titel)}</h2>
-      ${show.fx==='schule'?`<div class="urkunde-karte"><span>Urkunde</span>für tolles Lernen in der Schule<b>${score} von ${RUNDE} Sternen</b></div>`:''}
-      <div class="zaehler stufe" style="animation-delay:.9s"><img src="${IMG.stern}" alt=""><span id="zahl">0</span><small>von ${RUNDE} Sternen</small></div>
-      <div class="bubble stufe" style="animation-delay:1.2s">${score===RUNDE?'Alles richtig! ':''}${show.text}${score>prev&&prev>0?' Neuer Rekord!':''}</div>
+      ${show.fx==='schule'?`<div class="urkunde-karte"><span>${T('Urkunde','Certificate')}</span>${T('für tolles Lernen in der Schule','for great learning at school')}<b>${score} ${T('von','of')} ${RUNDE} ${T('Sternen','stars')}</b></div>`:''}
+      <div class="zaehler stufe" style="animation-delay:.9s"><img src="${IMG.stern}" alt=""><span id="zahl">0</span><small>${T('von','of')} ${RUNDE} ${T('Sternen','stars')}</small></div>
+      <div class="bubble stufe" style="animation-delay:1.2s">${score===RUNDE?T('Alles richtig! ','All correct! '):''}${show.text}${score>prev&&prev>0?T(' Neuer Rekord!',' New record!'):''}</div>
       <div class="actions stufe" style="animation-delay:1.8s">
-        <button class="knopf gruen" id="again">Nochmal spielen</button>
+        <button class="knopf gruen" id="again">${T('Nochmal spielen','Play again')}</button>
         <button class="knopf" id="toTopic"><img class="finger links" src="${IMG.finger}" alt=""> ${t.name}</button>
       </div>
     </div>`;
@@ -900,7 +954,7 @@ function sieg(t, gid, score, prev){
   later(()=>{ img.classList.remove('rein'); img.classList.add('dauerjubel'); }, 900);
   later(()=>{ img.classList.remove('dauerjubel'); }, 5200);
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches) spielFx(fxLayer(), show);
-  sfx.win(); later(()=>say(`${show.titel} ${score} Sterne! ${show.text}`), 500);
+  sfx.win(); later(()=>say(`${show.titel} ${score} ${T('Sterne','stars')}! ${show.text}`), 500);
   later(()=>zaehle($('#zahl'), score), 1000);
   later(confetti, 1600);
   $('#again').onclick=()=>startGame(t,gid);
@@ -927,14 +981,14 @@ function trost(t, gid, score, prev, missed){
   app.innerHTML = `
     <div class="result trost">
       <div class="buehne stufe">${lisi('think')}<img class="herz" src="${IMG.herz}" alt="" hidden></div>
-      <h2 class="titel stufe" style="animation-delay:.4s" aria-label="Schön, dass du geübt hast!">${bunt('Schön geübt!')}</h2>
-      <div class="zaehler stufe" style="animation-delay:.8s"><img src="${IMG.stern}" alt=""><span id="zahl">0</span><small>von ${RUNDE} Sternen</small></div>
-      <div class="bubble stufe" style="animation-delay:1.1s">${show.trost} Ab ${SIEG_AB} Sternen wartet eine Überraschung auf dich!${score>prev&&prev>0?' Und du bist schon besser als beim letzten Mal!':''}</div>
-      ${liste.length?`<p class="hinweis stufe" style="animation-delay:1.5s">Diese Wörter üben wir nochmal. Tipp drauf und hör zu:</p>
+      <h2 class="titel stufe" style="animation-delay:.4s" aria-label="${T('Schön, dass du geübt hast!','Well practised!')}">${bunt(T('Schön geübt!','Well practised!'))}</h2>
+      <div class="zaehler stufe" style="animation-delay:.8s"><img src="${IMG.stern}" alt=""><span id="zahl">0</span><small>${T('von','of')} ${RUNDE} ${T('Sternen','stars')}</small></div>
+      <div class="bubble stufe" style="animation-delay:1.1s">${show.trost} ${EN?`With ${SIEG_AB} stars or more, a surprise is waiting for you!`:`Ab ${SIEG_AB} Sternen wartet eine Überraschung auf dich!`}${score>prev&&prev>0?T(' Und du bist schon besser als beim letzten Mal!',' And you’re already better than last time!'):''}</div>
+      ${liste.length?`<p class="hinweis stufe" style="animation-delay:1.5s">${T('Diese Wörter üben wir nochmal. Tipp drauf und hör zu:','Let’s practise these words again. Tap them and listen:')}</p>
       <div class="uebenliste stufe" style="animation-delay:1.7s">${liste.map(it=>`<button class="tile chip wd" data-id="${it.id}">${pic(it)}${spoken(it)}</button>`).join('')}</div>`:''}
       <div class="actions stufe" style="animation-delay:2s">
-        ${liste.length?`<button class="knopf gruen" id="practice">Diese Wörter üben</button>`:''}
-        <button class="knopf${liste.length?'':' gruen'}" id="again">Nochmal spielen</button>
+        ${liste.length?`<button class="knopf gruen" id="practice">${T('Diese Wörter üben','Practise these words')}</button>`:''}
+        <button class="knopf${liste.length?'':' gruen'}" id="again">${T('Nochmal spielen','Play again')}</button>
         <button class="knopf" id="toTopic" style="background:var(--lila);box-shadow:0 5px 0 #7a5fb5"><img class="finger links" src="${IMG.finger}" alt=""> ${t.name}</button>
       </div>
     </div>`;
@@ -945,7 +999,7 @@ function trost(t, gid, score, prev, missed){
     for(let i=0;i<5;i++){ const s=span('schweben',`<img src="${IMG.herz}" alt="">`,{'--d':R(6,8)+'s','--v':R(1,4)+'s','--w':R(-8,8)+'vw','--s':R(30,46)+'px'}); s.style.left=R(4,88)+'vw'; f.appendChild(s); }
     trostFx(f, show.trostFx);
   }
-  sfx.trost(); later(()=>say(`Nicht schlimm! Du hast ${score} Sterne gesammelt. ${show.trost}`), 400);
+  sfx.trost(); later(()=>say(EN?`Never mind! You collected ${score} stars. ${show.trost}`:`Nicht schlimm! Du hast ${score} Sterne gesammelt. ${show.trost}`), 400);
   later(()=>zaehle($('#zahl'), score), 900);
   app.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{ const it=liste.find(w=>w.id===b.dataset.id); say(spoken(it)); b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); });
   const p=$('#practice'); if(p) p.onclick=()=>startGame(t,gid,liste);
