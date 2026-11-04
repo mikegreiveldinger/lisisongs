@@ -92,11 +92,12 @@ h1,h2,h3{font-family:var(--f-titel);font-weight:600;line-height:1.15;margin:0;te
 @keyframes ankoppeln{0%{transform:translateX(-60px);opacity:0}100%{transform:translateX(0);opacity:1}}
 
 /* ---- Gemalter Zug (falls vorhanden) ---- */
-.lok.gemalt{width:170px;height:auto}.lok.gemalt img{display:block;width:100%;height:auto}
-.lok.gemalt .rauch{left:30px;bottom:auto;top:-10px}
-.waggon.gemalt{width:120px;height:auto}.waggon.gemalt .wbild{display:block;width:100%;height:auto}
-.waggon.gemalt .ladung{bottom:auto;top:-30px}
-.waggon.gemalt .etikett{position:absolute;left:8%;right:8%;bottom:34%;text-align:center;font:700 14px var(--f-titel);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5);line-height:1.05}
+.lok.gemalt{width:150px;height:auto;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25))}.lok.gemalt img{display:block;width:100%;height:auto}
+.lok.gemalt .rauch{left:72%;bottom:auto;top:-14px}
+.waggon.gemalt{width:130px;height:auto;filter:drop-shadow(0 3px 2px rgba(0,0,0,.25))}.waggon.gemalt .wbild{display:block;width:100%;height:auto}
+.waggon.gemalt .ladung{bottom:auto;top:-34px}
+.waggon.gemalt .etikett{position:absolute;left:12%;right:12%;top:9%;height:40%;display:grid;place-items:center;text-align:center;font:700 14px var(--f-titel);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.6),0 0 6px rgba(0,0,0,.35);line-height:1.05}
+.land.klein .lok.gemalt{width:120px}.land.klein .waggon.gemalt{width:104px}.land.klein .waggon.gemalt .etikett{font-size:12px}
 
 /* ---- Streckenkarte ---- */
 .schalter{display:flex;gap:8px}
