@@ -17,7 +17,7 @@
   --rot:#ef6f6c; --orange:#f7a541; --gelb:#f2c14e; --gruen:#4fb984; --blau:#4ea8de; --lila:#9b7fd4;
   --marke:#f3bb1c; --marke-dunkel:#d99a00; --creme:#fff4dc;
   --gut:#e3f6ea; --falsch:#fde8e8;
-  --der:#2f7fb3; --die:#d9504c; --das:#33946a; --a:#2f7fb3; --an:#d9504c; --un:#2f7fb3; --une:#d9504c;
+  --der:#2f7fb3; --die:#d9504c; --das:#33946a; --a:#2f7fb3; --an:#d9504c; --un:#2f7fb3; --une:#d9504c; --le:#2f7fb3; --la:#d9504c; --lapo:#33946a;
   --blau-schatten:#2f7fb3; --gruen-schatten:#33946a; --gelb-schatten:#c99a10;
   --f-titel:Fredoka,"Trebuchet MS",system-ui,sans-serif;
   --f-text:Andika,"Trebuchet MS",system-ui,sans-serif;
@@ -136,6 +136,10 @@ img.leer{filter:grayscale(1);opacity:.3}
 .art[data-a="der"]{color:var(--der);border-color:#cfe6f6}.art[data-a="die"]{color:var(--die);border-color:#fbd3d2}.art[data-a="das"]{color:var(--das);border-color:#cdeedb}
 .art[data-a="a"]{color:var(--a);border-color:#cfe6f6}.art[data-a="an"]{color:var(--an);border-color:#fbd3d2}
 .art[data-a="un"]{color:var(--un);border-color:#cfe6f6}.art[data-a="une"]{color:var(--une);border-color:#fbd3d2}
+.art[data-a="le"]{color:var(--le);border-color:#cfe6f6}.art[data-a="la"]{color:var(--la);border-color:#fbd3d2}.art[data-a="l’"]{color:var(--lapo);border-color:#cdeedb}
+.regel{background:var(--weiss);border:3px dashed var(--linie);border-radius:18px;padding:10px 14px;font-size:.98rem;line-height:1.35;width:min(100%,440px);display:grid;gap:4px}
+.regel b{font-family:var(--f-titel);font-size:1.15rem;display:inline-block;min-width:1.6em}
+.regel i{color:var(--sanft);font-style:normal;font-size:.9rem}
 .arts.zwei{grid-template-columns:repeat(2,1fr);width:min(100%,300px)}
 .slots{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
 .slot{width:42px;height:54px;border-bottom:5px solid var(--linie);display:grid;place-items:center;font-size:2rem;font-weight:700}
@@ -522,11 +526,23 @@ const FR_SHOW = {
 };
 if(FR){ RAW.forEach(t=>{ t.name=FR_THEMA[t.id]; Object.assign(SHOW[t.id], FR_SHOW[t.id]); }); }
 
+/* Französisch: bestimmter Artikel. le = männlich, la = weiblich, l’ vor Vokal oder stummem h. Mehrzahl (des) und Wörter ohne Artikel fallen weg. */
+const frVokal = w => /^[aeiouyàâäéèêëîïôöùûüœæh]/i.test(w);
+function frBestimmt(w, art){
+  if(art==='un' || art==='une') return frVokal(w) ? 'l’' : (art==='un' ? 'le' : 'la');
+  if(art==='le ') return frVokal(w) ? 'l’' : 'le';
+  if(art==='la ') return frVokal(w) ? 'l’' : 'la';
+  if(art==='l’') return 'l’';
+  return null;
+}
+const bestimmt = it => it.def==='l’' ? 'l’'+it.w : it.def+' '+it.w;
+
 const slug = w => w.toLowerCase().replace(/ä/g,'ae').replace(/ö/g,'oe').replace(/ü/g,'ue').replace(/ß/g,'ss').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const TOPICS = RAW.map((t,ti)=>({...t, farbe:FARBEN[ti%6], words:t.words.map(([a,w,x],i)=>{
   const ew=EN_WORT[w], [fw,fa]=FR_WORT[w]||[w,null];
   const it={id:t.id+'-'+slug(w), a:EN?(a&&!EN_OHNE_ARTIKEL.has(ew)?enArtikel(ew):null):FR?(fa==='un'||fa==='une'?fa:null):a,
     w:EN?ew:FR?fw:w, de:w, vor:FR&&fa&&fa!=='un'&&fa!=='une'?fa:''};
+  if(FR) it.def = frBestimmt(fw, fa);
   if(t.id==='farben') it.c=x; else if(t.id==='zahlen') it.n=x;
   else if(/^T-?\d+$/.test(x)) it.th=+x.slice(1); else it.e=x;
   return it;
@@ -536,6 +552,7 @@ const GAMES = [
   {id:'hoeren', bild:'finger', name:T('Hören und tippen','Listen and tap','Écoute et touche'), desc:T('Lisi sagt ein Wort. Tipp auf das richtige Bild.','Lisi says a word. Tap the right picture.','Lisi dit un mot. Touche la bonne image.')},
   {id:'lesen', bild:'lupe', name:T('Wort finden','Find the word','Trouve le mot'), desc:T('Welches Wort gehört zum Bild?','Which word goes with the picture?','Quel mot va avec l’image ?')},
   {id:'artikel', bild:'denkt', name:T('Der, die oder das?','A or an?','Un ou une ?'), desc:T('Welcher Begleiter passt?','Which little word fits?','Quel petit mot va devant ?'), nouns:true},
+  {id:'bestimmt', bild:'lacht', name:'Le, la ou l’ ?', desc:'le pour les mots masculins, la pour les féminins, l’ devant une voyelle.', nur:'fr'},
   {id:'buchstaben', bild:'rolle', name:T('Buchstaben legen','Spell the word','Écris le mot'), desc:T('Leg das Wort Buchstabe für Buchstabe.','Build the word letter by letter.','Forme le mot lettre par lettre.')},
   {id:'memory', bild:'krone', name:T('Memory','Memory','Memory'), desc:T('Finde Bild und Wort, die zusammengehören.','Find the picture and word that belong together.','Trouve l’image et le mot qui vont ensemble.')}
 ];
@@ -555,7 +572,7 @@ const AEHNLICH = [
 ];
 const aehnlich = (a,b) => a!==b && AEHNLICH.some(g=>g.includes(a.de)&&g.includes(b.de));
 const nouns = t => t.words.filter(w=>w.a);
-const gamesFor = t => GAMES.filter(g=>!(g.nouns && nouns(t).length<6));
+const gamesFor = t => GAMES.filter(g=>!(g.nouns && nouns(t).length<6) && !(g.nur && g.nur!==SPRACHE) && !(g.id==='bestimmt' && t.words.filter(w=>w.def).length<6));
 
 /* ---------- Speicher ---------- */
 const store = {
@@ -790,6 +807,19 @@ function startGame(t,gid,fokus=[]){
   $('#quit').onclick=()=>{ G=null; topicView(t); };
   if(gid==='memory') return memory();
   let pool = gid==='artikel' ? nouns(t) : t.words;
+  if(gid==='bestimmt' && !fokus.length){
+    /* le, la und l’ sollen alle vorkommen: 3 Wörter mit l’, der Rest gemischt le/la – l’-Wörter notfalls aus anderen Themen */
+    const mit = t.words.filter(w=>w.def);
+    let el = mit.filter(w=>w.def==='l’');
+    if(el.length<3) el = el.concat(shuffle(TOPICS.flatMap(x=>x.words).filter(w=>w.def==='l’' && !el.includes(w))));
+    const lela = shuffle(mit.filter(w=>w.def!=='l’'));
+    const runde = []; for(let i=0;i<3;i++) runde.push(el[i%el.length]);
+    for(let i=0;runde.length<RUNDE;i++) runde.push(lela[i%lela.length]);
+    G.queue = shuffle(runde);
+    for(let i=1;i<G.queue.length;i++) if(G.queue[i]===G.queue[i-1]){ const j=(i+2)%G.queue.length; [G.queue[i],G.queue[j]]=[G.queue[j],G.queue[i]]; }
+    return next();
+  }
+  if(gid==='bestimmt') pool = t.words.filter(w=>w.def);
   if(EN && gid==='artikel' && !fokus.length){
     /* Englisch: damit nicht immer "a" richtig ist, kommen 5 von 12 Wörtern mit "an" dazu – wenn nötig aus anderen Themen */
     let an = pool.filter(w=>w.a==='an');
@@ -825,7 +855,7 @@ function next(){
   bar();
   if(!G.queue.length) return finish();
   G.cur=G.queue.shift(); G.wrongNow=false; G.busy=false;
-  ({hoeren:qHoeren, lesen:qLesen, artikel:qArtikel, buchstaben:qBuchstaben})[G.gid]();
+  ({hoeren:qHoeren, lesen:qLesen, artikel:qArtikel, bestimmt:qBestimmt, buchstaben:qBuchstaben})[G.gid]();
 }
 function wrong(el){
   sfx.bad();
@@ -836,7 +866,7 @@ function wrong(el){
 function right(){
   G.busy=true; sfx.good(); if(!G.wrongNow) G.correct++; G.done++; bar();
   talk(G.wrongNow?T('Jetzt hast du es! Weiter geht es.','Now you’ve got it! Let’s go on.','Voilà, tu l’as trouvé ! On continue.'):rnd(PRAISE),'cheer');
-  later(()=>G&&say(spoken(G.cur)), 250);
+  later(()=>G&&say(G.gid==='bestimmt'?bestimmt(G.cur):spoken(G.cur)), 250);
   later(()=>{ if(G) next(); }, 1500);
 }
 const speakBtn = (cls='') => `<button class="speak ${cls}" id="replay" aria-label="${T('Nochmal hören','Listen again','Réécouter')}">${LAUT}</button>`;
@@ -880,6 +910,26 @@ function qArtikel(){
     if(G.busy||b.disabled) return;
     if(b.dataset.a===c.a){
       b.classList.add('ok'); const bl=$('#blank'); bl.textContent=c.a; bl.classList.add('filled'); bl.style.color=artColor(c.a); right();
+    } else { b.classList.add('no'); b.disabled=true; wrong(b); }
+  });
+}
+function qBestimmt(){
+  const c=G.cur;
+  $('#stage').innerHTML = `
+    <div class="regel" aria-label="La règle">
+      <div><b style="color:var(--le)">le</b> pour les mots masculins <i>(un chien → le chien)</i></div>
+      <div><b style="color:var(--la)">la</b> pour les mots féminins <i>(une pomme → la pomme)</i></div>
+      <div><b style="color:var(--lapo)">l’</b> devant a, e, i, o, u, h <i>(l’arbre, l’école)</i></div>
+    </div>
+    <div class="picbig pop" style="width:min(48vw,170px)">${pic(c)}</div>
+    <div class="sentence wd"><span class="blank" id="blank">?</span><span>${c.w}</span></div>
+    <div class="arts">${['le','la','l’'].map(a=>`<button class="tile art wd" data-a="${a}">${a}</button>`).join('')}</div>`;
+  talk('Le, la ou l’ ? Regarde la première lettre !','happy');
+  $('#stage').querySelectorAll('.art').forEach(b=>b.onclick=()=>{
+    if(G.busy||b.disabled) return;
+    if(b.dataset.a===c.def){
+      b.classList.add('ok'); const bl=$('#blank'); bl.textContent=c.def; bl.classList.add('filled');
+      bl.style.color = c.def==='le'?'var(--le)':c.def==='la'?'var(--la)':'var(--lapo)'; right();
     } else { b.classList.add('no'); b.disabled=true; wrong(b); }
   });
 }

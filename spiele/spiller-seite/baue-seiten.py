@@ -126,7 +126,7 @@ francais = seite("Français – Lisi Spiele", "Apprendre le français avec Lisi 
   '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> Tous les jeux</a>',
   hallo("../", "Français", "Bonjour ! Ici, tu apprends des mots français. Écoute, lis et joue !") + f"""
   <div class="raster">
-{kachel("monde-des-mots/", "../kacheln/monde-des-mots.jpg", "Le monde des mots de Lisi", "Écoute, lis et écris des mots français : un ou une, lettres et memory.", '<span class="neu">Nouveau</span>')}
+{kachel("monde-des-mots/", "../kacheln/monde-des-mots.jpg", "Le monde des mots de Lisi", "Écoute, lis et écris des mots français : un ou une, le, la ou l’, lettres et memory.", '<span class="neu">Nouveau</span>')}
   </div>""").replace('<html lang="de">', '<html lang="fr">')
 
 (hier / "index.html").write_text(start, encoding="utf-8")
