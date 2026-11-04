@@ -8,6 +8,12 @@ import base64, json, mimetypes, pathlib, re
 
 hier = pathlib.Path(__file__).parent
 quelle = (hier / "quelle.html").read_text(encoding="utf-8")
+
+# Geräusche aus spiele/klaenge/*.mp3 einbetten (siehe klaenge/aufbereiten.py)
+_klaenge = {k.stem: "data:audio/mpeg;base64," + base64.b64encode(k.read_bytes()).decode()
+            for k in sorted((pathlib.Path(__file__).parent.parent / "klaenge").glob("*.mp3"))}
+quelle = quelle.replace("/*{{KLAENGE}}*/{}", json.dumps(_klaenge))
+print("Geräusche:", ", ".join(_klaenge) or "keine (Ersatz-Piepsen)")
 typen = {".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg"}
 
 def einbetten(m):

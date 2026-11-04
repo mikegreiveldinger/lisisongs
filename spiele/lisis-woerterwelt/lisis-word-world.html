@@ -632,13 +632,28 @@ function tone(freqs, dur=.13, type='sine', gap=.1, vol=.18){
     });
   }catch(e){}
 }
+/* Echte Geräusche (aus spiele/klaenge/, von baue.py eingebettet). Fehlt eines, spielt das Ersatz-Piepsen. */
+const KLAENGE = {};
+const _klang = {};
+function geraeusch(name, ersatz, lautstaerke=1){
+  if(KLAENGE[name]){
+    try{
+      let a=_klang[name]; if(!a){ a=_klang[name]=new Audio(KLAENGE[name]); a.preload='auto'; }
+      const b = a.paused ? a : a.cloneNode();
+      b.volume=lautstaerke; b.currentTime=0;
+      const p=b.play(); if(p && p.catch) p.catch(()=>ersatz&&ersatz());
+      return;
+    }catch(e){}
+  }
+  if(ersatz) ersatz();
+}
 const sfx = {
-  good:()=>tone([660,880],.16,'triangle',.09),
-  bad:()=>tone([220,180],.18,'sine',.12,.14),
-  flip:()=>tone([520],.06,'triangle',0,.08),
+  good:()=>settings.sound && geraeusch('richtig', ()=>tone([660,880],.16,'triangle',.09), .8),
+  bad:()=>settings.sound && geraeusch('nochmal', ()=>tone([220,180],.18,'sine',.12,.14), .7),
+  flip:()=>settings.sound && geraeusch('klick', ()=>tone([520],.06,'triangle',0,.08), .7),
   tick:i=>tone([600+i*25],.07,'triangle',0,.09),
-  win:()=>tone([523,659,784,1047,784,1047,1319],.24,'triangle',.13),
-  trost:()=>tone([392,440,523,659],.32,'sine',.22,.14)
+  win:()=>settings.sound && geraeusch('jubel', ()=>tone([523,659,784,1047,784,1047,1319],.24,'triangle',.13), .9),
+  trost:()=>settings.sound && geraeusch('trost', ()=>tone([392,440,523,659],.32,'sine',.22,.14), .8)
 };
 
 /* ---------- Helfer ---------- */

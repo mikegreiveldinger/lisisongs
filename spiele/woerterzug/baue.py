@@ -17,6 +17,12 @@ import numpy as np
 hier = pathlib.Path(__file__).parent
 ww = hier.parent / "lisis-woerterwelt" / "bilder-gemalt"
 quelle = (hier / "quelle.html").read_text(encoding="utf-8")
+
+# Geräusche aus spiele/klaenge/*.mp3 einbetten (siehe klaenge/aufbereiten.py)
+_klaenge = {k.stem: "data:audio/mpeg;base64," + base64.b64encode(k.read_bytes()).decode()
+            for k in sorted((pathlib.Path(__file__).parent.parent / "klaenge").glob("*.mp3"))}
+quelle = quelle.replace("/*{{KLAENGE}}*/{}", json.dumps(_klaenge))
+print("Geräusche:", ", ".join(_klaenge) or "keine (Ersatz-Piepsen)")
 typen = {".woff2": "font/woff2", ".png": "image/png", ".jpg": "image/jpeg", ".webp": "image/webp"}
 uri = lambda d: f"data:{typen.get(d.suffix) or mimetypes.guess_type(d.name)[0]};base64," + base64.b64encode(d.read_bytes()).decode()
 emojiname = lambda e: "-".join(f"{ord(c):04x}" for c in e if ord(c) != 0xFE0F)

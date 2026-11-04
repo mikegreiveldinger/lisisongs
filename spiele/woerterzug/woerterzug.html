@@ -271,8 +271,29 @@ function ton(freqs, dauer=.14, typ='triangle', abstand=.1, vol=.16){
       g.gain.setValueAtTime(0,s); g.gain.linearRampToValueAtTime(vol,s+.015); g.gain.exponentialRampToValueAtTime(.001,s+dauer); o.connect(g).connect(actx.destination); o.start(s); o.stop(s+dauer+.02); });
   }catch(e){}
 }
-const klang = { klick:()=>ton([520],.06,'triangle',0,.08), gut:()=>ton([660,880],.16), sanft:()=>ton([330,294],.18,'sine',.12,.1),
-  tschu:()=>ton([196,196,262],.12,'square',.16,.06), fanfare:()=>ton([523,659,784,1047,784,1047,1319],.22,'triangle',.13) };
+/* Echte Geräusche (aus spiele/klaenge/, von baue.py eingebettet). Fehlt eines, spielt das Ersatz-Piepsen. */
+const KLAENGE = {};
+const _klang = {};
+function geraeusch(name, ersatz, lautstaerke=1){
+  if(KLAENGE[name]){
+    try{
+      let a=_klang[name]; if(!a){ a=_klang[name]=new Audio(KLAENGE[name]); a.preload='auto'; }
+      const b = a.paused ? a : a.cloneNode();
+      b.volume=lautstaerke; b.currentTime=0;
+      const p=b.play(); if(p && p.catch) p.catch(()=>ersatz&&ersatz());
+      return;
+    }catch(e){}
+  }
+  if(ersatz) ersatz();
+}
+const klang = {
+  klick:()=>geraeusch('klick', ()=>ton([520],.06,'triangle',0,.08), .7),
+  gut:()=>geraeusch('richtig', ()=>ton([660,880],.16), .8),
+  sanft:()=>geraeusch('nochmal', ()=>ton([330,294],.18,'sine',.12,.1), .7),
+  tschu:()=>{ geraeusch('tschu', ()=>ton([196,196,262],.12,'square',.16,.06), .8); setTimeout(()=>geraeusch('ankoppeln', null, .7), 350); },
+  pfiff:()=>geraeusch('pfiff', null, .6),
+  fanfare:()=>geraeusch('jubel', ()=>ton([523,659,784,1047,784,1047,1319],.22,'triangle',.13), .9),
+  geschenk:()=>geraeusch('geschenk', null, .8) };
 
 /* ---------- Landschaft und Zug ---------- */
 function landschaft(l, klein){
@@ -380,7 +401,7 @@ function spiel(l){
     <div class="aufgabe" id="aufgabe"></div>
     <div class="helfer"><img id="nora" src="${FIG.noraLiest}" alt="Nora"><div class="blase" id="blase"></div></div>`;
   $('#zurueck').onclick=start;
-  nora(esc(lv.intro));
+  nora(esc(lv.intro)); klang.pfiff();
   spaeter(naechste, 1600);
 }
 function nora(text, nicken){ const b=$('#blase'); if(!b) return; b.innerHTML=text; b.classList.remove('neu'); void b.offsetWidth; b.classList.add('neu');
@@ -534,7 +555,7 @@ function ueberraschung(){
         <p>${esc(u.text)} ${l===LEVEL.length?T('Du bist an der Endstation angekommen. Die ganze Reise geschafft!','You have reached the last station. You made the whole journey!','Tu es arrivé au terminus. Tout le voyage est réussi !'):T(`Bahnhof ${esc(LEVEL[l-1].station)} geschafft. Der nächste Bahnhof ist jetzt offen!`,`Station ${esc(LEVEL[l-1].station)} done. The next station is now open!`,`Gare ${esc(LEVEL[l-1].station)} réussie. La gare suivante est ouverte !`)}</p>
         <div class="aktionen">${l<LEVEL.length?`<button class="knopf" id="weiter">${T('Weiter zum Bahnhof','On to the station','Vers la gare')} ${esc(LEVEL[l].station)}</button>`:''}<button class="knopf blau" id="nochmal">${T('Noch eine Fahrt','Another ride','Encore un tour')}</button><button class="knopf lila" id="bahnhof">${T('Zur Streckenkarte','To the map','Vers la carte')}</button></div>
       </div></div>`);
-  klang.fanfare(); spaeter(()=>sag(T('Zehn Waggons! ','Ten wagons! ','Dix wagons ! ')+u.text, .85), 600); spaeter(konfetti, 1900);
+  klang.fanfare(); spaeter(klang.geschenk, 1800); spaeter(()=>sag(T('Zehn Waggons! ','Ten wagons! ','Dix wagons ! ')+u.text, .85), 600); spaeter(konfetti, 1900);
   $('#nochmal').onclick=()=>{ $('#ueber').remove(); spiel(l); };
   const w=$('#weiter'); if(w) w.onclick=()=>{ $('#ueber').remove(); spiel(l+1); };
   $('#bahnhof').onclick=()=>{ $('#ueber').remove(); start(); };
