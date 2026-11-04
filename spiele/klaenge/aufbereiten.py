@@ -23,6 +23,9 @@ KLAENGE = {
     "trost":     (2.5, -20, "Trostsequenz (Wörterwelt)"),
 }
 
+# Bei langen Aufnahmen: ab welcher Sekunde der passende Abschnitt beginnt
+AB = {"tschu": 27.6, "klick": 0.33}
+
 def main():
     gemacht = 0
     for name, (laenge, lufs, wofuer) in KLAENGE.items():
@@ -30,7 +33,8 @@ def main():
         if not quellen:
             print(f"–  {name:10} fehlt ({wofuer})"); continue
         q, ziel = quellen[0], hier / f"{name}.mp3"
-        filter_ = (f"silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.02,"
+        ab = AB.get(name, 0)
+        filter_ = (f"atrim=start={ab},asetpts=PTS-STARTPTS,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.02,"
                    f"areverse,silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,areverse,"
                    f"atrim=0:{laenge},afade=t=out:st={max(0, laenge - 0.25)}:d=0.25,"
                    f"loudnorm=I={lufs}:TP=-1.5:LRA=11")
