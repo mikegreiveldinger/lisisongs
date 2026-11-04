@@ -33,7 +33,14 @@ for l in daten["level"]:
     for e in l["eintraege"]:
         if "id" in e and nimm(e["id"], hier / "bilder-gemalt" / f"{e['id']}.webp"): gemalt += 1
         emoji(e.get("emoji")); bild(e.get("bild"))
-    nimm(f"land-{l['nr']}", hier / "landschaften" / f"land-{l['nr']}.jpg", hier / "landschaften" / f"land-{l['nr']}.webp")
+    land = next((hier / "landschaften" / f"land-{l['nr']}.{e}" for e in ("jpg", "webp") if (hier / "landschaften" / f"land-{l['nr']}.{e}").exists()), None)
+    if land:
+        # fürs iPad verkleinern (1200 px breit) und als WebP einbetten
+        from PIL import Image
+        import io
+        im = Image.open(land).convert("RGB"); im.thumbnail((1200, 800), Image.LANCZOS)
+        puffer = io.BytesIO(); im.save(puffer, "WEBP", quality=74, method=6)
+        bilder[f"land-{l['nr']}"] = "data:image/webp;base64," + base64.b64encode(puffer.getvalue()).decode()
 for u in daten["ueberraschungen"]: bild(u["bild"])
 
 def schiene(datei):
