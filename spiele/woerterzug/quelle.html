@@ -324,7 +324,7 @@ function start(){
       ${schatz.length?`<div class="reihe">${schatz.map(s=>bildTag(s.bild)).join('')}</div>`:'<p>Fahre 10 Waggons, dann wartet eine Überraschung von Tian, Malik oder Nora auf dich!</p>'}
     </div>
     <label class="eltern"><input type="checkbox" id="alle" ${stand.alle?'checked':''}> Für Eltern und Lehrkräfte: alle Bahnhöfe öffnen</label>`;
-  const z=$('#zug'); aktuell.eintraege.filter(e=>e.wort).slice(0,3).forEach((a,i)=>z.insertAdjacentHTML('beforeend', waggon(i,a)));
+  const z=$('#zug'); aktuell.eintraege.slice(0,3).forEach((a,i)=>z.insertAdjacentHTML('beforeend', waggon(i,a)));
   app.querySelectorAll('.station').forEach(b=>b.onclick=()=>{
     const nr=+b.dataset.l;
     if(offen(nr)) return spiel(nr);
