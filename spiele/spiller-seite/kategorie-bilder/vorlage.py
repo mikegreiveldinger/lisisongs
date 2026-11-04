@@ -65,3 +65,17 @@ ENGLISCH = GEMEINSAM.replace("var(--bg)","linear-gradient(180deg,#bfe3c6 0%,#e3f
 <img class="logo" src="../../lisis-woerterwelt/marke/lisi-logo.png">
 </div></body></html>"""
 open(sys.argv[1]+"/english.html","w").write(ENGLISCH)
+
+FRANZOESISCH = GEMEINSAM.replace("var(--bg)","linear-gradient(180deg,#d8cdf5 0%,#ece6fb 60%,#fff8ec 100%)") + f"""
+<div class="wiese2"></div><div class="wiese"></div><div class="wolke w1"></div><div class="wolke w2"></div>
+<div class="eyebrow">AVENTURE DE MOTS AVEC LISI</div>
+<h1 style="--gr:190px">{bunt("Français")}</h1>
+<div class="art" style="left:90px;top:410px;background:#2f7fb3">un</div>
+<div class="art" style="left:260px;top:440px;background:#d9504c">une</div>
+<div class="zahl" style="left:430px;top:420px;font-size:92px">ABC</div>
+<div class="karte" style="left:60px;top:640px;transform:rotate(-7deg);--f:#4fb984"><img src="../../lisis-woerterwelt/bilder-gemalt/natur-schnecke.webp"></div>
+<div class="karte" style="left:290px;top:680px;transform:rotate(5deg);--f:#ef6f6c"><img src="../../lisis-woerterwelt/bilder-gemalt/essen-erdbeere.webp"></div>
+<img class="lisi" src="lisi-schritt.png" style="right:40px;bottom:30px;height:580px">
+<img class="logo" src="../../lisis-woerterwelt/marke/lisi-logo.png">
+</div></body></html>"""
+open(sys.argv[1]+"/francais.html","w").write(FRANZOESISCH)

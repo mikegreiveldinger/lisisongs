@@ -36,7 +36,8 @@ h1,h2,h3{font-family:Fredoka,"Trebuchet MS",sans-serif;font-weight:600;line-heig
 .titel span:nth-child(6n+1){color:var(--rot)}.titel span:nth-child(6n+2){color:var(--orange)}.titel span:nth-child(6n+3){color:var(--gruen)}
 .titel span:nth-child(6n+4){color:var(--blau)}.titel span:nth-child(6n+5){color:var(--lila)}.titel span:nth-child(6n+6){color:#e0a800}
 .raster{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;margin-top:12px}
-.raster.zwei{grid-template-columns:repeat(3,minmax(0,340px));justify-content:center;gap:24px}
+.raster.zwei{grid-template-columns:repeat(4,minmax(0,260px));justify-content:center;gap:20px}
+@media (max-width:1000px){.raster.zwei{grid-template-columns:repeat(2,minmax(0,340px))}}
 .kachel{--f:var(--blau);display:flex;flex-direction:column;background:#fff;border:5px solid var(--f);border-radius:28px;overflow:hidden;text-decoration:none;
   box-shadow:0 8px 0 rgba(47,42,68,.07),0 16px 30px rgba(47,42,68,.08);transition:transform .15s}
 .kachel:hover,.kachel:focus-visible{transform:translateY(-4px)}

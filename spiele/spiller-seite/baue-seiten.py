@@ -41,7 +41,8 @@ h1,h2,h3{{font-family:Fredoka,"Trebuchet MS",sans-serif;font-weight:600;line-hei
 .titel span:nth-child(6n+1){{color:var(--rot)}}.titel span:nth-child(6n+2){{color:var(--orange)}}.titel span:nth-child(6n+3){{color:var(--gruen)}}
 .titel span:nth-child(6n+4){{color:var(--blau)}}.titel span:nth-child(6n+5){{color:var(--lila)}}.titel span:nth-child(6n+6){{color:#e0a800}}
 .raster{{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;margin-top:12px}}
-.raster.zwei{{grid-template-columns:repeat(3,minmax(0,340px));justify-content:center;gap:24px}}
+.raster.zwei{{grid-template-columns:repeat(4,minmax(0,260px));justify-content:center;gap:20px}}
+@media (max-width:1000px){{.raster.zwei{{grid-template-columns:repeat(2,minmax(0,340px))}}}}
 .kachel{{--f:var(--blau);display:flex;flex-direction:column;background:#fff;border:5px solid var(--f);border-radius:28px;overflow:hidden;text-decoration:none;
   box-shadow:0 8px 0 rgba(47,42,68,.07),0 16px 30px rgba(47,42,68,.08);transition:transform .15s}}
 .kachel:hover,.kachel:focus-visible{{transform:translateY(-4px)}}
@@ -90,12 +91,13 @@ def kachel(href, bild, titel, text, extra=""):
 zurueck = '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> Alle Spiele</a>'
 zu_lisi = '<a class="pille" href="https://lisi.lu"><img src="marke/symbol-finger.png" alt=""> Zu lisi.lu</a>'
 
-start = seite("Lisi Spiele", "Lisi Spiele: Rechenspiele, Deutsch und Englisch für Kinder von 4 bis 8 Jahren, direkt auf Tablet oder Computer.", "", zu_lisi,
-  hallo("", "Spielen und lernen", "Hallo, ich bin Lisi! Möchtest du rechnen, Deutsch oder Englisch lernen? Tipp auf ein Bild. <i lang=\"en\">Hello! Tap a picture to play.</i>") + f"""
+start = seite("Lisi Spiele", "Lisi Spiele: Rechenspiele, Deutsch, Englisch und Französisch für Kinder von 4 bis 8 Jahren, direkt auf Tablet oder Computer.", "", zu_lisi,
+  hallo("", "Spielen und lernen", "Hallo, ich bin Lisi! Möchtest du rechnen, Deutsch, Englisch oder Französisch lernen? Tipp auf ein Bild. <i lang=\"en\">Hello!</i> <i lang=\"fr\">Bonjour !</i>") + f"""
   <div class="raster zwei">
 {kachel("rechenspiele/", "kacheln/kategorie-rechenspiele.jpg", "Rechenspiele", "Zählen, Plus und Minus, Mal und Geteilt")}
 {kachel("deutsch/", "kacheln/kategorie-deutsch.jpg", "Deutsch", "Wörter hören, lesen und lernen")}
 {kachel("english/", "kacheln/kategorie-english.jpg", "English", "Learn English words with Lisi")}
+{kachel("francais/", "kacheln/kategorie-francais.jpg", "Français", "Apprends des mots français avec Lisi")}
   </div>""")
 
 rechnen = seite("Rechenspiele – Lisi Spiele", "Rechenspiele mit Lisi: Regenbogenreise, Schatzinsel der Zahlen, Karte der Wunder und Perlentaucher.", "../", zurueck,
@@ -120,9 +122,18 @@ english = seite("English – Lisi Spiele", "Learn English with Lisi: Lisi’s Wo
 {kachel("word-world/", "../kacheln/word-world.jpg", "Lisi’s Word World", "Listen, read and spell English words: a or an, letters and memory.", '<span class="neu">New</span>')}
   </div>""").replace('<html lang="de">', '<html lang="en">')
 
+francais = seite("Français – Lisi Spiele", "Apprendre le français avec Lisi : le monde des mots de Lisi, avec écoute, lecture, un ou une, lettres et memory.", "../",
+  '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> Tous les jeux</a>',
+  hallo("../", "Français", "Bonjour ! Ici, tu apprends des mots français. Écoute, lis et joue !") + f"""
+  <div class="raster">
+{kachel("monde-des-mots/", "../kacheln/monde-des-mots.jpg", "Le monde des mots de Lisi", "Écoute, lis et écris des mots français : un ou une, lettres et memory.", '<span class="neu">Nouveau</span>')}
+  </div>""").replace('<html lang="de">', '<html lang="fr">')
+
 (hier / "index.html").write_text(start, encoding="utf-8")
+(hier / "francais").mkdir(exist_ok=True)
+(hier / "francais" / "index.html").write_text(francais, encoding="utf-8")
 (hier / "english").mkdir(exist_ok=True)
 (hier / "english" / "index.html").write_text(english, encoding="utf-8")
 (hier / "rechenspiele" / "index.html").write_text(rechnen, encoding="utf-8")
 (hier / "deutsch" / "index.html").write_text(deutsch, encoding="utf-8")
-print("OK: 4 Seiten gebaut")
+print("OK: 5 Seiten gebaut")

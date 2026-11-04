@@ -1,4 +1,4 @@
-"""Baut lisis-woerterwelt.html (Deutsch) und lisis-word-world.html (Englisch) aus quelle.html.
+"""Baut lisis-woerterwelt.html (Deutsch) lisis-word-world.html (Englisch) und le-monde-des-mots.html (Französisch) aus quelle.html.
 
 Alle {{pfad}}-Platzhalter (Bilder aus marke/, Schriften aus schriften/) werden als data:-URI eingebettet,
 damit das Spiel als einzelne Datei überall läuft: offline, auf dem Tablet, in der Nextcloud.
@@ -29,7 +29,8 @@ gemalt = {p.stem: "data:image/webp;base64," + base64.b64encode(p.read_bytes()).d
 quelle = quelle.replace("/*{{GEMALT}}*/{}", json.dumps(gemalt))
 html = re.sub(r"\{\{([\w./-]+)\}\}", einbetten, quelle)
 # Zwei Sprachen aus derselben Quelle: Deutsch (lisis-woerterwelt.html) und Englisch (lisis-word-world.html)
-for sprache, datei, titel in [("de", "lisis-woerterwelt.html", "Lisis Wörterwelt"), ("en", "lisis-word-world.html", "Lisi’s Word World")]:
+for sprache, datei, titel in [("de", "lisis-woerterwelt.html", "Lisis Wörterwelt"), ("en", "lisis-word-world.html", "Lisi’s Word World"),
+                             ("fr", "le-monde-des-mots.html", "Le monde des mots de Lisi")]:
     text = html.replace("/*SPRACHE*/'de'", f"'{sprache}'").replace("<title>Lisis Wörterwelt</title>", f"<title>{titel}</title>")
     ziel = hier / datei
     ziel.write_text(f"<!doctype html>\n<html lang=\"{sprache}\">\n" + text + "\n</html>\n", encoding="utf-8")
