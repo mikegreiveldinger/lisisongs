@@ -113,7 +113,7 @@ deutsch = seite("Deutsch – Lisi Spiele", "Deutsch lernen mit Lisi: Lisis Wört
   hallo("../", "Deutsch", "Hier lernst du deutsche Wörter. Hören, lesen und spielen!") + f"""
   <div class="raster">
 {kachel("woerterwelt/", "../kacheln/woerterwelt.jpg", "Lisis Wörterwelt", "Deutsche Wörter hören, lesen und legen: der, die, das, Buchstaben und Memory.")}
-{kachel("woerterzug/", "../kacheln/woerterzug.jpg", "Lisi und der Wörterzug", "Silben, Wörter und Sätze bauen: Jedes richtige Wort hängt einen Waggon an.", '<span class="neu">Neu</span>')}
+{kachel("woerterzug/", "../kacheln/woerterzug.jpg", "Lisi und der Wörterzug", "12 Bahnhöfe: Silben, Wörter und Sätze bauen. Jedes richtige Wort hängt einen Waggon an.", '<span class="neu">Neu</span>')}
   </div>""")
 
 english = seite("English – Lisi Spiele", "Learn English with Lisi: Lisi’s Word World with listening, reading, a or an, spelling and memory.", "../",

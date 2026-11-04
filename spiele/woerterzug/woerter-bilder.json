@@ -1,0 +1,583 @@
+{
+ "hinweis": "Motive für die gemalten Wortbilder des Wörterzugs (aus woerter.json erzeugt).",
+ "themen": [
+  {
+   "id": "zug1",
+   "name": "Bahnhof 1: Bauernhof",
+   "woerter": [
+    {
+     "id": "zug-ziege",
+     "wort": "Ziege",
+     "motiv": "a white goat with small horns standing, side view"
+    },
+    {
+     "id": "zug-esel",
+     "wort": "Esel",
+     "motiv": "a grey donkey with long ears standing, side view"
+    },
+    {
+     "id": "zug-ferkel",
+     "wort": "Ferkel",
+     "motiv": "a small pink piglet standing, side view"
+    },
+    {
+     "id": "zug-kueken",
+     "wort": "Küken",
+     "motiv": "a fluffy yellow chick standing, side view"
+    },
+    {
+     "id": "zug-truthahn",
+     "wort": "Truthahn",
+     "motiv": "a turkey with fanned tail feathers standing, side view"
+    },
+    {
+     "id": "zug-scheune",
+     "wort": "Scheune",
+     "motiv": "a red wooden barn with a big door"
+    },
+    {
+     "id": "zug-kaninchen",
+     "wort": "Kaninchen",
+     "motiv": "a brown rabbit sitting, side view"
+    },
+    {
+     "id": "zug-pony",
+     "wort": "Pony",
+     "motiv": "a small brown pony standing, side view"
+    },
+    {
+     "id": "zug-fohlen",
+     "wort": "Fohlen",
+     "motiv": "a young foal with long legs standing, side view"
+    },
+    {
+     "id": "zug-igel",
+     "wort": "Igel",
+     "motiv": "a hedgehog walking, side view"
+    },
+    {
+     "id": "zug-giesskanne",
+     "wort": "Gießkanne",
+     "motiv": "a green metal watering can, side view"
+    },
+    {
+     "id": "zug-schubkarre",
+     "wort": "Schubkarre",
+     "motiv": "a wooden wheelbarrow, side view"
+    },
+    {
+     "id": "zug-heuballen",
+     "wort": "Heuballen",
+     "motiv": "a round golden hay bale"
+    },
+    {
+     "id": "zug-bauer",
+     "wort": "Bauer",
+     "motiv": "a friendly farmer with a straw hat and overalls, full body"
+    }
+   ]
+  },
+  {
+   "id": "zug2",
+   "name": "Bahnhof 2: Gemüsemarkt",
+   "woerter": [
+    {
+     "id": "zug-kirsche",
+     "wort": "Kirsche",
+     "motiv": "two red cherries on one stem"
+    },
+    {
+     "id": "zug-pflaume",
+     "wort": "Pflaume",
+     "motiv": "two purple plums with a leaf"
+    },
+    {
+     "id": "zug-melone",
+     "wort": "Melone",
+     "motiv": "a watermelon with one slice cut out"
+    },
+    {
+     "id": "zug-zitrone",
+     "wort": "Zitrone",
+     "motiv": "a yellow lemon with a leaf"
+    },
+    {
+     "id": "zug-ananas",
+     "wort": "Ananas",
+     "motiv": "a whole pineapple"
+    },
+    {
+     "id": "zug-gurke",
+     "wort": "Gurke",
+     "motiv": "a green cucumber"
+    },
+    {
+     "id": "zug-paprika",
+     "wort": "Paprika",
+     "motiv": "a red bell pepper"
+    },
+    {
+     "id": "zug-zwiebel",
+     "wort": "Zwiebel",
+     "motiv": "a brown onion"
+    },
+    {
+     "id": "zug-kartoffel",
+     "wort": "Kartoffel",
+     "motiv": "two potatoes"
+    },
+    {
+     "id": "zug-trauben",
+     "wort": "Trauben",
+     "motiv": "a bunch of green grapes"
+    },
+    {
+     "id": "zug-erbsen",
+     "wort": "Erbsen",
+     "motiv": "an open pea pod with green peas"
+    },
+    {
+     "id": "zug-radieschen",
+     "wort": "Radieschen",
+     "motiv": "a bunch of red radishes with leaves"
+    },
+    {
+     "id": "zug-pilzkorb",
+     "wort": "Pilzkorb",
+     "motiv": "a wicker basket full of brown mushrooms"
+    },
+    {
+     "id": "zug-honig",
+     "wort": "Honig",
+     "motiv": "a glass jar of golden honey"
+    }
+   ]
+  },
+  {
+   "id": "zug3",
+   "name": "Bahnhof 3: Kleiderschrank",
+   "woerter": [
+    {
+     "id": "zug-pullover",
+     "wort": "Pullover",
+     "motiv": "a red knitted pullover with long sleeves, front view"
+    },
+    {
+     "id": "zug-strumpfhose",
+     "wort": "Strumpfhose",
+     "motiv": "a pair of colorful striped children's tights"
+    },
+    {
+     "id": "zug-mantel",
+     "wort": "Mantel",
+     "motiv": "a long brown winter coat with buttons, front view"
+    },
+    {
+     "id": "zug-bluse",
+     "wort": "Bluse",
+     "motiv": "a light pink blouse with a collar, front view"
+    },
+    {
+     "id": "zug-schlafanzug",
+     "wort": "Schlafanzug",
+     "motiv": "a blue pyjama set with stars, top and trousers"
+    },
+    {
+     "id": "zug-badehose",
+     "wort": "Badehose",
+     "motiv": "colorful swimming trunks"
+    },
+    {
+     "id": "zug-gummistiefel",
+     "wort": "Gummistiefel",
+     "motiv": "a pair of green rubber boots"
+    },
+    {
+     "id": "zug-handtasche",
+     "wort": "Handtasche",
+     "motiv": "a small red handbag"
+    },
+    {
+     "id": "zug-guertel",
+     "wort": "Gürtel",
+     "motiv": "a brown leather belt with a buckle"
+    },
+    {
+     "id": "zug-krawatte",
+     "wort": "Krawatte",
+     "motiv": "a blue tie with dots"
+    },
+    {
+     "id": "zug-sandalen",
+     "wort": "Sandalen",
+     "motiv": "a pair of children's sandals"
+    },
+    {
+     "id": "zug-turnschuhe",
+     "wort": "Turnschuhe",
+     "motiv": "a pair of colorful sports shoes"
+    },
+    {
+     "id": "zug-haarspange",
+     "wort": "Haarspange",
+     "motiv": "a colorful hair clip with a flower"
+    },
+    {
+     "id": "zug-halstuch",
+     "wort": "Halstuch",
+     "motiv": "a red neckerchief with white dots"
+    }
+   ]
+  },
+  {
+   "id": "zug4",
+   "name": "Bahnhof 4: Im Wald",
+   "woerter": [
+    {
+     "id": "zug-wolf",
+     "wort": "Wolf",
+     "motiv": "a grey wolf standing, side view"
+    },
+    {
+     "id": "zug-fuchs",
+     "wort": "Fuchs",
+     "motiv": "a red fox sitting, side view"
+    },
+    {
+     "id": "zug-dachs",
+     "wort": "Dachs",
+     "motiv": "a badger walking, side view"
+    },
+    {
+     "id": "zug-hirsch",
+     "wort": "Hirsch",
+     "motiv": "a red deer stag with big antlers standing, side view"
+    },
+    {
+     "id": "zug-specht",
+     "wort": "Specht",
+     "motiv": "a woodpecker on a tree trunk"
+    },
+    {
+     "id": "zug-rabe",
+     "wort": "Rabe",
+     "motiv": "a black raven standing, side view"
+    },
+    {
+     "id": "zug-zelt",
+     "wort": "Zelt",
+     "motiv": "a small orange tent"
+    },
+    {
+     "id": "zug-moos",
+     "wort": "Moos",
+     "motiv": "a green clump of moss on a stone"
+    },
+    {
+     "id": "zug-farn",
+     "wort": "Farn",
+     "motiv": "a green fern plant"
+    },
+    {
+     "id": "zug-zapfen",
+     "wort": "Zapfen",
+     "motiv": "a brown pine cone"
+    },
+    {
+     "id": "zug-bach",
+     "wort": "Bach",
+     "motiv": "a small stream with stones and clear water"
+    },
+    {
+     "id": "zug-laterne",
+     "wort": "Laterne",
+     "motiv": "a lantern with a warm light"
+    },
+    {
+     "id": "zug-nuss",
+     "wort": "Nuss",
+     "motiv": "a hazelnut"
+    },
+    {
+     "id": "zug-beere",
+     "wort": "Beere",
+     "motiv": "blueberries on a twig"
+    }
+   ]
+  },
+  {
+   "id": "zug5",
+   "name": "Bahnhof 5: Am Bahnhof",
+   "woerter": [
+    {
+     "id": "zug-koffer",
+     "wort": "Koffer",
+     "motiv": "a brown travel suitcase with a handle"
+    },
+    {
+     "id": "zug-waggon",
+     "wort": "Waggon",
+     "motiv": "a red railway passenger carriage, side view"
+    },
+    {
+     "id": "zug-tunnel",
+     "wort": "Tunnel",
+     "motiv": "a railway tunnel entrance in a hill"
+    },
+    {
+     "id": "zug-ballon",
+     "wort": "Ballon",
+     "motiv": "a red balloon on a string"
+    },
+    {
+     "id": "zug-mappe",
+     "wort": "Mappe",
+     "motiv": "a blue folder for papers"
+    },
+    {
+     "id": "zug-wasser",
+     "wort": "Wasser",
+     "motiv": "a glass bottle of water"
+    },
+    {
+     "id": "zug-puppe",
+     "wort": "Puppe",
+     "motiv": "a doll with a red dress"
+    },
+    {
+     "id": "zug-teddy",
+     "wort": "Teddy",
+     "motiv": "a brown teddy bear sitting"
+    },
+    {
+     "id": "zug-kasse",
+     "wort": "Kasse",
+     "motiv": "a ticket counter window at a train station"
+    },
+    {
+     "id": "zug-hammer",
+     "wort": "Hammer",
+     "motiv": "a hammer with a wooden handle"
+    },
+    {
+     "id": "zug-pfiff",
+     "wort": "Pfiff",
+     "motiv": "a silver whistle"
+    },
+    {
+     "id": "zug-sessel",
+     "wort": "Sessel",
+     "motiv": "a comfortable armchair"
+    },
+    {
+     "id": "zug-kanne",
+     "wort": "Kanne",
+     "motiv": "a teapot"
+    },
+    {
+     "id": "zug-himmel",
+     "wort": "Himmel",
+     "motiv": "a blue sky with a little cloud"
+    }
+   ]
+  },
+  {
+   "id": "zug6",
+   "name": "Bahnhof 6: Auf der Wiese",
+   "woerter": [
+    {
+     "id": "zug-wiese",
+     "wort": "Wiese",
+     "motiv": "a green meadow with flowers"
+    },
+    {
+     "id": "zug-fliege",
+     "wort": "Fliege",
+     "motiv": "a fly, side view"
+    },
+    {
+     "id": "zug-spiegel",
+     "wort": "Spiegel",
+     "motiv": "a round mirror with a wooden frame"
+    },
+    {
+     "id": "zug-brief",
+     "wort": "Brief",
+     "motiv": "a closed envelope with a stamp"
+    },
+    {
+     "id": "zug-stier",
+     "wort": "Stier",
+     "motiv": "a brown bull standing, side view"
+    },
+    {
+     "id": "zug-ziel",
+     "wort": "Ziel",
+     "motiv": "a finish line flag with black and white squares"
+    },
+    {
+     "id": "zug-spiel",
+     "wort": "Spiel",
+     "motiv": "a board game with dice"
+    },
+    {
+     "id": "zug-lied",
+     "wort": "Lied",
+     "motiv": "musical notes"
+    },
+    {
+     "id": "zug-knie",
+     "wort": "Knie",
+     "motiv": "a child's knee with a plaster"
+    },
+    {
+     "id": "zug-riese",
+     "wort": "Riese",
+     "motiv": "a friendly giant smiling, full body"
+    },
+    {
+     "id": "zug-fieber",
+     "wort": "Fieber",
+     "motiv": "a thermometer showing fever"
+    },
+    {
+     "id": "zug-kiefer",
+     "wort": "Kiefer",
+     "motiv": "a pine tree"
+    }
+   ]
+  },
+  {
+   "id": "zug7",
+   "name": "Bahnhof 7: In der Stadt",
+   "woerter": [
+    {
+     "id": "zug-baecker",
+     "wort": "Bäcker",
+     "motiv": "a friendly baker with a white hat holding bread"
+    },
+    {
+     "id": "zug-zucker",
+     "wort": "Zucker",
+     "motiv": "sugar cubes in a bowl"
+    },
+    {
+     "id": "zug-dackel",
+     "wort": "Dackel",
+     "motiv": "a dachshund dog standing, side view"
+    },
+    {
+     "id": "zug-wecker",
+     "wort": "Wecker",
+     "motiv": "a red alarm clock"
+    },
+    {
+     "id": "zug-decke",
+     "wort": "Decke",
+     "motiv": "a folded blanket"
+    },
+    {
+     "id": "zug-spatz",
+     "wort": "Spatz",
+     "motiv": "a house sparrow, side view"
+    },
+    {
+     "id": "zug-muetze",
+     "wort": "Mütze",
+     "motiv": "a yellow knitted beanie hat with a pompom"
+    },
+    {
+     "id": "zug-netz",
+     "wort": "Netz",
+     "motiv": "a football goal net"
+    },
+    {
+     "id": "zug-schatz",
+     "wort": "Schatz",
+     "motiv": "a treasure chest with gold coins"
+    },
+    {
+     "id": "zug-pfuetze",
+     "wort": "Pfütze",
+     "motiv": "a puddle with a little splash"
+    },
+    {
+     "id": "zug-matratze",
+     "wort": "Matratze",
+     "motiv": "a mattress"
+    },
+    {
+     "id": "zug-spritze",
+     "wort": "Spritze",
+     "motiv": "a children's toy doctor syringe without needle"
+    }
+   ]
+  },
+  {
+   "id": "zug8",
+   "name": "Bahnhof 8: Am Meer",
+   "woerter": [
+    {
+     "id": "zug-eimer",
+     "wort": "Eimer",
+     "motiv": "a red sand bucket"
+    },
+    {
+     "id": "zug-seil",
+     "wort": "Seil",
+     "motiv": "a coiled rope"
+    },
+    {
+     "id": "zug-schaufel",
+     "wort": "Schaufel",
+     "motiv": "a small plastic sand shovel"
+    },
+    {
+     "id": "zug-taucher",
+     "wort": "Taucher",
+     "motiv": "a diving mask and snorkel"
+    },
+    {
+     "id": "zug-raupe",
+     "wort": "Raupe",
+     "motiv": "a green caterpillar"
+    },
+    {
+     "id": "zug-leuchtturm",
+     "wort": "Leuchtturm",
+     "motiv": "a red and white lighthouse"
+    },
+    {
+     "id": "zug-freunde",
+     "wort": "Freunde",
+     "motiv": "three children holding hands"
+    },
+    {
+     "id": "zug-heu",
+     "wort": "Heu",
+     "motiv": "a pile of hay"
+    },
+    {
+     "id": "zug-kreide",
+     "wort": "Kreide",
+     "motiv": "colorful sidewalk chalk"
+    },
+    {
+     "id": "zug-bauch",
+     "wort": "Bauch",
+     "motiv": "a smiling teddy bear tummy"
+    },
+    {
+     "id": "zug-reise",
+     "wort": "Reise",
+     "motiv": "a compass and a map for a journey"
+    },
+    {
+     "id": "zug-leiter",
+     "wort": "Leiter",
+     "motiv": "a wooden ladder"
+    }
+   ]
+  }
+ ]
+}

@@ -1,85 +1,1387 @@
 {
-  "hinweis": "Wortliste für „Lisi und der Wörterzug“. bild = Name eines gemalten Bildes aus lisis-woerterwelt/bilder-gemalt (ohne .webp) oder ein Emoji. Nach Änderungen: python3 baue.py",
-  "silben": [
-    {"wort": "Apfel", "silben": ["Ap", "fel"], "bild": "essen-apfel"},
-    {"wort": "Kiste", "silben": ["Kis", "te"], "bild": "📦"},
-    {"wort": "Banane", "silben": ["Ba", "na", "ne"], "bild": "essen-banane"},
-    {"wort": "Birne", "silben": ["Bir", "ne"], "bild": "essen-birne"},
-    {"wort": "Tomate", "silben": ["To", "ma", "te"], "bild": "essen-tomate"},
-    {"wort": "Kürbis", "silben": ["Kür", "bis"], "bild": "essen-kuerbis"},
-    {"wort": "Brezel", "silben": ["Bre", "zel"], "bild": "essen-brezel"},
-    {"wort": "Kuchen", "silben": ["Ku", "chen"], "bild": "essen-kuchen"},
-    {"wort": "Karotte", "silben": ["Ka", "rot", "te"], "bild": "essen-karotte"},
-    {"wort": "Erdbeere", "silben": ["Erd", "bee", "re"], "bild": "essen-erdbeere"},
-    {"wort": "Tulpe", "silben": ["Tul", "pe"], "bild": "pflanzen-tulpe"},
-    {"wort": "Palme", "silben": ["Pal", "me"], "bild": "pflanzen-palme"},
-    {"wort": "Kaktus", "silben": ["Kak", "tus"], "bild": "pflanzen-kaktus"},
-    {"wort": "Sonnenblume", "silben": ["Son", "nen", "blu", "me"], "bild": "pflanzen-sonnenblume"},
-    {"wort": "Katze", "silben": ["Kat", "ze"], "bild": "tiere-katze"},
-    {"wort": "Hase", "silben": ["Ha", "se"], "bild": "tiere-hase"},
-    {"wort": "Ente", "silben": ["En", "te"], "bild": "tiere-ente"},
-    {"wort": "Eule", "silben": ["Eu", "le"], "bild": "tiere-eule"},
-    {"wort": "Vogel", "silben": ["Vo", "gel"], "bild": "tiere-vogel"},
-    {"wort": "Eichhörnchen", "silben": ["Eich", "hörn", "chen"], "bild": "tiere-eichhoernchen"},
-    {"wort": "Schnecke", "silben": ["Schne", "cke"], "bild": "natur-schnecke"},
-    {"wort": "Ameise", "silben": ["A", "mei", "se"], "bild": "natur-ameise"},
-    {"wort": "Feder", "silben": ["Fe", "der"], "bild": "natur-feder"},
-    {"wort": "Muschel", "silben": ["Mu", "schel"], "bild": "natur-muschel"},
-    {"wort": "Schmetterling", "silben": ["Schmet", "ter", "ling"], "bild": "natur-schmetterling"},
-    {"wort": "Wolke", "silben": ["Wol", "ke"], "bild": "wetter-wolke"},
-    {"wort": "Regen", "silben": ["Re", "gen"], "bild": "wetter-regen"},
-    {"wort": "Nebel", "silben": ["Ne", "bel"], "bild": "wetter-nebel"},
-    {"wort": "Regenbogen", "silben": ["Re", "gen", "bo", "gen"], "bild": "wetter-regenbogen"},
-    {"wort": "Schneemann", "silben": ["Schnee", "mann"], "bild": "wetter-schneemann"},
-    {"wort": "Jacke", "silben": ["Ja", "cke"], "bild": "kleidung-jacke"},
-    {"wort": "Hose", "silben": ["Ho", "se"], "bild": "kleidung-hose"}
-  ],
-  "woerter": [
-    {"wort": "Sonne", "fokus": "nn", "bild": "wetter-sonne"},
-    {"wort": "Tanne", "fokus": "nn", "bild": "pflanzen-tanne"},
-    {"wort": "Suppe", "fokus": "pp", "bild": "essen-suppe"},
-    {"wort": "Spinne", "fokus": "nn", "bild": "natur-spinne"},
-    {"wort": "Tasse", "fokus": "ss", "bild": "☕"},
-    {"wort": "Ball", "fokus": "ll", "bild": "⚽"},
-    {"wort": "Brille", "fokus": "ll", "bild": "👓"},
-    {"wort": "Schiff", "fokus": "ff", "bild": "🚢"},
-    {"wort": "Butter", "fokus": "tt", "bild": "🧈"},
-    {"wort": "Kanne", "fokus": "nn", "bild": "🫖"},
-    {"wort": "Bett", "fokus": "tt", "bild": "🛏️"},
-    {"wort": "Teller", "fokus": "ll", "bild": "🍽️"},
-    {"wort": "Biene", "fokus": "ie", "bild": "natur-biene"},
-    {"wort": "Ziege", "fokus": "ie", "bild": "🐐"},
-    {"wort": "Fliege", "fokus": "ie", "bild": "🪰"},
-    {"wort": "Spiegel", "fokus": "ie", "bild": "🪞"},
-    {"wort": "Stiefel", "fokus": "ie", "bild": "kleidung-stiefel"},
-    {"wort": "Brief", "fokus": "ie", "bild": "✉️"}
-  ],
-  "saetze": [
-    {"satz": "Der Fuchs läuft durch den Wald.", "bild": "🦊"},
-    {"satz": "Lisi fährt mit dem Zug.", "bild": "🚂"},
-    {"satz": "Die Blätter fallen vom Baum.", "bild": "🍂"},
-    {"satz": "Nora sammelt bunte Kastanien.", "bild": "pflanzen-kastanie"},
-    {"satz": "Der Igel schläft im Laub.", "bild": "🦔"},
-    {"satz": "Im Herbst weht oft der Wind.", "bild": "wetter-wind"},
-    {"satz": "Malik lässt einen Drachen steigen.", "bild": "🪁"},
-    {"satz": "Tian trinkt einen warmen Tee.", "bild": "🫖"},
-    {"satz": "Die Sonne scheint am Himmel.", "bild": "wetter-sonne"},
-    {"satz": "Das Eichhörnchen sucht Nüsse.", "bild": "tiere-eichhoernchen"},
-    {"satz": "Der Regen tropft auf das Dach.", "bild": "wetter-regen"},
-    {"satz": "Die Kinder springen in die Pfütze.", "bild": "wetter-regenschirm"},
-    {"satz": "Der Zug fährt über die Brücke.", "bild": "🌉"},
-    {"satz": "Wir backen einen Kürbiskuchen.", "bild": "essen-kuerbis"},
-    {"satz": "Der Hase hoppelt über das Feld.", "bild": "tiere-hase"}
-  ],
-  "ueberraschungen": [
-    {"von": "Nora", "bild": "pflanzen-kastanie", "text": "Nora hat dir eine glänzende Kastanie mitgebracht!"},
-    {"von": "Malik", "bild": "🪁", "text": "Malik schenkt dir einen bunten Drachen!"},
-    {"von": "Tian", "bild": "🏮", "text": "Tian hat eine leuchtende Laterne für dich!"},
-    {"von": "Nora", "bild": "pflanzen-blatt", "text": "Nora hat das schönste Herbstblatt für dich gefunden!"},
-    {"von": "Malik", "bild": "essen-kuerbis", "text": "Malik bringt dir einen dicken Kürbis!"},
-    {"von": "Tian", "bild": "🦔", "text": "Tian hat einen kleinen Igel entdeckt. Er sagt Hallo!"},
-    {"von": "Nora", "bild": "natur-feder", "text": "Nora schenkt dir eine weiche Feder!"},
-    {"von": "Malik", "bild": "tiere-eichhoernchen", "text": "Ein Eichhörnchen besucht dich mit Malik!"},
-    {"von": "Tian", "bild": "pflanzen-sonnenblume", "text": "Tian bringt dir eine große Sonnenblume!"}
-  ]
+ "hinweis": "Wortliste für „Lisi und der Wörterzug“: 12 Level (Bahnhöfe). id = Name des gemalten Bildes in bilder-gemalt/ (aus den Bögen), emoji = Ersatzbild bis dahin, motiv = Bildbeschreibung für ChatGPT. Bei Sätzen ist bild ein Emoji oder ein gemaltes Bild aus der Wörterwelt. Nach Änderungen: python3 baue.py",
+ "level": [
+  {
+   "nr": 1,
+   "station": "Bauernhof",
+   "art": "silben",
+   "himmel": "#a9dcf5",
+   "boden": "#a6d47f",
+   "huegel": [
+    "#8cc56a",
+    "#6fae55",
+    "#9dd07a"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#3d8a3a",
+    "#6cb35a"
+   ],
+   "intro": "Willkommen auf dem Bauernhof! Setze die Silben zusammen.",
+   "eintraege": [
+    {
+     "id": "zug-ziege",
+     "wort": "Ziege",
+     "silben": [
+      "Zie",
+      "ge"
+     ],
+     "emoji": "🐐",
+     "motiv": "a white goat with small horns standing, side view"
+    },
+    {
+     "id": "zug-esel",
+     "wort": "Esel",
+     "silben": [
+      "E",
+      "sel"
+     ],
+     "emoji": "🫏",
+     "motiv": "a grey donkey with long ears standing, side view"
+    },
+    {
+     "id": "zug-ferkel",
+     "wort": "Ferkel",
+     "silben": [
+      "Fer",
+      "kel"
+     ],
+     "emoji": "🐖",
+     "motiv": "a small pink piglet standing, side view"
+    },
+    {
+     "id": "zug-kueken",
+     "wort": "Küken",
+     "silben": [
+      "Kü",
+      "ken"
+     ],
+     "emoji": "🐤",
+     "motiv": "a fluffy yellow chick standing, side view"
+    },
+    {
+     "id": "zug-truthahn",
+     "wort": "Truthahn",
+     "silben": [
+      "Trut",
+      "hahn"
+     ],
+     "emoji": "🦃",
+     "motiv": "a turkey with fanned tail feathers standing, side view"
+    },
+    {
+     "id": "zug-scheune",
+     "wort": "Scheune",
+     "silben": [
+      "Scheu",
+      "ne"
+     ],
+     "emoji": "",
+     "motiv": "a red wooden barn with a big door"
+    },
+    {
+     "id": "zug-kaninchen",
+     "wort": "Kaninchen",
+     "silben": [
+      "Ka",
+      "nin",
+      "chen"
+     ],
+     "emoji": "🐇",
+     "motiv": "a brown rabbit sitting, side view"
+    },
+    {
+     "id": "zug-pony",
+     "wort": "Pony",
+     "silben": [
+      "Po",
+      "ny"
+     ],
+     "emoji": "🐎",
+     "motiv": "a small brown pony standing, side view"
+    },
+    {
+     "id": "zug-fohlen",
+     "wort": "Fohlen",
+     "silben": [
+      "Foh",
+      "len"
+     ],
+     "emoji": "",
+     "motiv": "a young foal with long legs standing, side view"
+    },
+    {
+     "id": "zug-igel",
+     "wort": "Igel",
+     "silben": [
+      "I",
+      "gel"
+     ],
+     "emoji": "🦔",
+     "motiv": "a hedgehog walking, side view"
+    },
+    {
+     "id": "zug-giesskanne",
+     "wort": "Gießkanne",
+     "silben": [
+      "Gieß",
+      "kan",
+      "ne"
+     ],
+     "emoji": "",
+     "motiv": "a green metal watering can, side view"
+    },
+    {
+     "id": "zug-schubkarre",
+     "wort": "Schubkarre",
+     "silben": [
+      "Schub",
+      "kar",
+      "re"
+     ],
+     "emoji": "",
+     "motiv": "a wooden wheelbarrow, side view"
+    },
+    {
+     "id": "zug-heuballen",
+     "wort": "Heuballen",
+     "silben": [
+      "Heu",
+      "bal",
+      "len"
+     ],
+     "emoji": "",
+     "motiv": "a round golden hay bale"
+    },
+    {
+     "id": "zug-bauer",
+     "wort": "Bauer",
+     "silben": [
+      "Bau",
+      "er"
+     ],
+     "emoji": "🧑‍🌾",
+     "motiv": "a friendly farmer with a straw hat and overalls, full body"
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "station": "Gemüsemarkt",
+   "art": "silben",
+   "himmel": "#bfe4f7",
+   "boden": "#e9d3a6",
+   "huegel": [
+    "#d9b97a",
+    "#c9a35f",
+    "#e5c68b"
+   ],
+   "baum": [
+    "#e8833a",
+    "#4f9a45",
+    "#d9504c"
+   ],
+   "intro": "Am Markt gibt es Obst und Gemüse. Welche Silben passen?",
+   "eintraege": [
+    {
+     "id": "zug-kirsche",
+     "wort": "Kirsche",
+     "silben": [
+      "Kir",
+      "sche"
+     ],
+     "emoji": "🍒",
+     "motiv": "two red cherries on one stem"
+    },
+    {
+     "id": "zug-pflaume",
+     "wort": "Pflaume",
+     "silben": [
+      "Pflau",
+      "me"
+     ],
+     "emoji": "",
+     "motiv": "two purple plums with a leaf"
+    },
+    {
+     "id": "zug-melone",
+     "wort": "Melone",
+     "silben": [
+      "Me",
+      "lo",
+      "ne"
+     ],
+     "emoji": "🍉",
+     "motiv": "a watermelon with one slice cut out"
+    },
+    {
+     "id": "zug-zitrone",
+     "wort": "Zitrone",
+     "silben": [
+      "Zi",
+      "tro",
+      "ne"
+     ],
+     "emoji": "🍋",
+     "motiv": "a yellow lemon with a leaf"
+    },
+    {
+     "id": "zug-ananas",
+     "wort": "Ananas",
+     "silben": [
+      "A",
+      "na",
+      "nas"
+     ],
+     "emoji": "🍍",
+     "motiv": "a whole pineapple"
+    },
+    {
+     "id": "zug-gurke",
+     "wort": "Gurke",
+     "silben": [
+      "Gur",
+      "ke"
+     ],
+     "emoji": "🥒",
+     "motiv": "a green cucumber"
+    },
+    {
+     "id": "zug-paprika",
+     "wort": "Paprika",
+     "silben": [
+      "Pa",
+      "pri",
+      "ka"
+     ],
+     "emoji": "🫑",
+     "motiv": "a red bell pepper"
+    },
+    {
+     "id": "zug-zwiebel",
+     "wort": "Zwiebel",
+     "silben": [
+      "Zwie",
+      "bel"
+     ],
+     "emoji": "🧅",
+     "motiv": "a brown onion"
+    },
+    {
+     "id": "zug-kartoffel",
+     "wort": "Kartoffel",
+     "silben": [
+      "Kar",
+      "tof",
+      "fel"
+     ],
+     "emoji": "🥔",
+     "motiv": "two potatoes"
+    },
+    {
+     "id": "zug-trauben",
+     "wort": "Trauben",
+     "silben": [
+      "Trau",
+      "ben"
+     ],
+     "emoji": "🍇",
+     "motiv": "a bunch of green grapes"
+    },
+    {
+     "id": "zug-erbsen",
+     "wort": "Erbsen",
+     "silben": [
+      "Erb",
+      "sen"
+     ],
+     "emoji": "🫛",
+     "motiv": "an open pea pod with green peas"
+    },
+    {
+     "id": "zug-radieschen",
+     "wort": "Radieschen",
+     "silben": [
+      "Ra",
+      "dies",
+      "chen"
+     ],
+     "emoji": "",
+     "motiv": "a bunch of red radishes with leaves"
+    },
+    {
+     "id": "zug-pilzkorb",
+     "wort": "Pilzkorb",
+     "silben": [
+      "Pilz",
+      "korb"
+     ],
+     "emoji": "",
+     "motiv": "a wicker basket full of brown mushrooms"
+    },
+    {
+     "id": "zug-honig",
+     "wort": "Honig",
+     "silben": [
+      "Ho",
+      "nig"
+     ],
+     "emoji": "🍯",
+     "motiv": "a glass jar of golden honey"
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "station": "Kleiderschrank",
+   "art": "silben",
+   "himmel": "#d6cdf3",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#c9b6ec",
+    "#b49ce0",
+    "#d8c9f2"
+   ],
+   "baum": [
+    "#9b7fd4",
+    "#ef6f6c",
+    "#4ea8de"
+   ],
+   "intro": "Lisi packt ihren Koffer. Welche Kleider nimmt sie mit?",
+   "eintraege": [
+    {
+     "id": "zug-pullover",
+     "wort": "Pullover",
+     "silben": [
+      "Pul",
+      "lo",
+      "ver"
+     ],
+     "emoji": "",
+     "motiv": "a red knitted pullover with long sleeves, front view"
+    },
+    {
+     "id": "zug-strumpfhose",
+     "wort": "Strumpfhose",
+     "silben": [
+      "Strumpf",
+      "ho",
+      "se"
+     ],
+     "emoji": "",
+     "motiv": "a pair of colorful striped children's tights"
+    },
+    {
+     "id": "zug-mantel",
+     "wort": "Mantel",
+     "silben": [
+      "Man",
+      "tel"
+     ],
+     "emoji": "🧥",
+     "motiv": "a long brown winter coat with buttons, front view"
+    },
+    {
+     "id": "zug-bluse",
+     "wort": "Bluse",
+     "silben": [
+      "Blu",
+      "se"
+     ],
+     "emoji": "👚",
+     "motiv": "a light pink blouse with a collar, front view"
+    },
+    {
+     "id": "zug-schlafanzug",
+     "wort": "Schlafanzug",
+     "silben": [
+      "Schlaf",
+      "an",
+      "zug"
+     ],
+     "emoji": "",
+     "motiv": "a blue pyjama set with stars, top and trousers"
+    },
+    {
+     "id": "zug-badehose",
+     "wort": "Badehose",
+     "silben": [
+      "Ba",
+      "de",
+      "ho",
+      "se"
+     ],
+     "emoji": "🩳",
+     "motiv": "colorful swimming trunks"
+    },
+    {
+     "id": "zug-gummistiefel",
+     "wort": "Gummistiefel",
+     "silben": [
+      "Gum",
+      "mi",
+      "stie",
+      "fel"
+     ],
+     "emoji": "🥾",
+     "motiv": "a pair of green rubber boots"
+    },
+    {
+     "id": "zug-handtasche",
+     "wort": "Handtasche",
+     "silben": [
+      "Hand",
+      "ta",
+      "sche"
+     ],
+     "emoji": "👜",
+     "motiv": "a small red handbag"
+    },
+    {
+     "id": "zug-guertel",
+     "wort": "Gürtel",
+     "silben": [
+      "Gür",
+      "tel"
+     ],
+     "emoji": "",
+     "motiv": "a brown leather belt with a buckle"
+    },
+    {
+     "id": "zug-krawatte",
+     "wort": "Krawatte",
+     "silben": [
+      "Kra",
+      "wat",
+      "te"
+     ],
+     "emoji": "👔",
+     "motiv": "a blue tie with dots"
+    },
+    {
+     "id": "zug-sandalen",
+     "wort": "Sandalen",
+     "silben": [
+      "San",
+      "da",
+      "len"
+     ],
+     "emoji": "👡",
+     "motiv": "a pair of children's sandals"
+    },
+    {
+     "id": "zug-turnschuhe",
+     "wort": "Turnschuhe",
+     "silben": [
+      "Turn",
+      "schu",
+      "he"
+     ],
+     "emoji": "👟",
+     "motiv": "a pair of colorful sports shoes"
+    },
+    {
+     "id": "zug-haarspange",
+     "wort": "Haarspange",
+     "silben": [
+      "Haar",
+      "span",
+      "ge"
+     ],
+     "emoji": "",
+     "motiv": "a colorful hair clip with a flower"
+    },
+    {
+     "id": "zug-halstuch",
+     "wort": "Halstuch",
+     "silben": [
+      "Hals",
+      "tuch"
+     ],
+     "emoji": "",
+     "motiv": "a red neckerchief with white dots"
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "station": "Im Wald",
+   "art": "woerter",
+   "himmel": "#b8e0f2",
+   "boden": "#7a9c52",
+   "huegel": [
+    "#3f7a3e",
+    "#2f6a35",
+    "#5a8f4a"
+   ],
+   "baum": [
+    "#2f6a35",
+    "#3f7a3e",
+    "#5a8f4a"
+   ],
+   "intro": "Im Wald ist es still. Baue die Wörter Buchstabe für Buchstabe.",
+   "eintraege": [
+    {
+     "id": "zug-wolf",
+     "wort": "Wolf",
+     "fokus": "",
+     "emoji": "🐺",
+     "motiv": "a grey wolf standing, side view"
+    },
+    {
+     "id": "zug-fuchs",
+     "wort": "Fuchs",
+     "fokus": "chs",
+     "emoji": "🦊",
+     "motiv": "a red fox sitting, side view"
+    },
+    {
+     "id": "zug-dachs",
+     "wort": "Dachs",
+     "fokus": "chs",
+     "emoji": "🦡",
+     "motiv": "a badger walking, side view"
+    },
+    {
+     "id": "zug-hirsch",
+     "wort": "Hirsch",
+     "fokus": "sch",
+     "emoji": "🦌",
+     "motiv": "a red deer stag with big antlers standing, side view"
+    },
+    {
+     "id": "zug-specht",
+     "wort": "Specht",
+     "fokus": "sp",
+     "emoji": "",
+     "motiv": "a woodpecker on a tree trunk"
+    },
+    {
+     "id": "zug-rabe",
+     "wort": "Rabe",
+     "fokus": "",
+     "emoji": "🐦‍⬛",
+     "motiv": "a black raven standing, side view"
+    },
+    {
+     "id": "zug-zelt",
+     "wort": "Zelt",
+     "fokus": "",
+     "emoji": "⛺",
+     "motiv": "a small orange tent"
+    },
+    {
+     "id": "zug-moos",
+     "wort": "Moos",
+     "fokus": "oo",
+     "emoji": "",
+     "motiv": "a green clump of moss on a stone"
+    },
+    {
+     "id": "zug-farn",
+     "wort": "Farn",
+     "fokus": "",
+     "emoji": "",
+     "motiv": "a green fern plant"
+    },
+    {
+     "id": "zug-zapfen",
+     "wort": "Zapfen",
+     "fokus": "pf",
+     "emoji": "",
+     "motiv": "a brown pine cone"
+    },
+    {
+     "id": "zug-bach",
+     "wort": "Bach",
+     "fokus": "ch",
+     "emoji": "",
+     "motiv": "a small stream with stones and clear water"
+    },
+    {
+     "id": "zug-laterne",
+     "wort": "Laterne",
+     "fokus": "",
+     "emoji": "🏮",
+     "motiv": "a lantern with a warm light"
+    },
+    {
+     "id": "zug-nuss",
+     "wort": "Nuss",
+     "fokus": "ss",
+     "emoji": "🌰",
+     "motiv": "a hazelnut"
+    },
+    {
+     "id": "zug-beere",
+     "wort": "Beere",
+     "fokus": "ee",
+     "emoji": "🫐",
+     "motiv": "blueberries on a twig"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "station": "Am Bahnhof",
+   "art": "woerter",
+   "himmel": "#c8e6f5",
+   "boden": "#cfc6b8",
+   "huegel": [
+    "#a9b4c2",
+    "#8e9aab",
+    "#bcc6d2"
+   ],
+   "baum": [
+    "#e8833a",
+    "#4ea8de",
+    "#ef6f6c"
+   ],
+   "intro": "Der Zug hält am Bahnhof. Achte auf doppelte Buchstaben: ff, nn, ll …",
+   "eintraege": [
+    {
+     "id": "zug-koffer",
+     "wort": "Koffer",
+     "fokus": "ff",
+     "emoji": "🧳",
+     "motiv": "a brown travel suitcase with a handle"
+    },
+    {
+     "id": "zug-waggon",
+     "wort": "Waggon",
+     "fokus": "gg",
+     "emoji": "🚃",
+     "motiv": "a red railway passenger carriage, side view"
+    },
+    {
+     "id": "zug-tunnel",
+     "wort": "Tunnel",
+     "fokus": "nn",
+     "emoji": "🚇",
+     "motiv": "a railway tunnel entrance in a hill"
+    },
+    {
+     "id": "zug-ballon",
+     "wort": "Ballon",
+     "fokus": "ll",
+     "emoji": "🎈",
+     "motiv": "a red balloon on a string"
+    },
+    {
+     "id": "zug-mappe",
+     "wort": "Mappe",
+     "fokus": "pp",
+     "emoji": "📁",
+     "motiv": "a blue folder for papers"
+    },
+    {
+     "id": "zug-wasser",
+     "wort": "Wasser",
+     "fokus": "ss",
+     "emoji": "💧",
+     "motiv": "a glass bottle of water"
+    },
+    {
+     "id": "zug-puppe",
+     "wort": "Puppe",
+     "fokus": "pp",
+     "emoji": "",
+     "motiv": "a doll with a red dress"
+    },
+    {
+     "id": "zug-teddy",
+     "wort": "Teddy",
+     "fokus": "dd",
+     "emoji": "🧸",
+     "motiv": "a brown teddy bear sitting"
+    },
+    {
+     "id": "zug-kasse",
+     "wort": "Kasse",
+     "fokus": "ss",
+     "emoji": "",
+     "motiv": "a ticket counter window at a train station"
+    },
+    {
+     "id": "zug-hammer",
+     "wort": "Hammer",
+     "fokus": "mm",
+     "emoji": "🔨",
+     "motiv": "a hammer with a wooden handle"
+    },
+    {
+     "id": "zug-pfiff",
+     "wort": "Pfiff",
+     "fokus": "ff",
+     "emoji": "",
+     "motiv": "a silver whistle"
+    },
+    {
+     "id": "zug-sessel",
+     "wort": "Sessel",
+     "fokus": "ss",
+     "emoji": "🛋️",
+     "motiv": "a comfortable armchair"
+    },
+    {
+     "id": "zug-kanne",
+     "wort": "Kanne",
+     "fokus": "nn",
+     "emoji": "🫖",
+     "motiv": "a teapot"
+    },
+    {
+     "id": "zug-himmel",
+     "wort": "Himmel",
+     "fokus": "mm",
+     "emoji": "🌤️",
+     "motiv": "a blue sky with a little cloud"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "station": "Auf der Wiese",
+   "art": "woerter",
+   "himmel": "#a9dcf5",
+   "boden": "#9fd17a",
+   "huegel": [
+    "#8cc56a",
+    "#a6d47f",
+    "#7dbb5f"
+   ],
+   "baum": [
+    "#ef6f6c",
+    "#f2c14e",
+    "#9b7fd4"
+   ],
+   "intro": "Auf der Wiese ist viel los. Ein langes i schreibt man oft ie.",
+   "eintraege": [
+    {
+     "id": "zug-wiese",
+     "wort": "Wiese",
+     "fokus": "ie",
+     "emoji": "",
+     "motiv": "a green meadow with flowers"
+    },
+    {
+     "id": "zug-fliege",
+     "wort": "Fliege",
+     "fokus": "ie",
+     "emoji": "🪰",
+     "motiv": "a fly, side view"
+    },
+    {
+     "id": "zug-spiegel",
+     "wort": "Spiegel",
+     "fokus": "ie",
+     "emoji": "🪞",
+     "motiv": "a round mirror with a wooden frame"
+    },
+    {
+     "id": "zug-brief",
+     "wort": "Brief",
+     "fokus": "ie",
+     "emoji": "✉️",
+     "motiv": "a closed envelope with a stamp"
+    },
+    {
+     "id": "zug-stier",
+     "wort": "Stier",
+     "fokus": "ie",
+     "emoji": "🐂",
+     "motiv": "a brown bull standing, side view"
+    },
+    {
+     "id": "zug-ziel",
+     "wort": "Ziel",
+     "fokus": "ie",
+     "emoji": "🏁",
+     "motiv": "a finish line flag with black and white squares"
+    },
+    {
+     "id": "zug-spiel",
+     "wort": "Spiel",
+     "fokus": "ie",
+     "emoji": "🎲",
+     "motiv": "a board game with dice"
+    },
+    {
+     "id": "zug-lied",
+     "wort": "Lied",
+     "fokus": "ie",
+     "emoji": "🎵",
+     "motiv": "musical notes"
+    },
+    {
+     "id": "zug-knie",
+     "wort": "Knie",
+     "fokus": "ie",
+     "emoji": "",
+     "motiv": "a child's knee with a plaster"
+    },
+    {
+     "id": "zug-riese",
+     "wort": "Riese",
+     "fokus": "ie",
+     "emoji": "",
+     "motiv": "a friendly giant smiling, full body"
+    },
+    {
+     "id": "zug-fieber",
+     "wort": "Fieber",
+     "fokus": "ie",
+     "emoji": "🤒",
+     "motiv": "a thermometer showing fever"
+    },
+    {
+     "id": "zug-kiefer",
+     "wort": "Kiefer",
+     "fokus": "ie",
+     "emoji": "",
+     "motiv": "a pine tree"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "station": "In der Stadt",
+   "art": "woerter",
+   "himmel": "#c3e1f2",
+   "boden": "#d8d2c8",
+   "huegel": [
+    "#c97f5d",
+    "#b86e4f",
+    "#d89574"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#e9b23c",
+    "#4ea8de"
+   ],
+   "intro": "In der Stadt üben wir ck und tz. Hörst du den kurzen Laut?",
+   "eintraege": [
+    {
+     "id": "zug-baecker",
+     "wort": "Bäcker",
+     "fokus": "ck",
+     "emoji": "🧑‍🍳",
+     "motiv": "a friendly baker with a white hat holding bread"
+    },
+    {
+     "id": "zug-zucker",
+     "wort": "Zucker",
+     "fokus": "ck",
+     "emoji": "🍬",
+     "motiv": "sugar cubes in a bowl"
+    },
+    {
+     "id": "zug-dackel",
+     "wort": "Dackel",
+     "fokus": "ck",
+     "emoji": "🐕",
+     "motiv": "a dachshund dog standing, side view"
+    },
+    {
+     "id": "zug-wecker",
+     "wort": "Wecker",
+     "fokus": "ck",
+     "emoji": "⏰",
+     "motiv": "a red alarm clock"
+    },
+    {
+     "id": "zug-decke",
+     "wort": "Decke",
+     "fokus": "ck",
+     "emoji": "",
+     "motiv": "a folded blanket"
+    },
+    {
+     "id": "zug-spatz",
+     "wort": "Spatz",
+     "fokus": "tz",
+     "emoji": "",
+     "motiv": "a house sparrow, side view"
+    },
+    {
+     "id": "zug-muetze",
+     "wort": "Mütze",
+     "fokus": "tz",
+     "emoji": "",
+     "motiv": "a yellow knitted beanie hat with a pompom"
+    },
+    {
+     "id": "zug-netz",
+     "wort": "Netz",
+     "fokus": "tz",
+     "emoji": "🥅",
+     "motiv": "a football goal net"
+    },
+    {
+     "id": "zug-schatz",
+     "wort": "Schatz",
+     "fokus": "tz",
+     "emoji": "💰",
+     "motiv": "a treasure chest with gold coins"
+    },
+    {
+     "id": "zug-pfuetze",
+     "wort": "Pfütze",
+     "fokus": "tz",
+     "emoji": "",
+     "motiv": "a puddle with a little splash"
+    },
+    {
+     "id": "zug-matratze",
+     "wort": "Matratze",
+     "fokus": "tz",
+     "emoji": "",
+     "motiv": "a mattress"
+    },
+    {
+     "id": "zug-spritze",
+     "wort": "Spritze",
+     "fokus": "tz",
+     "emoji": "💉",
+     "motiv": "a children's toy doctor syringe without needle"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "station": "Am Meer",
+   "art": "woerter",
+   "himmel": "#9fd6f2",
+   "boden": "#f2dfb0",
+   "huegel": [
+    "#4ea8de",
+    "#3a94c9",
+    "#6fbbe6"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#e9b23c",
+    "#f7a541"
+   ],
+   "intro": "Am Meer hört man ei, au und eu. Hör gut zu!",
+   "eintraege": [
+    {
+     "id": "zug-eimer",
+     "wort": "Eimer",
+     "fokus": "ei",
+     "emoji": "🪣",
+     "motiv": "a red sand bucket"
+    },
+    {
+     "id": "zug-seil",
+     "wort": "Seil",
+     "fokus": "ei",
+     "emoji": "🪢",
+     "motiv": "a coiled rope"
+    },
+    {
+     "id": "zug-schaufel",
+     "wort": "Schaufel",
+     "fokus": "au",
+     "emoji": "🪏",
+     "motiv": "a small plastic sand shovel"
+    },
+    {
+     "id": "zug-taucher",
+     "wort": "Taucher",
+     "fokus": "au",
+     "emoji": "🤿",
+     "motiv": "a diving mask and snorkel"
+    },
+    {
+     "id": "zug-raupe",
+     "wort": "Raupe",
+     "fokus": "au",
+     "emoji": "🐛",
+     "motiv": "a green caterpillar"
+    },
+    {
+     "id": "zug-leuchtturm",
+     "wort": "Leuchtturm",
+     "fokus": "eu",
+     "emoji": "",
+     "motiv": "a red and white lighthouse"
+    },
+    {
+     "id": "zug-freunde",
+     "wort": "Freunde",
+     "fokus": "eu",
+     "emoji": "",
+     "motiv": "three children holding hands"
+    },
+    {
+     "id": "zug-heu",
+     "wort": "Heu",
+     "fokus": "eu",
+     "emoji": "",
+     "motiv": "a pile of hay"
+    },
+    {
+     "id": "zug-kreide",
+     "wort": "Kreide",
+     "fokus": "ei",
+     "emoji": "",
+     "motiv": "colorful sidewalk chalk"
+    },
+    {
+     "id": "zug-bauch",
+     "wort": "Bauch",
+     "fokus": "au",
+     "emoji": "",
+     "motiv": "a smiling teddy bear tummy"
+    },
+    {
+     "id": "zug-reise",
+     "wort": "Reise",
+     "fokus": "ei",
+     "emoji": "🧭",
+     "motiv": "a compass and a map for a journey"
+    },
+    {
+     "id": "zug-leiter",
+     "wort": "Leiter",
+     "fokus": "ei",
+     "emoji": "🪜",
+     "motiv": "a wooden ladder"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "station": "Zuhause",
+   "art": "saetze",
+   "himmel": "#f6d9b8",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#e7c49b",
+    "#d9ad7d",
+    "#efd4ae"
+   ],
+   "baum": [
+    "#ef6f6c",
+    "#4fb984",
+    "#4ea8de"
+   ],
+   "intro": "Kurze Sätze von Zuhause. Großer Anfang, Punkt am Ende!",
+   "eintraege": [
+    {
+     "satz": "Lisi liest ein Buch.",
+     "bild": "📖"
+    },
+    {
+     "satz": "Nora malt ein Bild.",
+     "bild": "🎨"
+    },
+    {
+     "satz": "Malik spielt Fußball.",
+     "bild": "⚽"
+    },
+    {
+     "satz": "Tian kocht Nudeln.",
+     "bild": "🍝"
+    },
+    {
+     "satz": "Die Katze schläft.",
+     "bild": "tiere-katze"
+    },
+    {
+     "satz": "Papa backt Brot.",
+     "bild": "essen-brot"
+    },
+    {
+     "satz": "Mama gießt die Blumen.",
+     "bild": "💐"
+    },
+    {
+     "satz": "Der Hund bellt laut.",
+     "bild": "tiere-hund"
+    },
+    {
+     "satz": "Wir essen zusammen.",
+     "bild": "🍽️"
+    },
+    {
+     "satz": "Oma strickt einen Schal.",
+     "bild": "kleidung-schal"
+    },
+    {
+     "satz": "Ich putze meine Zähne.",
+     "bild": "🪥"
+    },
+    {
+     "satz": "Das Baby lacht.",
+     "bild": "👶"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "station": "Herbstwald",
+   "art": "saetze",
+   "himmel": "#9fd3f2",
+   "boden": "#f2d7a6",
+   "huegel": [
+    "#d9a64f",
+    "#c98b3f",
+    "#e0b660"
+   ],
+   "baum": [
+    "#e8833a",
+    "#c8552e",
+    "#e9b23c"
+   ],
+   "intro": "Die Blätter fallen. Ordne die Herbstsätze.",
+   "eintraege": [
+    {
+     "satz": "Der Fuchs läuft durch den Wald.",
+     "bild": "🦊"
+    },
+    {
+     "satz": "Lisi fährt mit dem Zug.",
+     "bild": "🚂"
+    },
+    {
+     "satz": "Die Blätter fallen vom Baum.",
+     "bild": "🍂"
+    },
+    {
+     "satz": "Nora sammelt bunte Kastanien.",
+     "bild": "pflanzen-kastanie"
+    },
+    {
+     "satz": "Der Igel schläft im Laub.",
+     "bild": "🦔"
+    },
+    {
+     "satz": "Im Herbst weht oft der Wind.",
+     "bild": "wetter-wind"
+    },
+    {
+     "satz": "Malik lässt einen Drachen steigen.",
+     "bild": "🪁"
+    },
+    {
+     "satz": "Tian trinkt einen warmen Tee.",
+     "bild": "🫖"
+    },
+    {
+     "satz": "Die Sonne scheint am Himmel.",
+     "bild": "wetter-sonne"
+    },
+    {
+     "satz": "Das Eichhörnchen sucht Nüsse.",
+     "bild": "tiere-eichhoernchen"
+    },
+    {
+     "satz": "Der Regen tropft auf das Dach.",
+     "bild": "wetter-regen"
+    },
+    {
+     "satz": "Die Kinder springen in die Pfütze.",
+     "bild": "wetter-regenschirm"
+    },
+    {
+     "satz": "Der Zug fährt über die Brücke.",
+     "bild": "🌉"
+    },
+    {
+     "satz": "Wir backen einen Kürbiskuchen.",
+     "bild": "essen-kuerbis"
+    },
+    {
+     "satz": "Der Hase hoppelt über das Feld.",
+     "bild": "tiere-hase"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "station": "Auf Reisen",
+   "art": "saetze",
+   "himmel": "#a9d8f2",
+   "boden": "#e6d7b8",
+   "huegel": [
+    "#9db8d8",
+    "#7d9cc4",
+    "#b6cbe5"
+   ],
+   "baum": [
+    "#4fb984",
+    "#f7a541",
+    "#9b7fd4"
+   ],
+   "intro": "Lange Sätze für eine lange Reise. Lies genau!",
+   "eintraege": [
+    {
+     "satz": "Lisi packt ihren Koffer für die Reise.",
+     "bild": "🧳"
+    },
+    {
+     "satz": "Der Zug fährt durch einen langen Tunnel.",
+     "bild": "🚇"
+    },
+    {
+     "satz": "Am Bahnhof wartet Malik mit seiner Oma.",
+     "bild": "🚉"
+    },
+    {
+     "satz": "Nora schaut aus dem Fenster.",
+     "bild": "🪟"
+    },
+    {
+     "satz": "Tian hat die Fahrkarten in der Tasche.",
+     "bild": "🎫"
+    },
+    {
+     "satz": "Der Schaffner pfeift ganz laut.",
+     "bild": "🚂"
+    },
+    {
+     "satz": "Wir fahren mit dem Zug ans Meer.",
+     "bild": "🌊"
+    },
+    {
+     "satz": "Am Strand bauen wir eine Sandburg.",
+     "bild": "🏖️"
+    },
+    {
+     "satz": "Das Flugzeug fliegt hoch über den Wolken.",
+     "bild": "✈️"
+    },
+    {
+     "satz": "Im Zelt ist es warm und gemütlich.",
+     "bild": "⛺"
+    },
+    {
+     "satz": "Abends erzählt Opa eine Geschichte.",
+     "bild": "📖"
+    },
+    {
+     "satz": "Morgen fahren wir wieder nach Hause.",
+     "bild": "🏡"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "station": "Endstation",
+   "art": "saetze",
+   "frage": true,
+   "himmel": "#c9b6ec",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#9b7fd4",
+    "#7a5fb5",
+    "#b49ce0"
+   ],
+   "baum": [
+    "#f2c14e",
+    "#ef6f6c",
+    "#4ea8de"
+   ],
+   "intro": "Endstation! Hier gibt es Fragen. Am Ende steht ein Fragezeichen.",
+   "eintraege": [
+    {
+     "satz": "Wohin fährt der Zug?",
+     "bild": "🚂"
+    },
+    {
+     "satz": "Wann kommen wir an?",
+     "bild": "⏰"
+    },
+    {
+     "satz": "Wer hat meinen Koffer?",
+     "bild": "🧳"
+    },
+    {
+     "satz": "Wo ist die Fahrkarte?",
+     "bild": "🎫"
+    },
+    {
+     "satz": "Kommst du mit ans Meer?",
+     "bild": "🌊"
+    },
+    {
+     "satz": "Hast du Hunger?",
+     "bild": "🥪"
+    },
+    {
+     "satz": "Was siehst du aus dem Fenster?",
+     "bild": "🪟"
+    },
+    {
+     "satz": "Wie heißt der Bahnhof?",
+     "bild": "🚉"
+    },
+    {
+     "satz": "Darf ich am Fenster sitzen?",
+     "bild": "💺"
+    },
+    {
+     "satz": "Warum hält der Zug hier?",
+     "bild": "🚦"
+    },
+    {
+     "satz": "Spielst du mit mir?",
+     "bild": "🎲"
+    },
+    {
+     "satz": "Magst du Kakao?",
+     "bild": "☕"
+    }
+   ]
+  }
+ ],
+ "ueberraschungen": [
+  {
+   "von": "Nora",
+   "bild": "pflanzen-kastanie",
+   "text": "Nora hat dir eine glänzende Kastanie mitgebracht!"
+  },
+  {
+   "von": "Malik",
+   "bild": "🪁",
+   "text": "Malik schenkt dir einen bunten Drachen!"
+  },
+  {
+   "von": "Tian",
+   "bild": "🏮",
+   "text": "Tian hat eine leuchtende Laterne für dich!"
+  },
+  {
+   "von": "Nora",
+   "bild": "pflanzen-blatt",
+   "text": "Nora hat das schönste Herbstblatt für dich gefunden!"
+  },
+  {
+   "von": "Malik",
+   "bild": "essen-kuerbis",
+   "text": "Malik bringt dir einen dicken Kürbis!"
+  },
+  {
+   "von": "Tian",
+   "bild": "🦔",
+   "text": "Tian hat einen kleinen Igel entdeckt. Er sagt Hallo!"
+  },
+  {
+   "von": "Nora",
+   "bild": "natur-feder",
+   "text": "Nora schenkt dir eine weiche Feder!"
+  },
+  {
+   "von": "Malik",
+   "bild": "tiere-eichhoernchen",
+   "text": "Ein Eichhörnchen besucht dich mit Malik!"
+  },
+  {
+   "von": "Tian",
+   "bild": "pflanzen-sonnenblume",
+   "text": "Tian bringt dir eine große Sonnenblume!"
+  }
+ ]
 }
