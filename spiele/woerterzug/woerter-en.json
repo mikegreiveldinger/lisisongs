@@ -1,0 +1,931 @@
+{
+ "hinweis": "Wortliste (en) für den Wörterzug, erzeugt von sprachen.py. id = gemaltes Bild.",
+ "level": [
+  {
+   "nr": 1,
+   "art": "silben",
+   "himmel": "#a9dcf5",
+   "boden": "#a6d47f",
+   "huegel": [
+    "#8cc56a",
+    "#6fae55",
+    "#9dd07a"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#3d8a3a",
+    "#6cb35a"
+   ],
+   "station": "Farm",
+   "intro": "Welcome to the farm! Put the syllables together.",
+   "eintraege": [
+    {
+     "id": "zug-esel",
+     "wort": "donkey",
+     "silben": [
+      "don",
+      "key"
+     ]
+    },
+    {
+     "id": "zug-ferkel",
+     "wort": "piglet",
+     "silben": [
+      "pig",
+      "let"
+     ]
+    },
+    {
+     "id": "zug-truthahn",
+     "wort": "turkey",
+     "silben": [
+      "tur",
+      "key"
+     ]
+    },
+    {
+     "id": "zug-kaninchen",
+     "wort": "rabbit",
+     "silben": [
+      "rab",
+      "bit"
+     ]
+    },
+    {
+     "id": "zug-pony",
+     "wort": "pony",
+     "silben": [
+      "po",
+      "ny"
+     ]
+    },
+    {
+     "id": "zug-igel",
+     "wort": "hedgehog",
+     "silben": [
+      "hedge",
+      "hog"
+     ]
+    },
+    {
+     "id": "zug-schubkarre",
+     "wort": "wheelbarrow",
+     "silben": [
+      "wheel",
+      "bar",
+      "row"
+     ]
+    },
+    {
+     "id": "zug-bauer",
+     "wort": "farmer",
+     "silben": [
+      "far",
+      "mer"
+     ]
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "art": "silben",
+   "himmel": "#bfe4f7",
+   "boden": "#e9d3a6",
+   "huegel": [
+    "#d9b97a",
+    "#c9a35f",
+    "#e5c68b"
+   ],
+   "baum": [
+    "#e8833a",
+    "#4f9a45",
+    "#d9504c"
+   ],
+   "station": "Market",
+   "intro": "Fruit and vegetables at the market. Which syllables fit?",
+   "eintraege": [
+    {
+     "id": "zug-kirsche",
+     "wort": "cherry",
+     "silben": [
+      "cher",
+      "ry"
+     ]
+    },
+    {
+     "id": "zug-melone",
+     "wort": "melon",
+     "silben": [
+      "mel",
+      "on"
+     ]
+    },
+    {
+     "id": "zug-zitrone",
+     "wort": "lemon",
+     "silben": [
+      "lem",
+      "on"
+     ]
+    },
+    {
+     "id": "zug-ananas",
+     "wort": "pineapple",
+     "silben": [
+      "pine",
+      "ap",
+      "ple"
+     ]
+    },
+    {
+     "id": "zug-gurke",
+     "wort": "cucumber",
+     "silben": [
+      "cu",
+      "cum",
+      "ber"
+     ]
+    },
+    {
+     "id": "zug-paprika",
+     "wort": "pepper",
+     "silben": [
+      "pep",
+      "per"
+     ]
+    },
+    {
+     "id": "zug-zwiebel",
+     "wort": "onion",
+     "silben": [
+      "on",
+      "ion"
+     ]
+    },
+    {
+     "id": "zug-kartoffel",
+     "wort": "potato",
+     "silben": [
+      "po",
+      "ta",
+      "to"
+     ]
+    },
+    {
+     "id": "zug-radieschen",
+     "wort": "radish",
+     "silben": [
+      "rad",
+      "ish"
+     ]
+    },
+    {
+     "id": "zug-honig",
+     "wort": "honey",
+     "silben": [
+      "hon",
+      "ey"
+     ]
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "art": "silben",
+   "himmel": "#d6cdf3",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#c9b6ec",
+    "#b49ce0",
+    "#d8c9f2"
+   ],
+   "baum": [
+    "#9b7fd4",
+    "#ef6f6c",
+    "#4ea8de"
+   ],
+   "station": "Wardrobe",
+   "intro": "Lisi is packing her suitcase. Which clothes does she take?",
+   "eintraege": [
+    {
+     "id": "zug-pullover",
+     "wort": "jumper",
+     "silben": [
+      "jum",
+      "per"
+     ]
+    },
+    {
+     "id": "zug-schlafanzug",
+     "wort": "pyjamas",
+     "silben": [
+      "py",
+      "ja",
+      "mas"
+     ]
+    },
+    {
+     "id": "zug-gummistiefel",
+     "wort": "wellies",
+     "silben": [
+      "wel",
+      "lies"
+     ]
+    },
+    {
+     "id": "zug-handtasche",
+     "wort": "handbag",
+     "silben": [
+      "hand",
+      "bag"
+     ]
+    },
+    {
+     "id": "zug-sandalen",
+     "wort": "sandals",
+     "silben": [
+      "san",
+      "dals"
+     ]
+    },
+    {
+     "id": "zug-turnschuhe",
+     "wort": "trainers",
+     "silben": [
+      "train",
+      "ers"
+     ]
+    },
+    {
+     "id": "zug-halstuch",
+     "wort": "neckerchief",
+     "silben": [
+      "neck",
+      "er",
+      "chief"
+     ]
+    },
+    {
+     "id": "zug-krawatte",
+     "wort": "necktie",
+     "silben": [
+      "neck",
+      "tie"
+     ]
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "art": "woerter",
+   "himmel": "#b8e0f2",
+   "boden": "#7a9c52",
+   "huegel": [
+    "#3f7a3e",
+    "#2f6a35",
+    "#5a8f4a"
+   ],
+   "baum": [
+    "#2f6a35",
+    "#3f7a3e",
+    "#5a8f4a"
+   ],
+   "station": "In the Woods",
+   "intro": "It is quiet in the woods. Build the words letter by letter.",
+   "eintraege": [
+    {
+     "id": "zug-wolf",
+     "wort": "wolf",
+     "fokus": ""
+    },
+    {
+     "id": "zug-fuchs",
+     "wort": "fox",
+     "fokus": ""
+    },
+    {
+     "id": "zug-dachs",
+     "wort": "badger",
+     "fokus": ""
+    },
+    {
+     "id": "zug-hirsch",
+     "wort": "deer",
+     "fokus": "ee"
+    },
+    {
+     "id": "zug-rabe",
+     "wort": "raven",
+     "fokus": ""
+    },
+    {
+     "id": "zug-zelt",
+     "wort": "tent",
+     "fokus": ""
+    },
+    {
+     "id": "zug-moos",
+     "wort": "moss",
+     "fokus": "ss"
+    },
+    {
+     "id": "zug-farn",
+     "wort": "fern",
+     "fokus": ""
+    },
+    {
+     "id": "zug-laterne",
+     "wort": "lantern",
+     "fokus": ""
+    },
+    {
+     "id": "zug-nuss",
+     "wort": "nut",
+     "fokus": ""
+    },
+    {
+     "id": "zug-beere",
+     "wort": "berry",
+     "fokus": "rr"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "art": "woerter",
+   "himmel": "#c8e6f5",
+   "boden": "#cfc6b8",
+   "huegel": [
+    "#a9b4c2",
+    "#8e9aab",
+    "#bcc6d2"
+   ],
+   "baum": [
+    "#e8833a",
+    "#4ea8de",
+    "#ef6f6c"
+   ],
+   "station": "At the Station",
+   "intro": "The train stops at the station. Look out for double letters!",
+   "eintraege": [
+    {
+     "id": "zug-waggon",
+     "wort": "carriage",
+     "fokus": "rr"
+    },
+    {
+     "id": "zug-tunnel",
+     "wort": "tunnel",
+     "fokus": "nn"
+    },
+    {
+     "id": "zug-ballon",
+     "wort": "balloon",
+     "fokus": "ll"
+    },
+    {
+     "id": "zug-puppe",
+     "wort": "doll",
+     "fokus": "ll"
+    },
+    {
+     "id": "zug-teddy",
+     "wort": "teddy",
+     "fokus": "dd"
+    },
+    {
+     "id": "zug-hammer",
+     "wort": "hammer",
+     "fokus": "mm"
+    },
+    {
+     "id": "zug-koffer",
+     "wort": "suitcase",
+     "fokus": ""
+    },
+    {
+     "id": "zug-pfiff",
+     "wort": "whistle",
+     "fokus": ""
+    },
+    {
+     "id": "zug-kanne",
+     "wort": "kettle",
+     "fokus": "tt"
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "art": "woerter",
+   "himmel": "#a9dcf5",
+   "boden": "#9fd17a",
+   "huegel": [
+    "#8cc56a",
+    "#a6d47f",
+    "#7dbb5f"
+   ],
+   "baum": [
+    "#ef6f6c",
+    "#f2c14e",
+    "#9b7fd4"
+   ],
+   "station": "In the Meadow",
+   "intro": "A long ee sound is often spelled ee or ea.",
+   "eintraege": [
+    {
+     "id": "zug-knie",
+     "wort": "knee",
+     "fokus": "ee"
+    },
+    {
+     "id": "natur-biene",
+     "wort": "bee",
+     "fokus": "ee"
+    },
+    {
+     "id": "tiere-schaf",
+     "wort": "sheep",
+     "fokus": "ee"
+    },
+    {
+     "id": "pflanzen-baum",
+     "wort": "tree",
+     "fokus": "ee"
+    },
+    {
+     "id": "zug-wiese",
+     "wort": "meadow",
+     "fokus": "ea"
+    },
+    {
+     "id": "pflanzen-blatt",
+     "wort": "leaf",
+     "fokus": "ea"
+    },
+    {
+     "id": "pflanzen-aehre",
+     "wort": "wheat",
+     "fokus": "ea"
+    },
+    {
+     "id": "essen-kaese",
+     "wort": "cheese",
+     "fokus": "ee"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "art": "woerter",
+   "himmel": "#c3e1f2",
+   "boden": "#d8d2c8",
+   "huegel": [
+    "#c97f5d",
+    "#b86e4f",
+    "#d89574"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#e9b23c",
+    "#4ea8de"
+   ],
+   "station": "In Town",
+   "intro": "In town we practise ck and sh.",
+   "eintraege": [
+    {
+     "id": "zug-wecker",
+     "wort": "clock",
+     "fokus": "ck"
+    },
+    {
+     "id": "tiere-ente",
+     "wort": "duck",
+     "fokus": "ck"
+    },
+    {
+     "id": "zug-kueken",
+     "wort": "chick",
+     "fokus": "ck"
+    },
+    {
+     "id": "kleidung-jacke",
+     "wort": "jacket",
+     "fokus": "ck"
+    },
+    {
+     "id": "kleidung-schuh",
+     "wort": "shoe",
+     "fokus": "sh"
+    },
+    {
+     "id": "tiere-fisch",
+     "wort": "fish",
+     "fokus": "sh"
+    },
+    {
+     "id": "natur-muschel",
+     "wort": "shell",
+     "fokus": "sh"
+    },
+    {
+     "id": "zug-pfuetze",
+     "wort": "puddle",
+     "fokus": "dd"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "art": "woerter",
+   "himmel": "#9fd6f2",
+   "boden": "#f2dfb0",
+   "huegel": [
+    "#4ea8de",
+    "#3a94c9",
+    "#6fbbe6"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#e9b23c",
+    "#f7a541"
+   ],
+   "station": "By the Sea",
+   "intro": "Listen for ai, oa, ow and igh!",
+   "eintraege": [
+    {
+     "id": "natur-schnecke",
+     "wort": "snail",
+     "fokus": "ai"
+    },
+    {
+     "id": "wetter-regen",
+     "wort": "rain",
+     "fokus": "ai"
+    },
+    {
+     "id": "wetter-regenbogen",
+     "wort": "rainbow",
+     "fokus": "ai"
+    },
+    {
+     "id": "zug-ziege",
+     "wort": "goat",
+     "fokus": "oa"
+    },
+    {
+     "id": "zug-mantel",
+     "wort": "coat",
+     "fokus": "oa"
+    },
+    {
+     "id": "wetter-schnee",
+     "wort": "snow",
+     "fokus": "ow"
+    },
+    {
+     "id": "zug-leuchtturm",
+     "wort": "lighthouse",
+     "fokus": "igh"
+    },
+    {
+     "id": "zug-seil",
+     "wort": "rope",
+     "fokus": ""
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "art": "saetze",
+   "himmel": "#f6d9b8",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#e7c49b",
+    "#d9ad7d",
+    "#efd4ae"
+   ],
+   "baum": [
+    "#ef6f6c",
+    "#4fb984",
+    "#4ea8de"
+   ],
+   "station": "At Home",
+   "intro": "Short sentences from home. A capital letter at the start and a full stop at the end!",
+   "eintraege": [
+    {
+     "satz": "Lisi reads a book.",
+     "bild": "📖"
+    },
+    {
+     "satz": "Nora paints a picture.",
+     "bild": "🎨"
+    },
+    {
+     "satz": "Malik plays football.",
+     "bild": "⚽"
+    },
+    {
+     "satz": "Tian cooks pasta.",
+     "bild": "🍝"
+    },
+    {
+     "satz": "The cat is sleeping.",
+     "bild": "tiere-katze"
+    },
+    {
+     "satz": "Dad bakes bread.",
+     "bild": "essen-brot"
+    },
+    {
+     "satz": "Mum waters the flowers.",
+     "bild": "💐"
+    },
+    {
+     "satz": "The dog barks loudly.",
+     "bild": "tiere-hund"
+    },
+    {
+     "satz": "We eat together.",
+     "bild": "🍽️"
+    },
+    {
+     "satz": "Gran knits a scarf.",
+     "bild": "kleidung-schal"
+    },
+    {
+     "satz": "I brush my teeth.",
+     "bild": "🪥"
+    },
+    {
+     "satz": "The baby laughs.",
+     "bild": "👶"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "art": "saetze",
+   "himmel": "#9fd3f2",
+   "boden": "#f2d7a6",
+   "huegel": [
+    "#d9a64f",
+    "#c98b3f",
+    "#e0b660"
+   ],
+   "baum": [
+    "#e8833a",
+    "#c8552e",
+    "#e9b23c"
+   ],
+   "station": "Autumn Woods",
+   "intro": "The leaves are falling. Put the autumn sentences in order.",
+   "eintraege": [
+    {
+     "satz": "The fox runs through the woods.",
+     "bild": "🦊"
+    },
+    {
+     "satz": "Lisi travels by train.",
+     "bild": "🚂"
+    },
+    {
+     "satz": "The leaves fall from the tree.",
+     "bild": "🍂"
+    },
+    {
+     "satz": "Nora collects shiny conkers.",
+     "bild": "pflanzen-kastanie"
+    },
+    {
+     "satz": "The hedgehog sleeps in the leaves.",
+     "bild": "🦔"
+    },
+    {
+     "satz": "In autumn the wind often blows.",
+     "bild": "wetter-wind"
+    },
+    {
+     "satz": "Malik flies a kite.",
+     "bild": "🪁"
+    },
+    {
+     "satz": "Tian drinks a warm cup of tea.",
+     "bild": "🫖"
+    },
+    {
+     "satz": "The sun is shining in the sky.",
+     "bild": "wetter-sonne"
+    },
+    {
+     "satz": "The squirrel looks for nuts.",
+     "bild": "tiere-eichhoernchen"
+    },
+    {
+     "satz": "The rain drips on the roof.",
+     "bild": "wetter-regen"
+    },
+    {
+     "satz": "The children jump in the puddle.",
+     "bild": "wetter-regenschirm"
+    },
+    {
+     "satz": "The train goes over the bridge.",
+     "bild": "🌉"
+    },
+    {
+     "satz": "We are baking a pumpkin cake.",
+     "bild": "essen-kuerbis"
+    },
+    {
+     "satz": "The hare hops across the field.",
+     "bild": "tiere-hase"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "art": "saetze",
+   "himmel": "#a9d8f2",
+   "boden": "#e6d7b8",
+   "huegel": [
+    "#9db8d8",
+    "#7d9cc4",
+    "#b6cbe5"
+   ],
+   "baum": [
+    "#4fb984",
+    "#f7a541",
+    "#9b7fd4"
+   ],
+   "station": "On a Journey",
+   "intro": "Long sentences for a long journey. Read carefully!",
+   "eintraege": [
+    {
+     "satz": "Lisi packs her suitcase for the trip.",
+     "bild": "🧳"
+    },
+    {
+     "satz": "The train goes through a long tunnel.",
+     "bild": "🚇"
+    },
+    {
+     "satz": "Malik waits at the station with his gran.",
+     "bild": "🚉"
+    },
+    {
+     "satz": "Nora looks out of the window.",
+     "bild": "🪟"
+    },
+    {
+     "satz": "Tian has the tickets in his pocket.",
+     "bild": "🎫"
+    },
+    {
+     "satz": "The guard blows his whistle very loudly.",
+     "bild": "🚂"
+    },
+    {
+     "satz": "We are going to the seaside by train.",
+     "bild": "🌊"
+    },
+    {
+     "satz": "We build a sandcastle on the beach.",
+     "bild": "🏖️"
+    },
+    {
+     "satz": "The plane flies high above the clouds.",
+     "bild": "✈️"
+    },
+    {
+     "satz": "It is warm and cosy in the tent.",
+     "bild": "⛺"
+    },
+    {
+     "satz": "In the evening Grandad tells a story.",
+     "bild": "📖"
+    },
+    {
+     "satz": "Tomorrow we are going home again.",
+     "bild": "🏡"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "art": "saetze",
+   "frage": true,
+   "himmel": "#c9b6ec",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#9b7fd4",
+    "#7a5fb5",
+    "#b49ce0"
+   ],
+   "baum": [
+    "#f2c14e",
+    "#ef6f6c",
+    "#4ea8de"
+   ],
+   "station": "Last Stop",
+   "intro": "Last stop! Here are questions. A question ends with a question mark.",
+   "eintraege": [
+    {
+     "satz": "Where is the train going?",
+     "bild": "🚂"
+    },
+    {
+     "satz": "When will we get there?",
+     "bild": "⏰"
+    },
+    {
+     "satz": "Who has got my suitcase?",
+     "bild": "🧳"
+    },
+    {
+     "satz": "Where is the ticket?",
+     "bild": "🎫"
+    },
+    {
+     "satz": "Are you coming to the seaside?",
+     "bild": "🌊"
+    },
+    {
+     "satz": "Are you hungry?",
+     "bild": "🥪"
+    },
+    {
+     "satz": "What can you see out of the window?",
+     "bild": "🪟"
+    },
+    {
+     "satz": "What is the station called?",
+     "bild": "🚉"
+    },
+    {
+     "satz": "Can I sit by the window?",
+     "bild": "💺"
+    },
+    {
+     "satz": "Why is the train stopping here?",
+     "bild": "🚦"
+    },
+    {
+     "satz": "Will you play with me?",
+     "bild": "🎲"
+    },
+    {
+     "satz": "Do you like hot chocolate?",
+     "bild": "☕"
+    }
+   ]
+  }
+ ],
+ "ueberraschungen": [
+  {
+   "von": "Nora",
+   "bild": "pflanzen-kastanie",
+   "text": "Nora has brought you a shiny conker!"
+  },
+  {
+   "von": "Malik",
+   "bild": "🪁",
+   "text": "Malik gives you a colourful kite!"
+  },
+  {
+   "von": "Tian",
+   "bild": "🏮",
+   "text": "Tian has a glowing lantern for you!"
+  },
+  {
+   "von": "Nora",
+   "bild": "pflanzen-blatt",
+   "text": "Nora found the prettiest autumn leaf for you!"
+  },
+  {
+   "von": "Malik",
+   "bild": "essen-kuerbis",
+   "text": "Malik brings you a big pumpkin!"
+  },
+  {
+   "von": "Tian",
+   "bild": "🦔",
+   "text": "Tian found a little hedgehog. It says hello!"
+  },
+  {
+   "von": "Nora",
+   "bild": "natur-feder",
+   "text": "Nora gives you a soft feather!"
+  },
+  {
+   "von": "Malik",
+   "bild": "tiere-eichhoernchen",
+   "text": "A squirrel comes to visit you with Malik!"
+  },
+  {
+   "von": "Tian",
+   "bild": "pflanzen-sonnenblume",
+   "text": "Tian brings you a big sunflower!"
+  }
+ ]
+}

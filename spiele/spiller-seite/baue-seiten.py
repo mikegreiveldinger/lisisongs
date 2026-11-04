@@ -120,14 +120,16 @@ english = seite("English – Lisi Spiele", "Learn English with Lisi: Lisi’s Wo
   '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> All games</a>',
   hallo("../", "English", "Hello! Here you can learn English words. Listen, read and play!") + f"""
   <div class="raster">
-{kachel("word-world/", "../kacheln/word-world.jpg", "Lisi’s Word World", "Listen, read and spell English words: a or an, letters and memory.", '<span class="neu">New</span>')}
+{kachel("word-world/", "../kacheln/word-world.jpg", "Lisi’s Word World", "Listen, read and spell English words: a or an, letters and memory.")}
+{kachel("word-train/", "../kacheln/word-train.jpg", "Lisi and the Word Train", "12 stations: build syllables, words and sentences. Every right word adds a wagon.", '<span class="neu">New</span>')}
   </div>""").replace('<html lang="de">', '<html lang="en">')
 
 francais = seite("Français – Lisi Spiele", "Apprendre le français avec Lisi : le monde des mots de Lisi, avec écoute, lecture, un ou une, lettres et memory.", "../",
   '<a class="pille" href="../"><img src="../marke/symbol-finger.png" alt=""> Tous les jeux</a>',
   hallo("../", "Français", "Bonjour ! Ici, tu apprends des mots français. Écoute, lis et joue !") + f"""
   <div class="raster">
-{kachel("monde-des-mots/", "../kacheln/monde-des-mots.jpg", "Le monde des mots de Lisi", "Écoute, lis et écris des mots français : un ou une, le, la ou l’, lettres et memory.", '<span class="neu">Nouveau</span>')}
+{kachel("monde-des-mots/", "../kacheln/monde-des-mots.jpg", "Le monde des mots de Lisi", "Écoute, lis et écris des mots français : un ou une, le, la ou l’, lettres et memory.")}
+{kachel("train-des-mots/", "../kacheln/train-des-mots.jpg", "Lisi et le train des mots", "12 gares : syllabes, mots et phrases. Chaque mot juste ajoute un wagon.", '<span class="neu">Nouveau</span>')}
   </div>""").replace('<html lang="de">', '<html lang="fr">')
 
 (hier / "index.html").write_text(start, encoding="utf-8")

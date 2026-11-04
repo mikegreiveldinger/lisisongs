@@ -1,0 +1,1002 @@
+{
+ "hinweis": "Wortliste (fr) für den Wörterzug, erzeugt von sprachen.py. id = gemaltes Bild.",
+ "level": [
+  {
+   "nr": 1,
+   "art": "silben",
+   "himmel": "#a9dcf5",
+   "boden": "#a6d47f",
+   "huegel": [
+    "#8cc56a",
+    "#6fae55",
+    "#9dd07a"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#3d8a3a",
+    "#6cb35a"
+   ],
+   "station": "La ferme",
+   "intro": "Bienvenue à la ferme ! Assemble les syllabes.",
+   "eintraege": [
+    {
+     "id": "zug-ziege",
+     "wort": "chèvre",
+     "silben": [
+      "chè",
+      "vre"
+     ]
+    },
+    {
+     "id": "zug-ferkel",
+     "wort": "porcelet",
+     "silben": [
+      "por",
+      "ce",
+      "let"
+     ]
+    },
+    {
+     "id": "zug-kueken",
+     "wort": "poussin",
+     "silben": [
+      "pous",
+      "sin"
+     ]
+    },
+    {
+     "id": "zug-truthahn",
+     "wort": "dindon",
+     "silben": [
+      "din",
+      "don"
+     ]
+    },
+    {
+     "id": "zug-kaninchen",
+     "wort": "lapin",
+     "silben": [
+      "la",
+      "pin"
+     ]
+    },
+    {
+     "id": "zug-pony",
+     "wort": "poney",
+     "silben": [
+      "po",
+      "ney"
+     ]
+    },
+    {
+     "id": "zug-fohlen",
+     "wort": "poulain",
+     "silben": [
+      "pou",
+      "lain"
+     ]
+    },
+    {
+     "id": "zug-igel",
+     "wort": "hérisson",
+     "silben": [
+      "hé",
+      "ris",
+      "son"
+     ]
+    },
+    {
+     "id": "zug-giesskanne",
+     "wort": "arrosoir",
+     "silben": [
+      "ar",
+      "ro",
+      "soir"
+     ]
+    },
+    {
+     "id": "zug-schubkarre",
+     "wort": "brouette",
+     "silben": [
+      "brou",
+      "ette"
+     ]
+    },
+    {
+     "id": "zug-bauer",
+     "wort": "fermier",
+     "silben": [
+      "fer",
+      "mier"
+     ]
+    }
+   ]
+  },
+  {
+   "nr": 2,
+   "art": "silben",
+   "himmel": "#bfe4f7",
+   "boden": "#e9d3a6",
+   "huegel": [
+    "#d9b97a",
+    "#c9a35f",
+    "#e5c68b"
+   ],
+   "baum": [
+    "#e8833a",
+    "#4f9a45",
+    "#d9504c"
+   ],
+   "station": "Le marché",
+   "intro": "Des fruits et des légumes au marché. Quelles syllabes vont ensemble ?",
+   "eintraege": [
+    {
+     "id": "zug-kirsche",
+     "wort": "cerise",
+     "silben": [
+      "ce",
+      "rise"
+     ]
+    },
+    {
+     "id": "zug-melone",
+     "wort": "melon",
+     "silben": [
+      "me",
+      "lon"
+     ]
+    },
+    {
+     "id": "zug-zitrone",
+     "wort": "citron",
+     "silben": [
+      "ci",
+      "tron"
+     ]
+    },
+    {
+     "id": "zug-ananas",
+     "wort": "ananas",
+     "silben": [
+      "a",
+      "na",
+      "nas"
+     ]
+    },
+    {
+     "id": "zug-gurke",
+     "wort": "concombre",
+     "silben": [
+      "con",
+      "com",
+      "bre"
+     ]
+    },
+    {
+     "id": "zug-paprika",
+     "wort": "poivron",
+     "silben": [
+      "poi",
+      "vron"
+     ]
+    },
+    {
+     "id": "zug-zwiebel",
+     "wort": "oignon",
+     "silben": [
+      "oi",
+      "gnon"
+     ]
+    },
+    {
+     "id": "zug-kartoffel",
+     "wort": "patate",
+     "silben": [
+      "pa",
+      "tate"
+     ]
+    },
+    {
+     "id": "zug-trauben",
+     "wort": "raisin",
+     "silben": [
+      "rai",
+      "sin"
+     ]
+    },
+    {
+     "id": "zug-radieschen",
+     "wort": "radis",
+     "silben": [
+      "ra",
+      "dis"
+     ]
+    }
+   ]
+  },
+  {
+   "nr": 3,
+   "art": "silben",
+   "himmel": "#d6cdf3",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#c9b6ec",
+    "#b49ce0",
+    "#d8c9f2"
+   ],
+   "baum": [
+    "#9b7fd4",
+    "#ef6f6c",
+    "#4ea8de"
+   ],
+   "station": "L’armoire",
+   "intro": "Lisi fait sa valise. Quels vêtements emporte-t-elle ?",
+   "eintraege": [
+    {
+     "id": "zug-strumpfhose",
+     "wort": "collant",
+     "silben": [
+      "col",
+      "lant"
+     ]
+    },
+    {
+     "id": "zug-mantel",
+     "wort": "manteau",
+     "silben": [
+      "man",
+      "teau"
+     ]
+    },
+    {
+     "id": "zug-bluse",
+     "wort": "chemisier",
+     "silben": [
+      "che",
+      "mi",
+      "sier"
+     ]
+    },
+    {
+     "id": "zug-schlafanzug",
+     "wort": "pyjama",
+     "silben": [
+      "py",
+      "ja",
+      "ma"
+     ]
+    },
+    {
+     "id": "zug-guertel",
+     "wort": "ceinture",
+     "silben": [
+      "cein",
+      "ture"
+     ]
+    },
+    {
+     "id": "zug-krawatte",
+     "wort": "cravate",
+     "silben": [
+      "cra",
+      "vate"
+     ]
+    },
+    {
+     "id": "zug-sandalen",
+     "wort": "sandales",
+     "silben": [
+      "san",
+      "dales"
+     ]
+    },
+    {
+     "id": "zug-turnschuhe",
+     "wort": "baskets",
+     "silben": [
+      "bas",
+      "kets"
+     ]
+    },
+    {
+     "id": "zug-haarspange",
+     "wort": "barrette",
+     "silben": [
+      "bar",
+      "rette"
+     ]
+    },
+    {
+     "id": "zug-halstuch",
+     "wort": "foulard",
+     "silben": [
+      "fou",
+      "lard"
+     ]
+    }
+   ]
+  },
+  {
+   "nr": 4,
+   "art": "woerter",
+   "himmel": "#b8e0f2",
+   "boden": "#7a9c52",
+   "huegel": [
+    "#3f7a3e",
+    "#2f6a35",
+    "#5a8f4a"
+   ],
+   "baum": [
+    "#2f6a35",
+    "#3f7a3e",
+    "#5a8f4a"
+   ],
+   "station": "Dans la forêt",
+   "intro": "Dans la forêt, on entend ou et eau. Écris les mots lettre par lettre.",
+   "eintraege": [
+    {
+     "id": "zug-wolf",
+     "wort": "loup",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-fuchs",
+     "wort": "renard",
+     "fokus": ""
+    },
+    {
+     "id": "zug-dachs",
+     "wort": "blaireau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-hirsch",
+     "wort": "cerf",
+     "fokus": ""
+    },
+    {
+     "id": "zug-rabe",
+     "wort": "corbeau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-zelt",
+     "wort": "tente",
+     "fokus": ""
+    },
+    {
+     "id": "zug-moos",
+     "wort": "mousse",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-farn",
+     "wort": "fougère",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-bach",
+     "wort": "ruisseau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-laterne",
+     "wort": "lanterne",
+     "fokus": ""
+    },
+    {
+     "id": "zug-nuss",
+     "wort": "noisette",
+     "fokus": "tt"
+    },
+    {
+     "id": "zug-beere",
+     "wort": "myrtille",
+     "fokus": "ill"
+    }
+   ]
+  },
+  {
+   "nr": 5,
+   "art": "woerter",
+   "himmel": "#c8e6f5",
+   "boden": "#cfc6b8",
+   "huegel": [
+    "#a9b4c2",
+    "#8e9aab",
+    "#bcc6d2"
+   ],
+   "baum": [
+    "#e8833a",
+    "#4ea8de",
+    "#ef6f6c"
+   ],
+   "station": "À la gare",
+   "intro": "Le train s’arrête à la gare. Attention aux lettres doubles !",
+   "eintraege": [
+    {
+     "id": "zug-koffer",
+     "wort": "valise",
+     "fokus": ""
+    },
+    {
+     "id": "zug-waggon",
+     "wort": "wagon",
+     "fokus": ""
+    },
+    {
+     "id": "zug-tunnel",
+     "wort": "tunnel",
+     "fokus": "nn"
+    },
+    {
+     "id": "zug-ballon",
+     "wort": "ballon",
+     "fokus": "ll"
+    },
+    {
+     "id": "zug-puppe",
+     "wort": "poupée",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-teddy",
+     "wort": "nounours",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-hammer",
+     "wort": "marteau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-pfiff",
+     "wort": "sifflet",
+     "fokus": "ff"
+    },
+    {
+     "id": "zug-sessel",
+     "wort": "fauteuil",
+     "fokus": "au"
+    },
+    {
+     "id": "zug-himmel",
+     "wort": "ciel",
+     "fokus": ""
+    }
+   ]
+  },
+  {
+   "nr": 6,
+   "art": "woerter",
+   "himmel": "#a9dcf5",
+   "boden": "#9fd17a",
+   "huegel": [
+    "#8cc56a",
+    "#a6d47f",
+    "#7dbb5f"
+   ],
+   "baum": [
+    "#ef6f6c",
+    "#f2c14e",
+    "#9b7fd4"
+   ],
+   "station": "Dans le pré",
+   "intro": "Dans le pré, on entend oi, eau et an.",
+   "eintraege": [
+    {
+     "id": "zug-fliege",
+     "wort": "mouche",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-spiegel",
+     "wort": "miroir",
+     "fokus": "oi"
+    },
+    {
+     "id": "zug-brief",
+     "wort": "lettre",
+     "fokus": "tt"
+    },
+    {
+     "id": "zug-stier",
+     "wort": "taureau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-ziel",
+     "wort": "drapeau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-lied",
+     "wort": "chanson",
+     "fokus": "an"
+    },
+    {
+     "id": "zug-knie",
+     "wort": "genou",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-riese",
+     "wort": "géant",
+     "fokus": "an"
+    },
+    {
+     "id": "zug-kiefer",
+     "wort": "pin",
+     "fokus": "in"
+    }
+   ]
+  },
+  {
+   "nr": 7,
+   "art": "woerter",
+   "himmel": "#c3e1f2",
+   "boden": "#d8d2c8",
+   "huegel": [
+    "#c97f5d",
+    "#b86e4f",
+    "#d89574"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#e9b23c",
+    "#4ea8de"
+   ],
+   "station": "En ville",
+   "intro": "En ville, on entend eil, qu et gu.",
+   "eintraege": [
+    {
+     "id": "zug-baecker",
+     "wort": "boulanger",
+     "fokus": "an"
+    },
+    {
+     "id": "zug-zucker",
+     "wort": "sucre",
+     "fokus": ""
+    },
+    {
+     "id": "zug-wecker",
+     "wort": "réveil",
+     "fokus": "eil"
+    },
+    {
+     "id": "zug-decke",
+     "wort": "couverture",
+     "fokus": "ou"
+    },
+    {
+     "id": "zug-spatz",
+     "wort": "moineau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-muetze",
+     "wort": "bonnet",
+     "fokus": "nn"
+    },
+    {
+     "id": "zug-schatz",
+     "wort": "trésor",
+     "fokus": ""
+    },
+    {
+     "id": "zug-pfuetze",
+     "wort": "flaque",
+     "fokus": "qu"
+    },
+    {
+     "id": "zug-matratze",
+     "wort": "matelas",
+     "fokus": ""
+    },
+    {
+     "id": "zug-spritze",
+     "wort": "seringue",
+     "fokus": "gu"
+    }
+   ]
+  },
+  {
+   "nr": 8,
+   "art": "woerter",
+   "himmel": "#9fd6f2",
+   "boden": "#f2dfb0",
+   "huegel": [
+    "#4ea8de",
+    "#3a94c9",
+    "#6fbbe6"
+   ],
+   "baum": [
+    "#4f9a45",
+    "#e9b23c",
+    "#f7a541"
+   ],
+   "station": "À la mer",
+   "intro": "Au bord de la mer, écoute bien les sons !",
+   "eintraege": [
+    {
+     "id": "zug-eimer",
+     "wort": "seau",
+     "fokus": "eau"
+    },
+    {
+     "id": "zug-seil",
+     "wort": "corde",
+     "fokus": ""
+    },
+    {
+     "id": "zug-schaufel",
+     "wort": "pelle",
+     "fokus": "ll"
+    },
+    {
+     "id": "zug-raupe",
+     "wort": "chenille",
+     "fokus": "ill"
+    },
+    {
+     "id": "zug-leuchtturm",
+     "wort": "phare",
+     "fokus": "ph"
+    },
+    {
+     "id": "zug-heu",
+     "wort": "foin",
+     "fokus": "oin"
+    },
+    {
+     "id": "zug-kreide",
+     "wort": "craie",
+     "fokus": "ai"
+    },
+    {
+     "id": "zug-bauch",
+     "wort": "ventre",
+     "fokus": "en"
+    },
+    {
+     "id": "zug-leiter",
+     "wort": "échelle",
+     "fokus": "ll"
+    }
+   ]
+  },
+  {
+   "nr": 9,
+   "art": "saetze",
+   "himmel": "#f6d9b8",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#e7c49b",
+    "#d9ad7d",
+    "#efd4ae"
+   ],
+   "baum": [
+    "#ef6f6c",
+    "#4fb984",
+    "#4ea8de"
+   ],
+   "station": "À la maison",
+   "intro": "Des phrases courtes de la maison. Une majuscule au début et un point à la fin !",
+   "eintraege": [
+    {
+     "satz": "Lisi lit un livre.",
+     "bild": "📖"
+    },
+    {
+     "satz": "Nora peint un tableau.",
+     "bild": "🎨"
+    },
+    {
+     "satz": "Malik joue au football.",
+     "bild": "⚽"
+    },
+    {
+     "satz": "Tian fait cuire des pâtes.",
+     "bild": "🍝"
+    },
+    {
+     "satz": "Le chat dort.",
+     "bild": "tiere-katze"
+    },
+    {
+     "satz": "Papa fait du pain.",
+     "bild": "essen-brot"
+    },
+    {
+     "satz": "Maman arrose les fleurs.",
+     "bild": "💐"
+    },
+    {
+     "satz": "Le chien aboie fort.",
+     "bild": "tiere-hund"
+    },
+    {
+     "satz": "Nous mangeons ensemble.",
+     "bild": "🍽️"
+    },
+    {
+     "satz": "Mamie tricote une écharpe.",
+     "bild": "kleidung-schal"
+    },
+    {
+     "satz": "Je me brosse les dents.",
+     "bild": "🪥"
+    },
+    {
+     "satz": "Le bébé rit.",
+     "bild": "👶"
+    }
+   ]
+  },
+  {
+   "nr": 10,
+   "art": "saetze",
+   "himmel": "#9fd3f2",
+   "boden": "#f2d7a6",
+   "huegel": [
+    "#d9a64f",
+    "#c98b3f",
+    "#e0b660"
+   ],
+   "baum": [
+    "#e8833a",
+    "#c8552e",
+    "#e9b23c"
+   ],
+   "station": "La forêt d’automne",
+   "intro": "Les feuilles tombent. Range les phrases d’automne.",
+   "eintraege": [
+    {
+     "satz": "Le renard court dans la forêt.",
+     "bild": "🦊"
+    },
+    {
+     "satz": "Lisi voyage en train.",
+     "bild": "🚂"
+    },
+    {
+     "satz": "Les feuilles tombent de l’arbre.",
+     "bild": "🍂"
+    },
+    {
+     "satz": "Nora ramasse des marrons brillants.",
+     "bild": "pflanzen-kastanie"
+    },
+    {
+     "satz": "Le hérisson dort dans les feuilles.",
+     "bild": "🦔"
+    },
+    {
+     "satz": "En automne, le vent souffle souvent.",
+     "bild": "wetter-wind"
+    },
+    {
+     "satz": "Malik fait voler un cerf-volant.",
+     "bild": "🪁"
+    },
+    {
+     "satz": "Tian boit un thé chaud.",
+     "bild": "🫖"
+    },
+    {
+     "satz": "Le soleil brille dans le ciel.",
+     "bild": "wetter-sonne"
+    },
+    {
+     "satz": "L’écureuil cherche des noisettes.",
+     "bild": "tiere-eichhoernchen"
+    },
+    {
+     "satz": "La pluie tombe sur le toit.",
+     "bild": "wetter-regen"
+    },
+    {
+     "satz": "Les enfants sautent dans la flaque.",
+     "bild": "wetter-regenschirm"
+    },
+    {
+     "satz": "Le train passe sur le pont.",
+     "bild": "🌉"
+    },
+    {
+     "satz": "Nous faisons un gâteau à la citrouille.",
+     "bild": "essen-kuerbis"
+    },
+    {
+     "satz": "Le lièvre saute dans le champ.",
+     "bild": "tiere-hase"
+    }
+   ]
+  },
+  {
+   "nr": 11,
+   "art": "saetze",
+   "himmel": "#a9d8f2",
+   "boden": "#e6d7b8",
+   "huegel": [
+    "#9db8d8",
+    "#7d9cc4",
+    "#b6cbe5"
+   ],
+   "baum": [
+    "#4fb984",
+    "#f7a541",
+    "#9b7fd4"
+   ],
+   "station": "En voyage",
+   "intro": "Des phrases longues pour un long voyage. Lis bien !",
+   "eintraege": [
+    {
+     "satz": "Lisi prépare sa valise pour le voyage.",
+     "bild": "🧳"
+    },
+    {
+     "satz": "Le train passe dans un long tunnel.",
+     "bild": "🚇"
+    },
+    {
+     "satz": "Malik attend à la gare avec sa mamie.",
+     "bild": "🚉"
+    },
+    {
+     "satz": "Nora regarde par la fenêtre.",
+     "bild": "🪟"
+    },
+    {
+     "satz": "Tian a les billets dans sa poche.",
+     "bild": "🎫"
+    },
+    {
+     "satz": "Le contrôleur siffle très fort.",
+     "bild": "🚂"
+    },
+    {
+     "satz": "Nous allons à la mer en train.",
+     "bild": "🌊"
+    },
+    {
+     "satz": "Sur la plage, nous faisons un château de sable.",
+     "bild": "🏖️"
+    },
+    {
+     "satz": "L’avion vole au-dessus des nuages.",
+     "bild": "✈️"
+    },
+    {
+     "satz": "Dans la tente, il fait chaud et doux.",
+     "bild": "⛺"
+    },
+    {
+     "satz": "Le soir, papi raconte une histoire.",
+     "bild": "📖"
+    },
+    {
+     "satz": "Demain, nous rentrons à la maison.",
+     "bild": "🏡"
+    }
+   ]
+  },
+  {
+   "nr": 12,
+   "art": "saetze",
+   "frage": true,
+   "himmel": "#c9b6ec",
+   "boden": "#efe3c8",
+   "huegel": [
+    "#9b7fd4",
+    "#7a5fb5",
+    "#b49ce0"
+   ],
+   "baum": [
+    "#f2c14e",
+    "#ef6f6c",
+    "#4ea8de"
+   ],
+   "station": "Le terminus",
+   "intro": "Terminus ! Ici, il y a des questions. À la fin, on met un point d’interrogation.",
+   "eintraege": [
+    {
+     "satz": "Où va le train ?",
+     "bild": "🚂"
+    },
+    {
+     "satz": "Quand arrivons-nous ?",
+     "bild": "⏰"
+    },
+    {
+     "satz": "Qui a ma valise ?",
+     "bild": "🧳"
+    },
+    {
+     "satz": "Où est le billet ?",
+     "bild": "🎫"
+    },
+    {
+     "satz": "Tu viens à la mer ?",
+     "bild": "🌊"
+    },
+    {
+     "satz": "As-tu faim ?",
+     "bild": "🥪"
+    },
+    {
+     "satz": "Que vois-tu par la fenêtre ?",
+     "bild": "🪟"
+    },
+    {
+     "satz": "Comment s’appelle la gare ?",
+     "bild": "🚉"
+    },
+    {
+     "satz": "Je peux m’asseoir à la fenêtre ?",
+     "bild": "💺"
+    },
+    {
+     "satz": "Pourquoi le train s’arrête ici ?",
+     "bild": "🚦"
+    },
+    {
+     "satz": "Tu joues avec moi ?",
+     "bild": "🎲"
+    },
+    {
+     "satz": "Tu aimes le chocolat chaud ?",
+     "bild": "☕"
+    }
+   ]
+  }
+ ],
+ "ueberraschungen": [
+  {
+   "von": "Nora",
+   "bild": "pflanzen-kastanie",
+   "text": "Nora t’a apporté un marron tout brillant !"
+  },
+  {
+   "von": "Malik",
+   "bild": "🪁",
+   "text": "Malik t’offre un cerf-volant coloré !"
+  },
+  {
+   "von": "Tian",
+   "bild": "🏮",
+   "text": "Tian a une lanterne lumineuse pour toi !"
+  },
+  {
+   "von": "Nora",
+   "bild": "pflanzen-blatt",
+   "text": "Nora a trouvé la plus belle feuille d’automne pour toi !"
+  },
+  {
+   "von": "Malik",
+   "bild": "essen-kuerbis",
+   "text": "Malik t’apporte une grosse citrouille !"
+  },
+  {
+   "von": "Tian",
+   "bild": "🦔",
+   "text": "Tian a trouvé un petit hérisson. Il te dit bonjour !"
+  },
+  {
+   "von": "Nora",
+   "bild": "natur-feder",
+   "text": "Nora t’offre une plume toute douce !"
+  },
+  {
+   "von": "Malik",
+   "bild": "tiere-eichhoernchen",
+   "text": "Un écureuil vient te voir avec Malik !"
+  },
+  {
+   "von": "Tian",
+   "bild": "pflanzen-sonnenblume",
+   "text": "Tian t’apporte un grand tournesol !"
+  }
+ ]
+}

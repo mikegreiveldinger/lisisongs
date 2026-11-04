@@ -223,9 +223,15 @@ const FIG = {
   lisi:'{{../lisis-woerterwelt/marke/symbol-lisi-lacht.png}}', logo:'{{../lisis-woerterwelt/marke/lisi-logo.png}}',
   noraLiest:'{{figuren/nora-liest.webp}}', Nora:'{{figuren/nora.webp}}', Malik:'{{figuren/malik.webp}}', Tian:'{{figuren/tian.webp}}'
 };
+/* Sprache: baue.py setzt 'de', 'en' (UK) oder 'fr' */
+const SPRACHE = /*SPRACHE*/'de';
+const EN = SPRACHE==='en', FR = SPRACHE==='fr';
+const T = (de,en,fr) => FR ? fr : EN ? en : de;
 const ZIEL = 10;   // Waggons bis zur Überraschung
 const LEVEL = DATEN.level;   // 12 Bahnhöfe, siehe woerter.json
-const ART = {silben:{name:'Silben', farbe:'var(--blau)'}, woerter:{name:'Wörter bauen', farbe:'var(--orange)'}, saetze:{name:'Sätze bauen', farbe:'var(--gruen)'}};
+const ART = {silben:{name:T('Silben','Syllables','Syllabes'), farbe:'var(--blau)'}, woerter:{name:T('Wörter bauen','Build words','Écrire des mots'), farbe:'var(--orange)'}, saetze:{name:T('Sätze bauen','Build sentences','Former des phrases'), farbe:'var(--gruen)'}};
+const TITEL = T('Lisi und der Wörterzug','Lisi and the Word Train','Lisi et le train des mots');
+const BAHNHOF = T('Bahnhof','Station','Gare');
 /* Bild zu einem Eintrag: zuerst das gemalte Bild (id), sonst das Ersatzbild (emoji) oder das angegebene Bild */
 const bildVon = e => BILDER[e.id] ? e.id : (e.emoji || e.bild || '');
 const offen = nr => nr===1 || stand.alle || (stand.fahrten[nr-1]||0)>0;
@@ -241,19 +247,20 @@ const bildTag = (b, cls='') => BILDER[b] ? `<img class="${cls}" src="${BILDER[b]
 const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
 const LAUT = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="#fff"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>';
 const store = {
-  get(){ try{ return JSON.parse(localStorage.getItem('lisi-zug'))||{fahrten:{},schatz:[]} }catch(e){ return {fahrten:{},schatz:[]} } },
-  set(v){ try{ localStorage.setItem('lisi-zug', JSON.stringify(v)) }catch(e){} }
+  get(){ try{ return JSON.parse(localStorage.getItem('lisi-zug'+(SPRACHE==='de'?'':'-'+SPRACHE)))||{fahrten:{},schatz:[]} }catch(e){ return {fahrten:{},schatz:[]} } },
+  set(v){ try{ localStorage.setItem('lisi-zug'+(SPRACHE==='de'?'':'-'+SPRACHE), JSON.stringify(v)) }catch(e){} }
 };
 let stand = store.get();
 
 /* ---------- Ton ---------- */
 let stimme=null;
 function waehleStimme(){ try{ const vs=speechSynthesis.getVoices();
-  stimme = vs.find(v=>/^de[-_]DE/i.test(v.lang) && /Anna|Petra|Helena|Katja|Marlene|Vicki|Google/i.test(v.name)) || vs.find(v=>/^de/i.test(v.lang)) || null; }catch(e){} }
+  const [code, namen] = FR ? ['fr','Audrey|Aurélie|Amélie|Marie|Google'] : EN ? ['en[-_]GB','Kate|Serena|Stephanie|Martha|Google'] : ['de[-_]DE','Anna|Petra|Helena|Katja|Marlene|Vicki|Google'];
+  stimme = vs.find(v=>new RegExp('^'+code,'i').test(v.lang) && new RegExp(namen,'i').test(v.name)) || vs.find(v=>new RegExp('^'+code,'i').test(v.lang)) || vs.find(v=>v.lang.startsWith(SPRACHE)) || null; }catch(e){} }
 if('speechSynthesis' in window){ waehleStimme(); speechSynthesis.onvoiceschanged = waehleStimme; }
 function sag(text, rate=.8){
   if(!('speechSynthesis' in window)) return;
-  try{ speechSynthesis.cancel(); setTimeout(()=>{ const u=new SpeechSynthesisUtterance(text); u.lang='de-DE'; if(stimme) u.voice=stimme; u.rate=rate; u.pitch=1.1; speechSynthesis.speak(u); },60); }catch(e){}
+  try{ speechSynthesis.cancel(); setTimeout(()=>{ const u=new SpeechSynthesisUtterance(text); u.lang=T('de-DE','en-GB','fr-FR'); if(stimme) u.voice=stimme; u.rate=rate; u.pitch=1.1; speechSynthesis.speak(u); },60); }catch(e){}
 }
 let actx=null;
 function ton(freqs, dauer=.14, typ='triangle', abstand=.1, vol=.16){
@@ -305,32 +312,32 @@ function start(){
   const aktuell = LEVEL.find(l=>offen(l.nr) && !stand.fahrten[l.nr]) || LEVEL[LEVEL.length-1];
   app.innerHTML = `
     <div class="kopf">
-      <span class="marke"><img src="${FIG.logo}" alt=""><span><b>Lisi</b> und der Wörterzug</span></span>
-      <span class="schalter"><span class="pille" title="Geschaffte Bahnhöfe">🚉 ${geschafft} / ${LEVEL.length}</span><span class="pille" title="Deine Schätze">🎁 ${schatz.length}</span></span>
+      <span class="marke"><img src="${FIG.logo}" alt=""><span>${T('<b>Lisi</b> und der Wörterzug','<b>Lisi</b> and the Word Train','<b>Lisi</b> et le train des mots')}</span></span>
+      <span class="schalter"><span class="pille" title="${T('Geschaffte Bahnhöfe','Stations reached','Gares atteintes')}">🚉 ${geschafft} / ${LEVEL.length}</span><span class="pille" title="${T('Deine Schätze','Your treasures','Tes trésors')}">🎁 ${schatz.length}</span></span>
     </div>
-    <h1 class="titel" aria-label="Lisi und der Wörterzug">${bunt('Lisi und der Wörterzug')}</h1>
-    <p class="unter">Lisi fährt von Bahnhof zu Bahnhof. Jeder Waggon braucht ein Wort!</p>
+    <h1 class="titel" aria-label="${TITEL}">${bunt(TITEL)}</h1>
+    <p class="unter">${T('Lisi fährt von Bahnhof zu Bahnhof. Jeder Waggon braucht ein Wort!','Lisi travels from station to station. Every wagon needs a word!','Lisi voyage de gare en gare. Chaque wagon a besoin d’un mot !')}</p>
     ${landschaft(aktuell)}
     <div class="strecke${BILDER.karte?' gemalt':''}" id="strecke" ${BILDER.karte?`style="background-image:url(${BILDER.karte})"`:''}>
       <svg class="gleis" id="gleis" aria-hidden="true"></svg>
       ${LEVEL.map(l=>{ const o=offen(l.nr), f=stand.fahrten[l.nr]||0; return `
-        <button class="station${o?'':' gesperrt'}${f?' fertig':''}${l===aktuell?' hier':''}" data-l="${l.nr}" style="--f:${ART[l.art].farbe}" aria-label="Bahnhof ${l.nr}: ${esc(l.station)}${o?'':' (noch geschlossen)'}">
+        <button class="station${o?'':' gesperrt'}${f?' fertig':''}${l===aktuell?' hier':''}" data-l="${l.nr}" style="--f:${ART[l.art].farbe}" aria-label="${BAHNHOF} ${l.nr}: ${esc(l.station)}${o?'':T(' (noch geschlossen)',' (still closed)',' (encore fermée)')}">
           <span class="punkt">${o?(f?'✓':l.nr):'🔒'}</span>
           <span class="sname">${esc(l.station)}</span>
-          <span class="sart">${ART[l.art].name}${l.frage?' mit ?':''}</span>
+          <span class="sart">${ART[l.art].name}${l.frage?T(' mit ?',' with ?',' avec ?'):''}</span>
           ${f?`<span class="sfahrt">🚂 ${f}×</span>`:''}
         </button>`}).join('')}
     </div>
-    <div class="schatz"><h3>Deine Schatzkiste</h3>
-      ${schatz.length?`<div class="reihe">${schatz.map(s=>bildTag(s.bild)).join('')}</div>`:'<p>Fahre 10 Waggons, dann wartet eine Überraschung von Tian, Malik oder Nora auf dich!</p>'}
+    <div class="schatz"><h3>${T('Deine Schatzkiste','Your treasure chest','Ton coffre à trésors')}</h3>
+      ${schatz.length?`<div class="reihe">${schatz.map(s=>bildTag(s.bild)).join('')}</div>`:`<p>${T('Fahre 10 Waggons, dann wartet eine Überraschung von Tian, Malik oder Nora auf dich!','Collect 10 wagons and a surprise from Tian, Malik or Nora is waiting for you!','Gagne 10 wagons et une surprise de Tian, Malik ou Nora t’attend !')}</p>`}
     </div>
-    <label class="eltern"><input type="checkbox" id="alle" ${stand.alle?'checked':''}> Für Eltern und Lehrkräfte: alle Bahnhöfe öffnen</label>`;
+    <label class="eltern"><input type="checkbox" id="alle" ${stand.alle?'checked':''}> ${T('Für Eltern und Lehrkräfte: alle Bahnhöfe öffnen','For parents and teachers: open all stations','Pour les parents et enseignants : ouvrir toutes les gares')}</label>`;
   const z=$('#zug'); aktuell.eintraege.slice(0,3).forEach((a,i)=>z.insertAdjacentHTML('beforeend', waggon(i,a)));
   app.querySelectorAll('.station').forEach(b=>b.onclick=()=>{
     const nr=+b.dataset.l;
     if(offen(nr)) return spiel(nr);
     b.classList.remove('wackeln'); void b.offsetWidth; b.classList.add('wackeln'); klang.sanft();
-    sag(`Fahre zuerst bis zum Bahnhof ${LEVEL[nr-2].station}.`);
+    sag(T(`Fahre zuerst bis zum Bahnhof ${LEVEL[nr-2].station}.`,`First travel to the station ${LEVEL[nr-2].station}.`,`Va d’abord jusqu’à la gare ${LEVEL[nr-2].station}.`));
   });
   $('#alle').onchange=e=>{ stand.alle=e.target.checked; store.set(stand); start(); };
   gleisZeichnen(); window.onresize=gleisZeichnen;
@@ -363,8 +370,8 @@ function spiel(l){
   S={l, lv, art:lv.art, waggons:0, schlange:shuffle(liste(l)).slice(0,ZIEL+2), nochmal:new Set(), auf:null, pos:0, fehler:false, sperre:false};
   app.innerHTML = `
     <div class="oben">
-      <button class="zu" id="zurueck" aria-label="Zur Streckenkarte">✕</button>
-      <h2>Bahnhof ${l}: ${esc(lv.station)} <small>· ${ART[lv.art].name}</small></h2>
+      <button class="zu" id="zurueck" aria-label="${T('Zur Streckenkarte','To the map','Vers la carte')}">✕</button>
+      <h2>${BAHNHOF} ${l}: ${esc(lv.station)} <small>· ${ART[lv.art].name}</small></h2>
       <span class="zaehler" id="zaehler">🚃 0 / ${ZIEL}</span>
     </div>
     ${landschaft(lv, true)}
@@ -377,7 +384,7 @@ function spiel(l){
 function nora(text, nicken){ const b=$('#blase'); if(!b) return; b.innerHTML=text; b.classList.remove('neu'); void b.offsetWidth; b.classList.add('neu');
   if(nicken){ const n=$('#nora'); n.classList.remove('nickt'); void n.offsetWidth; n.classList.add('nickt'); } }
 
-const KLEIN_ANFANG = /^(Der|Die|Das|Im|Am|Wir|Ich|Ein|Eine|Abends|Morgen|Wohin|Wann|Wer|Wo|Was|Wie|Warum|Darf|Kommst|Hast|Spielst|Magst)$/;
+const NAMEN = /^(Lisi|Nora|Malik|Tian|Luxemburg|Luxembourg)$/;
 function naechste(){
   if(!S) return;
   if(S.waggons>=ZIEL) return ueberraschung();
@@ -392,23 +399,23 @@ function naechste(){
     karten = karten.concat(andere.slice(0, a.silben.length>2?1:2));
   }
   if(art==='saetze'){
-    if(KLEIN_ANFANG.test(S.teile[0])) karten.push(S.teile[0].toLowerCase());   // falsch geschriebener Satzanfang
+    if(!NAMEN.test(S.teile[0]) && S.teile[0]!==S.teile[0].toLowerCase()) karten.push(S.teile[0].toLowerCase());   // falsch geschriebener Satzanfang
     karten.push(S.lv.frage ? '.' : '?');                                       // falsches Satzzeichen
   }
   karten = shuffle(karten);
   const kls = art==='silben'?'':art==='woerter'?' buchst':' wortk';
   $('#aufgabe').innerHTML = `
     <div class="bildzeile"><div class="bild">${bildVon(a)?bildTag(bildVon(a)):'<span class="ohne">?</span>'}</div>
-      <button class="vorlesen" id="vorlesen" aria-label="Vorlesen">${LAUT}</button></div>
+      <button class="vorlesen" id="vorlesen" aria-label="${T('Vorlesen','Read aloud','Écouter')}">${LAUT}</button></div>
     <div class="ziel" id="ziel">${S.teile.map((t,i)=>`<span class="platz${art==='saetze'?' wort':''}${/^[.?!]$/.test(t)?' punkt':''}" data-i="${i}"></span>`).join('')}</div>
     <div class="stapel" id="stapel">${karten.map((k,i)=>`<button class="karte${kls}" data-k="${i}">${esc(k)}</button>`).join('')}</div>`;
   markiere();
   const vorlesen = () => sag(art==='saetze' ? a.satz : a.wort, art==='silben'?.7:.8);
   $('#vorlesen').onclick=vorlesen; spaeter(vorlesen, 350);
-  nora(art==='silben' ? 'Welche Silben brauchst du? Zieh sie in die richtige Reihenfolge.'
-     : art==='woerter' ? 'Hör gut zu und baue das Wort Buchstabe für Buchstabe.'
-     : S.lv.frage ? 'Hör dir die Frage an und ordne die Wörter. Am Ende steht ein Fragezeichen!'
-     : 'Hör dir den Satz an und ordne die Wörter. Denk an den großen Anfang und den Punkt!');
+  nora(art==='silben' ? T('Welche Silben brauchst du? Zieh sie in die richtige Reihenfolge.','Which syllables do you need? Drag them into the right order.','De quelles syllabes as-tu besoin ? Mets-les dans le bon ordre.')
+     : art==='woerter' ? T('Hör gut zu und baue das Wort Buchstabe für Buchstabe.','Listen carefully and build the word letter by letter.','Écoute bien et écris le mot lettre par lettre.')
+     : S.lv.frage ? T('Hör dir die Frage an und ordne die Wörter. Am Ende steht ein Fragezeichen!','Listen to the question and put the words in order. A question mark goes at the end!','Écoute la question et range les mots. À la fin, il y a un point d’interrogation !')
+     : T('Hör dir den Satz an und ordne die Wörter. Denk an den großen Anfang und den Punkt!','Listen to the sentence and put the words in order. Remember the capital letter and the full stop!','Écoute la phrase et range les mots. N’oublie pas la majuscule et le point !'));
   $('#stapel').querySelectorAll('.karte').forEach(k=>ziehbar(k));
 }
 function markiere(){ document.querySelectorAll('#ziel .platz').forEach((p,i)=>p.classList.toggle('jetzt', i===S.pos)); }
@@ -454,30 +461,37 @@ function ablegen(karte){
   }
 }
 function hinweis(text, soll){
-  const schau='<b>Schau noch mal genau hin.</b> ';
+  const schau='<b>'+T('Schau noch mal genau hin.','Look again carefully.','Regarde encore une fois.')+'</b> ';
   if(S.art==='saetze'){
-    if(text.toLowerCase()===soll.toLowerCase() && text!==soll) return schau+'Am Satzanfang schreibt man groß.';
+    if(text.toLowerCase()===soll.toLowerCase() && text!==soll) return schau+T('Am Satzanfang schreibt man groß.','A sentence starts with a capital letter.','Une phrase commence par une majuscule.');
     if(S.lv.frage){
-      if(text==='.') return schau+'Das ist eine Frage. Am Ende steht ein <b>Fragezeichen</b>.';
-      if(text==='?') return schau+'Das Fragezeichen kommt ganz ans Ende.';
+      if(text==='.') return schau+T('Das ist eine Frage. Am Ende steht ein <b>Fragezeichen</b>.','This is a question. It ends with a <b>question mark</b>.','C’est une question. À la fin, il y a un <b>point d’interrogation</b>.');
+      if(text==='?') return schau+T('Das Fragezeichen kommt ganz ans Ende.','The question mark goes right at the end.','Le point d’interrogation va tout à la fin.');
     } else {
-      if(text==='?') return schau+'Das ist kein Fragesatz. Am Ende steht ein <b>Punkt</b>.';
-      if(text==='.') return schau+'Der Punkt kommt ganz ans Ende.';
+      if(text==='?') return schau+T('Das ist kein Fragesatz. Am Ende steht ein <b>Punkt</b>.','This is not a question. It ends with a <b>full stop</b>.','Ce n’est pas une question. À la fin, il y a un <b>point</b>.');
+      if(text==='.') return schau+T('Der Punkt kommt ganz ans Ende.','The full stop goes right at the end.','Le point va tout à la fin.');
     }
-    if(S.pos===0) return schau+'Welches Wort steht am Anfang? Es beginnt mit einem großen Buchstaben.';
-    return schau+'Lies den Satz bis hierher noch einmal. Welches Wort kommt jetzt?';
+    if(S.pos===0) return schau+T('Welches Wort steht am Anfang? Es beginnt mit einem großen Buchstaben.','Which word comes first? It starts with a capital letter.','Quel mot vient en premier ? Il commence par une majuscule.');
+    return schau+T('Lies den Satz bis hierher noch einmal. Welches Wort kommt jetzt?','Read the sentence so far again. Which word comes next?','Relis la phrase jusqu’ici. Quel mot vient maintenant ?');
   }
   if(S.art==='woerter'){
     const w=S.auf.wort, i=S.pos, f=S.auf.fokus||'', fi=f?w.toLowerCase().indexOf(f):-1, imFokus = fi>=0 && i>=fi && i<fi+f.length;
-    if(imFokus && (f==='ck'||f==='tz')) return schau+`Nach einem kurzen Laut schreibt man oft <b>${f}</b>.`;
-    if(imFokus && f==='ie') return schau+'Ein langes i schreibt man oft <b>ie</b>.';
-    if(imFokus && ['ei','au','eu'].includes(f)) return schau+`Hörst du <b>${f}</b>? Das schreibt man mit zwei Buchstaben: <b>${f[0]}</b> und <b>${f[1]}</b>.`;
-    if(imFokus && ['chs','sch','ch','pf','sp'].includes(f)) return schau+`Hier kommt <b>${f}</b>. Das sind ${f.length} Buchstaben für einen Laut.`;
-    if(w[i]===w[i-1]) return schau+`Hörst du den kurzen Laut? Dann kommt der Buchstabe zweimal: <b>${w[i]}${w[i]}</b>.`;
-    return schau+'Sprich das Wort langsam. Welchen Buchstaben hörst du jetzt?';
+    const doppelt = f.length===2 && f[0]===f[1];
+    if(SPRACHE==='de'){
+      if(imFokus && (f==='ck'||f==='tz')) return schau+`Nach einem kurzen Laut schreibt man oft <b>${f}</b>.`;
+      if(imFokus && f==='ie') return schau+'Ein langes i schreibt man oft <b>ie</b>.';
+      if(imFokus && ['ei','au','eu'].includes(f)) return schau+`Hörst du <b>${f}</b>? Das schreibt man mit zwei Buchstaben: <b>${f[0]}</b> und <b>${f[1]}</b>.`;
+      if(imFokus && ['chs','sch','ch','pf','sp'].includes(f)) return schau+`Hier kommt <b>${f}</b>. Das sind ${f.length} Buchstaben für einen Laut.`;
+      if(w[i]===w[i-1]) return schau+`Hörst du den kurzen Laut? Dann kommt der Buchstabe zweimal: <b>${w[i]}${w[i]}</b>.`;
+      return schau+'Sprich das Wort langsam. Welchen Buchstaben hörst du jetzt?';
+    }
+    if(imFokus && doppelt) return schau+T('',`This word has a double letter: <b>${f}</b>.`,`Ce mot a une lettre double : <b>${f}</b>.`);
+    if(imFokus) return schau+T('',`Here the sound is written with <b>${f}</b>.`,`Ici, le son s’écrit <b>${f}</b>.`);
+    if(w[i]===w[i-1]) return schau+T('',`The letter comes twice: <b>${w[i]}${w[i]}</b>.`,`La lettre vient deux fois : <b>${w[i]}${w[i]}</b>.`);
+    return schau+T('','Say the word slowly. Which letter do you hear now?','Dis le mot lentement. Quelle lettre entends-tu maintenant ?');
   }
-  return S.pos===0 ? schau+'Mit welcher Silbe fängt das Wort an? Klatsch beim Sprechen mit!'
-                   : schau+'Sprich das Wort langsam und klatsch die Silben mit.';
+  return S.pos===0 ? schau+T('Mit welcher Silbe fängt das Wort an? Klatsch beim Sprechen mit!','Which syllable does the word start with? Clap as you say it!','Par quelle syllabe commence le mot ? Tape dans tes mains en le disant !')
+                   : schau+T('Sprich das Wort langsam und klatsch die Silben mit.','Say the word slowly and clap the syllables.','Dis le mot lentement et tape les syllabes.');
 }
 
 function geschafft(){
@@ -488,9 +502,9 @@ function geschafft(){
     const w=a.wort.toLowerCase(), i=w.indexOf(a.fokus);
     document.querySelectorAll('#ziel .platz').forEach((p,k)=>{ if(k>=i && k<i+a.fokus.length) p.classList.add('fokus'); });
   }
-  const lob = rnd(['Super!','Toll gemacht!','Prima!','Genau!','Klasse!','Spitze!']);
-  const extra = S.art==='woerter' && a.fokus ? ` <b>${esc(a.wort)}</b> schreibt man mit <b>${a.fokus}</b>.`
-              : S.art==='silben' ? ` <b>${a.silben.join(' – ')}</b>: ${a.silben.length} Silben.` : '';
+  const lob = rnd(T(['Super!','Toll gemacht!','Prima!','Genau!','Klasse!','Spitze!'],['Super!','Well done!','Brilliant!','Exactly!','Great!','Fantastic!'],['Super !','Bravo !','Génial !','Exactement !','Très bien !','Formidable !']));
+  const extra = S.art==='woerter' && a.fokus ? T(` <b>${esc(a.wort)}</b> schreibt man mit <b>${a.fokus}</b>.`,` <b>${esc(a.wort)}</b> is spelled with <b>${a.fokus}</b>.`,` <b>${esc(a.wort)}</b> s’écrit avec <b>${a.fokus}</b>.`)
+              : S.art==='silben' ? ` <b>${a.silben.join(' – ')}</b>: ${a.silben.length} ${T('Silben','syllables','syllabes')}.` : '';
   nora(`<b>${lob}</b>${extra}`, true);
   spaeter(()=>sag(S.art==='saetze' ? a.satz : a.wort), 250);
   spaeter(()=>{ if(!S) return;
@@ -510,15 +524,15 @@ function ueberraschung(){
   store.set(stand);
   const u=alle[nr]; S.sperre=true;
   document.body.insertAdjacentHTML('beforeend', `
-    <div class="ueber" id="ueber" role="dialog" aria-label="Überraschung">
+    <div class="ueber" id="ueber" role="dialog" aria-label="${T('Überraschung','Surprise','Surprise')}">
       <div class="karte-u">
-        <h2>10 Waggons!</h2>
+        <h2>${T('10 Waggons!','10 wagons!','10 wagons !')}</h2>
         <div class="buehne"><img class="figur" src="${FIG[u.von]}" alt="${u.von}">
           <div class="paket"><div class="geschenk">${bildTag(u.bild)}</div><div class="box"></div><div class="deckel"></div></div></div>
-        <p>${esc(u.text)} ${l===LEVEL.length?'Du bist an der Endstation angekommen. Die ganze Reise geschafft!':`Bahnhof ${esc(LEVEL[l-1].station)} geschafft. Der nächste Bahnhof ist jetzt offen!`}</p>
-        <div class="aktionen">${l<LEVEL.length?`<button class="knopf" id="weiter">Weiter zum Bahnhof ${esc(LEVEL[l].station)}</button>`:''}<button class="knopf blau" id="nochmal">Noch eine Fahrt</button><button class="knopf lila" id="bahnhof">Zur Streckenkarte</button></div>
+        <p>${esc(u.text)} ${l===LEVEL.length?T('Du bist an der Endstation angekommen. Die ganze Reise geschafft!','You have reached the last station. You made the whole journey!','Tu es arrivé au terminus. Tout le voyage est réussi !'):T(`Bahnhof ${esc(LEVEL[l-1].station)} geschafft. Der nächste Bahnhof ist jetzt offen!`,`Station ${esc(LEVEL[l-1].station)} done. The next station is now open!`,`Gare ${esc(LEVEL[l-1].station)} réussie. La gare suivante est ouverte !`)}</p>
+        <div class="aktionen">${l<LEVEL.length?`<button class="knopf" id="weiter">${T('Weiter zum Bahnhof','On to the station','Vers la gare')} ${esc(LEVEL[l].station)}</button>`:''}<button class="knopf blau" id="nochmal">${T('Noch eine Fahrt','Another ride','Encore un tour')}</button><button class="knopf lila" id="bahnhof">${T('Zur Streckenkarte','To the map','Vers la carte')}</button></div>
       </div></div>`);
-  klang.fanfare(); spaeter(()=>sag(`Zehn Waggons! ${u.text}`, .85), 600); spaeter(konfetti, 1900);
+  klang.fanfare(); spaeter(()=>sag(T('Zehn Waggons! ','Ten wagons! ','Dix wagons ! ')+u.text, .85), 600); spaeter(konfetti, 1900);
   $('#nochmal').onclick=()=>{ $('#ueber').remove(); spiel(l); };
   const w=$('#weiter'); if(w) w.onclick=()=>{ $('#ueber').remove(); spiel(l+1); };
   $('#bahnhof').onclick=()=>{ $('#ueber').remove(); start(); };
