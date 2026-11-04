@@ -35,6 +35,27 @@ for l in daten["level"]:
         emoji(e.get("emoji")); bild(e.get("bild"))
     nimm(f"land-{l['nr']}", hier / "landschaften" / f"land-{l['nr']}.jpg", hier / "landschaften" / f"land-{l['nr']}.webp")
 for u in daten["ueberraschungen"]: bild(u["bild"])
+
+def schiene(datei):
+    """Findet die vordere Schiene in einer gemalten Landschaft (graue, waagrechte Linie im unteren Drittel).
+    Gibt den Abstand vom unteren Bildrand im Verhältnis zur Bildbreite zurück, damit der Zug genau darauf steht."""
+    try:
+        from PIL import Image
+        import numpy as np
+        im = Image.open(datei).convert("RGB"); w, h = im.size
+        a = np.asarray(im).astype(int); zeilen = []
+        for y in range(int(h * .6), h):
+            r = a[y]; mx = r.max(1); mn = r.min(1)
+            if (((mx - mn) < 40) & (mx > 70) & (mx < 215)).mean() > .6: zeilen.append(y)
+        y = max(zeilen) if zeilen else int(h * .86)
+        while y - 1 in zeilen: y -= 1   # obere Kante der vorderen Schiene
+        return round((h - y) / w, 4)
+    except Exception as fehler:
+        print("⚠️  Schiene nicht gefunden:", datei.name, fehler); return round(.14 * 2 / 3, 4)
+for l in daten["level"]:
+    for endung in ("jpg", "webp"):
+        d = hier / "landschaften" / f"land-{l['nr']}.{endung}"
+        if d.exists(): l["schiene"] = schiene(d); break
 bild("pflanzen-blatt")
 for teil in ("lok", "waggon"): nimm(teil, hier / "zug" / f"{teil}.webp", hier / "zug" / f"{teil}.png")
 nimm("karte", hier / "zug" / "karte.jpg", hier / "zug" / "karte.webp")

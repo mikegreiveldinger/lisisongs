@@ -49,7 +49,11 @@ h1,h2,h3{font-family:var(--f-titel);font-weight:600;line-height:1.15;margin:0;te
 /* ---- Landschaft mit Schiene und Zug ---- */
 .land{position:relative;height:190px;border-radius:26px;overflow:hidden;border:4px solid var(--herbst3);flex:none;
   background:linear-gradient(180deg,var(--himmel,#9fd3f2) 0%,#eef7fb 55%,var(--boden,#f2d7a6) 56%,var(--boden,#f2d7a6) 100%)}
-.land.gemalt{background-size:cover;background-position:50% 70%}
+/* Gemalte Landschaft: Bild unten bündig, der Zug steht genau auf der gemalten Schiene (--schiene = Abstand vom unteren Rand / Breite) */
+.land.gemalt{container-type:inline-size;height:clamp(200px,38vw,380px);border-color:#c9a35f;background:#cfe8c0}
+.land.gemalt.klein{height:clamp(160px,26vw,250px)}
+.land .landbild{position:absolute;left:0;width:100%;height:auto;bottom:calc(30px - var(--schiene) * 100cqw);pointer-events:none}
+.land.gemalt .zug{bottom:28px}
 .land .schild{position:absolute;left:12px;top:10px;font:700 15px var(--f-titel);background:#fffdf6;border:3px solid #5a3d8a;color:#5a3d8a;border-radius:10px;padding:2px 10px;box-shadow:0 3px 0 rgba(0,0,0,.12)}
 .land.klein{height:150px}
 .land .huegel{position:absolute;border-radius:50% 50% 0 0;bottom:34px}
@@ -264,13 +268,14 @@ const klang = { klick:()=>ton([520],.06,'triangle',0,.08), gut:()=>ton([660,880]
 function landschaft(l, klein){
   const gemalt = BILDER['land-'+l.nr];
   const [h1,h2,h3] = l.huegel, [b1,b2,b3] = l.baum;
-  const stil = `--himmel:${l.himmel};--boden:${l.boden};--hg1:${h1};--hg2:${h2};--hg3:${h3}` + (gemalt?`;background-image:url(${gemalt})`:'');
+  const stil = `--himmel:${l.himmel};--boden:${l.boden};--hg1:${h1};--hg2:${h2};--hg3:${h3}` + (gemalt?`;--schiene:${l.schiene||.093}`:'');
   const baeume=[[8,b1,b2,b3],[22,b3,b1,b2],[41,b2,b3,b1],[63,b1,b3,b2],[86,b3,b2,b1]];
   const blatt = l.nr===10 && BILDER['pflanzen-blatt'] ? `<img class="blatt" src="${BILDER['pflanzen-blatt']}" alt="">` : '';
   return `<div class="land${klein?' klein':''}${gemalt?' gemalt':''}" style="${stil}" aria-hidden="true">
+    ${gemalt?`<img class="landbild" src="${gemalt}" alt="">`:''}
     ${gemalt?'':`<div class="huegel h1"></div><div class="huegel h3"></div><div class="huegel h2"></div>
     ${baeume.map(([x,k,k2,k3])=>`<div class="baum" style="left:${x}%;--k:${k};--k2:${k2};--k3:${k3}"></div>`).join('')}`}
-    <div class="wolke" style="left:70%;top:28px;width:90px;height:30px"></div><div class="wolke" style="left:120%;top:50px;width:120px;height:34px;animation-duration:55s"></div>
+    ${gemalt?'':'<div class="wolke" style="left:70%;top:28px;width:90px;height:30px"></div><div class="wolke" style="left:120%;top:50px;width:120px;height:34px;animation-duration:55s"></div>'}
     ${[12,38,57,79].map((x,i)=>blatt.replace('class="blatt"',`class="blatt" style="left:${x}%;--d:${8+i*1.7}s;--v:${-i*2.3}s"`)).join('')}
     ${gemalt?'':'<div class="schiene"></div>'}
     <div class="schild">${l.nr} · ${esc(l.station)}</div>
