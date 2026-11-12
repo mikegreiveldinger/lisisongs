@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lisi’s Games">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#3d1a52">
+<link rel="apple-touch-icon" href="/marke/apple-touch-icon.png">
+<title>Schatzinsel der Zahlen</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap">
+<style>
+/* Layout: one-screen app. A sea chart scrolls top to bottom past island stations; a play screen shows one sum at a time with a big number pad. Deliberately single-theme (sunny tropical sea). */
+:root{
+  --sea:#1d7f8f; --sea-deep:#0e4f5c; --shallow:#8fdccf; --sand:#f4d79b; --sand-dark:#d9ae62;
+  --coral:#e65f4a; --palm:#2f8a4c; --gold:#f6b829; --ink:#163038; --foam:#f6fbf9; --muted:#5b7a80;
+  --display:"Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  color-scheme:light;
+}
+html,body{height:100%}
+body{background:var(--sea);color:var(--ink);font-family:var(--body);font-size:16px;overflow:hidden;display:flex;flex-direction:column}
+.credit{flex:none;text-align:center;padding-block:4px 6px;font-family:var(--display);font-weight:600;font-size:.85rem;color:var(--foam);opacity:.85;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.credit a{color:var(--gold);text-decoration:none;font-weight:800}
+.credit a:hover{text-decoration:underline}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.app{flex:1;min-height:0;display:flex;flex-direction:column;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.screen{flex:1;min-height:0;display:flex;flex-direction:column;max-width:620px;width:100%;margin:0 auto}
+
+/* top bar */
+.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px 8px;color:var(--foam)}
+.bar h1{font-family:var(--display);font-weight:800;font-size:1.35rem;line-height:1;margin:0;letter-spacing:.01em}
+.bar small{display:block;font-family:var(--body);font-size:.8rem;opacity:.85;font-weight:400;margin-top:4px}
+.purse{display:flex;align-items:center;gap:6px;background:var(--sea-deep);border-radius:999px;padding:6px 12px 6px 6px;
+  font-family:var(--display);font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums}
+.coin{width:26px;height:26px;flex:none}
+.iconbtn{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--sea-deep);color:var(--foam)}
+.iconbtn svg{width:22px;height:22px}
+.barright{display:flex;gap:8px;align-items:center}
+
+/* map */
+.chart{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;position:relative;border-radius:22px 22px 0 0;
+  background-color:var(--sea);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Cpath d='M0 30 q15 -10 30 0 t30 0 t30 0 t30 0' fill='none' stroke='%23ffffff' stroke-opacity='.10' stroke-width='2'/%3E%3C/svg%3E");
+  scrollbar-width:thin}
+.track{position:relative;padding-block:8px 60px}
+.track svg.route{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.region{position:relative;margin:18px 8px 6px;display:flex;justify-content:center}
+.sign{background:var(--sand);color:var(--ink);border-radius:10px;padding:8px 16px;text-align:center;
+  box-shadow:0 3px 0 var(--sand-dark);max-width:100%}
+.sign b{font-family:var(--display);font-weight:800;font-size:1.2rem;display:block;line-height:1.1}
+.sign span{font-size:.85rem;color:var(--muted)}
+.sign.locked{opacity:.75}
+.stop{position:relative;height:132px}
+.isle{position:absolute;top:6px;width:112px;margin-left:-56px;display:flex;flex-direction:column;align-items:center;gap:2px;
+  transition:transform .15s}
+.isle:not([aria-disabled="true"]):hover{transform:translateY(-3px)}
+.isle svg.land{width:104px;height:78px;filter:drop-shadow(0 4px 0 rgba(14,79,92,.35))}
+.isle .nm{font-family:var(--display);font-weight:700;font-size:.92rem;color:var(--foam);line-height:1.05;text-align:center;
+  text-shadow:0 1px 0 var(--sea-deep),0 0 6px var(--sea-deep)}
+.isle[aria-disabled="true"]{cursor:default}
+.isle[aria-disabled="true"] svg.land{filter:grayscale(.85) brightness(1.15) opacity(.55)}
+.isle[aria-disabled="true"] .nm{opacity:.6}
+.stars{display:flex;gap:1px;height:18px}
+.stars svg{width:18px;height:18px}
+.ship{position:absolute;width:62px;top:24px;pointer-events:none;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-6px) rotate(3deg)}}
+
+/* play */
+.play{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding-bottom:12px}
+.shells{display:flex;gap:6px;justify-content:center}
+.shells i{width:14px;height:14px;border-radius:50%;background:var(--sea-deep);display:block}
+.shells i.ok{background:var(--gold)} .shells i.miss{background:var(--coral)} .shells i.now{box-shadow:0 0 0 3px var(--foam)}
+.card{background:var(--foam);border-radius:24px;padding:14px 16px;display:flex;flex-direction:column;gap:8px;align-items:center;
+  box-shadow:0 6px 0 var(--sea-deep);flex:0 1 auto;min-height:0;overflow:auto}
+.sum{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,12vw,4.2rem);line-height:1;display:flex;align-items:center;gap:.25em;
+  font-variant-numeric:tabular-nums;color:var(--ink);flex-wrap:wrap;justify-content:center}
+.slot{min-width:1.8em;padding:0 .2em;border-radius:14px;background:var(--sand);text-align:center;box-shadow:inset 0 -4px 0 var(--sand-dark);color:var(--ink)}
+.slot.empty{color:var(--sand-dark)}
+.slot.right{background:var(--palm);color:var(--foam);box-shadow:none}
+.slot.wrong{background:var(--coral);color:var(--foam);box-shadow:none;animation:shake .35s}
+.slot.reveal{background:var(--gold);box-shadow:none}
+@keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.parrot{display:flex;align-items:center;gap:10px;width:100%}
+.parrot svg{width:58px;height:58px;flex:none}
+.bubble{background:var(--shallow);border-radius:16px;padding:8px 12px;font-size:1.02rem;line-height:1.35;flex:1;min-width:0;position:relative}
+.bubble:before{content:"";position:absolute;left:-8px;top:18px;border:8px solid transparent;border-right-color:var(--shallow);border-left:0}
+.helper{display:flex;flex-direction:column;align-items:center;gap:6px;width:100%}
+.dots{display:grid;gap:5px;justify-content:center}
+.dots span{width:16px;height:16px;border-radius:50%;background:var(--sea)}
+.dots span.b{background:var(--coral)}
+.dots span.gone{background:transparent;border:2px dashed var(--muted);position:relative}
+.dots.ten span:nth-child(10n+5){margin-right:8px}
+.hint{font-size:.9rem;color:var(--muted);text-align:center}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.key{font-family:var(--display);font-weight:800;font-size:1.7rem;background:var(--foam);border-radius:16px;padding-block:8px;
+  box-shadow:0 4px 0 var(--sand-dark);color:var(--ink);transition:transform .05s}
+.key:active{transform:translateY(3px);box-shadow:0 1px 0 var(--sand-dark)}
+.key.go{background:var(--gold);box-shadow:0 4px 0 #b9811a}
+.key.del{background:var(--sand)}
+.key svg{width:28px;height:28px;vertical-align:middle}
+.btn{font-family:var(--display);font-weight:800;font-size:1.2rem;background:var(--gold);color:var(--ink);border-radius:16px;
+  padding:10px 22px;box-shadow:0 4px 0 #b9811a}
+.btn.ghost{background:var(--sand);box-shadow:0 4px 0 var(--sand-dark)}
+.btn.small{font-size:1rem;padding:8px 14px}
+.toolrow{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--foam)}
+.pill{background:var(--sea-deep);color:var(--foam);border-radius:999px;padding:6px 12px;font-size:.9rem;display:inline-flex;gap:6px;align-items:center}
+.pill svg{width:18px;height:18px}
+
+/* overlays */
+.veil{position:fixed;inset:0;background:rgba(14,79,92,.72);display:grid;place-items:center;z-index:10;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{background:var(--foam);border-radius:24px;padding:20px;max-width:440px;width:100%;display:flex;flex-direction:column;gap:12px;
+  align-items:center;text-align:center;box-shadow:0 8px 0 var(--sea-deep);max-height:100%;overflow:auto}
+.sheet h2{font-family:var(--display);font-weight:800;font-size:1.7rem;line-height:1.05;margin:0;text-wrap:balance}
+.sheet p{margin:0;line-height:1.45;max-width:36ch}
+.sheet .big{width:120px;height:96px}
+.bigstars{display:flex;gap:6px}.bigstars svg{width:46px;height:46px}
+.field{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left}
+.field label{font-weight:700;font-size:.9rem}
+.field input{font:inherit;font-size:1.2rem;padding:10px 12px;border-radius:12px;border:2px solid var(--sand-dark);background:#fff;color:var(--ink)}
+.settings{width:100%;display:flex;flex-direction:column;gap:8px}
+.settings button{width:100%}
+.note{font-size:.82rem;color:var(--muted)}
+.burst{position:fixed;pointer-events:none;z-index:20;width:28px;height:28px;animation:fly .8s ease-out forwards}
+@keyframes fly{to{transform:translate(var(--dx),var(--dy)) scale(.6);opacity:0}}
+.brandmark{position:fixed;z-index:40;top:max(10px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px));width:46px;height:46px;border-radius:50%;
+  box-shadow:0 0 0 2px var(--gold),0 4px 12px rgba(14,79,92,.4);pointer-events:none}
+.bar{padding-right:56px}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.sheet.wide{max-width:640px}
+.goal{display:flex;gap:14px;align-items:center;text-align:left;width:100%;background:var(--shallow);border-radius:18px;padding:10px 14px}
+.goal svg{width:110px;height:60px;flex:none}
+.goal p{margin:0;max-width:none}
+.howto{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%}
+.dev{border-radius:18px;padding:12px 14px;background:#fff;box-shadow:inset 0 0 0 2px var(--sand);text-align:left;display:flex;flex-direction:column;gap:10px;min-width:0}
+.dev.mine{box-shadow:inset 0 0 0 3px var(--gold);background:#fffaf0}
+.dev h3{font-family:var(--display);font-weight:800;font-size:1.2rem;margin:0;display:flex;align-items:center;gap:8px;line-height:1.1}
+.dev h3 svg{width:26px;height:26px;flex:none}
+.badge{font-size:.72rem;background:var(--gold);color:var(--ink);border-radius:999px;padding:2px 9px;font-family:var(--display);font-weight:800;margin-left:auto;white-space:nowrap}
+.dev ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+.dev li{display:flex;gap:10px;align-items:center;line-height:1.3;font-size:.95rem}
+.ico{flex:none;min-width:44px;padding:0 6px;height:40px;border-radius:12px;display:flex;gap:4px;align-items:center;justify-content:center;background:var(--sand);color:var(--ink)}
+.ico svg{width:24px;height:24px}
+.ico .k{font-family:var(--display);font-weight:800;font-size:1rem;background:var(--foam);border-radius:8px;min-width:24px;padding:0 5px;box-shadow:0 2px 0 var(--sand-dark)}
+.ico .k.ok{background:var(--gold)}
+kbd{font-family:var(--display);font-weight:700;min-width:22px;padding:0 6px;border-radius:7px;background:#fff;color:var(--ink);box-shadow:0 2px 0 var(--sand-dark),inset 0 0 0 1.5px var(--sand-dark);display:inline-block;text-align:center;font-size:.85rem;line-height:1.5}
+.maprow{display:flex;justify-content:center;padding-bottom:8px}
+.finale{position:fixed;inset:0;z-index:15;background:#8fd8f0}
+.finale canvas{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+.fincard{position:absolute;left:0;right:0;top:0;display:flex;justify-content:center;pointer-events:none;
+  padding:max(64px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+.fincard .sheet{pointer-events:auto;max-width:520px;padding:14px 18px;gap:8px;box-shadow:0 6px 0 rgba(14,79,92,.5)}
+.fincard .sheet h2{font-size:1.5rem}
+@media (max-width:560px){.howto{grid-template-columns:1fr}.dev:not(.mine){display:none}.goal{flex-direction:column;gap:4px;text-align:center}
+  .goal p,.dev li{font-size:.92rem}.fincard .sheet h2{font-size:1.25rem}.fincard .sheet p{font-size:.95rem}.fincard .btn{font-size:1.05rem;padding:9px 16px}}
+@media (prefers-reduced-motion:reduce){.ship,.burst,.slot.wrong{animation:none}.isle{transition:none}}
+@media (max-height:640px){.parrot svg{width:44px;height:44px}.key{font-size:1.4rem;padding-block:5px}.dots span{width:12px;height:12px}}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}</style>
+<style>
+/* Gebiete: gemalter Hintergrund (wenn vorhanden) oder Farbverlauf je Gebiet */
+body{transition:background-color .6s}
+body.rg0{--sea:#1d8a9a;--sea-deep:#0e5563}
+body.rg1{--sea:#1f8f7a;--sea-deep:#0f5a4b}
+body.rg2{--sea:#a8503a;--sea-deep:#6b2a1f}
+body.rg3{--sea:#4d6f8c;--sea-deep:#2b4459}
+body.rg4{--sea:#c98a1d;--sea-deep:#7a4f0c}
+.backdrop{position:fixed;inset:0;z-index:-1;background:var(--sea);overflow:hidden}
+.backdrop:before{content:"";position:absolute;inset:-4%;background-image:var(--bgimg,none);background-size:cover;background-position:center;
+  animation:drift 40s ease-in-out infinite alternate;opacity:var(--bgop,0);transition:opacity .8s}
+.backdrop:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,40,50,.35),rgba(10,40,50,.05) 30%,rgba(10,40,50,.25))}
+@keyframes drift{from{transform:scale(1) translate(0,0)}to{transform:scale(1.06) translate(-1.5%,1%)}}
+.backdrop .wv{position:absolute;left:-10%;right:-10%;height:46px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='46'%3E%3Cpath d='M0 23 q15 -12 30 0 t30 0 t30 0 t30 0' fill='none' stroke='%23ffffff' stroke-opacity='.16' stroke-width='3'/%3E%3C/svg%3E");
+  animation:wave 9s linear infinite;opacity:var(--wvop,1)}
+@keyframes wave{to{transform:translateX(120px)}}
+body{background:transparent}
+/* Schatzkarte mit fünf Stücken */
+.tmap{width:150px;height:96px;display:block;margin:0 auto;filter:drop-shadow(0 3px 0 rgba(0,0,0,.18))}
+.tmap .neu{animation:neu 1.3s ease-in-out 3}
+@keyframes neu{50%{filter:brightness(1.25) drop-shadow(0 0 6px #fff3b0)}}
+.maphead{display:flex;gap:12px;align-items:center;background:rgba(255,248,230,.95);border-radius:18px;padding:8px 12px;margin:0 0 10px;box-shadow:0 4px 0 var(--sea-deep)}
+.maphead .tmap{width:96px;height:62px;margin:0;flex:none}
+.maphead p{margin:0;font-size:.95rem;line-height:1.35;color:var(--ink)}
+.maphead .mtx{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.maphead .mbtn{display:flex;flex-direction:column;gap:6px;flex:none}
+.maphead .iconbtn{width:36px;height:36px}
+.toolrow .iconbtn{width:36px;height:36px}
+.kap{font-family:var(--display);font-weight:700;font-size:.95rem;color:#b9811a;letter-spacing:.04em;margin:0}
+.story{font-size:1.06rem;line-height:1.5}
+.lesson{background:var(--shallow);border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;gap:6px;align-items:center;width:100%}
+.lesson p{font-size:.95rem}
+.iconbtn .slash{display:none}.iconbtn.off{opacity:.6}.iconbtn.off .slash{display:inline}
+/* Film */
+.film{position:fixed;inset:0;z-index:30;background:#10222a}
+.film canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.film .skip{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(max(40px,9%) + 12px);z-index:2;background:rgba(16,34,42,.8);color:var(--foam);box-shadow:inset 0 0 0 2px rgba(255,255,255,.5)}
+.film .fincard{position:absolute;left:0;right:0;top:0;display:flex;justify-content:center;
+  padding:max(56px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px))}
+.film .fincard .sheet{max-width:520px;padding:14px 18px;gap:8px;box-shadow:0 6px 0 rgba(14,79,92,.5)}
+@media (max-width:560px){.maphead p{font-size:.85rem}.maphead .tmap{width:76px;height:49px}}
+@media (orientation:landscape) and (max-height:500px){.sheet{padding:12px 16px;gap:8px}.sheet h2{font-size:1.35rem}.story{font-size:.95rem}.tmap{width:110px;height:70px}.credit{display:none}}
+@media (prefers-reduced-motion:reduce){.backdrop:before,.backdrop .wv{animation:none}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="isl" viewBox="0 0 104 78">
+      <ellipse cx="52" cy="60" rx="50" ry="16" fill="#8fdccf"/>
+      <path d="M10 60 C14 44 36 40 52 41 C72 42 92 46 94 60 C80 68 26 68 10 60Z" fill="#f4d79b"/>
+      <path d="M10 60 C26 66 80 68 94 60 C92 63 80 70 52 70 C26 70 12 64 10 60Z" fill="#d9ae62"/>
+      <path d="M56 46 C55 32 58 20 63 12" stroke="#8a5a2b" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M63 12 C52 6 42 10 38 18 C48 13 56 14 63 12Z M63 12 C72 4 84 6 88 14 C78 10 70 11 63 12Z M63 12 C60 2 66 -2 72 0 C68 3 65 7 63 12Z M63 12 C56 14 50 22 50 28 C55 21 59 16 63 12Z M63 12 C72 14 78 20 79 27 C73 21 68 16 63 12Z" fill="#2f8a4c"/>
+      <circle cx="61" cy="15" r="2.6" fill="#7a4a1e"/><circle cx="65" cy="16" r="2.6" fill="#7a4a1e"/>
+      <circle cx="32" cy="55" r="3" fill="#e65f4a"/><path d="M76 56 l3 -3 l3 3 l-3 3z" fill="#fff" opacity=".8"/>
+    </symbol>
+    <symbol id="chest" viewBox="0 0 104 78">
+      <ellipse cx="52" cy="60" rx="50" ry="16" fill="#8fdccf"/>
+      <path d="M10 60 C14 44 36 40 52 41 C72 42 92 46 94 60 C80 68 26 68 10 60Z" fill="#f4d79b"/>
+      <rect x="32" y="30" width="40" height="24" rx="3" fill="#9a5b28"/>
+      <path d="M32 32 C32 18 72 18 72 32Z" fill="#b8702f"/>
+      <rect x="32" y="30" width="40" height="4" fill="#f6b829"/><rect x="49" y="30" width="6" height="10" rx="1" fill="#f6b829"/>
+      <rect x="35" y="30" width="4" height="24" fill="#f6b829" opacity=".7"/><rect x="65" y="30" width="4" height="24" fill="#f6b829" opacity=".7"/>
+      <path d="M30 12 l2 5 l5 1 l-5 1 l-2 5 l-2 -5 l-5 -1 l5 -1z M78 8 l1.5 4 l4 1 l-4 1 l-1.5 4 l-1.5 -4 l-4 -1 l4 -1z" fill="#f6b829"/>
+    </symbol>
+    <symbol id="coin" viewBox="0 0 26 26"><circle cx="13" cy="13" r="12" fill="#f6b829"/><circle cx="13" cy="13" r="8.5" fill="none" stroke="#b9811a" stroke-width="2"/><path d="M13 8 v10 M10 10.5 h5 M10 15.5 h5" stroke="#b9811a" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="star" viewBox="0 0 24 24"><path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" fill="currentColor"/></symbol>
+    <symbol id="ship" viewBox="0 0 62 56">
+      <path d="M30 4 v34" stroke="#5a3a1a" stroke-width="3"/>
+      <path d="M32 6 C46 12 48 26 32 34Z" fill="#fff"/><path d="M28 10 C18 16 18 26 28 32Z" fill="#fff"/>
+      <path d="M30 4 l12 3 l-12 3z" fill="#e65f4a"/>
+      <path d="M4 38 h54 l-8 12 h-38z" fill="#8a5a2b"/><path d="M4 38 h54 l-1.5 3 h-51z" fill="#5a3a1a"/>
+      <circle cx="20" cy="44" r="2" fill="#f6b829"/><circle cx="31" cy="44" r="2" fill="#f6b829"/><circle cx="42" cy="44" r="2" fill="#f6b829"/>
+    </symbol>
+    <symbol id="parrot" viewBox="0 0 60 60">
+      <path d="M22 54 l-4 6 M30 54 l2 6" stroke="#f6b829" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="28" cy="36" rx="15" ry="19" fill="#e65f4a"/>
+      <path d="M20 30 C14 40 18 52 30 54 C26 46 26 38 20 30Z" fill="#2f8a4c"/>
+      <path d="M30 40 l-4 18 l8 -8z" fill="#1d7f8f"/>
+      <circle cx="32" cy="18" r="13" fill="#e65f4a"/>
+      <circle cx="36" cy="15" r="5" fill="#fff"/><circle cx="37.5" cy="15" r="2.6" fill="#163038"/>
+      <path d="M43 16 C52 16 54 26 46 30 C47 25 45 22 41 22Z" fill="#f6b829"/>
+      <path d="M24 6 C22 0 28 -1 30 5 M28 5 C28 -1 34 0 33 6" stroke="#2f8a4c" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="backdrop" id="backdrop" aria-hidden="true"><i class="wv" style="top:28%"></i><i class="wv" style="top:58%;animation-duration:13s"></i><i class="wv" style="top:84%;animation-duration:7s"></i></div>
+<div class="app" id="app"></div>
+<img class="brandmark" alt="Lisi" src="data:image/webp;base64,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">
+<footer class="credit">Ein <a href="https://www.lisi.lu" target="_blank" rel="noopener">lisi.lu</a> Spiel</footer>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const app=$('#app');
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- Aufgaben-Generatoren ---------- */
+function add(max){let a,b;do{a=rnd(1,max-1);b=rnd(1,max-a);}while(a+b>max);return {a,b,op:'+',ans:a+b};}
+function sub(max){const a=rnd(2,max),b=rnd(1,a-1);return {a,b,op:'−',ans:a-b};}
+function addCross(){const a=rnd(5,9),b=rnd(11-a,9);return Math.random()<.5?{a,b,op:'+',ans:a+b}:{a:b,b:a,op:'+',ans:a+b};}
+function subCross(){const a=rnd(11,18),b=rnd(a-9,9);return {a,b,op:'−',ans:a-b};}
+function mul(set,maxB){const a=pick(set),b=rnd(1,maxB);return Math.random()<.5?{a,b,op:'×',ans:a*b}:{a:b,b:a,op:'×',ans:a*b};}
+function div(set,maxQ){const d=pick(set),q=rnd(1,maxQ);return {a:d*q,b:d,op:'÷',ans:q};}
+const mix=(...g)=>()=>pick(g)();
+
+const REGIONS=[
+ {name:'Muschelbucht',sub:'Plus und Minus bis 10',bg:'muschelbucht',
+  vor:'In der Muschelbucht glitzert etwas zwischen den Muscheln: das erste Stück der Schatzkarte! Aber die Krabben geben es nur her, wenn ihr ihre Rechenrätsel löst.',
+  nach:'Die Krabben klappern begeistert mit ihren Scheren und schieben euch das erste Kartenstück zu.',
+  intro:{title:'Leinen los!',text:'Rechne die Aufgaben und sammle Goldmünzen. Plus heißt: es kommt etwas dazu. Minus heißt: etwas geht weg.',ex:{a:3,b:2,op:'+',ans:5}},
+  stops:[['Seesternstrand',()=>add(10)],['Krabbenfelsen',()=>sub(10)],['Muschelgrotte',mix(()=>add(10),()=>sub(10))]]},
+ {name:'Palmenstrand',sub:'Plus und Minus bis 20',bg:'palmenstrand',
+  vor:'Am Palmenstrand hängt das zweite Kartenstück ganz oben in einer Palme, mitten zwischen den Kokosnüssen. Die Äffchen helfen beim Pflücken, wenn ihr bis 20 rechnen könnt.',
+  nach:'Plumps! Zusammen mit drei Kokosnüssen fällt das zweite Kartenstück in den weichen Sand.',
+  intro:{title:'Jetzt bis 20!',text:'Ein Piraten-Trick: Mach erst die 10 voll. 8 + 5 ist 8 + 2 + 3, also 13.',ex:{a:8,b:5,op:'+',ans:13}},
+  stops:[['Kokoshain',mix(()=>add(20),addCross)],['Papageienbucht',mix(()=>sub(20),subCross)],['Schildkrötenriff',mix(addCross,subCross,()=>add(20),()=>sub(20))]]},
+ {name:'Vulkaninsel',sub:'Mal-Rechnen',bg:'vulkaninsel',
+  vor:'Auf der Vulkaninsel blubbert und dampft es. Das dritte Kartenstück liegt zwischen warmen Lavasteinen. Kiki weiß: Hier hilft nur das Mal-Rechnen!',
+  nach:'Der Vulkan pustet eine kleine Rauchwolke in Herzform, und das dritte Kartenstück schwebt sanft zu euch herunter.',
+  intro:{title:'Mal-Rechnen',text:'Mal heißt: gleich große Gruppen. 3 × 4 sind 3 Reihen mit je 4 Münzen. 4 + 4 + 4 = 12.',ex:{a:3,b:4,op:'×',ans:12}},
+  stops:[['Lavasteg',()=>mul([2,5,10],10)],['Glutkrater',()=>mul([1,2,3,4,5],5)],['Feuerberg',()=>mul([2,3,4,5,6,7,8,9,10],10)]]},
+ {name:'Nebelriff',sub:'Geteilt-Rechnen',bg:'nebelriff',
+  vor:'Am Nebelriff ist alles grau, nur der Leuchtturm blinkt. Ein freundlicher Wal hat das vierte Kartenstück verschluckt. Wenn ihr gerecht teilt, gibt er es zurück.',
+  nach:'Der Wal prustet eine riesige Fontäne, und das vierte Kartenstück landet patschnass genau an Deck.',
+  intro:{title:'Geteilt-Rechnen',text:'Geteilt heißt: gerecht verteilen. 12 ÷ 3: Leg 12 Münzen in Reihen zu je 3. Es gibt 4 Reihen.',ex:{a:12,b:3,op:'÷',ans:4}},
+  stops:[['Leuchtturm',()=>div([2,5,10],10)],['Walbucht',()=>div([2,3,4,5],5)],['Nebelhöhle',()=>div([2,3,4,5,6,7,8,9,10],10)]]},
+ {name:'Schatzinsel',sub:'Alles gemischt',bg:'schatzinsel',
+  vor:'Land in Sicht! Das ist die Schatzinsel. Das letzte Kartenstück steckt im Kompassfelsen. Hier kommt alles vor, was ihr auf der Reise gelernt habt.',
+  nach:'Das letzte Stück passt genau. Die Schatzkarte ist wieder ganz, und das rote X leuchtet!',
+  intro:{title:'Die Schatzinsel!',text:'Hier kommt alles vor, was du gelernt hast. Am Ende wartet die Schatztruhe.',ex:null},
+  stops:[['Kompassfelsen',mix(addCross,subCross,()=>add(20),()=>sub(20))],['Ankerbucht',mix(()=>mul([2,3,4,5,6,7,8,9,10],10),()=>div([2,3,4,5,6,7,8,9,10],10))],
+         ['Der Schatz',mix(addCross,subCross,()=>mul([2,3,4,5,6,7,8,9,10],10),()=>div([2,3,4,5,6,7,8,9,10],10))]]}
+];
+const STOPS=[];REGIONS.forEach((r,ri)=>r.stops.forEach(([n,g],k)=>STOPS.push({name:n,gen:g,ri,first:k===0})));
+const LAST=STOPS.length-1;
+const PER=6;
+const PROLOG='Ahoi! Otto, der freundliche Tintenfisch, hütet seit vielen Jahren eine alte Schatzkarte. Doch letzte Nacht hat ein wilder Sturm die Karte in fünf Stücke gerissen und über das ganze Meer verteilt! Kapitänin Lisi und ihr Papagei Kiki setzen die Segel, um die Stücke wiederzufinden. Hilfst du ihnen? Jede richtige Aufgabe bringt sie dem Schatz ein Stück näher.';
+
+/* ---------- Schatzkarte in fünf Stücken ---------- */
+const PIECES=['0,0 62,0 58,30 63,48 0,44','62,0 150,0 150,40 96,50 63,48 58,30','0,44 63,48 56,70 60,96 0,96','63,48 96,50 104,72 100,96 60,96 56,70','96,50 150,40 150,96 100,96 104,72'];
+const regionDone=ri=>STOPS.every((s,i)=>s.ri!==ri||(S.stars[i]||0)>0);
+const nPieces=()=>REGIONS.filter((_,ri)=>regionDone(ri)).length;
+function mapSvg(glow,cls='tmap'){
+  const have=REGIONS.map((_,ri)=>regionDone(ri)),uid='m'+Math.random().toString(36).slice(2,7);
+  const clip=PIECES.map((p,k)=>have[k]?`<polygon points="${p}"/>`:'').join('');
+  return `<svg class="${cls}" viewBox="-2 -2 154 100" aria-label="${have.filter(Boolean).length} von 5 Kartenstücken">
+   <defs><clipPath id="${uid}">${clip}</clipPath></defs>
+   ${PIECES.map(p=>`<polygon points="${p}" fill="rgba(255,255,255,.18)" stroke="rgba(120,80,30,.45)" stroke-width="1.2" stroke-dasharray="3 3"/>`).join('')}
+   <g clip-path="url(#${uid})">
+    <rect x="0" y="0" width="150" height="96" fill="#f3e2b5"/><rect x="0" y="0" width="150" height="96" fill="#9fd6d0" opacity=".35"/>
+    <path d="M10 20 q8 -6 16 0 M110 14 q8 -6 16 0 M20 80 q8 -6 16 0 M120 86 q8 -6 16 0" stroke="#5aa7a0" stroke-width="1.4" fill="none"/>
+    <ellipse cx="22" cy="30" rx="12" ry="7" fill="#e9c97f"/><circle cx="22" cy="27" r="4" fill="#3f9a57"/>
+    <ellipse cx="96" cy="22" rx="13" ry="7" fill="#e9c97f"/><circle cx="99" cy="18" r="4.5" fill="#3f9a57"/>
+    <ellipse cx="40" cy="72" rx="14" ry="8" fill="#e9c97f"/><path d="M35 70 l5 -10 l5 10z" fill="#b2553a"/>
+    <ellipse cx="78" cy="58" rx="11" ry="6" fill="#d6e1e6"/><rect x="77" y="47" width="3" height="9" fill="#e65f4a"/>
+    <ellipse cx="124" cy="70" rx="16" ry="9" fill="#e9c97f"/><circle cx="128" cy="65" r="5" fill="#3f9a57"/>
+    <path d="M22 34 C40 50 70 20 96 26 C110 30 70 50 78 58 C88 66 40 60 40 72 C40 84 100 90 124 72" fill="none" stroke="#b9531f" stroke-width="1.6" stroke-dasharray="2 4" stroke-linecap="round"/>
+    <path d="M118 64 l12 12 M130 64 l-12 12" stroke="#d62f2f" stroke-width="3.2" stroke-linecap="round"/>
+    <g transform="translate(136 14)"><circle r="8" fill="none" stroke="#8a5a2b" stroke-width="1"/><path d="M0 -10 l2.5 10 l-2.5 10 l-2.5 -10z" fill="#8a5a2b"/></g>
+   </g>
+   ${PIECES.map((p,k)=>have[k]?`<polygon points="${p}" fill="none" stroke="#8a5a2b" stroke-width="1.3"${k===glow?' class="neu"':''}/>`:'').join('')}
+  </svg>`;
+}
+
+/* ---------- Gemalte Bilder (optional, liegen in bilder/) ---------- */
+const IMG={},imgOk=k=>{const i=IMG[k];return !!(i&&i.complete&&i.naturalWidth>0);};
+function loadImg(k,src){if(IMG[k])return IMG[k];const i=new Image();i.decoding='async';i.src=src;IMG[k]=i;return i;}
+REGIONS.forEach(r=>{const i=loadImg(r.bg,'bilder/'+r.bg+'.jpg?v=1');i.onload=()=>{if(document.body.classList.contains('rg'+REGIONS.indexOf(r)))setBackdrop(REGIONS.indexOf(r));};});
+function setBackdrop(ri){
+  const b=document.getElementById('backdrop');document.body.className=ri==null?'':'rg'+ri;
+  if(ri!=null&&imgOk(REGIONS[ri].bg)){b.style.setProperty('--bgimg',`url("${IMG[REGIONS[ri].bg].src}")`);b.style.setProperty('--bgop','1');b.style.setProperty('--wvop','.5');}
+  else{b.style.setProperty('--bgop','0');b.style.setProperty('--wvop','1');}
+}
+
+/* ---------- Speicher ---------- */
+const KEY='schatzinsel-v1';
+const fresh=()=>({name:'',unlocked:0,stars:{},coins:0,seen:{},sound:true,music:true,voice:false,seenIntro:false,seenStory:false,finished:false});
+let S=fresh();
+function load(){try{const t=localStorage.getItem(KEY);if(t)S=Object.assign(fresh(),JSON.parse(t));}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- Ton ---------- */
+let ac=null;
+function tone(seq){if(!S.sound)return;try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();const t0=ac.currentTime;
+  seq.forEach(([f,d,at],i)=>{const o=ac.createOscillator(),g=ac.createGain();o.type='triangle';o.frequency.value=f;
+    g.gain.setValueAtTime(.0001,t0+at);g.gain.exponentialRampToValueAtTime(.18,t0+at+.02);g.gain.exponentialRampToValueAtTime(.0001,t0+at+d);
+    o.connect(g).connect(ac.destination);o.start(t0+at);o.stop(t0+at+d+.05);});}catch(e){}}
+const sGood=()=>tone([[660,.15,0],[880,.2,.1]]);
+const sBad=()=>tone([[300,.2,0],[240,.25,.12]]);
+const sWin=()=>tone([[523,.15,0],[659,.15,.12],[784,.15,.24],[1047,.35,.36]]);
+const WORD={'+':'plus','−':'minus','×':'mal','÷':'geteilt durch'};
+
+/* ---------- Musik (live erzeugt, Marimba und Bass wie ein Inselfest) ---------- */
+function audio(){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended')ac.resume();}catch(e){}return ac;}
+const MT={
+  bucht:{bpm:104,chords:[[60,64,67],[65,69,72],[67,71,74],[60,64,67]],bass:[48,41,43,48],density:.8},
+  palme:{bpm:110,chords:[[62,65,69],[67,71,74],[60,64,67],[65,69,72]],bass:[50,43,48,41],density:.85},
+  vulkan:{bpm:96,chords:[[57,60,64],[53,57,60],[55,59,62],[52,56,59]],bass:[45,41,43,40],density:.7},
+  nebel:{bpm:78,chords:[[57,60,64],[55,59,62],[53,57,60],[52,55,59]],bass:[45,43,41,40],density:.5},
+  schatz:{bpm:112,chords:[[60,64,67],[57,60,64],[65,69,72],[67,71,74]],bass:[48,45,41,43],density:.9}
+};
+const THEMES=[MT.bucht,MT.palme,MT.vulkan,MT.nebel,MT.schatz];
+const M={nodes:null,timer:0,next:0,step:0,theme:MT.bucht,want:MT.bucht};
+const mtof=m=>440*Math.pow(2,(m-69)/12);
+function musicNodes(a){
+  if(M.nodes)return M.nodes;
+  const master=a.createGain();master.gain.value=0;master.connect(a.destination);
+  const len=Math.floor(a.sampleRate*1.8),buf=a.createBuffer(2,len,a.sampleRate);
+  for(let c=0;c<2;c++){const d=buf.getChannelData(c);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,3);}
+  const conv=a.createConvolver();conv.buffer=buf;const wet=a.createGain();wet.gain.value=.35;conv.connect(wet).connect(master);
+  const bus=a.createBiquadFilter();bus.type='lowpass';bus.frequency.value=3200;bus.connect(master);bus.connect(conv);
+  M.nodes={master,bus};return M.nodes;
+}
+function note(t,midi,dur,type,vol,att){
+  const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.value=mtof(midi);
+  g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+att);g.gain.exponentialRampToValueAtTime(.0001,t+dur);
+  o.connect(g).connect(M.nodes.bus);o.start(t);o.stop(t+dur+.05);
+}
+function marimba(t,midi,vol){note(t,midi,.45,'sine',vol,.004);note(t,midi+24,.12,'sine',vol*.25,.002);}
+function schedule(){
+  if(!ac||!M.nodes)return;
+  while(M.next<ac.currentTime+.3){
+    const th=M.theme,e=60/th.bpm/2,s=M.step%32,bar=Math.floor(s/8),pos=s%8,t=M.next,ch=th.chords[bar];
+    if(pos===0)ch.forEach(m=>note(t,m,e*8,'triangle',.016,.25));
+    if(pos===0||pos===3||pos===6)note(t,th.bass[bar]-12+(pos===3?7:0),e*2.4,'triangle',.07,.01);
+    const pat=[0,2,1,2,0,1,2,1],m=ch[pat[pos]]+12+(pos===7&&Math.random()<.5?2:0);
+    if(Math.random()<th.density)marimba(t,m,.045);
+    if(pos%2===1&&Math.random()<.6){const o=ac.createOscillator(),g=ac.createGain(),f=ac.createBiquadFilter();f.type='highpass';f.frequency.value=6000;
+      o.type='square';o.frequency.value=8000+Math.random()*900;g.gain.setValueAtTime(.006,t);g.gain.exponentialRampToValueAtTime(.0001,t+.04);o.connect(f).connect(g).connect(M.nodes.bus);o.start(t);o.stop(t+.06);}
+    M.next+=e;M.step++;
+    if(M.step%32===0&&M.want!==M.theme)M.theme=M.want;
+  }
+}
+function startMusic(){
+  if(!S.music)return musicBtn();const a=audio();if(!a)return;musicNodes(a);
+  if(!M.timer){M.theme=M.want;M.next=a.currentTime+.15;M.step=0;M.timer=setInterval(schedule,90);}
+  const g=M.nodes.master.gain;g.cancelScheduledValues(a.currentTime);g.setValueAtTime(g.value,a.currentTime);g.linearRampToValueAtTime(.6,a.currentTime+1.5);
+  musicBtn();
+}
+function stopMusic(){
+  if(ac&&M.nodes){const g=M.nodes.master.gain,t=ac.currentTime;g.cancelScheduledValues(t);g.setValueAtTime(g.value,t);g.linearRampToValueAtTime(0,t+.5);
+    const tm=M.timer;M.timer=0;setTimeout(()=>clearInterval(tm),600);}
+  musicBtn();
+}
+function setTheme(ri){M.want=THEMES[ri==null?0:ri];if(!M.timer)M.theme=M.want;}
+function musicBtn(){const b=document.getElementById('mus');if(b){b.classList.toggle('off',!S.music);b.setAttribute('aria-label',S.music?'Musik ausschalten':'Musik einschalten');}}
+document.addEventListener('visibilitychange',()=>{if(!ac)return;try{document.hidden?ac.suspend():ac.resume();}catch(e){}});
+addEventListener('pointerdown',()=>{if(S.music&&!M.timer)startMusic();},{passive:true});
+const musBtn=()=>`<button class="iconbtn${S.music?'':' off'}" id="mus" aria-label="${S.music?'Musik ausschalten':'Musik einschalten'}"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 17.5V6.2l10-2.2v11.3"/><circle cx="6.5" cy="17.5" r="2.8"/><circle cx="16.5" cy="15.3" r="2.8"/><path class="slash" d="M3 3l18 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></button>`;
+function wireMus(){const b=$('#mus');if(b)b.onclick=()=>{S.music=!S.music;save();S.music?startMusic():stopMusic();};}
+function say(t){if(!S.voice)return;try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=.9;speechSynthesis.speak(u);}catch(e){}}
+
+/* ---------- Bausteine ---------- */
+const coinSvg='<svg class="coin"><use href="#coin"/></svg>';
+const starRow=(n,cls='stars')=>`<div class="${cls}">${[0,1,2].map(i=>`<svg style="color:${i<n?'var(--gold)':'rgba(255,255,255,.35)'}"><use href="#star"/></svg>`).join('')}</div>`;
+const captain=()=>S.name?esc(S.name):'Lisi';
+function topbar(title,subtitle,right=''){return `<div class="bar"><div><h1>${title}</h1><small>${subtitle}</small></div>
+  <div class="barright"><div class="purse" aria-label="Goldmünzen">${coinSvg}<span id="coins">${S.coins}</span></div>${right}</div></div>`;}
+
+function dotsHTML(q){
+  const {a,b,op}=q;let h='',cls='dots',cols;
+  if(op==='+'){cols=10;cls+=' ten';for(let i=0;i<a+b;i++)h+=`<span class="${i<a?'':'b'}"></span>`;}
+  else if(op==='−'){cols=10;cls+=' ten';for(let i=0;i<a;i++)h+=`<span class="${i>=a-b?'gone':''}"></span>`;}
+  else if(op==='×'){cols=b;for(let r=0;r<a;r++)for(let c=0;c<b;c++)h+=`<span class="${r%2?'b':''}"></span>`;}
+  else {cols=b;const rows=a/b;for(let r=0;r<rows;r++)for(let c=0;c<b;c++)h+=`<span class="${r%2?'b':''}"></span>`;}
+  return `<div class="${cls}" style="grid-template-columns:repeat(${cols},16px)">${h}</div>`;
+}
+function hintText(q){
+  if(q.op==='+')return `Zähl alle Punkte: ${q.a} blaue und ${q.b} rote.`;
+  if(q.op==='−')return `${q.a} Punkte, ${q.b} sind weg. Wie viele bleiben?`;
+  if(q.op==='×')return `${q.a} Reihen mit je ${q.b} Punkten. Wie viele sind es zusammen?`;
+  return `${q.a} Punkte in Reihen zu je ${q.b}. Wie viele Reihen sind es?`;
+}
+
+/* ---------- Bildschirme ---------- */
+function showStart(){
+  setBackdrop(null);
+  app.innerHTML=`<div class="screen" style="justify-content:center">
+   <div class="sheet" style="margin:auto">
+    <svg class="big"><use href="#isl"/></svg>
+    <h2>Schatzinsel der Zahlen</h2>
+    <p>Segle mit Kapitänin Lisi von Insel zu Insel, löse Rechen-Rätsel und finde den Schatz.</p>
+    <form class="field" id="nameForm"><label for="capName">Wie heißt du?</label>
+      <input id="capName" autocomplete="off" maxlength="16" placeholder="z. B. Lisi" value="${esc(S.name)}"></form>
+    <button class="btn" id="go">Weiter</button>
+   </div></div>`;
+  setTimeout(()=>{try{$('#capName').focus();}catch(e){}},50);
+  const go=()=>{const n=$('#capName').value.trim();if(!n){$('#capName').placeholder='Bitte deinen Namen eingeben';$('#capName').focus();return;}
+    S.name=n;save();audio();tone([[523,.12,0],[784,.2,.1]]);showMap();if(!S.seenIntro)showHowTo();else if(!S.seenStory)showPrologue();};
+  $('#go').onclick=go;$('#nameForm').onsubmit=e=>{e.preventDefault();go();};
+}
+function showPrologue(){
+  const v=document.createElement('div');v.className='veil';
+  v.innerHTML=`<div class="sheet"><p class="kap">Die Geschichte</p><h2>Die zerrissene Schatzkarte</h2>${mapSvg()}
+    <p class="story">${PROLOG}</p><button class="btn" id="proGo">Leinen los!</button></div>`;
+  document.body.appendChild(v);say(PROLOG);startMusic();
+  $('#proGo').onclick=()=>{try{speechSynthesis.cancel();}catch(e){}S.seenStory=true;save();v.remove();showMap();};$('#proGo').focus();
+}
+
+function showMap(){
+  const gear=`<button class="iconbtn" id="gear" aria-label="Einstellungen für Eltern"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2-1.6-2-3.4-2.4 1a7.6 7.6 0 0 0-1.7-1L15 3.5h-4l-.4 2.5a7.6 7.6 0 0 0-1.7 1l-2.4-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7.6 7.6 0 0 0 1.7 1l.4 2.5h4l.4-2.5a7.6 7.6 0 0 0 1.7-1l2.4 1 2-3.4zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg></button>`;
+  const help=`<button class="iconbtn" id="help" aria-label="So geht's"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M9 9a3 3 0 1 1 4 2.8c-.7.3-1 .9-1 1.6V14"/><circle cx="12" cy="18" r=".6" fill="currentColor"/></svg></button>`;
+  setBackdrop(null);setTheme(Math.min(STOPS[Math.min(S.unlocked,LAST)].ri,4));if(S.finished||S.unlocked>=LAST-2)loadFilm();
+  const np=nPieces();
+  const mtxt=S.finished?`Der Schatz ist gefunden! Schau dir den Film noch einmal an.`:np===0?'Der Sturm hat die Schatzkarte zerrissen. Finde alle fünf Stücke!':np<5?`Schon ${np} von 5 Kartenstücken gefunden. Weiter so!`:'Die Karte ist ganz! Auf zum Schatz!';
+  let h=`<div class="screen">${topbar('Schatzinsel der Zahlen',`${captain()} · ${np} von 5 Kartenstücken`,musBtn())}
+   <div class="maphead">${mapSvg()}<div class="mtx"><p>${mtxt}</p>${S.finished?'<button class="btn small" id="seeTreasure">Film ansehen</button>':''}</div><div class="mbtn">${help}${gear}</div></div>
+   <div class="chart" id="chart"><div class="track" id="track"><svg class="route" id="route"></svg>`;
+  STOPS.forEach((s,i)=>{
+    if(s.first){const r=REGIONS[s.ri];const lock=i>S.unlocked;
+      h+=`<div class="region"><div class="sign ${lock?'locked':''}"><b>${r.name}</b><span>${lock?'Noch im Nebel versteckt':r.sub}</span></div></div>`;}
+    const x=50+30*Math.sin(i*1.15+.6);const lock=i>S.unlocked;const st=S.stars[i]||0;
+    h+=`<div class="stop"><button class="isle" data-i="${i}" style="left:${x}%" ${lock?'aria-disabled="true"':''} aria-label="${s.name}${lock?' (gesperrt)':''}">
+      <svg class="land"><use href="#${i===LAST?'chest':'isl'}"/></svg><span class="nm">${s.name}</span>${lock?'<div class="stars"></div>':starRow(st)}</button>
+      ${i===Math.min(S.unlocked,LAST)?`<svg class="ship" style="left:calc(${x}% ${x>50?'- 128px':'+ 64px'})" viewBox="0 0 62 56"><use href="#ship"/></svg>`:''}</div>`;
+  });
+  h+=`</div></div></div>`;
+  app.innerHTML=h;
+  app.querySelectorAll('.isle').forEach(b=>b.onclick=()=>{if(b.getAttribute('aria-disabled')!=='true')startStop(+b.dataset.i);});
+  $('#gear').onclick=showSettings;$('#help').onclick=showHowTo;wireMus();
+  const st=$('#seeTreasure');if(st)st.onclick=runFinale;
+  drawRoute();
+  const cur=app.querySelector(`.isle[data-i="${Math.min(S.unlocked,LAST)}"]`);
+  if(cur){const ch=$('#chart');ch.scrollTop=Math.max(0,cur.parentElement.offsetTop-ch.clientHeight/2+60);}
+}
+function drawRoute(){
+  const tr=$('#track'),svg=$('#route');if(!tr||!svg)return;
+  const base=tr.getBoundingClientRect();const pts=[...tr.querySelectorAll('.isle')].map(b=>{const r=b.querySelector('.land').getBoundingClientRect();return [r.left+r.width/2-base.left,r.top+r.height*.62-base.top];});
+  let done='',todo='';
+  for(let i=1;i<pts.length;i++){const [x0,y0]=pts[i-1],[x1,y1]=pts[i];const seg=`M${x0} ${y0} C${x0} ${(y0+y1)/2} ${x1} ${(y0+y1)/2} ${x1} ${y1}`;
+    if(i<=S.unlocked)done+=seg;else todo+=seg;}
+  svg.innerHTML=`<path d="${todo}" fill="none" stroke="#ffffff" stroke-opacity=".3" stroke-width="3" stroke-dasharray="2 9" stroke-linecap="round"/>
+    <path d="${done}" fill="none" stroke="#f6b829" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round"/>`;
+}
+addEventListener('resize',()=>drawRoute());
+
+function showSettings(){
+  const v=document.createElement('div');v.className='veil';
+  v.innerHTML=`<div class="sheet" role="dialog" aria-label="Einstellungen"><h2>Für Eltern</h2>
+   <div class="settings">
+    <form class="field" id="nf"><label for="capName2">Name</label><input id="capName2" maxlength="16" value="${esc(S.name)}"></form>
+    <button class="btn ghost small" id="mus2">Musik: ${S.music?'an':'aus'}</button>
+    <button class="btn ghost small" id="snd">Töne: ${S.sound?'an':'aus'}</button>
+    <button class="btn ghost small" id="voc">Aufgaben vorlesen: ${S.voice?'an':'aus'}</button>
+    <button class="btn ghost small" id="unl">Alle Inseln freischalten</button>
+    <button class="btn ghost small" id="rst">Fortschritt löschen</button>
+    <p class="note">Der Fortschritt wird nur in diesem Browser gespeichert.</p>
+    <button class="btn" id="cls">Fertig</button></div></div>`;
+  document.body.appendChild(v);
+  const close=()=>{S.name=$('#capName2').value.trim()||S.name;save();v.remove();showMap();};
+  $('#nf').onsubmit=e=>{e.preventDefault();close();};
+  $('#mus2').onclick=e=>{S.music=!S.music;e.target.textContent='Musik: '+(S.music?'an':'aus');save();S.music?startMusic():stopMusic();};
+  $('#snd').onclick=e=>{S.sound=!S.sound;e.target.textContent='Töne: '+(S.sound?'an':'aus');save();};
+  $('#voc').onclick=e=>{S.voice=!S.voice;e.target.textContent='Aufgaben vorlesen: '+(S.voice?'an':'aus');save();};
+  $('#unl').onclick=e=>{S.unlocked=LAST;save();e.target.textContent='Alle Inseln sind frei';};
+  let armed=false;$('#rst').onclick=e=>{if(!armed){armed=true;e.target.textContent='Wirklich löschen? Nochmal tippen';e.target.style.background='var(--coral)';return;}
+    const keep={sound:S.sound,music:S.music,voice:S.voice};S=Object.assign(fresh(),keep);save();v.remove();showStart();};
+  $('#cls').onclick=close;v.onclick=e=>{if(e.target===v)close();};
+}
+
+/* ---------- Spielen ---------- */
+let R=null;
+function startStop(i){
+  const s=STOPS[i];const n=i===LAST?8:PER;const seen=new Set(),list=[];
+  let guard=0;while(list.length<n&&guard++<200){const q=s.gen();const k=q.a+q.op+q.b;if(seen.has(k)&&guard<150)continue;seen.add(k);list.push(q);}
+  R={i,list,idx:0,mistakes:0,tries:0,input:'',res:[],locked:false};
+  audio();startMusic();
+  if(s.first&&!S.seen[s.ri]){showIntro(s.ri,renderPlay);}else renderPlay();
+}
+function showIntro(ri,next){
+  const r=REGIONS[ri];const v=document.createElement('div');v.className='veil';setBackdrop(ri);setTheme(ri);startMusic();
+  v.innerHTML=`<div class="sheet"><p class="kap">Kapitel ${ri+1} von ${REGIONS.length}</p><h2>${r.name}</h2>${mapSvg()}
+   <p class="story">${r.vor}</p>
+   <div class="lesson"><div style="display:flex;gap:8px;align-items:center"><svg style="width:44px;height:44px;flex:none"><use href="#parrot"/></svg><b style="font-family:var(--display);font-size:1.15rem">Kiki erklärt: ${r.intro.title}</b></div>
+   <p>${r.intro.text}</p>
+   ${r.intro.ex?`<div class="sum" style="font-size:2rem">${r.intro.ex.a} ${r.intro.ex.op} ${r.intro.ex.b} = ${r.intro.ex.ans}</div><div class="helper">${dotsHTML(r.intro.ex)}</div>`:''}</div>
+   <div class="row"><button class="btn ghost" id="toMap">Zur Karte</button><button class="btn" id="ok">Lossegeln</button></div></div>`;
+  document.body.appendChild(v);
+  const stop=()=>{try{speechSynthesis.cancel();}catch(e){}};
+  $('#ok').onclick=()=>{stop();S.seen[ri]=true;save();v.remove();next();};
+  $('#toMap').onclick=()=>{stop();v.remove();R=null;showMap();};
+  $('#ok').focus();
+  say(r.vor+' '+r.intro.text);
+}
+const PRAISE=['Super!','Richtig!','Klasse, Kapitänin!','Genau so!','Ahoi, das stimmt!','Prima gerechnet!','Volltreffer!'];
+function renderPlay(){
+  const s=STOPS[R.i],q=R.list[R.idx];
+  const back=`<button class="iconbtn" id="back" aria-label="Zurück zur Karte"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>`;
+  setBackdrop(s.ri);setTheme(s.ri);
+  app.innerHTML=`<div class="screen">${topbar(s.name,REGIONS[s.ri].name+' · Aufgabe '+(R.idx+1)+' von '+R.list.length,back)}
+   <div class="play">
+    <div class="shells">${R.list.map((_,k)=>`<i class="${R.res[k]===1?'ok':R.res[k]===0?'miss':''} ${k===R.idx?'now':''}"></i>`).join('')}</div>
+    <div class="card">
+      <div class="sum" aria-live="polite"><span>${q.a}</span><span>${q.op}</span><span>${q.b}</span><span>=</span><span class="slot empty" id="slot">?</span></div>
+      <div class="parrot"><svg><use href="#parrot"/></svg><div class="bubble" id="bubble">${R.idx===0?`Ahoi, ${captain()}! Was kommt heraus?`:'Und die nächste!'}</div></div>
+      <div class="helper" id="helper"></div>
+    </div>
+    <div class="toolrow"><button class="pill" id="readq"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 8.5a5 5 0 0 1 0 7" stroke="currentColor" stroke-width="2" fill="none"/></svg>Vorlesen</button>
+      ${musBtn()}<button class="pill" id="help">Tipp zeigen</button></div>
+    <div class="pad" id="pad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button class="key" data-k="${n}">${n}</button>`).join('')}
+      <button class="key del" data-k="del" aria-label="Löschen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 5h11v14H9l-6-7z"/><path d="M12 9l5 6M17 9l-5 6"/></svg></button>
+      <button class="key" data-k="0">0</button><button class="key go" data-k="ok">OK</button></div>
+   </div></div>`;
+  $('#back').onclick=()=>{R=null;showMap();};wireMus();
+  $('#help').onclick=()=>showHelper(q);
+  $('#readq').onclick=()=>{const was=S.voice;S.voice=true;say(`${q.a} ${WORD[q.op]} ${q.b}`);S.voice=was;};
+  $('#pad').onclick=e=>{const k=e.target.closest('.key');if(k)press(k.dataset.k);};
+  say(`${q.a} ${WORD[q.op]} ${q.b}`);
+}
+function showHelper(q){$('#helper').innerHTML=dotsHTML(q)+`<div class="hint">${hintText(q)}</div>`;}
+function press(k){
+  if(!R||R.locked)return;const slot=$('#slot');
+  if(k==='del'){R.input=R.input.slice(0,-1);}
+  else if(k==='ok'){if(R.input!=='')check();return;}
+  else if(R.input.length<3){R.input=(R.input==='0'?'':R.input)+k;}
+  slot.className='slot'+(R.input?'':' empty');slot.textContent=R.input||'?';
+}
+function check(){
+  const q=R.list[R.idx],slot=$('#slot'),bub=$('#bubble');
+  if(+R.input===q.ans){
+    slot.className='slot right';R.locked=true;
+    if(R.tries===0){R.res[R.idx]=1;S.coins++;coinBurst(slot);}else R.res[R.idx]=0;
+    save();sGood();bub.textContent=pick(PRAISE)+(R.tries===0?' Eine Goldmünze für dich.':'');
+    setTimeout(next,1100);
+  }else{
+    R.tries++;sBad();slot.className='slot wrong';
+    if(R.tries===1){R.mistakes++;bub.textContent='Fast! Schau dir die Punkte an und versuch es nochmal.';showHelper(q);
+      setTimeout(()=>{R.input='';slot.className='slot empty';slot.textContent='?';},700);}
+    else{R.locked=true;R.res[R.idx]=0;
+      setTimeout(()=>{slot.className='slot reveal';slot.textContent=q.ans;},500);
+      bub.innerHTML=`Das war knifflig. Die Lösung ist <b>${q.ans}</b>. Merk sie dir gut!`;showHelper(q);
+      const h=$('#helper');const b=document.createElement('button');b.className='btn small';b.textContent='Weiter';b.onclick=next;h.appendChild(b);b.focus();}
+  }
+}
+function coinBurst(el){
+  const r=el.getBoundingClientRect(),c=$('#coins').getBoundingClientRect();
+  for(let i=0;i<3;i++){const s=document.createElementNS('http://www.w3.org/2000/svg','svg');s.setAttribute('class','burst');s.innerHTML='<use href="#coin"/>';
+    s.style.left=(r.left+r.width/2-14+i*10-10)+'px';s.style.top=(r.top+r.height/2-14)+'px';
+    s.style.setProperty('--dx',(c.left-r.left-r.width/2+i*4)+'px');s.style.setProperty('--dy',(c.top-r.top-r.height/2)+'px');s.style.animationDelay=(i*.08)+'s';
+    document.body.appendChild(s);setTimeout(()=>s.remove(),1100);}
+  setTimeout(()=>{const n=$('#coins');if(n)n.textContent=S.coins;},500);
+}
+function next(){
+  if(!R)return;R.idx++;R.tries=0;R.input='';R.locked=false;
+  if(R.idx>=R.list.length)finish();else renderPlay();
+}
+function finish(){
+  const good=R.res.filter(x=>x===1).length,n=R.list.length;
+  const stars=R.mistakes===0?3:R.mistakes<=2?2:1;
+  const i=R.i,ri=STOPS[i].ri,wasDone=regionDone(ri);S.stars[i]=Math.max(S.stars[i]||0,stars);
+  const newIsland=i===S.unlocked&&i<LAST;if(newIsland)S.unlocked=i+1;
+  const piece=!wasDone&&regionDone(ri);
+  save();sWin();
+  const nx=STOPS[i+1];
+  if(i===LAST&&!S.finished&&nPieces()===REGIONS.length){S.finished=true;save();R=null;
+    const v=document.createElement('div');v.className='veil';
+    v.innerHTML=`<div class="sheet"><p class="kap">Kapitel 5 geschafft</p><h2>Die Karte ist ganz!</h2>${mapSvg(4)}<p class="story">${REGIONS[4].nach}</p>
+      ${starRow(stars,'bigstars')}<button class="btn" id="film">Zum Schatz!</button></div>`;
+    document.body.appendChild(v);say(REGIONS[4].nach);$('#film').onclick=()=>{try{speechSynthesis.cancel();}catch(e){}v.remove();runFinale();};$('#film').focus();return;}
+  const np=nPieces();
+  const v=document.createElement('div');v.className='veil';
+  v.innerHTML=piece?`<div class="sheet"><p class="kap">Kapitel ${ri+1} geschafft</p><h2>Ein Stück der Schatzkarte!</h2>${mapSvg(ri)}
+    <p class="story">${REGIONS[ri].nach} ${np<5?`Jetzt habt ihr ${np} von 5 Stücken.`:''}</p>
+    ${starRow(stars,'bigstars')}<p>${good} von ${n} Aufgaben auf Anhieb richtig.${newIsland?` Neue Insel entdeckt: <b>${nx.name}</b> im Gebiet <b>${REGIONS[nx.ri].name}</b>.`:''}</p>
+    <div class="row">${stars<3?'<button class="btn ghost" id="again">Nochmal</button>':''}<button class="btn" id="tomap">Zur Karte</button></div></div>`
+   :`<div class="sheet"><svg class="big"><use href="#isl"/></svg>
+    <h2>${STOPS[i].name} geschafft!</h2>
+    ${starRow(stars,'bigstars')}
+    <p>${good} von ${n} Aufgaben auf Anhieb richtig.${newIsland?` Neue Insel entdeckt: <b>${nx.name}</b>${nx.first?' in einem neuen Gebiet':''}.`:''}</p>
+    <div class="row">${stars<3?'<button class="btn ghost" id="again">Nochmal</button>':''}${newIsland&&!nx.first?'<button class="btn ghost" id="nextI">Weitersegeln</button>':''}<button class="btn" id="tomap">Zur Karte</button></div></div>`;
+  document.body.appendChild(v);if(piece)say(REGIONS[ri].nach);
+  const off=()=>{try{speechSynthesis.cancel();}catch(e){}};
+  $('#tomap').onclick=()=>{off();v.remove();R=null;showMap();};
+  const a=$('#again');if(a)a.onclick=()=>{off();v.remove();startStop(i);};
+  const nb=$('#nextI');if(nb)nb.onclick=()=>{off();v.remove();startStop(i+1);};
+  $('#tomap').focus();
+}
+
+addEventListener('keydown',e=>{
+  if(document.querySelector('.veil'))return;if(!R)return;
+  if(/^[0-9]$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('del');else if(e.key==='Enter'){e.preventDefault();press('ok');}
+});
+
+/* ---------- So geht's ---------- */
+const coarse=matchMedia('(pointer: coarse)').matches;
+const IC={
+  tap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V11"/><path d="M12 10.5V9a1.5 1.5 0 0 1 3 0v2"/><path d="M15 10.5a1.5 1.5 0 0 1 3 0V15a6 6 0 0 1-6 6h-.5a6 6 0 0 1-4.6-2.2L4.6 16a1.6 1.6 0 0 1 2.4-2.1L9 15.5"/></svg>',
+  mouse:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="3" width="12" height="18" rx="6"/><path d="M12 3v6"/></svg>',
+  tablet:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2.5" width="16" height="19" rx="2.5"/><circle cx="12" cy="18.5" r=".8" fill="currentColor"/></svg>',
+  laptop:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4.5" y="4.5" width="15" height="10.5" rx="1.5"/><path d="M2 19h20l-2-4H4z"/></svg>',
+  island:'<svg viewBox="0 0 104 78"><use href="#isl"/></svg>'
+};
+function showHowTo(){
+  const v=document.createElement('div');v.className='veil';
+  v.innerHTML=`<div class="sheet wide"><h2>So spielst du</h2>
+    <div class="goal"><svg viewBox="0 0 110 60" aria-hidden="true"><use href="#isl" x="0" y="4" width="62" height="48"/><path d="M60 30h12" stroke="#163038" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 5"/>
+      <rect x="74" y="16" width="34" height="28" rx="8" fill="#f4d79b"/><text x="91" y="37" text-anchor="middle" font-family="'Baloo 2',sans-serif" font-weight="800" font-size="20" fill="#163038">7</text></svg>
+      <p>Segle von Insel zu Insel. Auf jeder Insel warten Rechnungen. Gib die Lösung mit den Zahlentasten ein und sammle Goldmünzen.</p></div>
+    <div class="howto">
+      <div class="dev ${coarse?'mine':''}"><h3>${IC.tablet} Tablet und Handy${coarse?'<span class="badge">Dein Gerät</span>':''}</h3><ul>
+        <li><span class="ico">${IC.tap}</span><span>Tippe auf eine Insel, um loszusegeln.</span></li>
+        <li><span class="ico"><span class="k">7</span></span><span>Tippe die Zahlen auf den großen Tasten.</span></li>
+        <li><span class="ico"><span class="k ok">OK</span></span><span>Tippe auf OK, um deine Lösung zu prüfen.</span></li></ul></div>
+      <div class="dev ${coarse?'':'mine'}"><h3>${IC.laptop} Computer${coarse?'':'<span class="badge">Dein Gerät</span>'}</h3><ul>
+        <li><span class="ico">${IC.mouse}</span><span>Klicke auf eine Insel, um loszusegeln.</span></li>
+        <li><span class="ico"><kbd>0</kbd>…<kbd>9</kbd></span><span>Tippe die Zahlen auf der Tastatur.</span></li>
+        <li><span class="ico"><kbd>Enter</kbd></span><span>Enter prüft die Lösung, <kbd>⌫</kbd> löscht.</span></li></ul></div>
+    </div>
+    <p>Bei einem Fehler hilft dir Kiki, der Papagei, mit Punkten zum Zählen. Nach jedem Gebiet bekommst du ein Stück der Schatzkarte, und am Ende wartet ein kleiner Film als Belohnung.</p>
+    <button class="btn" id="howGo">Los geht's</button></div>`;
+  document.body.appendChild(v);
+  $('#howGo').onclick=()=>{S.seenIntro=true;save();v.remove();audio();startMusic();if(!S.seenStory)showPrologue();};
+}
+let filmLoaded=false;
+function loadFilm(){if(filmLoaded)return;filmLoaded=true;['film1','film2','film3','film4','film5'].forEach(k=>loadImg(k,'bilder/'+k+'.jpg?v=1'));loadImg('schiff','bilder/schiff.webp?v=1');}
+function runFinale(){
+  loadFilm();audio();setTheme(4);startMusic();
+  window.SIFinale.start({name:S.name||'Lisi',coins:S.coins,face:LISI_FACE,img:IMG,
+    sound:(seq)=>tone(seq),onMenu:()=>{R=null;showMap();}});
+}
+const LISI_FACE="data:image/webp;base64,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";
+
+/* ---------- Start ---------- */
+function start(data){
+  load();if(data&&data.save)S=Object.assign(fresh(),data.save);
+  window.claude?.hot?.snapshot?.(()=>({save:S}));
+  if(!S.name)showStart();else{showMap();if(!S.seenIntro)showHowTo();else if(!S.seenStory)showPrologue();}
+}
+window.claude?.hot?.ready?window.claude.hot.ready(start):start(window.claude?.hot?.data??{});
+})();
+</script>
+<script>
+/* ---------- Abschluss: Film „Der Schatz der Schatzinsel“ ---------- */
+(function(){
+"use strict";
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
+const ease=k=>k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2,easeOut=k=>1-Math.pow(1-k,3);
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const hash=(i,s)=>{const v=Math.sin(i*127.1+s*311.7)*43758.5453;return v-Math.floor(v);};
+const escH=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function mixHex(a,b,t){const x=parseInt(a.slice(1),16),y=parseInt(b.slice(1),16);const c=k=>Math.round(lerp(x>>k&255,y>>k&255,t));return `rgb(${c(16)},${c(8)},${c(0)})`;}
+function hexA(h,a){const n=parseInt(h.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;}
+let el,cv,ctx,mainCtx,layer,lctx,card,skipB,W=0,H=0,DPR=1,T=0,raf=0,last=0,opts=null,face=null,IMG={},mapCv=null;
+const F={t:0,cards:false,fx:[],fw:[],rain:[],beats:{}};
+const ready=i=>!!i&&(i instanceof HTMLCanvasElement||(i.complete&&i.naturalWidth>0));
+const iw=i=>i.naturalWidth||i.width,ih=i=>i.naturalHeight||i.height;
+const who=()=>opts.name||'Lisi';
+const GOLD=['#ffd75a','#f6b829','#ffe9a0'];
+const FWC=['#ff5b6e','#ffb627','#ffe066','#5fd38d','#4fb3ff','#c7a6ff','#ffffff'];
+
+// Szenen: Karte setzt sich zusammen, Segelfahrt, Otto taucht auf, Kiste geht auf, Fest am Abend
+const SC=[{a:0,b:9},{a:9,b:17},{a:17,b:25.5},{a:25.5,b:33},{a:33,b:99}];
+const FILM_END=41,XF=1;
+const SUBS=[[.3,4.5,()=>`Dank ${who()} sind alle fünf Kartenstücke wieder beisammen …`],[4.6,8.7,()=>'… und das rote X zeigt, wo der Schatz liegt!'],
+  [9.4,16.6,()=>'Kapitänin Lisi und Kiki segeln los zur Schatzinsel.'],
+  [17.4,21.2,()=>'Da blubbert es im Wasser … Otto taucht auf!'],[21.3,25.2,()=>'Er bringt die Schatzkiste genau zu Lisi an den Strand.'],
+  [25.9,32.7,()=>'Die Kiste ist voller Gold und den schönsten Muscheln!'],
+  [33.4,36.6,()=>'Am Abend feiern alle Freunde ein großes Schatzfest.']];
+
+/* --- Töne --- */
+function snd(seq){try{opts.sound(seq);}catch(e){}}
+function beat(name,t,fn){if(F.t>=t&&!F.beats[name]){F.beats[name]=1;fn();}}
+
+/* --- Hilfen --- */
+function star5(x,y,r,c){ctx.fillStyle=c;ctx.beginPath();for(let k=0;k<10;k++){const a=-Math.PI/2+k*Math.PI/5,rr=k%2?r*.45:r;ctx.lineTo(x+Math.cos(a)*rr,y+Math.sin(a)*rr);}ctx.closePath();ctx.fill();}
+function sparkle(x,y,r,c){ctx.fillStyle=c;ctx.beginPath();ctx.moveTo(x,y-r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.quadraticCurveTo(x,y,x,y+r);ctx.quadraticCurveTo(x,y,x-r,y);ctx.quadraticCurveTo(x,y,x,y-r);ctx.fill();}
+function glitter(x,y,n,spread){ctx.save();ctx.globalCompositeOperation='lighter';for(let i=0;i<n;i++){const a=hash(i,7)*6.3+T*1.7,r=spread*hash(i,9);
+  sparkle(x+Math.cos(a)*r,y+Math.sin(a)*r,2+4*Math.abs(Math.sin(T*4+i)),'rgba(255,250,220,.9)');}ctx.restore();}
+function coin(x,y,r,spin){const sx=Math.max(.12,Math.abs(Math.cos(spin)));ctx.save();ctx.translate(x,y);ctx.scale(sx,1);
+  ctx.fillStyle='#c98d12';ctx.beginPath();ctx.arc(0,0,r,0,7);ctx.fill();ctx.fillStyle='#ffd75a';ctx.beginPath();ctx.arc(0,0,r*.8,0,7);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.55)';ctx.beginPath();ctx.ellipse(-r*.25,-r*.3,r*.25,r*.12,-.6,0,7);ctx.fill();ctx.restore();}
+function cover(img,zoom,px,py){
+  if(!ready(img))return null;const s=Math.max(W/iw(img),H/ih(img))*zoom,w=iw(img)*s,h=ih(img)*s,x=(W-w)*px,y=(H-h)*py;
+  ctx.drawImage(img,x,y,w,h);return {x,y,w,h};
+}
+function floaters(lt,n,kind){
+  for(let j=0;j<n;j++){const sp=.5+hash(j,3),x=(hash(j,1)*W*1.1-W*.05)+Math.sin(lt*1.3+j)*18,y=H+30-((lt*45*sp+hash(j,4)*(H+60))%(H+60));
+    if(kind==='gold'){coin(x,y,4+hash(j,5)*5,lt*3+j);}
+    else{const tw=.4+.6*Math.abs(Math.sin(lt*3+j*1.7));ctx.save();ctx.globalCompositeOperation='lighter';const g=ctx.createRadialGradient(x,y,0,x,y,10);g.addColorStop(0,`rgba(255,236,160,${tw})`);g.addColorStop(1,'rgba(255,236,160,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,10,0,7);ctx.fill();ctx.restore();}}
+}
+
+/* --- Himmel, Meer, Strand (gezeichnet, falls kein gemaltes Bild da ist) --- */
+const DAY={sky0:'#5cc4ea',sky1:'#ffe9b8',sun:'#ffe066',sunX:.16,sunY:.14,sea0:'#1d7f8f',sea1:'#2aa7b8',sea2:'#8fdccf',sand0:'#f6dda6',sand1:'#e2b96d',isle:'#4f9c8a',cloud:'rgba(255,255,255,.85)'};
+const DUSK={sky0:'#3b2f6b',sky1:'#ff9a62',sun:'#ffcf6b',sunX:.72,sunY:.38,sea0:'#7a4d6e',sea1:'#355f86',sea2:'#ffb08a',sand0:'#e9b47a',sand1:'#b77a45',isle:'#5a4466',cloud:'rgba(255,190,170,.6)'};
+const horizon=()=>H*.4,waterY=()=>H*.6,shoreY=x=>H*.7+Math.sin(x*.012+T*.6)*5;
+function drawSky(P,hz){
+  let g=ctx.createLinearGradient(0,0,0,hz);g.addColorStop(0,P.sky0);g.addColorStop(1,P.sky1);ctx.fillStyle=g;ctx.fillRect(0,0,W,hz+2);
+  const sx=W*P.sunX,sy=P===DUSK?hz:H*P.sunY,sr=Math.min(W,H)*(P===DUSK?.1:.07);const sg=ctx.createRadialGradient(sx,sy,sr*.3,sx,sy,sr*3.2);sg.addColorStop(0,hexA(P.sun,.85));sg.addColorStop(1,hexA(P.sun,0));
+  ctx.fillStyle=sg;ctx.fillRect(sx-sr*3.2,sy-sr*3.2,sr*6.4,sr*6.4);ctx.fillStyle=P.sun;ctx.beginPath();ctx.arc(sx,sy,sr,Math.PI,P===DUSK?0:Math.PI*3);ctx.fill();
+  if(P===DUSK){for(let i=0;i<40;i++){const x=hash(i,2)*W,y=hash(i,3)*hz*.6,tw=.3+.7*Math.abs(Math.sin(T*2+i));ctx.fillStyle=`rgba(255,255,255,${.6*tw})`;ctx.fillRect(x,y,2,2);}}
+  ctx.fillStyle=P.cloud;[[.42,.12,1],[.8,.2,.8],[.62,.07,.6]].forEach(([cx,cy,k],i)=>{const x=((cx*W+T*8*(i+1))%(W+200))-100,y=cy*H,r=Math.min(W,H)*.04*k;
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.arc(x+r*1.1,y-r*.4,r*1.2,0,Math.PI*2);ctx.arc(x+r*2.2,y,r*.9,0,Math.PI*2);ctx.fill();});
+}
+function drawSea(P,hz,bot){
+  const g=ctx.createLinearGradient(0,hz,0,bot);g.addColorStop(0,P.sea0);g.addColorStop(.6,P.sea1);g.addColorStop(1,P.sea2);ctx.fillStyle=g;ctx.fillRect(0,hz,W,bot-hz);
+  if(P===DUSK){const sx=W*P.sunX;ctx.fillStyle='rgba(255,200,120,.35)';for(let r=0;r<8;r++){const y=hz+6+r*(bot-hz)/9,w=(60-r*5)+Math.sin(T*2+r)*10;ctx.fillRect(sx-w/2,y,w,3);}}
+  ctx.strokeStyle='rgba(255,255,255,.35)';ctx.lineWidth=2;ctx.lineCap='round';
+  for(let r=0;r<8;r++){const y=hz+12+r*((bot-hz)/9)+r*r*1.2;ctx.beginPath();for(let x=((r*53+T*20)%60)-60;x<W;x+=60){ctx.moveTo(x,y);ctx.quadraticCurveTo(x+10,y-4,x+20,y);}ctx.stroke();}
+}
+function drawIsland(x,y,s,P){
+  ctx.fillStyle=P.isle;ctx.beginPath();ctx.ellipse(x,y,s,s*.28,0,Math.PI,0);ctx.fill();
+  ctx.strokeStyle=mixHex(P.isle,'#3a2a1a',.4);ctx.lineWidth=Math.max(2,s*.05);ctx.beginPath();ctx.moveTo(x+s*.1,y-s*.2);ctx.quadraticCurveTo(x+s*.18,y-s*.5,x+s*.1,y-s*.75);ctx.stroke();
+  ctx.fillStyle=mixHex(P.isle,'#1f5a35',.5);for(let k=0;k<5;k++){ctx.save();ctx.translate(x+s*.1,y-s*.75);ctx.rotate(-2.6+k*.55);ctx.beginPath();ctx.ellipse(s*.2,0,s*.22,s*.06,0,0,7);ctx.fill();ctx.restore();}
+}
+function drawBeach(P){
+  P=P||DAY;
+  ctx.fillStyle='rgba(255,255,255,.8)';ctx.beginPath();ctx.moveTo(0,H);for(let x=0;x<=W+10;x+=10)ctx.lineTo(x,shoreY(x)-6-Math.sin(T*2+x*.03)*3);ctx.lineTo(W,H);ctx.closePath();ctx.fill();
+  const g=ctx.createLinearGradient(0,H*.7,0,H);g.addColorStop(0,P.sand0);g.addColorStop(1,P.sand1);ctx.fillStyle=g;
+  ctx.beginPath();ctx.moveTo(0,H);for(let x=0;x<=W+10;x+=10)ctx.lineTo(x,shoreY(x));ctx.lineTo(W,H);ctx.closePath();ctx.fill();
+  ctx.fillStyle='rgba(150,100,40,.22)';for(let i=0;i<40;i++){const x=(i*97.3)%W,y=H*.76+((i*53.7)%(H*.22));ctx.beginPath();ctx.ellipse(x,y,3,1.5,0,0,Math.PI*2);ctx.fill();}
+  const px=Math.max(18,W*.05),py=H*.93,ph=H*.55;
+  ctx.strokeStyle=P===DUSK?'#5c3a22':'#8a5a2b';ctx.lineWidth=Math.max(10,W*.012);ctx.lineCap='round';ctx.beginPath();ctx.moveTo(px,py);ctx.quadraticCurveTo(px+W*.05,py-ph*.5,px+W*.03,py-ph);ctx.stroke();
+  const tx=px+W*.03,ty=py-ph;ctx.fillStyle=P===DUSK?'#24533a':'#2f8a4c';
+  for(let k=0;k<6;k++){const a=-2.9+k*.55+Math.sin(T*1.2+k)*.05,len=Math.min(W,H)*.16;ctx.save();ctx.translate(tx,ty);ctx.rotate(a);
+    ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(len*.5,-len*.22,len,len*.18);ctx.quadraticCurveTo(len*.5,len*.05,0,0);ctx.fill();ctx.restore();}
+  ctx.fillStyle='#7a4a1e';[[-6,6],[6,8],[0,12]].forEach(([dx,dy])=>{ctx.beginPath();ctx.arc(tx+dx,ty+dy,6,0,Math.PI*2);ctx.fill();});
+  return {tx,ty};
+}
+
+/* --- Kiki, der Papagei --- */
+function drawParrot(x,y,s,flap,dir){
+  ctx.save();ctx.translate(x,y);ctx.scale(dir||1,1);
+  ctx.fillStyle='#1d7f8f';ctx.beginPath();ctx.moveTo(-s*.2,s*.3);ctx.lineTo(-s*.75,s*.75);ctx.lineTo(-s*.45,s*.2);ctx.fill();
+  ctx.fillStyle='#e65f4a';ctx.beginPath();ctx.ellipse(0,0,s*.42,s*.3,-.3,0,7);ctx.fill();
+  ctx.save();ctx.rotate(-.5+Math.sin(flap)*.9);ctx.fillStyle='#2f8a4c';ctx.beginPath();ctx.ellipse(-s*.05,-s*.28,s*.18,s*.45,.3,0,7);ctx.fill();ctx.fillStyle='#f6b829';ctx.beginPath();ctx.ellipse(-s*.08,-s*.55,s*.1,s*.16,.3,0,7);ctx.fill();ctx.restore();
+  ctx.fillStyle='#e65f4a';ctx.beginPath();ctx.arc(s*.38,-s*.2,s*.24,0,7);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(s*.45,-s*.26,s*.09,0,7);ctx.fill();ctx.fillStyle='#163038';ctx.beginPath();ctx.arc(s*.47,-s*.26,s*.05,0,7);ctx.fill();
+  ctx.fillStyle='#f6b829';ctx.beginPath();ctx.moveTo(s*.58,-s*.24);ctx.quadraticCurveTo(s*.82,-s*.2,s*.66,-s*.02);ctx.lineTo(s*.56,-s*.1);ctx.fill();
+  ctx.restore();
+}
+
+/* --- Schiff mit Lisi und Kiki --- */
+function drawShip(x,y,s,tilt){
+  ctx.save();ctx.translate(x,y);ctx.rotate(tilt||0);
+  ctx.fillStyle='#5a3a1a';ctx.fillRect(-s*.03,-s*1.18,s*.06,s*1.1);
+  const flap=Math.sin(T*6)*s*.03;ctx.fillStyle='#e65f4a';ctx.beginPath();ctx.moveTo(s*.03,-s*1.18);ctx.lineTo(s*.32,-s*1.11+flap);ctx.lineTo(s*.03,-s*1.04);ctx.fill();
+  ctx.fillStyle='#ffd75a';ctx.beginPath();ctx.arc(s*.13,-s*1.11,s*.035,0,7);ctx.fill();
+  const bil=Math.sin(T*1.3)*s*.03;
+  ctx.fillStyle='#fffaf0';ctx.beginPath();ctx.moveTo(s*.06,-s*1.02);ctx.quadraticCurveTo(s*.62+bil,-s*.7,s*.06,-s*.32);ctx.closePath();ctx.fill();
+  ctx.fillStyle='rgba(230,95,74,.85)';ctx.beginPath();ctx.moveTo(s*.06,-s*.78);ctx.quadraticCurveTo(s*.44+bil*.8,-s*.68,s*.06,-s*.6);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#fff4dd';ctx.beginPath();ctx.moveTo(-s*.06,-s*.96);ctx.quadraticCurveTo(-s*.46-bil,-s*.66,-s*.06,-s*.36);ctx.closePath();ctx.fill();
+  // Lisi schaut über die Reling
+  const hx=-s*.24,hy=-s*.33,hr=s*.13;
+  ctx.fillStyle='#f2b630';ctx.beginPath();ctx.arc(hx,hy,hr,0,7);ctx.fill();
+  if(face&&face.complete&&face.naturalWidth){ctx.save();ctx.beginPath();ctx.arc(hx,hy,hr,0,7);ctx.clip();ctx.drawImage(face,hx-hr*1.12,hy-hr*1.12,hr*2.24,hr*2.24);ctx.restore();}
+  ctx.strokeStyle='#f2b630';ctx.lineWidth=s*.05;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(hx+hr*.8,hy+hr*.9);ctx.lineTo(hx+hr*1.5,hy-hr*.4+Math.sin(T*7)*hr*.3);ctx.stroke();
+  // Rumpf
+  const hg=ctx.createLinearGradient(0,-s*.24,0,s*.2);hg.addColorStop(0,'#a8652c');hg.addColorStop(1,'#5f3214');ctx.fillStyle=hg;
+  ctx.beginPath();ctx.moveTo(-s*.66,-s*.26);ctx.lineTo(s*.66,-s*.26);ctx.quadraticCurveTo(s*.58,s*.12,s*.36,s*.2);ctx.lineTo(-s*.4,s*.2);ctx.quadraticCurveTo(-s*.62,s*.1,-s*.66,-s*.26);ctx.fill();
+  ctx.fillStyle='#f6b829';ctx.fillRect(-s*.66,-s*.27,s*1.32,s*.035);
+  ctx.fillStyle='#3b210d';[-.3,0,.3].forEach(k=>{ctx.beginPath();ctx.arc(k*s,-s*.08,s*.045,0,7);ctx.fill();ctx.strokeStyle='#f6b829';ctx.lineWidth=s*.015;ctx.stroke();});
+  drawParrot(s*.5,-s*.36,s*.2,T*2,1);
+  ctx.restore();
+  ctx.fillStyle='rgba(255,255,255,.75)';ctx.beginPath();ctx.ellipse(x,y+s*.2,s*.78,s*.06,0,0,7);ctx.fill();
+}
+
+function drawLisi(x,y,h,wave,hop){
+  y-=hop||0;
+  const hr=h*.2,bodyTop=y-h*.62;
+  // Beine
+  ctx.fillStyle='#6b3a16';ctx.beginPath();ctx.roundRect(x-h*.11,y-h*.2,h*.08,h*.2,h*.03);ctx.roundRect(x+h*.03,y-h*.2,h*.08,h*.2,h*.03);ctx.fill();
+  ctx.fillStyle='#e65f4a';ctx.beginPath();ctx.ellipse(x-h*.08,y,h*.07,h*.03,0,0,Math.PI*2);ctx.ellipse(x+h*.08,y,h*.07,h*.03,0,0,Math.PI*2);ctx.fill();
+  // Arme
+  ctx.strokeStyle='#f2b630';ctx.lineWidth=h*.07;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(x-h*.13,bodyTop+h*.1);ctx.lineTo(x-h*.22,bodyTop+h*.33);ctx.stroke();
+  const a=wave?-1.25+Math.sin(T*8)*.4:1.15,al=h*.25,sx=x+h*.13,sy=bodyTop+h*.1,ex=sx+Math.cos(a)*al,ey=sy+Math.sin(a)*al;
+  ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(ex,ey);ctx.stroke();
+  ctx.fillStyle='#ffcf9f';ctx.beginPath();ctx.arc(x-h*.22,bodyTop+h*.35,h*.04,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.arc(ex,ey,h*.04,0,Math.PI*2);ctx.fill();
+  // Kleid
+  const dg=ctx.createLinearGradient(x-h*.2,0,x+h*.2,0);dg.addColorStop(0,'#e3a21f');dg.addColorStop(.5,'#f7c548');dg.addColorStop(1,'#e3a21f');
+  ctx.fillStyle=dg;ctx.beginPath();ctx.moveTo(x-h*.13,bodyTop);ctx.lineTo(x+h*.13,bodyTop);ctx.lineTo(x+h*.22,y-h*.18);ctx.quadraticCurveTo(x,y-h*.14,x-h*.22,y-h*.18);ctx.closePath();ctx.fill();
+  // Schal
+  ctx.fillStyle='#f2b630';ctx.beginPath();ctx.roundRect(x-h*.15,bodyTop-h*.04,h*.3,h*.09,h*.04);ctx.fill();ctx.beginPath();ctx.roundRect(x+h*.04,bodyTop,h*.07,h*.2,h*.03);ctx.fill();
+  // Kopf
+  const cx=x,cy=bodyTop-hr*.85;ctx.save();ctx.beginPath();ctx.arc(cx,cy,hr,0,Math.PI*2);ctx.clip();
+  ctx.fillStyle='#f2b630';ctx.fillRect(cx-hr,cy-hr,hr*2,hr*2);if(face&&face.complete)ctx.drawImage(face,cx-hr*1.12,cy-hr*1.12,hr*2.24,hr*2.24);ctx.restore();
+  ctx.strokeStyle='rgba(180,120,20,.6)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,hr,0,Math.PI*2);ctx.stroke();
+}
+
+
+/* --- Otto --- */
+function drawTentacle(pts,r0,r1,col,sucker){
+  for(let i=0;i<pts.length;i++){const t=i/(pts.length-1),r=lerp(r0,r1,t);ctx.fillStyle=col;ctx.beginPath();ctx.arc(pts[i][0],pts[i][1],r,0,Math.PI*2);ctx.fill();}
+  ctx.fillStyle=sucker;for(let i=3;i<pts.length-2;i+=3){const t=i/(pts.length-1);ctx.beginPath();ctx.arc(pts[i][0],pts[i][1]+lerp(r0,r1,t)*.35,lerp(r0,r1,t)*.38,0,Math.PI*2);ctx.fill();}
+}
+function drawOcto(x,y,s,carry,toChestY){
+  y+=Math.sin(T*1.6)*s*.06;const N=26,baseY=y+s*.55;
+  for(let i=0;i<6;i++){
+    const bx=x+lerp(-s*.72,s*.72,i/5),pts=[];const waving=!carry&&i===0,len=carry?Math.max(s*.6,toChestY-baseY+s*.15):s*1.5;
+    for(let k=0;k<N;k++){const t=k/(N-1);let px,py;
+      if(waving){px=bx-t*s*1.15;py=baseY-Math.sin(t*Math.PI*.8)*s*.9+Math.sin(T*5+t*4)*s*.12*t;}
+      else{const sway=Math.sin(T*2.4+i*1.3+t*3)*s*.14*t;const spread=(i-2.5)*s*(carry?.06:.22)*t;px=bx+sway+spread;py=baseY+t*len;
+        if(!carry&&t>.75){const c=(t-.75)/.25;px+=Math.sin(c*Math.PI*1.2)*s*.22*(i<3?-1:1);py-=c*c*s*.18;}}
+      pts.push([px,py]);}
+    drawTentacle(pts,s*.2,s*.06,i%2?'#e0703f':'#f0874f','rgba(255,225,200,.7)');
+  }
+  const hg=ctx.createRadialGradient(x-s*.35,y-s*.75,s*.1,x,y-s*.2,s*1.25);hg.addColorStop(0,'#ffd0b0');hg.addColorStop(.45,'#f38a55');hg.addColorStop(1,'#cf5a2e');
+  ctx.fillStyle=hg;ctx.beginPath();ctx.ellipse(x,y-s*.25,s*1.02,s*1.08,0,0,Math.PI*2);ctx.fill();
+  ctx.fillStyle='rgba(255,255,255,.2)';[[-.5,-.8,.12],[.45,-.95,.09],[.62,-.45,.07],[-.2,-1.05,.06]].forEach(([a,b,r])=>{ctx.beginPath();ctx.arc(x+a*s,y+b*s,r*s,0,Math.PI*2);ctx.fill();});
+  // Kapitänsmütze
+  ctx.fillStyle='#1f4e79';ctx.beginPath();ctx.ellipse(x,y-s*1.2,s*.55,s*.2,0,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(x,y-s*1.3,s*.42,s*.17,0,Math.PI,0);ctx.fill();
+  ctx.fillStyle='#f6b829';ctx.beginPath();ctx.arc(x,y-s*1.3,s*.06,0,Math.PI*2);ctx.fill();
+  const blink=(T%4.2)<.14;
+  [-1,1].forEach(d=>{const ex=x+d*s*.38,ey=y-s*.18;
+    if(blink){ctx.strokeStyle='#4a1d0e';ctx.lineWidth=s*.05;ctx.lineCap='round';ctx.beginPath();ctx.arc(ex,ey,s*.2,.2,Math.PI-.2);ctx.stroke();return;}
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(ex,ey,s*.25,s*.29,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#24140c';ctx.beginPath();ctx.arc(ex-s*.06,ey+s*.03,s*.15,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ex-s*.11,ey-s*.04,s*.055,0,Math.PI*2);ctx.fill();});
+  ctx.fillStyle='rgba(255,100,120,.5)';[-1,1].forEach(d=>{ctx.beginPath();ctx.ellipse(x+d*s*.66,y+s*.12,s*.14,s*.08,0,0,Math.PI*2);ctx.fill();});
+  ctx.strokeStyle='#5a220c';ctx.lineWidth=s*.06;ctx.lineCap='round';ctx.beginPath();ctx.arc(x,y+s*.12,s*.2,.25,Math.PI-.25);ctx.stroke();
+}
+
+/* --- Kiste --- */
+function drawChest(x,y,w,open){
+  const h=w*.52,lidH=w*.3,L=x-w/2,top=y-h;
+  ctx.fillStyle='rgba(120,80,20,.3)';ctx.beginPath();ctx.ellipse(x,y+3,w*.62,w*.07,0,0,Math.PI*2);ctx.fill();
+  if(open>0){ctx.save();ctx.globalCompositeOperation='lighter';const gl=ctx.createRadialGradient(x,top,0,x,top,w*1.2);gl.addColorStop(0,`rgba(255,240,170,${.6*open})`);gl.addColorStop(1,'rgba(255,220,120,0)');
+    ctx.fillStyle=gl;ctx.beginPath();ctx.arc(x,top,w*1.2,0,Math.PI*2);ctx.fill();ctx.restore();}
+  if(open>.15){for(let i=0;i<9;i++){const sx=L+w*.15+i*w*.088,sy=top-w*.02-Math.sin(i*1.9)*w*.02;drawShell(['scallop','spiral','cowrie'][i%3],sx,sy,w*.06,Math.sin(i)*.4,SHELLCOL[i%SHELLCOL.length]);}}
+  const wood=ctx.createLinearGradient(0,top,0,y);wood.addColorStop(0,'#a8652c');wood.addColorStop(1,'#6b3a16');
+  ctx.fillStyle=wood;ctx.beginPath();ctx.roundRect(L,top,w,h,w*.04);ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.22)';ctx.lineWidth=2;for(let k=1;k<3;k++){ctx.beginPath();ctx.moveTo(L+4,top+h*k/3);ctx.lineTo(L+w-4,top+h*k/3);ctx.stroke();}
+  const gold=(gx,gy,gw,gh)=>{const gg=ctx.createLinearGradient(gx,0,gx+gw,0);gg.addColorStop(0,'#c98d12');gg.addColorStop(.5,'#ffd75a');gg.addColorStop(1,'#c98d12');ctx.fillStyle=gg;ctx.fillRect(gx,gy,gw,gh);};
+  gold(L+w*.1,top,w*.07,h);gold(L+w*.83,top,w*.07,h);gold(L,y-h*.12,w,h*.12);
+  gold(x-w*.07,top+h*.08,w*.14,h*.32);ctx.fillStyle='#4a2a0c';ctx.beginPath();ctx.arc(x,top+h*.2,w*.022,0,Math.PI*2);ctx.fill();ctx.fillRect(x-w*.008,top+h*.2,w*.016,h*.11);
+  ctx.save();ctx.translate(L+w,top);ctx.scale(-1,1);ctx.rotate(-open*1.95);
+  const lw=ctx.createLinearGradient(0,-lidH,0,0);lw.addColorStop(0,'#b97234');lw.addColorStop(1,'#7f4519');ctx.fillStyle=lw;
+  ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-lidH*.5);ctx.quadraticCurveTo(0,-lidH,w*.18,-lidH);ctx.lineTo(w*.82,-lidH);ctx.quadraticCurveTo(w,-lidH,w,-lidH*.5);ctx.lineTo(w,0);ctx.closePath();ctx.fill();
+  const g2=gx=>{const gg=ctx.createLinearGradient(gx,0,gx+w*.07,0);gg.addColorStop(0,'#c98d12');gg.addColorStop(.5,'#ffd75a');gg.addColorStop(1,'#c98d12');ctx.fillStyle=gg;ctx.fillRect(gx,-lidH*.97,w*.07,lidH*.97);};
+  g2(w*.1);g2(w*.83);if(open<.05){ctx.fillStyle='#ffd75a';ctx.fillRect(w*.45,-lidH*.25,w*.1,lidH*.4);}
+  ctx.restore();
+  if(open<1){ctx.save();ctx.globalCompositeOperation='lighter';for(let k=0;k<5;k++){const a=T*1.3+k*1.26,tw=.5+.5*Math.sin(T*4+k*2);star5(x+Math.cos(a)*w*.7,top+Math.sin(a)*w*.35,w*.03*tw+2,`rgba(255,230,140,${.8*tw})`);}ctx.restore();}
+}
+
+/* --- Muscheln --- */
+const SHELLCOL=['#ffb3c7','#ffd2a8','#f6e7d2','#d9c2ff','#ff9f8a','#fff1c9','#bfe8ff'];
+function drawShell(type,x,y,r,rot,col){
+  ctx.save();ctx.translate(x,y);ctx.rotate(rot);
+  const dark=mixHex(col,'#7a3b2a',.35);
+  if(type==='scallop'){
+    ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(0,r*.75);
+    for(let k=0;k<=7;k++){const a=Math.PI+k*Math.PI/7;ctx.quadraticCurveTo(Math.cos(a-.22)*r*1.15,Math.sin(a-.22)*r*1.15,Math.cos(a)*r,Math.sin(a)*r);}
+    ctx.closePath();ctx.fill();ctx.strokeStyle=dark;ctx.lineWidth=Math.max(1,r*.07);
+    for(let k=1;k<7;k++){const a=Math.PI+k*Math.PI/7;ctx.beginPath();ctx.moveTo(0,r*.7);ctx.lineTo(Math.cos(a)*r*.92,Math.sin(a)*r*.92);ctx.stroke();}
+    ctx.fillStyle=dark;ctx.beginPath();ctx.moveTo(-r*.3,r*.6);ctx.lineTo(r*.3,r*.6);ctx.lineTo(r*.18,r*.9);ctx.lineTo(-r*.18,r*.9);ctx.closePath();ctx.fill();
+  }else if(type==='spiral'){
+    ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(-r,r*.4);ctx.quadraticCurveTo(-r*.6,-r*.9,r*.9,-r*.2);ctx.quadraticCurveTo(r*.6,r*.6,-r,r*.4);ctx.fill();
+    ctx.strokeStyle=dark;ctx.lineWidth=Math.max(1,r*.09);ctx.beginPath();
+    for(let t=0;t<12;t+=.3){const rr=r*.55*(1-t/13);const a=t;ctx.lineTo(r*.15+Math.cos(a)*rr*.8,-r*.1+Math.sin(a)*rr*.6);}ctx.stroke();
+  }else if(type==='cowrie'){
+    const gg=ctx.createRadialGradient(-r*.3,-r*.3,r*.1,0,0,r);gg.addColorStop(0,'#fff');gg.addColorStop(.5,col);gg.addColorStop(1,dark);
+    ctx.fillStyle=gg;ctx.beginPath();ctx.ellipse(0,0,r,r*.62,0,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle=dark;ctx.lineWidth=Math.max(1,r*.08);ctx.beginPath();ctx.moveTo(-r*.7,0);ctx.quadraticCurveTo(0,r*.12,r*.7,0);ctx.stroke();
+    ctx.fillStyle='rgba(122,59,42,.35)';[[-.4,-.3],[.1,-.38],[.45,-.2]].forEach(([a,b])=>{ctx.beginPath();ctx.arc(a*r,b*r,r*.08,0,Math.PI*2);ctx.fill();});
+  }else{ // Seestern
+    star5(0,0,r,col);ctx.fillStyle='rgba(255,255,255,.5)';for(let k=0;k<5;k++){const a=-Math.PI/2+k*2*Math.PI/5;ctx.beginPath();ctx.arc(Math.cos(a)*r*.45,Math.sin(a)*r*.45,r*.07,0,Math.PI*2);ctx.fill();}
+  }
+  ctx.fillStyle='rgba(255,255,255,.45)';ctx.beginPath();ctx.ellipse(-r*.3,-r*.35,r*.18,r*.08,-.6,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+}
+
+
+
+/* --- Schatzkarte (gezeichnet, falls film1 nicht gemalt ist) --- */
+const PCS=[[0,0,62,0,58,30,63,48,0,44],[62,0,150,0,150,40,96,50,63,48,58,30],[0,44,63,48,56,70,60,96,0,96],[63,48,96,50,104,72,100,96,60,96,56,70],[96,50,150,40,150,96,100,96,104,72]];
+const XPOS={x:124/150,y:70/96};
+function makeMap(){
+  const c=document.createElement('canvas');c.width=1250;c.height=800;const g=c.getContext('2d'),k=1250/150;
+  g.fillStyle='#efdcae';g.fillRect(0,0,c.width,c.height);
+  for(let i=0;i<260;i++){g.fillStyle=`rgba(${150+hash(i,1)*60|0},${110+hash(i,2)*40|0},60,${.04+hash(i,3)*.06})`;g.beginPath();g.arc(hash(i,4)*1250,hash(i,5)*800,10+hash(i,6)*60,0,7);g.fill();}
+  g.fillStyle='rgba(120,190,190,.22)';g.fillRect(0,0,1250,800);
+  g.strokeStyle='rgba(60,140,140,.55)';g.lineWidth=5;g.lineCap='round';
+  for(let i=0;i<14;i++){const x=hash(i,7)*1150+30,y=hash(i,8)*740+30;g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(x+18,y-12,x+36,y);g.quadraticCurveTo(x+54,y+12,x+72,y);g.stroke();}
+  const isle=(x,y,rx,ry,kind)=>{g.fillStyle='rgba(90,60,30,.18)';g.beginPath();g.ellipse(x*k+6,y*k+8,rx*k,ry*k,0,0,7);g.fill();
+    g.fillStyle='#e6c47c';g.beginPath();g.ellipse(x*k,y*k,rx*k,ry*k,0,0,7);g.fill();g.strokeStyle='#a87a3a';g.lineWidth=4;g.stroke();
+    if(kind==='palm'){g.strokeStyle='#7a4a1e';g.lineWidth=9;g.beginPath();g.moveTo(x*k,y*k);g.quadraticCurveTo(x*k+14,y*k-40,x*k+4,y*k-70);g.stroke();
+      g.fillStyle='#3f9a57';for(let j=0;j<5;j++){g.save();g.translate(x*k+4,y*k-70);g.rotate(-2.7+j*.55);g.beginPath();g.ellipse(32,0,34,9,0,0,7);g.fill();g.restore();}}
+    if(kind==='volcano'){g.fillStyle='#b2553a';g.beginPath();g.moveTo(x*k-60,y*k+10);g.lineTo(x*k-14,y*k-80);g.lineTo(x*k+14,y*k-80);g.lineTo(x*k+60,y*k+10);g.fill();
+      g.fillStyle='#ff8a3d';g.beginPath();g.ellipse(x*k,y*k-80,16,6,0,0,7);g.fill();g.fillStyle='rgba(120,120,120,.4)';g.beginPath();g.arc(x*k+10,y*k-110,18,0,7);g.arc(x*k+30,y*k-135,14,0,7);g.fill();}
+    if(kind==='tower'){g.fillStyle='#f4f1ea';g.fillRect(x*k-12,y*k-90,24,90);g.fillStyle='#e65f4a';g.fillRect(x*k-12,y*k-70,24,16);g.fillRect(x*k-12,y*k-36,24,16);g.fillStyle='#ffd75a';g.beginPath();g.arc(x*k,y*k-98,12,0,7);g.fill();}
+    if(kind==='shell'){g.fillStyle='#f3a3b5';g.beginPath();g.arc(x*k,y*k-10,22,Math.PI,0);g.fill();}};
+  isle(22,30,13,7,'shell');isle(96,22,13,7,'palm');isle(40,72,14,8,'volcano');isle(78,58,11,6,'tower');isle(124,70,16,9,'palm');
+  g.strokeStyle='#b9531f';g.lineWidth=7;g.setLineDash([2,22]);g.beginPath();g.moveTo(22*k,34*k);g.bezierCurveTo(40*k,50*k,70*k,20*k,96*k,26*k);
+  g.bezierCurveTo(110*k,30*k,70*k,50*k,78*k,58*k);g.bezierCurveTo(88*k,66*k,40*k,60*k,40*k,72*k);g.bezierCurveTo(40*k,84*k,100*k,90*k,118*k,74*k);g.stroke();g.setLineDash([]);
+  g.strokeStyle='#d62f2f';g.lineWidth=20;g.beginPath();g.moveTo(118*k,64*k);g.lineTo(130*k,76*k);g.moveTo(130*k,64*k);g.lineTo(118*k,76*k);g.stroke();
+  g.save();g.translate(136*k,14*k);g.strokeStyle='#8a5a2b';g.lineWidth=4;g.beginPath();g.arc(0,0,64,0,7);g.stroke();g.fillStyle='#8a5a2b';
+  for(let j=0;j<4;j++){g.rotate(Math.PI/2);g.beginPath();g.moveTo(0,-84);g.lineTo(14,0);g.lineTo(-14,0);g.fill();}g.restore();
+  const v=g.createRadialGradient(625,400,250,625,400,780);v.addColorStop(0,'rgba(120,70,20,0)');v.addColorStop(1,'rgba(110,60,15,.55)');g.fillStyle=v;g.fillRect(0,0,1250,800);
+  return c;
+}
+function mapImg(){if(ready(IMG.film1))return IMG.film1;if(!mapCv)mapCv=makeMap();return mapCv;}
+
+/* --- Szene 1: Die Karte setzt sich zusammen --- */
+const P_T0=.8,P_DT=1.05,P_FLY=1.2,P_DONE=P_T0+4*P_DT+P_FLY;
+function scene0(lt){
+  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#6b4426');g.addColorStop(1,'#3a2414');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=2;for(let y=H*.1;y<H;y+=H*.15){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  const cg=ctx.createRadialGradient(W*.5,H*.45,0,W*.5,H*.45,Math.max(W,H)*.7);cg.addColorStop(0,'rgba(255,210,140,.25)');cg.addColorStop(1,'rgba(0,0,0,.35)');ctx.fillStyle=cg;ctx.fillRect(0,0,W,H);
+  const img=mapImg(),ar=iw(img)/ih(img),z=1+clamp(lt/9,0,1)*.05;
+  let mw=Math.min(W*.86,H*.66*ar)*z,mh=mw/ar;const mx=(W-mw)/2,my=(H-mh)/2-H*.01;
+  const X=v=>mx+v/150*mw,Y=v=>my+v/96*mh;
+  const path=pts=>{ctx.beginPath();for(let i=0;i<pts.length;i+=2)ctx.lineTo(X(pts[i]),Y(pts[i+1]));ctx.closePath();};
+  const seam=clamp(1-(lt-P_DONE-.6)/1.2,0,1);
+  for(let k=0;k<5;k++){
+    const t0=P_T0+k*P_DT;if(lt<t0)continue;const q=clamp((lt-t0)/P_FLY,0,1),e=easeOut(q),pts=PCS[k];
+    let cx=0,cy=0;for(let i=0;i<pts.length;i+=2){cx+=pts[i];cy+=pts[i+1];}cx/=pts.length/2;cy/=pts.length/2;
+    let dx=cx-75,dy=cy-48;const dl=Math.hypot(dx,dy)||1;dx/=dl;dy/=dl;
+    const off=(1-e)*Math.max(W,H)*.85,ox=dx*off,oy=dy*off-(1-e)*H*.15,rot=(1-e)*(k%2?.9:-.9),sc=1+(1-e)*.25;
+    ctx.save();ctx.translate(X(cx)+ox,Y(cy)+oy);ctx.rotate(rot);ctx.scale(sc,sc);ctx.translate(-X(cx),-Y(cy));
+    ctx.save();ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=6+16*(1-e);ctx.shadowOffsetY=3+10*(1-e);path(pts);ctx.fillStyle='#e8d3a0';ctx.fill();ctx.restore();
+    ctx.save();path(pts);ctx.clip();ctx.drawImage(img,mx,my,mw,mh);ctx.restore();
+    if(seam>0){path(pts);ctx.strokeStyle=`rgba(110,70,30,${.7*seam})`;ctx.lineWidth=1.6;ctx.stroke();}
+    ctx.restore();
+    beat('p'+k,t0+P_FLY*.85,()=>snd([[392*Math.pow(1.122,k),.16,0],[523*Math.pow(1.122,k),.22,.08]]));
+  }
+  if(lt>P_DONE){const a=clamp((lt-P_DONE)/.6,0,1),x=X(XPOS.x*150),y=Y(XPOS.y*96),r=Math.min(mw,mh)*(.09+.015*Math.sin(T*5));
+    ctx.save();ctx.globalAlpha=a;ctx.globalCompositeOperation='lighter';const rg=ctx.createRadialGradient(x,y,0,x,y,r*2);rg.addColorStop(0,'rgba(255,240,170,.9)');rg.addColorStop(1,'rgba(255,200,80,0)');
+    ctx.fillStyle=rg;ctx.beginPath();ctx.arc(x,y,r*2,0,7);ctx.fill();ctx.restore();ctx.globalAlpha=a;glitter(x,y,12,r*1.4);ctx.globalAlpha=1;
+    beat('x',P_DONE,()=>snd([[523,.15,0],[659,.15,.12],[784,.15,.24],[1047,.4,.36]]));}
+}
+
+/* --- Szene 2: Segelfahrt --- */
+function scene1(lt,p){
+  const hz=H*.46;
+  if(ready(IMG.film2))cover(IMG.film2,1.16,lerp(.15,.85,p),.5);
+  else{drawSky(DAY,hz);const k=lerp(.45,1.15,ease(p));drawIsland(W*.8,hz+2,Math.min(W,H)*.16*k,DAY);drawIsland(W*.18,hz+2,Math.min(W,H)*.06,DAY);drawSea(DAY,hz,H);
+    ctx.strokeStyle='rgba(40,60,70,.7)';ctx.lineWidth=2;ctx.lineCap='round';for(let i=0;i<3;i++){const gx=((lt*40+i*90)%(W+100))-50,gy=H*.18+i*18+Math.sin(lt*2+i)*6,ws=9+Math.sin(lt*8+i)*3;
+      ctx.beginPath();ctx.moveTo(gx-ws,gy-ws*.4);ctx.quadraticCurveTo(gx-ws*.5,gy-ws*.8,gx,gy);ctx.quadraticCurveTo(gx+ws*.5,gy-ws*.8,gx+ws,gy-ws*.4);ctx.stroke();}}
+  const s=clamp(Math.min(W,H)*.34,110,280),x=lerp(-s,W*.6,ease(clamp(p*1.05,0,1))),y=H*.74+Math.sin(lt*2)*s*.04,tilt=Math.sin(lt*2+.6)*.05;
+  ctx.save();ctx.globalCompositeOperation='lighter';for(let j=1;j<14;j++){const wx=x-s*.6-j*s*.12,wy=y+s*.18+Math.sin(lt*3+j)*3;sparkle(wx,wy,Math.max(1,7-j*.4),`rgba(255,255,255,${.7-j*.045})`);}ctx.restore();
+  if(ready(IMG.schiff)){const h=s*1.5,w=h*iw(IMG.schiff)/ih(IMG.schiff);ctx.save();ctx.translate(x,y+s*.15);ctx.rotate(tilt);ctx.drawImage(IMG.schiff,-w/2,-h,w,h);ctx.restore();}
+  else drawShip(x,y,s,tilt);
+  beat('segel',9.2,()=>snd([[392,.15,0],[523,.15,.12],[659,.25,.24]]));
+}
+
+/* --- Szene 3: Otto taucht mit der Kiste auf --- */
+function scene2(lt,p){
+  beat('blubb',17.3,()=>snd([[220,.12,0],[260,.12,.15],[300,.15,.3]]));beat('otto',22.8,()=>snd([[392,.2,0],[523,.3,.15]]));
+  if(ready(IMG.film3)){cover(IMG.film3,1.02+p*.08,.5,.5);floaters(lt,14,'licht');return;}
+  drawSky(DAY,horizon());drawSea(DAY,horizon(),H*.75);
+  const w=clamp(Math.min(W,H)*.3,130,280),s=w*.42,CO=w*1.2,restX=Math.min(W*.6,W-w*.6),restY=H*.9,startX=Math.min(W*.76,W-s*1.3);
+  let ox,oy,chx,chy,clipY,carry=true;
+  if(lt<2.8){const k=clamp(lt/2.8,0,1);ox=startX;oy=lerp(waterY()+s*2.2,waterY()-w,easeOut(k));chx=ox;chy=oy+CO;clipY=waterY()+4;}
+  else{const k=clamp((lt-2.8)/3,0,1),e=easeOut(k);chx=lerp(startX,restX,e);chy=lerp(waterY()-w+CO,restY,e);ox=chx;oy=chy-CO;clipY=lerp(waterY()+4,H+200,clamp(k*1.6,0,1));
+    if(k>=1){carry=false;const g=easeOut(clamp((lt-5.8)/1.4,0,1));ox=lerp(restX,Math.min(restX+w*.85,W-s*1.15),g);oy=lerp(restY-CO,restY-s*2.05,g);}}
+  if(lt<4){const a=lt<2.8?1:Math.max(0,1-(lt-2.8)*1.2);ctx.strokeStyle=`rgba(255,255,255,${.7*a})`;ctx.lineWidth=3;
+    for(let k=0;k<3;k++){const rr=((T*40+k*30)%90)+20;ctx.globalAlpha=Math.max(0,1-rr/110)*a;ctx.beginPath();ctx.ellipse(startX,waterY()+4,rr*1.6,rr*.3,0,0,Math.PI*2);ctx.stroke();}ctx.globalAlpha=1;}
+  drawBeach(DAY);
+  ctx.save();ctx.beginPath();ctx.rect(0,0,W,clipY);ctx.clip();drawChest(chx,chy,w,0);drawOcto(ox,oy,s,carry,chy-w*.52-w*.3);ctx.restore();
+  if(lt<2.8){ctx.fillStyle='rgba(255,255,255,.6)';ctx.beginPath();for(let x=ox-s*1.4;x<=ox+s*1.4;x+=8)ctx.lineTo(x,waterY()+4+Math.sin(x*.08+T*5)*3);ctx.lineTo(ox+s*1.4,waterY()+10);ctx.lineTo(ox-s*1.4,waterY()+10);ctx.fill();}
+  const lh=clamp(Math.min(H*.32,W*.4),110,320);drawLisi(Math.max(W*.17,lh*.32),H*.93,lh,lt>5.6,0);
+  drawParrot(Math.max(W*.17,lh*.32)+lh*.3+Math.sin(lt*1.5)*lh*.15,H*.93-lh*1.15+Math.sin(lt*3)*lh*.05,lh*.16,T*9,1);
+}
+
+/* --- Szene 4: Die Kiste geht auf --- */
+function spawnTreasure(x,y,n,painted){
+  for(let i=0;i<n;i++){const isCoin=painted||Math.random()<.55;
+    F.fx.push({x:x+(Math.random()-.5)*40,y,vx:(Math.random()-.5)*W*.7,vy:-(H*.55+Math.random()*H*.45),r:isCoin?Math.min(W,H)*(.014+Math.random()*.01):Math.min(W,H)*(.022+Math.random()*.016),
+      coin:isCoin,type:pick(['scallop','scallop','spiral','cowrie','star']),col:pick(SHELLCOL),rot:Math.random()*6,vr:(Math.random()-.5)*8,rest:false,gy:painted?H*2:H*.8+Math.random()*H*.16,spin:Math.random()*6});}
+}
+function scene3(lt,p){
+  const painted=ready(IMG.film4);
+  if(painted)cover(IMG.film4,1.03+p*.07,.5,.5);
+  const w=clamp(Math.min(W,H)*.3,130,280),s=w*.42,cx=Math.min(W*.6,W-w*.6),cy=H*.9;
+  if(!painted){drawSky(DAY,horizon());drawSea(DAY,horizon(),H*.75);drawBeach(DAY);}
+  const open=clamp((lt-.5)/.8,0,1);
+  if(!painted){drawChest(cx,cy,w,open);drawOcto(Math.min(cx+w*.85,W-s*1.15),cy-s*2.05,s,false,0);}
+  const sx=painted?W*.5:cx,sy=painted?H*.55:cy-w*.55;
+  if(lt>.8&&lt<3.4&&Math.random()<.5){spawnTreasure(sx,sy,2,painted);if(Math.random()<.3)snd([[880+Math.random()*500,.1,0]]);}
+  F.fx.forEach(q=>{if(q.coin)coin(q.x,q.y,q.r,q.spin);else drawShell(q.type,q.x,q.y,q.r,q.rot,q.col);
+    if(q.rest&&Math.sin(T*3+q.x)>.93){ctx.save();ctx.globalCompositeOperation='lighter';star5(q.x+q.r*.5,q.y-q.r*.6,q.r*.45,'rgba(255,255,255,.9)');ctx.restore();}});
+  if(!painted){const lh=clamp(Math.min(H*.32,W*.4),110,320),hop=Math.abs(Math.sin(lt*7))*lh*.05*clamp(1-(lt-1)/4,0,1);
+    drawLisi(Math.max(W*.17,lh*.32),H*.93,lh,true,hop);
+    const a=lt*1.2;drawParrot(cx+Math.cos(a)*w*.9,cy-w*1.3+Math.sin(a*2)*w*.2,lh*.16,T*10,Math.sin(a)>0?-1:1);}
+  else glitter(sx,sy,14,Math.min(W,H)*.12);
+  beat('auf',26,()=>snd([[523,.2,0],[659,.2,.1],[784,.2,.2],[1047,.25,.3],[1319,.5,.42]]));
+}
+
+/* --- Szene 5: Schatzfest am Abend --- */
+function scene4(lt,p){
+  const painted=ready(IMG.film5);
+  if(painted)cover(IMG.film5,1+p*.05,.5,.4);
+  else{
+    drawSky(DUSK,horizon());drawSea(DUSK,horizon(),H*.75);const pt=drawBeach(DUSK);
+    const x0=pt.tx,y0=pt.ty+20,x1=W+20,y1=H*.12;ctx.strokeStyle='rgba(40,20,20,.6)';ctx.lineWidth=1.5;ctx.beginPath();
+    const ly=(t)=>lerp(y0,y1,t)+Math.sin(t*Math.PI)*H*.12;ctx.moveTo(x0,y0);for(let t=0;t<=1;t+=.05)ctx.lineTo(lerp(x0,x1,t),ly(t));ctx.stroke();
+    for(let i=1;i<10;i++){const t=i/10,x=lerp(x0,x1,t),y=ly(t)+8,c=FWC[i%6],r=Math.min(W,H)*.018;
+      ctx.save();ctx.globalCompositeOperation='lighter';const lg=ctx.createRadialGradient(x,y,0,x,y,r*3.5);lg.addColorStop(0,hexA(c,.55+.2*Math.sin(T*3+i)));lg.addColorStop(1,hexA(c,0));ctx.fillStyle=lg;ctx.beginPath();ctx.arc(x,y,r*3.5,0,7);ctx.fill();ctx.restore();
+      ctx.fillStyle=c;ctx.beginPath();ctx.ellipse(x,y,r*.8,r,0,0,7);ctx.fill();}
+    const w=clamp(Math.min(W,H)*.26,120,240),s=w*.42,cx=W*.55,cy=H*.9;
+    drawChest(cx,cy,w,1);drawOcto(Math.min(cx+w*.95,W-s*1.15),cy-s*2.05,s,false,0);
+    const lh=clamp(Math.min(H*.32,W*.4),110,320);drawLisi(Math.max(W*.17,lh*.32)+W*.04,H*.93,lh,true,Math.abs(Math.sin(lt*5))*lh*.03);
+    drawParrot(W*.35+Math.sin(lt)*W*.08,H*.45+Math.sin(lt*2)*H*.04,lh*.16,T*10,Math.cos(lt)>0?1:-1);
+  }
+  floaters(lt,painted?16:10,'licht');
+  F.fw.forEach(q=>{ctx.globalAlpha=Math.max(0,q.life);if(q.coin)coin(q.x,q.y,4,T*6+q.x);else sparkle(q.x,q.y,5,q.c);});ctx.globalAlpha=1;
+  F.rain.forEach(h=>coin(h.x,h.y,h.s,T*4+h.ph));
+  beat('fest',33.3,()=>snd([[523,.15,0],[659,.15,.12],[784,.15,.24],[1047,.5,.36]]));
+  beat('bravo',36.8,()=>snd([[784,.15,0],[988,.15,.12],[1175,.15,.24],[1568,.6,.36]]));
+}
+
+const SCENES=[scene0,scene1,scene2,scene3,scene4];
+function drawFilmScene(i,lt){const sc=SC[i];SCENES[i](lt,clamp(lt/(sc.b===99?FILM_END-sc.a:sc.b-sc.a),0,1));}
+
+/* --- Ablauf --- */
+function update(dt){
+  T+=dt;F.t+=dt;const t=F.t;
+  F.fx.forEach(q=>{if(q.rest)return;q.vy+=H*1.15*dt;q.x+=q.vx*dt;q.y+=q.vy*dt;q.rot+=q.vr*dt;q.spin+=dt*8;
+    if(q.x<q.r){q.x=q.r;q.vx=Math.abs(q.vx)*.6;}if(q.x>W-q.r){q.x=W-q.r;q.vx=-Math.abs(q.vx)*.6;}
+    if(q.y>q.gy&&q.vy>0){q.y=q.gy;q.vy*=-.35;q.vx*=.55;q.vr*=.5;if(Math.abs(q.vy)<50)q.rest=true;}});
+  if(F.fx.length>220)F.fx.splice(0,F.fx.length-220);
+  if(t>33.5&&t<FILM_END-.5&&Math.random()<dt*3){const x=W*(.15+Math.random()*.7),y=H*(.1+Math.random()*.3),c=pick(FWC),n=28;
+    for(let i=0;i<n;i++){const a=i/n*Math.PI*2,sp=120+Math.random()*90;F.fw.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,c,coin:i%4===0});}
+    if(Math.random()<.6)snd([[300+Math.random()*200,.25,0,]]);}
+  F.fw.forEach(q=>{q.x+=q.vx*dt;q.y+=q.vy*dt;q.vy+=60*dt;q.vx*=.98;q.life-=dt*.65;});F.fw=F.fw.filter(q=>q.life>0);
+  if(t>36.5&&Math.random()<dt*9)F.rain.push({x:Math.random()*W,y:-20,v:60+Math.random()*70,s:5+Math.random()*7,ph:Math.random()*6});
+  F.rain.forEach(h=>{h.y+=h.v*dt;h.x+=Math.sin(T*2+h.ph)*20*dt;});F.rain=F.rain.filter(h=>h.y<H+30);
+  if(t>=FILM_END&&!F.cards){F.cards=true;skipB.hidden=true;
+    card.innerHTML=`<div class="sheet"><h2>Bravo, ${escH(who())}!</h2><p>Dank dir haben Lisi, Kiki und Otto den Schatz gefunden. Du hast ${opts.coins} Goldmünzen gesammelt!</p>
+      <div class="row"><button class="btn ghost" id="finAgain">Nochmal ansehen</button><button class="btn" id="finMap">Zur Karte</button></div></div>`;card.hidden=false;
+    card.querySelector('#finAgain').onclick=reset;card.querySelector('#finMap').onclick=close;card.querySelector('#finMap').focus();}
+}
+function draw(){
+  const t=F.t;ctx.fillStyle='#10222a';ctx.fillRect(0,0,W,H);
+  for(let i=0;i<SC.length;i++){const sc=SC[i];if(t<sc.a-XF||t>sc.b)continue;
+    const a=i===0?1:clamp((t-sc.a+XF)/XF,0,1);
+    if(a>=1){drawFilmScene(i,t-sc.a);continue;}
+    // weich überblenden: Szene in eine eigene Ebene malen
+    lctx.setTransform(1,0,0,1,0,0);lctx.clearRect(0,0,layer.width,layer.height);lctx.setTransform(DPR,0,0,DPR,0,0);
+    ctx=lctx;drawFilmScene(i,t-sc.a);ctx=mainCtx;
+    ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.globalAlpha=a;ctx.drawImage(layer,0,0);ctx.restore();}
+  const bar=Math.max(W<520?58:40,H*.09);ctx.fillStyle='rgba(10,20,26,.92)';ctx.fillRect(0,0,W,bar*.7);ctx.fillRect(0,H-bar,W,bar);
+  if(t<FILM_END){const sub=SUBS.find(s=>t>=s[0]&&t<s[1]);if(sub){const a=clamp(Math.min(t-sub[0],sub[1]-t)/.4,0,1);ctx.globalAlpha=a;
+    const fs=clamp(W*.032,15,26);ctx.font=`700 ${fs}px "Baloo 2", "Trebuchet MS", sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='#fff8e6';
+    const txt=sub[2](),mw=W-32;let lines=[txt];
+    if(ctx.measureText(txt).width>mw){const wd=txt.split(' ');let best=1,bd=1e9;for(let k=1;k<wd.length;k++){const d=Math.abs(ctx.measureText(wd.slice(0,k).join(' ')).width-ctx.measureText(wd.slice(k).join(' ')).width);if(d<bd){bd=d;best=k;}}lines=[wd.slice(0,best).join(' '),wd.slice(best).join(' ')];}
+    lines.forEach((l,k)=>ctx.fillText(l,W/2,H-bar/2+(k-(lines.length-1)/2)*fs*1.15,mw));ctx.globalAlpha=1;}}
+  if(t>36.6){const k=clamp((t-36.6)/.7,0,1),sz=clamp(W*.1,40,92)*(.6+.4*ease(k));ctx.save();ctx.globalAlpha=k;
+    ctx.font=`800 ${sz}px "Baloo 2", "Trebuchet MS", sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';
+    const tg=ctx.createLinearGradient(0,H*.2-sz/2,0,H*.2+sz/2);tg.addColorStop(0,'#fff3b0');tg.addColorStop(.5,'#ffd75a');tg.addColorStop(1,'#d99a17');
+    ctx.lineWidth=sz*.16;ctx.strokeStyle='#5a3310';ctx.strokeText(`Bravo, ${who()}!`,W/2,H*.22,W-40);ctx.fillStyle=tg;ctx.fillText(`Bravo, ${who()}!`,W/2,H*.22,W-40);ctx.restore();}
+}
+function frame(now){const dt=Math.min(.05,(now-last)/1000);last=now;update(dt);draw();raf=requestAnimationFrame(frame);}
+function resize(){const r=el.getBoundingClientRect();DPR=Math.min(2,devicePixelRatio||1);W=r.width;H=r.height;
+  cv.width=layer.width=Math.round(W*DPR);cv.height=layer.height=Math.round(H*DPR);mainCtx.setTransform(DPR,0,0,DPR,0,0);lctx.setTransform(DPR,0,0,DPR,0,0);}
+function reset(){Object.assign(F,{t:0,cards:false,fx:[],fw:[],rain:[],beats:{}});card.hidden=true;skipB.hidden=false;}
+function skip(){if(F.t<FILM_END-.5){F.t=FILM_END-.5;F.fx=[];}}
+function close(){cancelAnimationFrame(raf);removeEventListener('resize',resize);el.remove();el=null;opts.onMenu();}
+window.SIFinale={start(o){
+  opts=o;IMG=o.img||{};if(el)el.remove();face=new Image();face.src=o.face;
+  el=document.createElement('div');el.className='film';
+  el.innerHTML='<canvas aria-label="Film: Lisi, Kiki und Otto finden den Schatz"></canvas><button class="btn small skip">Überspringen</button><div class="fincard" hidden></div>';
+  document.body.appendChild(el);cv=el.querySelector('canvas');ctx=mainCtx=cv.getContext('2d');card=el.querySelector('.fincard');skipB=el.querySelector('.skip');
+  layer=document.createElement('canvas');lctx=layer.getContext('2d');skipB.onclick=skip;
+  resize();addEventListener('resize',resize);reset();last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(frame);
+}};
+})();
+
+</script>
+</body>
+</html>
