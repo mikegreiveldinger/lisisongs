@@ -688,7 +688,7 @@ function showHowTo(){
   $('#howGo').onclick=()=>{S.seenIntro=true;save();v.remove();audio();startMusic();if(!S.seenStory)showPrologue();};
 }
 let filmLoaded=false;
-function loadFilm(){if(filmLoaded)return;filmLoaded=true;['film1','film2','film3','film4','film5'].forEach(k=>loadImg(k,'bilder/'+k+'.jpg?v=1'));loadImg('schiff','bilder/schiff.webp?v=1');}
+function loadFilm(){if(filmLoaded)return;filmLoaded=true;['film1','film2','film3','film4','film5'].forEach(k=>loadImg(k,'bilder/'+k+'.jpg?v=1'));loadImg('schiff','bilder/schiff.webp?v=2');}
 function runFinale(){
   loadFilm();audio();setTheme(4);startMusic();
   window.SIFinale.start({name:S.name||'Lisi',coins:S.coins,face:LISI_FACE,img:IMG,
@@ -748,6 +748,16 @@ function coin(x,y,r,spin){const sx=Math.max(.12,Math.abs(Math.cos(spin)));ctx.sa
 function cover(img,zoom,px,py){
   if(!ready(img))return null;const s=Math.max(W/iw(img),H/ih(img))*zoom,w=iw(img)*s,h=ih(img)*s,x=(W-w)*px,y=(H-h)*py;
   ctx.drawImage(img,x,y,w,h);return {x,y,w,h};
+}
+// gemaltes Bild: im Querformat bildfüllend, im Hochformat ganz zeigen (dahinter abgedunkelt bildfüllend)
+function paint(img,zoom,px,py){
+  if(W/H>=1.2)return cover(img,zoom,px,py);
+  ctx.save();cover(img,1.05,.5,.5);ctx.fillStyle='rgba(10,20,26,.6)';ctx.fillRect(0,0,W,H);ctx.restore();
+  const s=W*1.22/iw(img)*zoom,w=iw(img)*s,h=ih(img)*s,x=(W-w)*px,y=(H-h)*.5;
+  ctx.drawImage(img,x,y,w,h);
+  const fy=(y0,y1,c0,c1)=>{const g=ctx.createLinearGradient(0,y0,0,y1);g.addColorStop(0,c0);g.addColorStop(1,c1);ctx.fillStyle=g;ctx.fillRect(0,Math.min(y0,y1),W,Math.abs(y1-y0));};
+  fy(y,y+h*.08,'rgba(10,20,26,.6)','rgba(10,20,26,0)');fy(y+h*.92,y+h,'rgba(10,20,26,0)','rgba(10,20,26,.6)');
+  return {x,y,w,h};
 }
 function floaters(lt,n,kind){
   for(let j=0;j<n;j++){const sp=.5+hash(j,3),x=(hash(j,1)*W*1.1-W*.05)+Math.sin(lt*1.3+j)*18,y=H+30-((lt*45*sp+hash(j,4)*(H+60))%(H+60));
@@ -989,7 +999,7 @@ function scene0(lt){
     ctx.restore();
     beat('p'+k,t0+P_FLY*.85,()=>snd([[392*Math.pow(1.122,k),.16,0],[523*Math.pow(1.122,k),.22,.08]]));
   }
-  if(lt>P_DONE){const a=clamp((lt-P_DONE)/.6,0,1),x=X(XPOS.x*150),y=Y(XPOS.y*96),r=Math.min(mw,mh)*(.09+.015*Math.sin(T*5));
+  if(lt>P_DONE){const xp=ready(IMG.film1)?{x:.784,y:.76}:XPOS,a=clamp((lt-P_DONE)/.6,0,1),x=X(xp.x*150),y=Y(xp.y*96),r=Math.min(mw,mh)*(.09+.015*Math.sin(T*5));
     ctx.save();ctx.globalAlpha=a;ctx.globalCompositeOperation='lighter';const rg=ctx.createRadialGradient(x,y,0,x,y,r*2);rg.addColorStop(0,'rgba(255,240,170,.9)');rg.addColorStop(1,'rgba(255,200,80,0)');
     ctx.fillStyle=rg;ctx.beginPath();ctx.arc(x,y,r*2,0,7);ctx.fill();ctx.restore();ctx.globalAlpha=a;glitter(x,y,12,r*1.4);ctx.globalAlpha=1;
     beat('x',P_DONE,()=>snd([[523,.15,0],[659,.15,.12],[784,.15,.24],[1047,.4,.36]]));}
@@ -1004,7 +1014,8 @@ function scene1(lt,p){
       ctx.beginPath();ctx.moveTo(gx-ws,gy-ws*.4);ctx.quadraticCurveTo(gx-ws*.5,gy-ws*.8,gx,gy);ctx.quadraticCurveTo(gx+ws*.5,gy-ws*.8,gx+ws,gy-ws*.4);ctx.stroke();}}
   const s=clamp(Math.min(W,H)*.34,110,280),x=lerp(-s,W*.6,ease(clamp(p*1.05,0,1))),y=H*.74+Math.sin(lt*2)*s*.04,tilt=Math.sin(lt*2+.6)*.05;
   ctx.save();ctx.globalCompositeOperation='lighter';for(let j=1;j<14;j++){const wx=x-s*.6-j*s*.12,wy=y+s*.18+Math.sin(lt*3+j)*3;sparkle(wx,wy,Math.max(1,7-j*.4),`rgba(255,255,255,${.7-j*.045})`);}ctx.restore();
-  if(ready(IMG.schiff)){const h=s*1.5,w=h*iw(IMG.schiff)/ih(IMG.schiff);ctx.save();ctx.translate(x,y+s*.15);ctx.rotate(tilt);ctx.drawImage(IMG.schiff,-w/2,-h,w,h);ctx.restore();}
+  if(ready(IMG.schiff)){const h=s*1.45,w=h*iw(IMG.schiff)/ih(IMG.schiff);ctx.save();ctx.translate(x,y+s*.22);ctx.rotate(tilt);ctx.drawImage(IMG.schiff,-w/2,-h,w,h);ctx.restore();
+    ctx.fillStyle='rgba(255,255,255,.8)';ctx.beginPath();ctx.ellipse(x,y+s*.2,w*.42,s*.05,0,0,7);ctx.fill();}
   else drawShip(x,y,s,tilt);
   beat('segel',9.2,()=>snd([[392,.15,0],[523,.15,.12],[659,.25,.24]]));
 }
@@ -1012,7 +1023,7 @@ function scene1(lt,p){
 /* --- Szene 3: Otto taucht mit der Kiste auf --- */
 function scene2(lt,p){
   beat('blubb',17.3,()=>snd([[220,.12,0],[260,.12,.15],[300,.15,.3]]));beat('otto',22.8,()=>snd([[392,.2,0],[523,.3,.15]]));
-  if(ready(IMG.film3)){cover(IMG.film3,1.02+p*.08,.5,.5);floaters(lt,14,'licht');return;}
+  if(ready(IMG.film3)){const tr=paint(IMG.film3,1.02+p*.08,.5,.5);floaters(lt,14,'licht');if(tr)glitter(tr.x+tr.w*.72,tr.y+tr.h*.6,8,tr.w*.12);return;}
   drawSky(DAY,horizon());drawSea(DAY,horizon(),H*.75);
   const w=clamp(Math.min(W,H)*.3,130,280),s=w*.42,CO=w*1.2,restX=Math.min(W*.6,W-w*.6),restY=H*.9,startX=Math.min(W*.76,W-s*1.3);
   let ox,oy,chx,chy,clipY,carry=true;
@@ -1036,12 +1047,12 @@ function spawnTreasure(x,y,n,painted){
 }
 function scene3(lt,p){
   const painted=ready(IMG.film4);
-  if(painted)cover(IMG.film4,1.03+p*.07,.5,.5);
+  const tr4=painted?paint(IMG.film4,1.03+p*.07,.5,.5):null;
   const w=clamp(Math.min(W,H)*.3,130,280),s=w*.42,cx=Math.min(W*.6,W-w*.6),cy=H*.9;
   if(!painted){drawSky(DAY,horizon());drawSea(DAY,horizon(),H*.75);drawBeach(DAY);}
   const open=clamp((lt-.5)/.8,0,1);
   if(!painted){drawChest(cx,cy,w,open);drawOcto(Math.min(cx+w*.85,W-s*1.15),cy-s*2.05,s,false,0);}
-  const sx=painted?W*.5:cx,sy=painted?H*.55:cy-w*.55;
+  const sx=painted?tr4.x+tr4.w*.37:cx,sy=painted?tr4.y+tr4.h*.58:cy-w*.55;
   if(lt>.8&&lt<3.4&&Math.random()<.5){spawnTreasure(sx,sy,2,painted);if(Math.random()<.3)snd([[880+Math.random()*500,.1,0]]);}
   F.fx.forEach(q=>{if(q.coin)coin(q.x,q.y,q.r,q.spin);else drawShell(q.type,q.x,q.y,q.r,q.rot,q.col);
     if(q.rest&&Math.sin(T*3+q.x)>.93){ctx.save();ctx.globalCompositeOperation='lighter';star5(q.x+q.r*.5,q.y-q.r*.6,q.r*.45,'rgba(255,255,255,.9)');ctx.restore();}});
@@ -1055,7 +1066,7 @@ function scene3(lt,p){
 /* --- Szene 5: Schatzfest am Abend --- */
 function scene4(lt,p){
   const painted=ready(IMG.film5);
-  if(painted)cover(IMG.film5,1+p*.05,.5,.4);
+  if(painted)paint(IMG.film5,1+p*.05,.5,.4);
   else{
     drawSky(DUSK,horizon());drawSea(DUSK,horizon(),H*.75);const pt=drawBeach(DUSK);
     const x0=pt.tx,y0=pt.ty+20,x1=W+20,y1=H*.12;ctx.strokeStyle='rgba(40,20,20,.6)';ctx.lineWidth=1.5;ctx.beginPath();

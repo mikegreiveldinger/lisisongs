@@ -13,6 +13,6 @@ Neu gegenüber der bisherigen Fassung:
 
 Der gespeicherte Fortschritt (`schatzinsel-v1`) bleibt erhalten.
 
-Gemalte Bilder: siehe `PROMPTS-CHATGPT.md`. Ohne Bilder zeichnet das Spiel alles selbst.
+Gemalte Bilder liegen in `bilder/` (von ChatGPT über `bilder.py` gemalt, Prompts auch in `PROMPTS-CHATGPT.md`). Fehlt ein Bild, zeichnet das Spiel die Stelle selbst.
 Veröffentlichen: `index.html` (und ggf. `bilder/`) nach `Webseite/rechenspiele/schatzinsel/` kopieren und mit
 `spiller-webseite.py veroeffentlichen` hochladen.
