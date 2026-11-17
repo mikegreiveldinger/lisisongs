@@ -3,45 +3,98 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lisi – Märchen, Spiele und Bücher für Kinder</title>
-<meta name="description" content="Entdecke Lisis Bücher, Spiele und Geschichten – für Kinder von ca. 4 bis 8 Jahren.">
+<title>Lisi's World</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="stil.css">
 </head>
 <body>
-<header class="kopf">
-  <span class="deko punkt" style="top:40px;left:4%" aria-hidden="true"></span>
-  <span class="deko" style="top:30%;right:8%" aria-hidden="true">★</span>
-  <span class="deko" style="bottom:16%;left:6%" aria-hidden="true">★</span>
-  <span class="deko punkt" style="bottom:12%;right:12%" aria-hidden="true"></span>
-  <div class="huelle">
-    <img class="portraet" src="bilder/lisi.webp" width="480" height="480" alt="Lisi mit gelber Mütze und gelbem Schal">
-    <h1>Hallo!<br>Ich bin <em>Lisi.</em></h1>
-    <p>Entdecke meine Bücher, Spiele und Geschichten – für Kinder von ca. 4 bis 8 Jahren.</p>
-  </div>
-</header>
+<!-- Kopf, „Neu bei Lisi“ und die drei Kacheln: Nachbau des Online-Stands vom 17.11.2026.
+     Bilder sind Ausschnitte aus dem Screenshot; online liegen sie unter https://lisi.lu/bilder/. -->
+<div class="huelle">
+  <header class="kopf">
+    <img src="bilder/kopf.webp" width="866" height="155" alt="Lisi's World: Lisi, Nora, Malik und Tian liegen auf der Wiese. Freundlich sein macht die Welt bunter.">
+  </header>
 
-<main class="huelle">
-  <h2 class="frage">Was möchtest du heute machen?</h2>
-  <nav class="kacheln" aria-label="Was möchtest du heute machen?">
-    <a class="kachel k-maerchen" href="https://stories.lisi.lu/">
-      <img src="bilder/kachel-maerchen.webp" width="720" height="450" alt="" loading="lazy">
-      <div class="unten"><div><h2>Märchen &amp; Geschichten</h2><p>Zum Vorlesen und Zuhören</p></div><span class="pfeil" aria-hidden="true">›</span></div>
-    </a>
-    <a class="kachel k-spiele" href="https://spiller.lisi.lu/">
-      <img src="bilder/kachel-spiele.webp" width="720" height="720" alt="" loading="lazy">
-      <div class="unten"><div><h2>Spiele</h2><p>Spielen und Wörter entdecken</p></div><span class="pfeil" aria-hidden="true">›</span></div>
-    </a>
-    <a class="kachel k-buecher" href="buecher.html">
-      <img src="bilder/kachel-buecher.webp" width="698" height="720" alt="" loading="lazy">
-      <div class="unten"><div><h2>Bücher</h2><p>Zum Lesen auf dem Kindle</p></div><span class="pfeil" aria-hidden="true">›</span></div>
+  <section class="neu">
+    <h2>✨ Neu bei Lisi</h2>
+    <div class="karten">
+      <a class="karte f-geschichten" href="https://stories.lisi.lu/"><img src="bilder/neu-geschichte.webp" alt=""><div><span class="marke">Geschichten · Neu</span><h3>Besuch im Krankenhaus</h3><p>Lisi, Nora, Malik und Tian besuchen ihren Freund Ben in der Kinderklinik.</p></div></a>
+      <a class="karte f-spiele" href="https://spiller.lisi.lu/deutsch/woerterwelt/"><img src="bilder/neu-spiel.webp" alt=""><div><span class="marke">Spiele · Deutsch</span><h3>Lisis Wörterwelt</h3><p>Deutsche Wörter hören, lesen und legen: der, die, das, Buchstaben und mehr.</p></div></a>
+      <a class="karte f-buecher" href="https://lisi.lu/buecher/"><img src="bilder/neu-buch.webp" alt=""><div><span class="marke">Bücher · fast neu</span><h3>D'Lisi an dem Ouschterhues säin Atelier</h3><p>Bilderbuch auf Luxemburgisch.</p></div></a>
+    </div>
+  </section>
+
+  <nav class="kacheln" aria-label="Was möchtest du machen?">
+    <a class="kachel f-geschichten" href="https://stories.lisi.lu/"><img src="bilder/maerchen.webp" alt="" width="253" height="253"><h2>Geschichten</h2><p>Zum Vorlesen und Zuhören</p></a>
+    <a class="kachel f-spiele" href="https://spiller.lisi.lu/"><img src="bilder/spiele.webp" alt="" width="253" height="253"><h2>Spiele</h2><p>Spielen und Wörter entdecken</p></a>
+    <a class="kachel f-buecher" href="https://lisi.lu/buecher/"><img src="bilder/buecher.webp" alt="" width="253" height="253"><h2>Bücher</h2><p>Zum Lesen auf dem Kindle</p></a>
+
+    <!-- ===== KINDER-NEWS (neu) =====
+         Die Meldungen kommen aus dem JSON-Block unten (oder aus data-quelle, einer JSON-Datei mit derselben Form).
+         Es werden die 5 neuesten gezeigt, alle 4 Sekunden die nächste; bei „Bewegung reduzieren“ steht nur die neueste. -->
+    <a class="kachel f-news" href="#kinder-news" id="news-kachel" data-quelle="">
+      <div class="newsfenster" aria-hidden="true">
+        <span class="live">Neues aus Luxemburg</span>
+        <ul class="meldungen"></ul>
+        <div class="punkte"></div>
+      </div>
+      <h2>Kinder-News</h2>
+      <p id="news-zeile">Was gibt's Neues auf der Welt?</p>
     </a>
   </nav>
-</main>
+</div>
 
 <footer class="fuss">
-  © 2026 Mike Greiveldinger · <a href="https://lisi.lu/#page-4">Impressum</a> · <a href="mailto:info@lisi.lu">info@lisi.lu</a>
+  © 2026 Mike Greiveldinger · <a href="https://lisi.lu/impressum/">Impressum</a> · <a href="https://lisi.lu/datenschutz/">Datenschutz</a> · <a href="mailto:info@lisi.lu">info@lisi.lu</a>
 </footer>
+
+<!-- Beispiel-Meldungen (Platzhalter), bis die Quelle von „Neues aus Luxemburg“ feststeht -->
+<script type="application/json" id="news-daten">
+[
+  {"datum":"2026-11-17","emoji":"🎄","titel":"Beispiel: Der erste Weihnachtsmarkt in der Stadt öffnet"},
+  {"datum":"2026-11-16","emoji":"🚋","titel":"Beispiel: Mit der Tram quer durch Luxemburg"},
+  {"datum":"2026-11-15","emoji":"🏰","titel":"Beispiel: Kinder entdecken die Burg von Vianden"},
+  {"datum":"2026-11-14","emoji":"❄️","titel":"Beispiel: Im Ösling ist der erste Schnee gefallen"},
+  {"datum":"2026-11-13","emoji":"📚","titel":"Beispiel: Lesetag in den Grundschulen"}
+]
+</script>
+<script>
+(function(){
+  var kachel=document.getElementById('news-kachel');
+  var liste=kachel.querySelector('.meldungen'), punkte=kachel.querySelector('.punkte');
+  var ruhig=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function datum(d){try{return new Date(d+'T12:00:00').toLocaleDateString('de-DE',{day:'numeric',month:'long'})}catch(e){return d}}
+  function zeigen(alle){
+    var news=alle.slice().sort(function(a,b){return a.datum<b.datum?1:-1}).slice(0,5);
+    if(!news.length) return;
+    news.forEach(function(n){
+      var li=document.createElement('li'); li.className='meldung';
+      var e=document.createElement('span'); e.className='emoji'; e.textContent=n.emoji||'📰';
+      var t=document.createElement('strong'); t.textContent=n.titel;
+      var s=document.createElement('small'); s.textContent=datum(n.datum);
+      li.append(e,t,s); liste.appendChild(li);
+      punkte.appendChild(document.createElement('span'));
+    });
+    document.getElementById('news-zeile').textContent='Neues aus Luxemburg';
+    var m=liste.children, p=punkte.children, i=0, pause=false;
+    m[0].classList.add('aktiv'); p[0].classList.add('aktiv');
+    if(ruhig||m.length<2) return;
+    kachel.addEventListener('mouseenter',function(){pause=true});
+    kachel.addEventListener('mouseleave',function(){pause=false});
+    setInterval(function(){
+      if(pause||document.hidden) return;
+      var alt=m[i]; alt.classList.remove('aktiv'); alt.classList.add('weg');
+      p[i].classList.remove('aktiv');
+      setTimeout(function(){alt.classList.remove('weg')},650);
+      i=(i+1)%m.length; m[i].classList.add('aktiv'); p[i].classList.add('aktiv');
+    },4000);
+  }
+  var lokal=JSON.parse(document.getElementById('news-daten').textContent);
+  var quelle=kachel.getAttribute('data-quelle');
+  if(quelle){fetch(quelle).then(function(r){return r.json()}).then(zeigen).catch(function(){zeigen(lokal)})}
+  else zeigen(lokal);
+})();
+</script>
 </body>
 </html>
