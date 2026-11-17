@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lisis Bücher</title>
+<meta name="description" content="Lisis Bilderbücher und E-Books für den Kindle.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<header class="seitenkopf">
+  <div class="huelle">
+    <a class="zurueck" href="./">‹ Zurück zu Lisi</a>
+    <h1>Lisis <em>Bücher</em></h1>
+    <p>Zum Blättern auf Papier und zum Lesen auf dem Kindle.</p>
+  </div>
+</header>
+
+<main class="huelle">
+  <section class="abschnitt">
+    <h2>Bilderbücher: Lisi erlebt luxemburgische Bräuche</h2>
+    <div class="buecher">
+      <article class="buch">
+        <img src="bilder/buch-strohmaennchen.webp" width="504" height="520" alt="Buchtitel: Lisi und das Strohmännchen" loading="lazy">
+        <div><h3>Lisi und das Strohmännchen</h3><p>Gedrucktes Bilderbuch</p>
+        <!-- TODO: Zuordnung der Amazon-Links zu den Titeln noch prüfen (siehe bestand.md) -->
+        <a class="knopf" href="https://www.amazon.de/dp/B0GL8VRF7K">Bei Amazon</a></div>
+      </article>
+      <article class="buch">
+        <img src="bilder/buch-osterhase.webp" width="504" height="520" alt="Buchtitel: Lisi und das Atelier des Osterhasen" loading="lazy">
+        <div><h3>Lisi und das Atelier des Osterhasen</h3><p>Gedrucktes Bilderbuch</p>
+        <a class="knopf" href="https://www.amazon.de/dp/B0GSWXHKQB">Bei Amazon</a></div>
+      </article>
+    </div>
+  </section>
+
+  <section class="abschnitt">
+    <h2>E-Books für den Kindle</h2>
+    <div class="buecher">
+      <article class="buch">
+        <div class="platzhalter" aria-hidden="true">🏰</div>
+        <div><h3>Lisi und das Halloween-Rätsel von Drumlanrig Castle</h3><p>Zum Herunterladen</p>
+        <!-- TODO: Dateien beim Veröffentlichen mit hochladen (z. B. stories.lisi.lu/buecher/) und Links anpassen -->
+        <a class="knopf" href="../../geschichten/lisi-und-das-halloween-raetsel-von-drumlanrig.epub" download>EPUB</a>
+        <a class="knopf zart" href="../../geschichten/lisi-und-das-halloween-raetsel-von-drumlanrig.pdf">PDF</a></div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="fuss">
+  © 2026 Mike Greiveldinger · <a href="https://lisi.lu/#page-4">Impressum</a> · <a href="mailto:info@lisi.lu">info@lisi.lu</a>
+</footer>
+</body>
+</html>
