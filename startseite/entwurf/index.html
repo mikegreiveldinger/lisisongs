@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lisi's World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="stil.css">
+</head>
+<body>
+<!-- Kopf, „Neu bei Lisi“ und die drei Kacheln: Nachbau des Online-Stands vom 17.11.2026.
+     Bilder sind Ausschnitte aus dem Screenshot; online liegen sie unter https://lisi.lu/bilder/. -->
+<div class="huelle">
+  <header class="kopf">
+    <img src="bilder/kopf.webp" width="866" height="155" alt="Lisi's World: Lisi, Nora, Malik und Tian liegen auf der Wiese. Freundlich sein macht die Welt bunter.">
+  </header>
+
+  <section class="neu">
+    <h2>✨ Neu bei Lisi</h2>
+    <div class="karten">
+      <a class="karte f-geschichten" href="https://stories.lisi.lu/"><img src="bilder/neu-geschichte.webp" alt=""><div><span class="marke">Geschichten · Neu</span><h3>Besuch im Krankenhaus</h3><p>Lisi, Nora, Malik und Tian besuchen ihren Freund Ben in der Kinderklinik.</p></div></a>
+      <a class="karte f-spiele" href="https://spiller.lisi.lu/deutsch/woerterwelt/"><img src="bilder/neu-spiel.webp" alt=""><div><span class="marke">Spiele · Deutsch</span><h3>Lisis Wörterwelt</h3><p>Deutsche Wörter hören, lesen und legen: der, die, das, Buchstaben und mehr.</p></div></a>
+      <a class="karte f-buecher" href="https://lisi.lu/buecher/"><img src="bilder/neu-buch.webp" alt=""><div><span class="marke">Bücher · fast neu</span><h3>D'Lisi an dem Ouschterhues säin Atelier</h3><p>Bilderbuch auf Luxemburgisch.</p></div></a>
+    </div>
+  </section>
+
+  <nav class="kacheln" aria-label="Was möchtest du machen?">
+    <a class="kachel f-geschichten" href="https://stories.lisi.lu/"><img src="bilder/maerchen.webp" alt="" width="253" height="253"><h2>Geschichten</h2><p>Zum Vorlesen und Zuhören</p></a>
+    <a class="kachel f-spiele" href="https://spiller.lisi.lu/"><img src="bilder/spiele.webp" alt="" width="253" height="253"><h2>Spiele</h2><p>Spielen und Wörter entdecken</p></a>
+    <a class="kachel f-buecher" href="https://lisi.lu/buecher/"><img src="bilder/buecher.webp" alt="" width="253" height="253"><h2>Bücher</h2><p>Zum Lesen auf dem Kindle</p></a>
+
+    <!-- ===== KINDER-NEWS (neu) =====
+         Holt https://stories.lisi.lu/neu.json, nimmt die Einträge mit "kategorie": "Kinder-News"
+         (neueste zuerst, höchstens 5) und zeigt sie abwechselnd alle 4 Sekunden.
+         Bei „Bewegung reduzieren“ steht nur die neueste. Klappt das Laden nicht, bleibt ein fester Hinweis stehen.
+         Wichtig: stories.lisi.lu muss für lisi.lu den CORS-Header Access-Control-Allow-Origin senden. -->
+    <a class="kachel f-news" href="https://stories.lisi.lu/nachrichten" id="news-kachel" data-quelle="https://stories.lisi.lu/neu.json">
+      <div class="newsfenster" aria-hidden="true">
+        <span class="live">Neues aus Luxemburg</span>
+        <ul class="meldungen">
+          <li class="meldung aktiv ersatz"><span class="emoji">📰</span><strong>Die neuesten Kinder-News aus Luxemburg</strong><small>Hier tippen zum Lesen</small></li>
+        </ul>
+        <div class="punkte"></div>
+      </div>
+      <h2>Kinder-News</h2>
+      <p>Neues aus Luxemburg</p>
+    </a>
+  </nav>
+</div>
+
+<footer class="fuss">
+  © 2026 Mike Greiveldinger · <a href="https://lisi.lu/impressum/">Impressum</a> · <a href="https://lisi.lu/datenschutz/">Datenschutz</a> · <a href="mailto:info@lisi.lu">info@lisi.lu</a>
+</footer>
+
+<script>
+(function(){
+  var kachel=document.getElementById('news-kachel');
+  var quelle=kachel.getAttribute('data-quelle');
+  var liste=kachel.querySelector('.meldungen'), punkte=kachel.querySelector('.punkte');
+  var ruhig=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function feld(o,namen){for(var i=0;i<namen.length;i++){if(o[namen[i]])return o[namen[i]]}return ''}
+  function eintraege(d){ // Liste direkt oder in einem Feld (z. B. "eintraege", "items")
+    if(Array.isArray(d)) return d;
+    for(var k in d){if(Array.isArray(d[k])) return d[k]}
+    return [];
+  }
+  function datumText(d){var t=new Date(d);return isNaN(t)?d:t.toLocaleDateString('de-DE',{day:'numeric',month:'long'})}
+  function zeigen(daten){
+    var news=eintraege(daten).filter(function(n){return String(n.kategorie||'').toLowerCase()==='kinder-news'})
+      .map(function(n){return{titel:feld(n,['titel','title']),datum:feld(n,['datum','date']),bild:feld(n,['bild','image','img']),link:feld(n,['link','url'])}})
+      .filter(function(n){return n.titel})
+      .sort(function(a,b){return String(b.datum).localeCompare(String(a.datum))}).slice(0,5);
+    if(!news.length) return;
+    liste.innerHTML='';
+    news.forEach(function(n){
+      var li=document.createElement('li'); li.className='meldung';
+      if(n.bild){var im=document.createElement('img');im.src=new URL(n.bild,quelle).href;im.alt='';im.loading='lazy';li.appendChild(im)}
+      var t=document.createElement('strong'); t.textContent=n.titel;
+      var s=document.createElement('small'); s.textContent=n.datum?datumText(n.datum):'';
+      li.append(t,s); liste.appendChild(li);
+      punkte.appendChild(document.createElement('span'));
+    });
+    var m=liste.children, p=punkte.children, i=0, pause=false;
+    m[0].classList.add('aktiv'); p[0].classList.add('aktiv');
+    kachel.setAttribute('aria-label','Kinder-News. Neu: '+news[0].titel);
+    if(ruhig||m.length<2){punkte.innerHTML='';return}
+    kachel.addEventListener('mouseenter',function(){pause=true});
+    kachel.addEventListener('mouseleave',function(){pause=false});
+    setInterval(function(){
+      if(pause||document.hidden) return;
+      var alt=m[i]; alt.classList.remove('aktiv'); alt.classList.add('weg');
+      p[i].classList.remove('aktiv');
+      setTimeout(function(){alt.classList.remove('weg')},650);
+      i=(i+1)%m.length; m[i].classList.add('aktiv'); p[i].classList.add('aktiv');
+    },4000);
+  }
+  if(quelle) fetch(quelle,{cache:'no-cache'}).then(function(r){if(!r.ok)throw r;return r.json()}).then(zeigen).catch(function(){});
+})();
+</script>
+</body>
+</html>
