@@ -43,18 +43,19 @@ a{color:inherit}
 .newsfenster{position:relative;overflow:hidden;background:
   radial-gradient(circle at 85% 12%,#FFE38A 0 9%,transparent 10%),
   linear-gradient(#BFE3F7,#E6F3FB 60%,#FFF7EB);
-  display:flex;flex-direction:column;justify-content:center;text-align:left;padding:18px}
-.newsfenster .live{position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:3px 10px 3px 8px;font:800 .75rem "Nunito",sans-serif;color:var(--news);box-shadow:0 2px 8px rgba(31,127,184,.15)}
+  display:flex;flex-direction:column;text-align:left;padding:12px 12px 22px}
+.newsfenster .live{position:relative;z-index:2;align-self:flex-start;display:flex;align-items:center;gap:6px;background:#fff;border-radius:999px;padding:3px 10px 3px 8px;font:800 .75rem "Nunito",sans-serif;color:var(--news);box-shadow:0 2px 8px rgba(31,127,184,.15)}
 .newsfenster .live::before{content:"";width:8px;height:8px;border-radius:50%;background:#E8493F;animation:puls 1.6s ease-in-out infinite}
-.meldungen{position:relative;min-height:9.5em;list-style:none;margin:0;padding:0}
-.meldung{position:absolute;left:0;right:0;top:50%;background:#fff;border-radius:16px;padding:12px 14px;box-shadow:0 6px 18px rgba(31,127,184,.15);
+.meldungen{position:relative;flex:1;min-height:9.5em;list-style:none;margin:8px 0 0;padding:0}
+.meldung{position:absolute;left:0;right:0;top:50%;background:#fff;border-radius:16px;padding:10px 12px;box-shadow:0 6px 18px rgba(31,127,184,.15);
   opacity:0;transform:translateY(-30%) scale(.96);transition:opacity .6s ease,transform .6s ease;pointer-events:none}
 .meldung.aktiv{opacity:1;transform:translateY(-50%) scale(1);pointer-events:auto}
 .meldung.weg{opacity:0;transform:translateY(-75%) scale(.96)}
+.meldung img{width:100%;aspect-ratio:2/1;object-fit:cover;border-radius:10px;margin-bottom:8px}
 .meldung .emoji{font-size:2rem;line-height:1}
-.meldung strong{display:block;font:800 1.05rem/1.25 "Baloo 2","Nunito",sans-serif;color:var(--tinte);margin-top:4px}
+.meldung strong{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:800 1.05rem/1.25 "Baloo 2","Nunito",sans-serif;color:var(--tinte);margin-top:4px}
 .meldung small{display:block;color:var(--text);font-size:.8rem;margin-top:4px}
-.punkte{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.punkte{position:absolute;bottom:8px;left:0;right:0;display:flex;justify-content:center;gap:6px}
 .punkte span{width:8px;height:8px;border-radius:50%;background:rgba(31,127,184,.25);transition:background .3s,width .3s}
 .punkte span.aktiv{background:var(--news);width:20px;border-radius:999px}
 @keyframes puls{50%{opacity:.35}}
@@ -72,6 +73,8 @@ a{color:inherit}
 }
 @media (min-width:1000px){
   .kacheln{grid-template-columns:repeat(4,1fr)}
+  .meldung img{aspect-ratio:5/2}
+  .meldung strong{font-size:.98rem}
 }
 @media (prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}

@@ -31,16 +31,20 @@
     <a class="kachel f-buecher" href="https://lisi.lu/buecher/"><img src="bilder/buecher.webp" alt="" width="253" height="253"><h2>Bücher</h2><p>Zum Lesen auf dem Kindle</p></a>
 
     <!-- ===== KINDER-NEWS (neu) =====
-         Die Meldungen kommen aus dem JSON-Block unten (oder aus data-quelle, einer JSON-Datei mit derselben Form).
-         Es werden die 5 neuesten gezeigt, alle 4 Sekunden die nächste; bei „Bewegung reduzieren“ steht nur die neueste. -->
-    <a class="kachel f-news" href="#kinder-news" id="news-kachel" data-quelle="">
+         Holt https://stories.lisi.lu/neu.json, nimmt die Einträge mit "kategorie": "Kinder-News"
+         (neueste zuerst, höchstens 5) und zeigt sie abwechselnd alle 4 Sekunden.
+         Bei „Bewegung reduzieren“ steht nur die neueste. Klappt das Laden nicht, bleibt ein fester Hinweis stehen.
+         Wichtig: stories.lisi.lu muss für lisi.lu den CORS-Header Access-Control-Allow-Origin senden. -->
+    <a class="kachel f-news" href="https://stories.lisi.lu/nachrichten" id="news-kachel" data-quelle="https://stories.lisi.lu/neu.json">
       <div class="newsfenster" aria-hidden="true">
         <span class="live">Neues aus Luxemburg</span>
-        <ul class="meldungen"></ul>
+        <ul class="meldungen">
+          <li class="meldung aktiv ersatz"><span class="emoji">📰</span><strong>Die neuesten Kinder-News aus Luxemburg</strong><small>Hier tippen zum Lesen</small></li>
+        </ul>
         <div class="punkte"></div>
       </div>
       <h2>Kinder-News</h2>
-      <p id="news-zeile">Was gibt's Neues auf der Welt?</p>
+      <p>Neues aus Luxemburg</p>
     </a>
   </nav>
 </div>
@@ -49,37 +53,38 @@
   © 2026 Mike Greiveldinger · <a href="https://lisi.lu/impressum/">Impressum</a> · <a href="https://lisi.lu/datenschutz/">Datenschutz</a> · <a href="mailto:info@lisi.lu">info@lisi.lu</a>
 </footer>
 
-<!-- Beispiel-Meldungen (Platzhalter), bis die Quelle von „Neues aus Luxemburg“ feststeht -->
-<script type="application/json" id="news-daten">
-[
-  {"datum":"2026-11-17","emoji":"🎄","titel":"Beispiel: Der erste Weihnachtsmarkt in der Stadt öffnet"},
-  {"datum":"2026-11-16","emoji":"🚋","titel":"Beispiel: Mit der Tram quer durch Luxemburg"},
-  {"datum":"2026-11-15","emoji":"🏰","titel":"Beispiel: Kinder entdecken die Burg von Vianden"},
-  {"datum":"2026-11-14","emoji":"❄️","titel":"Beispiel: Im Ösling ist der erste Schnee gefallen"},
-  {"datum":"2026-11-13","emoji":"📚","titel":"Beispiel: Lesetag in den Grundschulen"}
-]
-</script>
 <script>
 (function(){
   var kachel=document.getElementById('news-kachel');
+  var quelle=kachel.getAttribute('data-quelle');
   var liste=kachel.querySelector('.meldungen'), punkte=kachel.querySelector('.punkte');
   var ruhig=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function datum(d){try{return new Date(d+'T12:00:00').toLocaleDateString('de-DE',{day:'numeric',month:'long'})}catch(e){return d}}
-  function zeigen(alle){
-    var news=alle.slice().sort(function(a,b){return a.datum<b.datum?1:-1}).slice(0,5);
+  function feld(o,namen){for(var i=0;i<namen.length;i++){if(o[namen[i]])return o[namen[i]]}return ''}
+  function eintraege(d){ // Liste direkt oder in einem Feld (z. B. "eintraege", "items")
+    if(Array.isArray(d)) return d;
+    for(var k in d){if(Array.isArray(d[k])) return d[k]}
+    return [];
+  }
+  function datumText(d){var t=new Date(d);return isNaN(t)?d:t.toLocaleDateString('de-DE',{day:'numeric',month:'long'})}
+  function zeigen(daten){
+    var news=eintraege(daten).filter(function(n){return String(n.kategorie||'').toLowerCase()==='kinder-news'})
+      .map(function(n){return{titel:feld(n,['titel','title']),datum:feld(n,['datum','date']),bild:feld(n,['bild','image','img']),link:feld(n,['link','url'])}})
+      .filter(function(n){return n.titel})
+      .sort(function(a,b){return String(b.datum).localeCompare(String(a.datum))}).slice(0,5);
     if(!news.length) return;
+    liste.innerHTML='';
     news.forEach(function(n){
       var li=document.createElement('li'); li.className='meldung';
-      var e=document.createElement('span'); e.className='emoji'; e.textContent=n.emoji||'📰';
+      if(n.bild){var im=document.createElement('img');im.src=new URL(n.bild,quelle).href;im.alt='';im.loading='lazy';li.appendChild(im)}
       var t=document.createElement('strong'); t.textContent=n.titel;
-      var s=document.createElement('small'); s.textContent=datum(n.datum);
-      li.append(e,t,s); liste.appendChild(li);
+      var s=document.createElement('small'); s.textContent=n.datum?datumText(n.datum):'';
+      li.append(t,s); liste.appendChild(li);
       punkte.appendChild(document.createElement('span'));
     });
-    document.getElementById('news-zeile').textContent='Neues aus Luxemburg';
     var m=liste.children, p=punkte.children, i=0, pause=false;
     m[0].classList.add('aktiv'); p[0].classList.add('aktiv');
-    if(ruhig||m.length<2) return;
+    kachel.setAttribute('aria-label','Kinder-News. Neu: '+news[0].titel);
+    if(ruhig||m.length<2){punkte.innerHTML='';return}
     kachel.addEventListener('mouseenter',function(){pause=true});
     kachel.addEventListener('mouseleave',function(){pause=false});
     setInterval(function(){
@@ -90,10 +95,7 @@
       i=(i+1)%m.length; m[i].classList.add('aktiv'); p[i].classList.add('aktiv');
     },4000);
   }
-  var lokal=JSON.parse(document.getElementById('news-daten').textContent);
-  var quelle=kachel.getAttribute('data-quelle');
-  if(quelle){fetch(quelle).then(function(r){return r.json()}).then(zeigen).catch(function(){zeigen(lokal)})}
-  else zeigen(lokal);
+  if(quelle) fetch(quelle,{cache:'no-cache'}).then(function(r){if(!r.ok)throw r;return r.json()}).then(zeigen).catch(function(){});
 })();
 </script>
 </body>
