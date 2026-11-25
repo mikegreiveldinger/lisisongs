@@ -1,0 +1,94 @@
+/* Lisi's World – Weihnachtszeit. Ergänzt /stil.css, ändert daran nichts.
+   Nach den Feiertagen: <link> auf diese Datei entfernen, dann ist alles wie vorher. */
+
+:root {
+  --tanne: #2f7a52;
+  --beere: #c8423b;
+  --gold: #e9b33b;
+  --winterblau: #dcebf6;
+  --news: #1f7fb8;
+}
+
+/* Papier mit ganz leisen Sternen */
+body {
+  background-color: var(--papier);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='%23e9b33b' fill-opacity='.16'%3E%3Cpath d='M30 22l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.7-4.9 2.7 1.1-5.3-4-3.7 5.4-.6z'/%3E%3Cpath d='M132 104l1.8 3.7 4 .5-3 2.8.8 4-3.6-2-3.6 2 .8-4-3-2.8 4-.5z'/%3E%3C/g%3E%3Cg fill='%2395bfdf' fill-opacity='.22'%3E%3Ccircle cx='96' cy='38' r='2.2'/%3E%3Ccircle cx='58' cy='132' r='1.8'/%3E%3Ccircle cx='160' cy='20' r='1.5'/%3E%3Ccircle cx='12' cy='96' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Lichterkette unter dem Regenbogenstreifen */
+.lichterkette {
+  height: 26px; margin-bottom: -26px; position: relative; z-index: 3; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='26'%3E%3Cpath d='M0 3 Q25 15 50 3 T100 3 T150 3 T200 3 T250 3 T300 3' fill='none' stroke='%233d5a45' stroke-width='1.6'/%3E%3Cg%3E%3Crect x='22' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='25' cy='17' rx='5' ry='7' fill='%23ef6f6c'/%3E%3Crect x='72' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='75' cy='17' rx='5' ry='7' fill='%23f2c14e'/%3E%3Crect x='122' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='125' cy='17' rx='5' ry='7' fill='%234fb984'/%3E%3Crect x='172' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='175' cy='17' rx='5' ry='7' fill='%234ea8de'/%3E%3Crect x='222' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='225' cy='17' rx='5' ry='7' fill='%239b7fd4'/%3E%3Crect x='272' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='275' cy='17' rx='5' ry='7' fill='%23f7a541'/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0 / 300px 26px;
+  filter: drop-shadow(0 0 4px rgba(255, 214, 120, .55));
+  animation: leuchten 3.2s ease-in-out infinite;
+}
+@keyframes leuchten { 50% { filter: drop-shadow(0 0 1px rgba(255, 214, 120, .2)); } }
+
+/* Schneefall über der ganzen Seite (wird im Skript gezeichnet) */
+canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; }
+
+/* Banner: etwas winterlicher Himmel, Schneedecke am unteren Rand */
+.banner .kopfbild { position: relative; }
+.banner .kopfbild picture { position: relative; }
+.banner .kopfbild picture::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(214, 232, 247, .45) 0%, rgba(214, 232, 247, 0) 45%);
+}
+.banner .kopfbild img { filter: saturate(.88) brightness(1.03); }
+.schneedecke {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 15%; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40' preserveAspectRatio='none'%3E%3Cpath d='M0 22 C30 8 60 26 95 16 S160 4 200 18 S270 30 310 14 S375 10 400 20 V40 H0Z' fill='%23ffffff'/%3E%3Cpath d='M0 22 C30 8 60 26 95 16 S160 4 200 18 S270 30 310 14 S375 10 400 20' fill='none' stroke='%23cfe2f1' stroke-width='2'/%3E%3C/svg%3E") no-repeat bottom / 100% 100%;
+}
+.banner .logo { background: rgba(255, 255, 255, .88); }
+@media (max-width: 559px) {
+  .schneedecke { height: 13%; border-radius: 0 0 20px 20px; overflow: hidden; }
+}
+
+/* „Neu bei Lisi“: Karten mit kleinem Goldrand-Schimmer */
+.neu-karte { box-shadow: var(--schatten), 0 0 0 2px rgba(233, 179, 59, .18); }
+
+/* Kacheln: jede trägt eine kleine Schneehaube */
+.kachel { position: relative; }
+.kachel::before {
+  content: ""; position: absolute; left: 18px; right: 18px; top: -9px; height: 22px; pointer-events: none; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 22' preserveAspectRatio='none'%3E%3Cpath d='M0 14 C10 2 30 2 45 8 C60 0 85 0 100 7 C118 -1 140 2 152 9 C170 0 196 1 210 8 C226 0 252 0 266 8 C280 2 296 4 300 14 V22 H0Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat top / 100% 100%;
+  filter: drop-shadow(0 -2px 3px rgba(90, 130, 180, .18));
+}
+
+/* ===== KINDER-NEWS-Kachel (aus Entwurf PR 4, an stil.css angepasst) ===== */
+@media (min-width: 600px) { .kacheln { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 900px) { .kacheln { grid-template-columns: repeat(4, 1fr); gap: 22px; } }
+.news h2 { color: var(--news); }
+.newsfenster {
+  position: relative; overflow: hidden; width: 100%; aspect-ratio: 1; border-radius: 18px;
+  background: radial-gradient(circle at 85% 12%, #ffe38a 0 9%, transparent 10%), linear-gradient(#bfe3f7, #e6f3fb 60%, #fff8ec);
+  display: flex; flex-direction: column; text-align: left; padding: 12px 12px 22px;
+}
+.newsfenster .live {
+  position: relative; z-index: 2; align-self: flex-start; display: flex; align-items: center; gap: 6px;
+  background: #fff; border-radius: 999px; padding: 3px 10px 3px 8px;
+  font: 600 13px Fredoka, sans-serif; color: var(--news); box-shadow: 0 2px 8px rgba(31, 127, 184, .15);
+}
+.newsfenster .live::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #e8493f; animation: puls 1.6s ease-in-out infinite; }
+.meldungen { position: relative; flex: 1; min-height: 9.5em; list-style: none; margin: 8px 0 0; padding: 0; }
+.meldung {
+  position: absolute; left: 0; right: 0; top: 50%; background: #fff; border-radius: 16px; padding: 10px 12px;
+  box-shadow: 0 6px 18px rgba(31, 127, 184, .15); opacity: 0; transform: translateY(-30%) scale(.96);
+  transition: opacity .6s ease, transform .6s ease; pointer-events: none;
+}
+.meldung.aktiv { opacity: 1; transform: translateY(-50%) scale(1); pointer-events: auto; }
+.meldung.weg { opacity: 0; transform: translateY(-75%) scale(.96); }
+.meldung img { width: 100%; aspect-ratio: 2 / 1; object-fit: cover; border-radius: 10px; margin-bottom: 8px; }
+.meldung strong { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font: 600 17px/1.25 Fredoka, sans-serif; color: var(--tinte); }
+.meldung small { display: block; color: var(--sanft); font-size: 14px; margin-top: 4px; }
+.punkte { position: absolute; bottom: 8px; left: 0; right: 0; display: flex; justify-content: center; gap: 6px; }
+.punkte span { width: 8px; height: 8px; border-radius: 50%; background: rgba(31, 127, 184, .25); transition: background .3s, width .3s; }
+.punkte span.aktiv { background: var(--news); width: 20px; border-radius: 999px; }
+@keyframes puls { 50% { opacity: .35; } }
+@media (min-width: 900px) { .meldung img { aspect-ratio: 5 / 2; } .meldung strong { font-size: 16px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .lichterkette, .newsfenster .live::before { animation: none; }
+  .meldung { transition: none; }
+}

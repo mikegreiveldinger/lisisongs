@@ -1,0 +1,105 @@
+/* Lisi's World – gemeinsames Aussehen für lisi.lu (Startseite, Bücher, Impressum) */
+@font-face { font-family: Andika; font-weight: 400; font-display: swap; src: url(/schriften/andika-latin-400-normal.woff2) format("woff2"); }
+@font-face { font-family: Andika; font-weight: 700; font-display: swap; src: url(/schriften/andika-latin-700-normal.woff2) format("woff2"); }
+@font-face { font-family: Fredoka; font-weight: 500; font-display: swap; src: url(/schriften/fredoka-latin-500-normal.woff2) format("woff2"); }
+@font-face { font-family: Fredoka; font-weight: 600; font-display: swap; src: url(/schriften/fredoka-latin-600-normal.woff2) format("woff2"); }
+@font-face { font-family: Fredoka; font-weight: 700; font-display: swap; src: url(/schriften/fredoka-latin-700-normal.woff2) format("woff2"); }
+
+:root {
+  --papier: #fff8ec;
+  --tinte: #2f2a44;
+  --sanft: #6b6480;
+  --weiss: #fff;
+  --rot: #ef6f6c; --orange: #f7a541; --gelb: #f2c14e; --gruen: #4fb984; --blau: #4ea8de; --lila: #9b7fd4;
+  --maerchen: #4b3f8f;
+  --spiele: #2e8b3e;
+  --buecher: #c4511c;
+  --schatten: 0 10px 28px rgba(47, 42, 68, .12);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--papier); color: var(--tinte);
+  font-family: Andika, "Trebuchet MS", system-ui, sans-serif; font-size: 18px; line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+.regenbogen { height: 8px; background: linear-gradient(90deg, var(--rot), var(--orange), var(--gelb), var(--gruen), var(--blau), var(--lila)); }
+.seite {
+  max-width: 1120px; margin: 0 auto;
+  padding: 18px max(16px, env(safe-area-inset-right)) 32px max(16px, env(safe-area-inset-left));
+}
+
+/* Kopf mit Logo */
+.kopf { text-align: center; }
+.logo { display: inline-block; }
+.logo img { height: clamp(64px, 13vw, 110px); width: auto; margin: 0 auto; }
+h1 {
+  font-family: Fredoka, "Trebuchet MS", sans-serif; font-weight: 600;
+  font-size: clamp(26px, 5vw, 42px); line-height: 1.15; margin: 12px 0 0; text-wrap: balance;
+}
+
+/* Kopfbild: auf breiten, flachen Bildschirmen (Tablet/Handy quer) niedriger */
+.kopfbild {
+  margin: 20px auto 0; border-radius: 26px; overflow: hidden; box-shadow: var(--schatten);
+  aspect-ratio: 1916 / 821; max-height: 46vh; width: 100%;
+}
+.kopfbild img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 55%; }
+/* Flache Bildschirme (Handy quer): Kopf kompakter, damit die Kacheln schnell sichtbar sind */
+@media (max-height: 520px) and (orientation: landscape) {
+  .seite { padding-top: 10px; }
+  .logo img { height: 58px; }
+  h1 { font-size: 24px; margin-top: 6px; }
+  .kopfbild { margin-top: 12px; max-height: 40vh; }
+  .kacheln { margin-top: 18px; }
+}
+
+/* Kacheln: Handy hochkant untereinander, ab 600 px Breite nebeneinander */
+.kacheln { display: grid; gap: 20px; margin-top: 28px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .kacheln { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+@media (min-width: 900px) { .kacheln { gap: 28px; } }
+.kacheln.zwei { max-width: 760px; margin-left: auto; margin-right: auto; }
+@media (min-width: 600px) { .kacheln.zwei { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 599px) { .kacheln { max-width: 420px; margin-left: auto; margin-right: auto; } }
+
+.kachel {
+  display: flex; flex-direction: column; text-decoration: none; color: inherit;
+  background: var(--weiss); border-radius: 26px; padding: 14px 14px 20px; box-shadow: var(--schatten);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+a.kachel:hover, a.kachel:focus-visible { transform: translateY(-5px); box-shadow: 0 16px 34px rgba(47, 42, 68, .18); }
+a.kachel:active { transform: translateY(-2px) scale(.99); }
+.kachel img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 18px; }
+.kachel h2 {
+  font-family: Fredoka, "Trebuchet MS", sans-serif; font-weight: 700;
+  font-size: clamp(22px, 2.6vw, 28px); line-height: 1.15; margin: 14px 0 4px; text-align: center; text-wrap: balance;
+}
+.kachel p { margin: 0; text-align: center; color: var(--sanft); font-size: 17px; }
+@media (min-width: 600px) { .kachel h2 { min-height: 2.3em; display: flex; align-items: center; justify-content: center; } }
+.maerchen h2 { color: var(--maerchen); }
+.spiele h2 { color: var(--spiele); }
+.buecher h2 { color: var(--buecher); }
+@media (prefers-reduced-motion: reduce) { .kachel { transition: none; } a.kachel:hover { transform: none; } }
+
+/* Buchkarten */
+.buch img { aspect-ratio: auto; }
+.buch h2 a { text-decoration: none; }
+.sprachen { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.sprachen a {
+  font-family: Fredoka, sans-serif; font-weight: 600; font-size: 17px; text-decoration: none;
+  color: var(--buecher); border: 2px solid var(--buecher); border-radius: 999px; padding: 4px 14px; min-width: 52px; text-align: center;
+}
+.sprachen a:hover, .sprachen a:focus-visible { background: var(--buecher); color: #fff; }
+.hinweis { text-align: center; color: var(--sanft); font-size: 16px; margin: 22px 0 0; }
+
+/* Textseiten (Impressum) */
+.text { max-width: 640px; margin: 24px auto 0; background: var(--weiss); border-radius: 26px; padding: 26px 26px 30px; box-shadow: var(--schatten); text-align: center; }
+.text h2 { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 22px; margin: 26px 0 6px; color: var(--maerchen); }
+.text h2:first-child { margin-top: 0; }
+.text p { margin: 0 0 6px; }
+
+/* Fußzeile */
+.fuss { text-align: center; color: var(--sanft); font-size: 15px; margin-top: 36px; }
+.fuss a { color: inherit; }
