@@ -8,20 +8,18 @@ Die Ordnerstruktur entspricht der Webseite: `index.html`, `stil.css`, `weihnacht
 - **Logo:** `bilder/lisis-world-weihnachten.png` (Lisi mit Weihnachtsmütze, Schriftzug unverändert).
 - **Favicon/App-Symbol:** `bilder/favicon-weihnachten-32.png`, `-192.png`, `apple-touch-icon-weihnachten.png`.
   Die bisherigen Dateien bleiben liegen, damit man nach den Feiertagen einfach zurückstellen kann.
-- **weihnachten.css** (neu): Lichterkette unter dem Regenbogenstreifen, leise Sterne im Hintergrund,
-  Banner mit kühlerem Himmel und Schneedecke, Schneehauben auf den Kacheln.
+- **Kopfbild:** `bilder/kopfbild-weihnachten.jpg` (+ `-klein.jpg`): Lisi, Nora, Malik, Tian und Flocke im Schnee
+  (ChatGPT, Stilblock Adventskalender, Original in `quellen/`). Auf dem Desktop ist das Banner dafür höher (2,35:1).
+- **Girlande:** `bilder/girlande-weihnachten.webp`, gemalte Tannenzweige mit Kerzen, Zapfen und Beeren,
+  freigestellt und gespiegelt gekachelt, damit keine Naht zu sehen ist. Ersetzt die Lichterkette.
+- **weihnachten.css** (neu): Girlande, leise Sterne im Hintergrund, Banner-Anpassungen, Schneehauben auf den Kacheln.
 - **Schneefall** über der Seite (Skript unten in `index.html`, aus bei „Bewegung reduzieren“).
 - **Spruch:** vom 1. bis 26. Dezember ein Countdown bis Heiligabend statt des Spruchs des Tages.
 - **Kinder-News-Kachel** aus PR #4 übernommen (rechts neben „Bücher“, auf dem Handy vierte Kachel).
 - Fußzeile: E-Mail als normaler `mailto:`-Link (Cloudflare verschlüsselt sie beim Ausliefern selbst).
 
-## Noch offen
-
-- **Banner-Bild:** zeigt noch die Sommerwiese. Ein Winterbild mit den Kindern und Flocke muss neu
-  gemalt werden (ChatGPT, Aquarell-Kinderbuchstil). Wie Flocke aussieht, war in Repo, stories.lisi.lu
-  und spiller.lisi.lu nicht zu finden.
 
 ## Rückbau nach den Feiertagen
 
-`<link rel="stylesheet" href="/weihnachten.css">`, `.lichterkette`, `canvas.schnee`, `.schneedecke` und das Skript
-„Weihnachten“ entfernen, Logo und Favicon-Links zurück auf die alten Dateien.
+`<link rel="stylesheet" href="/weihnachten.css">`, `.girlande`, `canvas.schnee` und das Skript
+„Weihnachten“ entfernen, Kopfbild, Logo und Favicon-Links zurück auf die alten Dateien.

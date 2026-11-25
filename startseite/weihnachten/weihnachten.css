@@ -16,33 +16,27 @@ body {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cg fill='%23e9b33b' fill-opacity='.16'%3E%3Cpath d='M30 22l2.4 5 5.4.6-4 3.7 1.1 5.3-4.9-2.7-4.9 2.7 1.1-5.3-4-3.7 5.4-.6z'/%3E%3Cpath d='M132 104l1.8 3.7 4 .5-3 2.8.8 4-3.6-2-3.6 2 .8-4-3-2.8 4-.5z'/%3E%3C/g%3E%3Cg fill='%2395bfdf' fill-opacity='.22'%3E%3Ccircle cx='96' cy='38' r='2.2'/%3E%3Ccircle cx='58' cy='132' r='1.8'/%3E%3Ccircle cx='160' cy='20' r='1.5'/%3E%3Ccircle cx='12' cy='96' r='1.6'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-/* Lichterkette unter dem Regenbogenstreifen */
-.lichterkette {
-  height: 26px; margin-bottom: -26px; position: relative; z-index: 3; pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='26'%3E%3Cpath d='M0 3 Q25 15 50 3 T100 3 T150 3 T200 3 T250 3 T300 3' fill='none' stroke='%233d5a45' stroke-width='1.6'/%3E%3Cg%3E%3Crect x='22' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='25' cy='17' rx='5' ry='7' fill='%23ef6f6c'/%3E%3Crect x='72' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='75' cy='17' rx='5' ry='7' fill='%23f2c14e'/%3E%3Crect x='122' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='125' cy='17' rx='5' ry='7' fill='%234fb984'/%3E%3Crect x='172' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='175' cy='17' rx='5' ry='7' fill='%234ea8de'/%3E%3Crect x='222' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='225' cy='17' rx='5' ry='7' fill='%239b7fd4'/%3E%3Crect x='272' y='8' width='6' height='4' rx='1' fill='%233d5a45'/%3E%3Cellipse cx='275' cy='17' rx='5' ry='7' fill='%23f7a541'/%3E%3C/g%3E%3C/svg%3E") repeat-x 0 0 / 300px 26px;
-  filter: drop-shadow(0 0 4px rgba(255, 214, 120, .55));
-  animation: leuchten 3.2s ease-in-out infinite;
+/* Gemalte Girlande (Tannenzweige, Kerzen, Zapfen, Beeren) hängt über den oberen Rand bis ins Kopfbild */
+.girlande {
+  position: absolute; left: 0; right: 0; top: 8px; height: clamp(54px, 7.4vw, 112px); z-index: 3; pointer-events: none;
+  background: url(/bilder/girlande-weihnachten.webp) repeat-x center top / auto 100%;
 }
-@keyframes leuchten { 50% { filter: drop-shadow(0 0 1px rgba(255, 214, 120, .2)); } }
+body { position: relative; }
+.seite { padding-top: clamp(40px, 5.4vw, 80px); }
 
 /* Schneefall über der ganzen Seite (wird im Skript gezeichnet) */
 canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 50; }
 
-/* Banner: etwas winterlicher Himmel, Schneedecke am unteren Rand */
-.banner .kopfbild { position: relative; }
-.banner .kopfbild picture { position: relative; }
-.banner .kopfbild picture::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(180deg, rgba(214, 232, 247, .45) 0%, rgba(214, 232, 247, 0) 45%);
-}
-.banner .kopfbild img { filter: saturate(.88) brightness(1.03); }
-.schneedecke {
-  position: absolute; left: 0; right: 0; bottom: -1px; height: 15%; pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 40' preserveAspectRatio='none'%3E%3Cpath d='M0 22 C30 8 60 26 95 16 S160 4 200 18 S270 30 310 14 S375 10 400 20 V40 H0Z' fill='%23ffffff'/%3E%3Cpath d='M0 22 C30 8 60 26 95 16 S160 4 200 18 S270 30 310 14 S375 10 400 20' fill='none' stroke='%23cfe2f1' stroke-width='2'/%3E%3C/svg%3E") no-repeat bottom / 100% 100%;
-}
+/* Banner: Winterbild mit den vier Kindern und Flocke (höher als das Sommerbild, damit niemand abgeschnitten wird) */
+.kopf.banner .kopfbild { aspect-ratio: 2.35 / 1; }
+.kopf.banner .kopfbild img { object-position: 50% 55%; }
 .banner .logo { background: rgba(255, 255, 255, .88); }
+.kopf .spruch { top: 46%; max-width: 30%; background: rgba(255, 255, 255, .82); }
+.kopf .spruch::after { border-left-color: rgba(255, 255, 255, .82); }
 @media (max-width: 559px) {
-  .schneedecke { height: 13%; border-radius: 0 0 20px 20px; overflow: hidden; }
+  .kopf.banner .kopfbild { aspect-ratio: 1.6 / 1; }
+  .kopf.banner .kopfbild img { object-position: 72% 50%; }
+  .kopf .spruch { top: auto; max-width: none; background: none; }
 }
 
 /* „Neu bei Lisi“: Karten mit kleinem Goldrand-Schimmer */
@@ -89,6 +83,6 @@ canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-
 @media (min-width: 900px) { .meldung img { aspect-ratio: 5 / 2; } .meldung strong { font-size: 16px; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .lichterkette, .newsfenster .live::before { animation: none; }
+  .newsfenster .live::before { animation: none; }
   .meldung { transition: none; }
 }

@@ -14,7 +14,7 @@
 <link rel="preload" href="/schriften/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/stil.css">
 <!-- Weihnachtszeit: alles Weihnachtliche steckt in weihnachten.css und im Skript „Weihnachten“ unten.
-     Nach den Feiertagen genügt es, diese Zeile, das Skript und die Lichterkette zu entfernen und Logo/Favicon zurückzustellen. -->
+     Nach den Feiertagen genügt es, diese Zeile, das Skript, die Girlande und das Schnee-Canvas zu entfernen und Kopfbild, Logo und Favicon zurückzustellen. -->
 <link rel="stylesheet" href="/weihnachten.css">
 <script>
   // Alte Canva-Adressen (lisi.lu/#page-N) weiterhin richtig ankommen lassen
@@ -83,19 +83,17 @@
 </head>
 <body>
 <div class="regenbogen"></div>
-<div class="lichterkette" aria-hidden="true"></div>
+<div class="girlande" aria-hidden="true"></div>
 <canvas class="schnee" aria-hidden="true"></canvas>
 <div class="seite">
   <header class="kopf banner">
     <h1 class="nur-vorlesen">Lisi’s World – Geschichten, Spiele und Bücher für Kinder</h1>
     <div class="kopfbild">
       <picture>
-        <source media="(max-width: 559px)" srcset="/bilder/kopfbild-freunde-handy.jpg" width="800" height="400">
-        <img src="/bilder/kopfbild-freunde.jpg" srcset="/bilder/kopfbild-freunde-klein.jpg 800w, /bilder/kopfbild-freunde.jpg 1600w" sizes="(max-width: 1120px) 100vw, 1090px"
-             width="1600" height="432" alt="Lisi, ihre Schwester Nora und ihre Freunde Malik und Tian liegen auf einer Blumenwiese. Lisi winkt, Nora hat ein Märchenbuch, Malik einen Würfel und Tian einen E-Reader.">
+        <img src="/bilder/kopfbild-weihnachten.jpg" srcset="/bilder/kopfbild-weihnachten-klein.jpg 836w, /bilder/kopfbild-weihnachten.jpg 1672w" sizes="(max-width: 1120px) 100vw, 1090px"
+             width="1672" height="941" alt="Lisi, ihre Schwester Nora und ihre Freunde Tian und Malik stehen am Abend im Schnee bei Laternen. Nora streichelt das kleine Rentier Flocke mit dem gestreiften Schal.">
       </picture>
       <a class="logo" href="/"><img src="/bilder/lisis-world-weihnachten.png" width="593" height="180" alt="Lisi’s World"></a>
-      <div class="schneedecke" aria-hidden="true"></div>
       <p class="spruch" id="spruch">Hallo! Was machen wir heute?</p>
     </div>
   </header>
