@@ -5,7 +5,6 @@
   --tanne: #2f7a52;
   --beere: #c8423b;
   --gold: #e9b33b;
-  --winterblau: #dcebf6;
   --news: #1f7fb8;
 }
 
@@ -32,9 +31,8 @@ canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-
 .kopf.banner .kopfbild img { object-position: 50% 55%; }
 .banner .logo { background: rgba(255, 255, 255, .88); }
 @media (max-width: 559px) {
-  .kopf.banner .kopfbild { aspect-ratio: 1.6 / 1; }
+  .kopf.banner .kopfbild { aspect-ratio: 1.6 / 1; margin-bottom: 0; }
   .kopf.banner .kopfbild img { object-position: 72% 50%; }
-  .kopf.banner .kopfbild { margin-bottom: 0; }
 }
 
 /* „Neu bei Lisi“: Karten mit kleinem Goldrand-Schimmer */
