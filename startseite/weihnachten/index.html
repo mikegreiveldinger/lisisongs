@@ -94,7 +94,6 @@
              width="1672" height="941" alt="Lisi, ihre Schwester Nora und ihre Freunde Tian und Malik stehen am Abend im Schnee bei Laternen. Nora streichelt das kleine Rentier Flocke mit dem gestreiften Schal.">
       </picture>
       <a class="logo" href="/"><img src="/bilder/lisis-world-weihnachten.png" width="593" height="180" alt="Lisi’s World"></a>
-      <p class="spruch" id="spruch">Hallo! Was machen wir heute?</p>
     </div>
   </header>
 
@@ -344,7 +343,7 @@ function lisiWechsel(k, liste) {
 })();
 </script>
 <script>
-/* Weihnachten: leiser Schneefall über der Seite (bei „Bewegung reduzieren“ aus) und Countdown als Spruch */
+/* Weihnachten: leiser Schneefall über der Seite (bei „Bewegung reduzieren“ aus) */
 (function () {
   var c = document.querySelector('canvas.schnee'); if (!c || !c.getContext) return;
   if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { c.remove(); return; }
@@ -374,18 +373,6 @@ function lisiWechsel(k, liste) {
     requestAnimationFrame(bild);
   }
   groesse(); addEventListener('resize', groesse); requestAnimationFrame(bild);
-})();
-(function () {
-  /* Vom 1. Dezember bis zum 26. Dezember ersetzt der Countdown den Spruch des Tages */
-  var el = document.getElementById('spruch'); if (!el) return;
-  var heute = new Date(); heute.setHours(12, 0, 0, 0);
-  var m = heute.getMonth(), d = heute.getDate();
-  if (m !== 11 || d > 26) return;
-  var rest = 24 - d;
-  el.textContent = rest > 1 ? 'Noch ' + rest + '-mal schlafen bis Heiligabend.'
-                 : rest === 1 ? 'Nur noch einmal schlafen!'
-                 : rest === 0 ? 'Heute ist Heiligabend.'
-                 : 'Frohe Weihnachten!';
 })();
 </script>
 </body>

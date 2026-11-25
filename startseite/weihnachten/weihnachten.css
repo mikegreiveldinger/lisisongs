@@ -31,12 +31,10 @@ canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-
 .kopf.banner .kopfbild { aspect-ratio: 2.35 / 1; }
 .kopf.banner .kopfbild img { object-position: 50% 55%; }
 .banner .logo { background: rgba(255, 255, 255, .88); }
-.kopf .spruch { top: 46%; max-width: 30%; background: rgba(255, 255, 255, .82); }
-.kopf .spruch::after { border-left-color: rgba(255, 255, 255, .82); }
 @media (max-width: 559px) {
   .kopf.banner .kopfbild { aspect-ratio: 1.6 / 1; }
   .kopf.banner .kopfbild img { object-position: 72% 50%; }
-  .kopf .spruch { top: auto; max-width: none; background: none; }
+  .kopf.banner .kopfbild { margin-bottom: 0; }
 }
 
 /* „Neu bei Lisi“: Karten mit kleinem Goldrand-Schimmer */

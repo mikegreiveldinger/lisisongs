@@ -14,7 +14,7 @@ Die Ordnerstruktur entspricht der Webseite: `index.html`, `stil.css`, `weihnacht
   freigestellt und gespiegelt gekachelt, damit keine Naht zu sehen ist. Ersetzt die Lichterkette.
 - **weihnachten.css** (neu): Girlande, leise Sterne im Hintergrund, Banner-Anpassungen, Schneehauben auf den Kacheln.
 - **Schneefall** über der Seite (Skript unten in `index.html`, aus bei „Bewegung reduzieren“).
-- **Spruch:** vom 1. bis 26. Dezember ein Countdown bis Heiligabend statt des Spruchs des Tages.
+- **Spruch im Banner:** entfällt in der Weihnachtszeit (Mikes Wunsch); das Spruch-Skript findet kein Element und tut nichts.
 - **Kinder-News-Kachel** aus PR #4 übernommen (rechts neben „Bücher“, auf dem Handy vierte Kachel).
 - Fußzeile: E-Mail als normaler `mailto:`-Link (Cloudflare verschlüsselt sie beim Ausliefern selbst).
 
