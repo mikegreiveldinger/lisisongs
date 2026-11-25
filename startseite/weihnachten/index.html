@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lisi’s World – Geschichten, Spiele und Bücher für Kinder</title>
+<meta name="description" content="Lisi’s World: Märchen und Geschichten zum Vorlesen, Lernspiele und Bilderbücher für Kinder von ca. 4 bis 8 Jahren.">
+<meta property="og:title" content="Lisi’s World">
+<meta property="og:description" content="Geschichten, Spiele und Bücher für Kinder.">
+<meta property="og:image" content="https://lisi.lu/bilder/kopfbild-freunde.jpg">
+<link rel="icon" type="image/png" sizes="32x32" href="/bilder/favicon-weihnachten-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/bilder/favicon-weihnachten-192.png">
+<link rel="apple-touch-icon" href="/bilder/apple-touch-icon-weihnachten.png">
+<link rel="preload" href="/schriften/fredoka-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/stil.css">
+<!-- Weihnachtszeit: alles Weihnachtliche steckt in weihnachten.css und im Skript „Weihnachten“ unten.
+     Nach den Feiertagen genügt es, diese Zeile, das Skript, die Girlande und das Schnee-Canvas zu entfernen und Kopfbild, Logo und Favicon zurückzustellen. -->
+<link rel="stylesheet" href="/weihnachten.css">
+<script>
+  // Alte Canva-Adressen (lisi.lu/#page-N) weiterhin richtig ankommen lassen
+  (function () {
+    var ziele = { "#page-1": "/buecher/", "#page-2": "/buecher/", "#page-3": "/buecher/", "#page-5": "/buecher/",
+                  "#page-4": "/impressum/", "#page-6": "/impressum/" };
+    if (ziele[location.hash]) location.replace(ziele[location.hash]);
+  })();
+</script>
+<style>
+.neu-bereich { margin: 28px 0 40px; }
+.neu-titel { font-family: Fredoka, sans-serif; font-weight: 700; font-size: clamp(26px, 4.5vw, 34px); text-align: center; margin: 0 0 16px; }
+.neu-titel img { height: 1.3em; width: auto; vertical-align: -.25em; display: inline-block; margin-right: 6px; }
+.neu-liste { display: grid; gap: 18px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.neu-karte { display: flex; flex-direction: column; background: var(--weiss); border-radius: 22px; overflow: hidden; text-decoration: none; color: inherit; box-shadow: var(--schatten); border: 4px solid var(--f); transition: transform .15s; }
+.neu-karte:hover, .neu-karte:focus-visible { transform: translateY(-4px); }
+.neu-karte img { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.neu-karte .text { margin: 0; max-width: none; box-shadow: none; border-radius: 0; flex: 1; padding: 12px 16px 16px; display: flex; flex-direction: column; gap: 4px; }
+.neu-art { align-self: flex-start; font-family: Fredoka, sans-serif; font-weight: 600; font-size: 14px; color: #fff; background: var(--f); border-radius: 999px; padding: 2px 12px; }
+.neu-karte h3 { font-family: Fredoka, sans-serif; font-weight: 600; font-size: 22px; line-height: 1.2; margin: 4px 0 0; }
+.neu-karte p { margin: 0; color: var(--sanft); font-size: 16px; }
+.neu-karte.geschichten { --f: var(--maerchen); } .neu-karte.spiele { --f: var(--spiele); } .neu-karte.buecher { --f: var(--buecher); }
+@media (max-width: 759px) {
+  .neu-liste { gap: 8px; }
+  .neu-karte { border-width: 3px; border-radius: 14px; }
+  .neu-karte img { aspect-ratio: 1; }
+  .neu-karte .text { padding: 6px 6px 9px; gap: 3px; align-items: center; }
+  .neu-art { font-size: 10px; padding: 1px 6px; }
+  .neu-karte h3 { font-size: 13px; margin-top: 2px; hyphens: auto; overflow-wrap: anywhere; }
+  .neu-karte p { display: none; }
+}
+@media (min-width: 760px) {
+  .neu-karte { flex-direction: row; align-items: stretch; border-radius: 18px; }
+  .neu-karte img { width: 38%; flex: none; aspect-ratio: auto; height: auto; min-height: 120px; }
+  .neu-karte .text { padding: 10px 12px; justify-content: center; text-align: left; }
+  .neu-karte h3 { font-size: 18px; }
+  .neu-karte p { font-size: 14px; line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
+.neu-karte { position: relative; }
+.neu-karte img, .neu-karte .text h3, .neu-karte .text p, .neu-karte .neu-art { transition: opacity .35s ease; }
+.neu-karte.wechsel img, .neu-karte.wechsel .text h3, .neu-karte.wechsel .text p, .neu-karte.wechsel .neu-art { opacity: 0; }
+.neu-punkte { position: absolute; left: 8px; top: 8px; display: flex; gap: 5px; background: rgba(255,255,255,.85); border-radius: 999px; padding: 4px 6px; }
+.neu-punkte i { width: 8px; height: 8px; border-radius: 50%; background: var(--f); opacity: .3; transition: opacity .3s; }
+.neu-punkte i.an { opacity: 1; }
+@media (max-width: 759px) { .neu-punkte { left: 5px; top: 5px; padding: 3px 4px; gap: 3px; } .neu-punkte i { width: 6px; height: 6px; } }
+/* Banner: flaches Bild mit den vier Freunden; Logo und Spruch des Tages links in der freien Wiese */
+.banner .kopfbild { position: relative; margin-top: 0; aspect-ratio: 1600 / 290; max-height: none; }
+.banner .kopfbild picture { display: block; width: 100%; height: 100%; }
+.banner .kopfbild img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
+.banner .logo { position: absolute; left: 2.2%; top: 9%; background: rgba(255,255,255,.8); border-radius: 18px; padding: 5px 12px; box-shadow: 0 3px 10px rgba(47,42,68,.10); line-height: 0; }
+.banner .logo img { height: clamp(24px, 3.9vw, 46px); width: auto; }
+.spruch { position: absolute; left: 4%; top: 52%; max-width: 32%; margin: 0; background: rgba(255,255,255,.72); border-radius: 16px; padding: 7px 14px;
+  font-family: Fredoka, "Trebuchet MS", sans-serif; font-weight: 600; font-size: clamp(13px, 1.5vw, 18px); line-height: 1.25; text-wrap: balance;
+  color: #5a5170; }
+.spruch::after { content: ""; position: absolute; right: -9px; top: 50%; margin-top: -7px; border: 7px solid transparent; border-left: 9px solid rgba(255,255,255,.72); border-right: 0; }
+.nur-vorlesen { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; margin: 0; }
+@media (max-width: 559px) {
+  .banner .kopfbild { aspect-ratio: 2.4 / 1; overflow: visible; border-radius: 20px; margin-bottom: 44px; }
+  .banner .kopfbild img { border-radius: 20px; object-position: 50% 60%; }
+  .banner .logo { padding: 3px 7px; border-radius: 12px; left: 3%; top: 6%; }
+  .banner .logo img { height: 22px; }
+  .spruch { left: 0; right: 0; top: auto; bottom: -36px; max-width: none; background: none; padding: 0 8px; font-size: 15px; text-align: center; }
+  .spruch::after { display: none; }
+}
+</style>
+</head>
+<body>
+<div class="regenbogen"></div>
+<div class="girlande" aria-hidden="true"></div>
+<canvas class="schnee" aria-hidden="true"></canvas>
+<div class="seite">
+  <header class="kopf banner">
+    <h1 class="nur-vorlesen">Lisi’s World – Geschichten, Spiele und Bücher für Kinder</h1>
+    <div class="kopfbild">
+      <picture>
+        <img src="/bilder/kopfbild-weihnachten.jpg" srcset="/bilder/kopfbild-weihnachten-klein.jpg 836w, /bilder/kopfbild-weihnachten.jpg 1672w" sizes="(max-width: 1120px) 100vw, 1090px"
+             width="1672" height="941" alt="Lisi, ihre Schwester Nora und ihre Freunde Tian und Malik stehen am Abend im Schnee bei Laternen. Nora streichelt das kleine Rentier Flocke mit dem gestreiften Schal.">
+      </picture>
+      <div class="kugeln" aria-hidden="true">
+        <img class="k1" src="/bilder/kugel-lisi.webp" width="218" height="464" alt="">
+        <img class="k2" src="/bilder/kugel-nora.webp" width="214" height="462" alt="">
+        <img class="k3" src="/bilder/kugel-malik.webp" width="214" height="464" alt="">
+        <img class="k4" src="/bilder/kugel-tian.webp" width="214" height="463" alt="">
+        <img class="k5" src="/bilder/kugel-flocke.webp" width="220" height="464" alt="">
+      </div>
+      <a class="logo" href="/"><img src="/bilder/lisis-world-weihnachten.png" width="593" height="180" alt="Lisi’s World"></a>
+    </div>
+  </header>
+
+  <section class="neu-bereich" aria-labelledby="neu-titel">
+    <h2 class="neu-titel" id="neu-titel"><img src="/bilder/emoji/funkeln.webp?v=4" alt="">Neu bei Lisi</h2>
+    <div class="neu-liste">
+      <a class="neu-karte geschichten" id="neu-geschichte" href="https://stories.lisi.lu/geschichten/2026-11-13-haensel-und-gretel">
+        <img src="https://stories.lisi.lu/bilder/2026-11-13-haensel-und-gretel/klein.jpg" alt="" loading="lazy">
+        <div class="text"><span class="neu-art">Geschichten · Neu</span><h3>Hänsel und Gretel</h3><p>Weiße Steine, ein Haus aus Lebkuchen – und ein ganz schlauer Trick!</p></div>
+      </a>
+      <a class="neu-karte spiele" id="neu-spiel" href="https://spiller.lisi.lu/wissensspiele/turmuhr/">
+        <img src="https://spiller.lisi.lu/kacheln/turmuhr.jpg?v=1" alt="" loading="lazy">
+        <div class="text"><span class="neu-art">Spiele · Neu</span><h3>Lisi und die Turmuhr</h3><p>Lerne die Uhr lesen und bring mit Lisi, Nora, Malik und Tian die Turmuhr wieder zum Laufen.</p></div>
+      </a>
+      <a class="neu-karte buecher" id="neu-buch" href="/buecher/">
+        <img src="/bilder/cover-streimaennchen-lb.jpg" alt="" loading="lazy">
+        <div class="text"><span class="neu-art">Bücher · fast neu</span><h3>D’Lisi an de Stréimännchen</h3><p>Lese- und Vorlesebuch auf Luxemburgisch, Deutsch, Französisch und Englisch.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <main class="kacheln">
+    <a class="kachel maerchen" href="https://stories.lisi.lu/">
+      <img src="/bilder/maerchen.jpg" width="640" height="640" alt="" loading="lazy">
+      <h2>Geschichten</h2>
+      <p>Zum Vorlesen und Zuhören</p>
+    </a>
+    <a class="kachel spiele" href="https://spiller.lisi.lu/">
+      <img src="/bilder/spiele.jpg" width="640" height="640" alt="" loading="lazy">
+      <h2>Spiele</h2>
+      <p>Spielen und Wörter entdecken</p>
+    </a>
+    <a class="kachel buecher" href="/buecher/">
+      <img src="/bilder/buecher.jpg" width="640" height="640" alt="" loading="lazy">
+      <h2>Bücher</h2>
+      <p>Zum Lesen auf dem Kindle</p>
+    </a>
+    <a class="kachel news" href="https://stories.lisi.lu/nachrichten" id="news-kachel" data-quelle="https://stories.lisi.lu/neu.json">
+      <div class="newsfenster" aria-hidden="true">
+        <span class="live">Neues aus Luxemburg</span>
+        <ul class="meldungen">
+          <li class="meldung aktiv"><strong>Die neuesten Kinder-News aus Luxemburg</strong><small>Hier tippen zum Lesen</small></li>
+        </ul>
+        <div class="punkte"></div>
+      </div>
+      <h2>Kinder-News</h2>
+      <p>Neues aus Luxemburg</p>
+    </a>
+  </main>
+
+  <footer class="fuss">© 2026 Mike Greiveldinger · <a href="/impressum/">Impressum</a> · <a href="/datenschutz/">Datenschutz</a> · <a href="mailto:info@lisi.lu">info@lisi.lu</a></footer>
+</div>
+<script>
+/* Kacheln unter „Neu bei Lisi“, die zwischen mehreren Einträgen wechseln (alle 5 Sekunden, Pause bei Maus/Fokus) */
+function lisiWechsel(k, liste) {
+  if (!k || !liste.length) return;
+  var img = k.querySelector('img'), h3 = k.querySelector('h3'), p = k.querySelector('p'), art = k.querySelector('.neu-art');
+  function zeige(e) {
+    k.href = e.url; h3.textContent = (e.kurz && window.matchMedia && matchMedia('(max-width: 759px)').matches) ? e.kurz : e.titel; p.textContent = e.untertitel || '';
+    if (art && e.art) art.textContent = e.art;
+    if (e.bild) img.src = e.bild;
+  }
+  zeige(liste[0]);
+  if (liste.length < 2) return;
+  liste.forEach(function (e) { if (e.bild) { var v = new Image(); v.src = e.bild; } });   /* Bilder vorladen */
+  var punkte = document.createElement('span'); punkte.className = 'neu-punkte'; punkte.setAttribute('aria-hidden', 'true');
+  liste.forEach(function () { punkte.appendChild(document.createElement('i')); });
+  k.appendChild(punkte);
+  /* Höhe der größten Variante reservieren, damit die Kacheln beim Wechsel nicht springen */
+  function hoehe() {
+    k.style.minHeight = ''; var max = 0, jetzt = i;
+    liste.forEach(function (e) { zeige(e); max = Math.max(max, k.offsetHeight); });
+    zeige(liste[jetzt]); k.style.minHeight = max + 'px';
+  }
+  var i = 0;
+  hoehe(); window.addEventListener('resize', hoehe);
+  [].forEach.call(document.querySelectorAll('.neu-karte img'), function (b) { b.addEventListener('load', hoehe, { once: true }); });
+  function markiere(i) { [].forEach.call(punkte.children, function (el, j) { el.className = j === i ? 'an' : ''; }); }
+  markiere(0);
+  var pause = false, ruhig = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  k.addEventListener('mouseenter', function () { pause = true; });
+  k.addEventListener('mouseleave', function () { pause = false; });
+  k.addEventListener('focus', function () { pause = true; });
+  k.addEventListener('blur', function () { pause = false; });
+  setInterval(function () {
+    if (pause || document.hidden) return;
+    i = (i + 1) % liste.length;
+    if (ruhig) { zeige(liste[i]); markiere(i); return; }
+    k.classList.add('wechsel');
+    setTimeout(function () { zeige(liste[i]); markiere(i); k.classList.remove('wechsel'); }, 350);
+  }, ruhig ? 9000 : 5000);
+}
+
+/* Bücher: einen Monat lang „Neu“, danach augenzwinkernd „fast neu“. Das neueste Buch zuerst. */
+(function () {
+  var BUECHER = [
+    { erschienen: '2026-03-17', url: '/buecher/', bild: '/bilder/cover-ouschterhues-lb.jpg',
+      titel: 'D’Lisi an dem Ouschterhues säin Atelier', kurz: 'D’Lisi an den Ouschterhues', untertitel: 'Bilderbuch auf Luxemburgisch: Lisi besucht den Osterhasen in seinem Atelier.' },
+    { erschienen: '2026-02-01', url: '/buecher/', bild: '/bilder/cover-streimaennchen-lb.jpg',
+      titel: 'D’Lisi an de Stréimännchen', untertitel: 'Lese- und Vorlesebuch auf Luxemburgisch, Deutsch, Französisch und Englisch.' }
+  ];
+  var jetzt = new Date();
+  BUECHER.forEach(function (b) {
+    var grenze = new Date(b.erschienen + 'T12:00:00'); grenze.setMonth(grenze.getMonth() + 1);
+    b.art = jetzt < grenze ? 'Bücher · Neu' : 'Bücher · fast neu';
+  });
+  BUECHER.sort(function (x, y) { return x.erschienen < y.erschienen ? 1 : -1; });
+  lisiWechsel(document.getElementById('neu-buch'), BUECHER);
+})();
+
+/* Spiele: alle Spiele von spiller.lisi.lu nacheinander. Spiele mit „neu: true“ kommen zuerst und tragen den
+   Aufkleber „Neu“ (wie auf spiller.lisi.lu). Kommt ein neues Spiel dazu: oben eintragen, neu: true setzen
+   und beim bisherigen neuen Spiel entfernen. */
+(function () {
+  var S = 'https://spiller.lisi.lu/';
+  var SPIELE = [
+    { neu: true, art: 'Wissen', url: S + 'wissensspiele/turmuhr/', bild: S + 'kacheln/turmuhr.jpg?v=1',
+      titel: 'Lisi und die Turmuhr', untertitel: 'Lerne die Uhr lesen und bring mit Lisi, Nora, Malik und Tian die Turmuhr wieder zum Laufen.' },
+    { art: 'Deutsch', url: S + 'deutsch/woerterzug/', bild: S + 'kacheln/woerterzug.jpg',
+      titel: 'Lisi und der Wörterzug', untertitel: '12 Bahnhöfe: Silben, Wörter und Sätze bauen. Jedes richtige Wort hängt einen Waggon an.' },
+    { art: 'Rechnen', url: S + 'rechenspiele/regenbogenreise/', bild: S + 'kacheln/regenbogenreise.jpg?v=4',
+      titel: 'Lunas Regenbogenreise', untertitel: 'Flieg mit dem Einhorn Luna zum Herz mit der richtigen Zahl.' },
+    { art: 'Deutsch', url: S + 'deutsch/woerterwelt/', bild: S + 'kacheln/woerterwelt.jpg',
+      titel: 'Lisis Wörterwelt', untertitel: 'Deutsche Wörter hören, lesen und legen: der, die, das, Buchstaben und Memory.' },
+    { art: 'Rechnen', url: S + 'rechenspiele/schatzinsel/', bild: S + 'kacheln/schatzinsel.jpg?v=5',
+      titel: 'Schatzinsel der Zahlen', untertitel: 'Rechne dich zum Schatz: Plus, Minus, Mal und Geteilt.' },
+    { art: 'Rechnen', url: S + 'rechenspiele/karte-der-wunder/', bild: S + 'kacheln/karte-der-wunder.jpg?v=3',
+      titel: 'Karte der Wunder', untertitel: 'Ein abenteuerliches Rechenspiel mit Lisi.' },
+    { art: 'Rechnen', url: S + 'rechenspiele/perlentaucher/', bild: S + 'kacheln/perlentaucher.jpg?v=4',
+      titel: 'Perlentaucher', untertitel: 'Tauche mit Lisi zur Blase mit der richtigen Zahl und finde die Leuchtperlen.' }
+  ];
+  var liste = SPIELE.filter(function (s) { return s.neu; }).concat(SPIELE.filter(function (s) { return !s.neu; }));
+  liste.forEach(function (s) { s.art = s.neu ? 'Spiele · Neu' : 'Spiele · ' + s.art; });
+  lisiWechsel(document.getElementById('neu-spiel'), liste);
+})();
+
+/* Geschichten: neu.json von stories.lisi.lu, aus jeder Kategorie die neueste Geschichte,
+   aber nur, wenn sie höchstens 14 Tage alt ist (sonst die neueste überhaupt). */
+(function () {
+  var k = document.getElementById('neu-geschichte'); if (!k || !window.fetch) return;
+  var STORIES = /^https:\/\/stories\.lisi\.lu\//;
+  function gueltig(d) { return d && d.titel && STORIES.test(d.url || ''); }
+  fetch('https://stories.lisi.lu/neu.json', { cache: 'no-cache' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+    if (!d) return;
+    var heute = new Date(); heute.setHours(12, 0, 0, 0);
+    var liste = (d.liste || []).filter(function (e) {
+      if (!gueltig(e) || !/^\d{4}-\d{2}-\d{2}$/.test(e.iso || '')) return false;
+      var tage = (heute - new Date(e.iso + 'T12:00:00')) / 864e5;
+      return tage >= 0 && tage <= 14;
+    });
+    if (!liste.length && gueltig(d)) liste = [d];
+    lisiWechsel(k, liste.map(function (e) {
+      return { url: e.url, titel: e.titel, untertitel: e.untertitel, bild: (e.bild && STORIES.test(e.bild)) ? e.bild : '' };
+    }));
+  }).catch(function () {});
+})();
+</script>
+<script>
+/* Spruch des Tages: jeden Tag ein anderer, kindgerechter Spruch (für alle Besucher am selben Tag derselbe) */
+(function () {
+  var SPRUECHE = [
+    'Hallo! Was machen wir heute?',
+    'Heute ist ein guter Tag für ein Abenteuer!',
+    'Wer Fragen stellt, entdeckt die Welt!',
+    'Lesen ist wie Reisen im Kopf.',
+    'Zusammen macht alles doppelt Spaß!',
+    'Auch kleine Schritte bringen dich ans Ziel.',
+    'Fehler sind zum Lernen da!',
+    'Ein Lächeln ist ein kleines Geschenk.',
+    'Mutig sein heißt: Ich probier’s einfach!',
+    'Jedes Buch ist eine Tür in eine neue Welt.',
+    'Heute lernen wir etwas Neues!',
+    'Du kannst mehr, als du denkst!',
+    'Neugier ist eine Superkraft!',
+    'Wer übt, wird jeden Tag ein bisschen besser.',
+    'Freundlich sein macht die Welt bunter.',
+    'Was wohl heute alles passiert?',
+    'Einmal tief durchatmen – und los geht’s!',
+    'Rätsel lösen macht den Kopf stark!',
+    'Teilen macht Freude – doppelt!',
+    'Komm, wir zählen bis zehn und starten!',
+    'Jeder Tag hat eine kleine Überraschung.',
+    'Fantasie kennt keine Grenzen.',
+    'Danke sagen ist ein Zauberwort.',
+    'Wer lacht, hat mehr vom Tag!',
+    'Auch Pausen sind wichtig.',
+    'Ich bin gespannt, was du heute entdeckst!',
+    'Jedes Wort ist ein kleiner Schatz.',
+    'Mit Geduld wird aus einem Samen ein Baum.',
+    'Zahlen sind wie kleine Rätselfreunde.',
+    'Heute wird ein Lieblingstag!',
+    'Hilf anderen, dann hilft man auch dir.',
+    'Geschichten machen Mut.',
+    'Probier es noch einmal – du schaffst das!',
+    'Die Welt ist voller Wunder.',
+    'Bitte und Danke öffnen viele Türen.',
+    'Gemeinsam sind wir stark!',
+    'Wer liest, sammelt Abenteuer.',
+    'Dein Kopf ist eine Schatzkiste voller Ideen.',
+    'Heute sind wir Entdecker!',
+    'Freu dich auf etwas Schönes!'
+  ];
+  var el = document.getElementById('spruch'); if (!el) return;
+  var d = new Date(), tag = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 864e5);
+  el.textContent = SPRUECHE[tag % SPRUECHE.length];
+})();
+</script>
+<script>
+/* Kinder-News-Kachel (aus dem Entwurf PR 4): holt https://stories.lisi.lu/neu.json, nimmt die Einträge mit
+   "kategorie": "Kinder-News" (neueste zuerst, höchstens 5) und zeigt sie abwechselnd alle 4 Sekunden.
+   Braucht auf stories.lisi.lu den CORS-Header Access-Control-Allow-Origin für lisi.lu. */
+(function(){
+  var kachel=document.getElementById('news-kachel'); if(!kachel||!window.fetch) return;
+  var quelle=kachel.getAttribute('data-quelle');
+  var liste=kachel.querySelector('.meldungen'), punkte=kachel.querySelector('.punkte');
+  var ruhig=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function feld(o,n){for(var i=0;i<n.length;i++){if(o[n[i]])return o[n[i]]}return ''}
+  function eintraege(d){if(Array.isArray(d))return d;if(d&&Array.isArray(d.liste))return d.liste;for(var k in d){if(Array.isArray(d[k]))return d[k]}return []}
+  function datumText(d){var t=new Date(d);return isNaN(t)?d:t.toLocaleDateString('de-DE',{day:'numeric',month:'long'})}
+  fetch(quelle,{cache:'no-cache'}).then(function(r){if(!r.ok)throw r;return r.json()}).then(function(daten){
+    var news=eintraege(daten).filter(function(n){return String(n.kategorie||'').toLowerCase()==='kinder-news'})
+      .map(function(n){return{titel:feld(n,['titel','title']),datum:feld(n,['iso','datum','date']),bild:feld(n,['bild','image','img'])}})
+      .filter(function(n){return n.titel})
+      .sort(function(a,b){return String(b.datum).localeCompare(String(a.datum))}).slice(0,5);
+    if(!news.length) return;
+    liste.innerHTML='';
+    news.forEach(function(n){
+      var li=document.createElement('li'); li.className='meldung';
+      if(n.bild){var im=document.createElement('img');im.src=new URL(n.bild,quelle).href;im.alt='';im.loading='lazy';li.appendChild(im)}
+      var t=document.createElement('strong'); t.textContent=n.titel;
+      var s=document.createElement('small'); s.textContent=n.datum?datumText(n.datum):'';
+      li.append(t,s); liste.appendChild(li); punkte.appendChild(document.createElement('span'));
+    });
+    var m=liste.children,p=punkte.children,i=0,pause=false;
+    m[0].classList.add('aktiv'); p[0].classList.add('aktiv');
+    kachel.setAttribute('aria-label','Kinder-News. Neu: '+news[0].titel);
+    if(ruhig||m.length<2){punkte.innerHTML='';return}
+    kachel.addEventListener('mouseenter',function(){pause=true});
+    kachel.addEventListener('mouseleave',function(){pause=false});
+    setInterval(function(){
+      if(pause||document.hidden) return;
+      var alt=m[i]; alt.classList.remove('aktiv'); alt.classList.add('weg'); p[i].classList.remove('aktiv');
+      setTimeout(function(){alt.classList.remove('weg')},650);
+      i=(i+1)%m.length; m[i].classList.add('aktiv'); p[i].classList.add('aktiv');
+    },4000);
+  }).catch(function(){});
+})();
+</script>
+<script>
+/* Weihnachten: leiser Schneefall über der Seite (bei „Bewegung reduzieren“ aus) */
+(function () {
+  var c = document.querySelector('canvas.schnee'); if (!c || !c.getContext) return;
+  if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { c.remove(); return; }
+  var g = c.getContext('2d'), flocken = [], w, h, dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function groesse() {
+    w = c.width = innerWidth * dpr; h = c.height = innerHeight * dpr;
+    var soll = Math.round(Math.min(70, innerWidth / 22));
+    while (flocken.length < soll) flocken.push(neu(true));
+    flocken.length = soll;
+  }
+  function neu(irgendwo) {
+    var r = (1.2 + Math.random() * 2.6) * dpr;
+    return { x: Math.random() * w, y: irgendwo ? Math.random() * h : -r * 2, r: r,
+             v: (0.25 + Math.random() * 0.55) * dpr, phase: Math.random() * 6.3, wind: 0.3 + Math.random() * 0.5 };
+  }
+  function bild(t) {
+    if (!document.hidden) {
+      g.clearRect(0, 0, w, h);
+      for (var i = 0; i < flocken.length; i++) {
+        var f = flocken[i];
+        f.y += f.v; f.x += Math.sin(t / 1600 + f.phase) * f.wind * dpr * 0.4;
+        if (f.y > h + f.r) flocken[i] = f = neu(false);
+        g.beginPath(); g.arc(f.x, f.y, f.r, 0, 6.2832);
+        g.fillStyle = 'rgba(255,255,255,.95)'; g.shadowColor = 'rgba(90,130,180,.45)'; g.shadowBlur = 3 * dpr; g.fill();
+      }
+    }
+    requestAnimationFrame(bild);
+  }
+  groesse(); addEventListener('resize', groesse); requestAnimationFrame(bild);
+})();
+</script>
+</body>
+</html>
