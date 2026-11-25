@@ -30,9 +30,25 @@ canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-
 .kopf.banner .kopfbild { aspect-ratio: 2.35 / 1; }
 .kopf.banner .kopfbild img { object-position: 50% 55%; }
 .banner .logo { background: rgba(255, 255, 255, .88); }
+/* Christbaumkugeln mit Lisi, Nora, Malik, Tian und Flocke hängen links im Himmel; das Logo rückt nach unten links */
+.kopf.banner .logo { top: auto; bottom: 6%; }
+.kugeln { position: absolute; left: 1.5%; top: 0; width: 35%; height: 100%; overflow: hidden; pointer-events: none; }
+.kopf.banner .kugeln img { position: absolute; width: 22%; height: auto; object-fit: contain; border-radius: 0; transform-origin: 50% 0; }
+.kugeln .k1 { left: 0%;    top: 2%; }
+.kugeln .k2 { left: 16.5%; top: -8%; }
+.kugeln .k3 { left: 33%;   top: 12%; }
+.kugeln .k4 { left: 49.5%; top: -4%; }
+.kugeln .k5 { left: 66%;   top: 8%; }
+@media (prefers-reduced-motion: no-preference) {
+  .kugeln img { animation: pendeln 5s ease-in-out infinite alternate; }
+  .kugeln .k2 { animation-delay: -1.3s; } .kugeln .k3 { animation-delay: -2.6s; }
+  .kugeln .k4 { animation-delay: -0.7s; } .kugeln .k5 { animation-delay: -3.4s; }
+}
+@keyframes pendeln { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
 @media (max-width: 559px) {
   .kopf.banner .kopfbild { aspect-ratio: 1.6 / 1; margin-bottom: 0; }
   .kopf.banner .kopfbild img { object-position: 72% 50%; }
+  .kugeln { left: 1%; width: 42%; border-radius: 20px 0 0 0; }
 }
 
 /* „Neu bei Lisi“: Karten mit kleinem Goldrand-Schimmer */

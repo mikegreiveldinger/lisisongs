@@ -12,6 +12,7 @@ Die Ordnerstruktur entspricht der Webseite: `index.html`, `stil.css`, `weihnacht
   (ChatGPT, Stilblock Adventskalender, Original in `quellen/`). Auf dem Desktop ist das Banner dafür höher (2,35:1).
 - **Girlande:** `bilder/girlande-weihnachten.webp`, gemalte Tannenzweige mit Kerzen, Zapfen und Beeren,
   freigestellt und gespiegelt gekachelt, damit keine Naht zu sehen ist. Ersetzt die Lichterkette.
+- **Christbaumkugeln:** `bilder/kugel-*.webp` (Lisi, Nora, Malik, Tian, Flocke), aus `quellen/Christkugeln-Kinder-Flocke-v1.0.png` freigestellt; hängen links im Banner, Logo unten links.
 - **weihnachten.css** (neu): Girlande, leise Sterne im Hintergrund, Banner-Anpassungen, Schneehauben auf den Kacheln.
 - **Schneefall** über der Seite (Skript unten in `index.html`, aus bei „Bewegung reduzieren“).
 - **Spruch im Banner:** entfällt in der Weihnachtszeit (Mikes Wunsch); das Spruch-Skript findet kein Element und tut nichts.

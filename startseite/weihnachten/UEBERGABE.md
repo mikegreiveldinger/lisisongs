@@ -10,10 +10,11 @@ Die fertige Startseite liegt als `startseite/weihnachten/index.html` bereit; die
 1. **Logo:** Lisi mit Weihnachtsmütze im Logo „Lisi's World“ (Schriftzug unverändert).
 2. **Favicon und App-Symbol** aus dem Mützen-Logo.
 3. **Banner:** neues Winterbild (ChatGPT, Stilblock Adventskalender): Lisi, Nora, Malik, Tian und Flocke am Abend im Schnee. Auf dem Desktop ist das Banner höher (2,35 : 1), auf dem Handy 1,6 : 1 mit Ausschnitt nach rechts. **Der Spruch im Banner entfällt** (Mikes Wunsch).
-4. **Girlande:** gemalte Tannenzweige mit Kerzen, Zapfen, Beeren und Schnee über die ganze Breite, hängt über den oberen Rand des Banners.
-5. **Schneefall:** leise Flocken über der Seite (aus bei „Bewegung reduzieren“).
-6. **Hintergrund:** ganz blasse Sterne und Punkte; **Kacheln** tragen eine kleine Schneehaube.
-7. **Kinder-News-Kachel** (aus PR #4) rechts neben „Bücher“, auf dem Handy vierte Kachel. Holt die Meldungen aus `https://stories.lisi.lu/neu.json` (Einträge mit `"kategorie": "Kinder-News"`), verlinkt auf `https://stories.lisi.lu/nachrichten`. Im Test kamen echte Meldungen an.
+4. **Christbaumkugeln:** fünf gemalte Kugeln mit Lisi, Nora, Malik, Tian und Flocke hängen an roten Bändern links im Himmel des Banners (wo vorher der Spruch stand) und pendeln leicht (aus bei „Bewegung reduzieren“). Das **Logo** sitzt dafür unten links im Banner.
+5. **Girlande:** gemalte Tannenzweige mit Kerzen, Zapfen, Beeren und Schnee über die ganze Breite, hängt über den oberen Rand des Banners.
+6. **Schneefall:** leise Flocken über der Seite (aus bei „Bewegung reduzieren“).
+7. **Hintergrund:** ganz blasse Sterne und Punkte; **Kacheln** tragen eine kleine Schneehaube.
+8. **Kinder-News-Kachel** (aus PR #4) rechts neben „Bücher“, auf dem Handy vierte Kachel. Holt die Meldungen aus `https://stories.lisi.lu/neu.json` (Einträge mit `"kategorie": "Kinder-News"`), verlinkt auf `https://stories.lisi.lu/nachrichten`. Im Test kamen echte Meldungen an.
 
 Flocke: junges Rentier aus dem Adventskalender (Dateien „Lisis Winterreise“), Material in Nextcloud unter `Lisi Media/Claude Projekte/lisi-spiele/Adventskalender/`. Quellbilder der neuen Bilder: `Lisi Media/Claude Projekte/lisi.lu Weihnachten 2026/`.
 
@@ -28,6 +29,11 @@ Flocke: junges Rentier aus dem Adventskalender (Dateien „Lisis Winterreise“)
 | `/bilder/kopfbild-weihnachten.jpg` | Winterbanner 1672×941 (Kinder und Flocke) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kopfbild-weihnachten.jpg |
 | `/bilder/kopfbild-weihnachten-klein.jpg` | Winterbanner 836×470 | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kopfbild-weihnachten-klein.jpg |
 | `/bilder/girlande-weihnachten.webp` | Gemalte Girlande, freigestellt, nahtlos kachelbar (2400×147) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/girlande-weihnachten.webp |
+| `/bilder/kugel-lisi.webp` | Christbaumkugel mit Lisi (freigestellt) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kugel-lisi.webp |
+| `/bilder/kugel-nora.webp` | Christbaumkugel mit Nora (freigestellt) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kugel-nora.webp |
+| `/bilder/kugel-malik.webp` | Christbaumkugel mit Malik (freigestellt) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kugel-malik.webp |
+| `/bilder/kugel-tian.webp` | Christbaumkugel mit Tian (freigestellt) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kugel-tian.webp |
+| `/bilder/kugel-flocke.webp` | Christbaumkugel mit Flocke (freigestellt) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/bilder/kugel-flocke.webp |
 | `/weihnachten.css` | Alle Weihnachts-Stile (kommt ins Wurzelverzeichnis neben stil.css) | https://raw.githubusercontent.com/mikegreiveldinger/lisisongs/claude/project-thread-y5dquq/startseite/weihnachten/weihnachten.css |
 
 Die alten Dateien (`lisis-world-bunt.png`, `favicon-32.png`, `favicon-192.png`, `apple-touch-icon.png`, `kopfbild-freunde*.jpg`) bleiben liegen, damit man nach den Feiertagen zurückwechseln kann.
@@ -65,7 +71,19 @@ Die alten Dateien (`lisis-world-bunt.png`, `favicon-32.png`, `favicon-192.png`, 
 
 (Das `<source media="(max-width: 559px)" …kopfbild-freunde-handy.jpg>` fällt weg, das Winterbild wird auch auf dem Handy benutzt.)
 
-**d) Logo** im Banner: `src="/bilder/lisis-world-bunt.png"` → `src="/bilder/lisis-world-weihnachten.png"`.
+**d) Logo** im Banner: `src="/bilder/lisis-world-bunt.png"` → `src="/bilder/lisis-world-weihnachten.png"`. (Die Position unten links regelt `weihnachten.css`.)
+
+**d2) Kugeln:** direkt vor dem Logo-Link (`<a class="logo" …>`) im `<div class="kopfbild">` einfügen:
+
+```html
+<div class="kugeln" aria-hidden="true">
+  <img class="k1" src="/bilder/kugel-lisi.webp" width="218" height="464" alt="">
+  <img class="k2" src="/bilder/kugel-nora.webp" width="214" height="462" alt="">
+  <img class="k3" src="/bilder/kugel-malik.webp" width="214" height="464" alt="">
+  <img class="k4" src="/bilder/kugel-tian.webp" width="214" height="463" alt="">
+  <img class="k5" src="/bilder/kugel-flocke.webp" width="220" height="464" alt="">
+</div>
+```
 
 **e) Spruch entfernen:** die Zeile `<p class="spruch" id="spruch">…</p>` löschen. Das Spruch-Skript unten findet dann kein Element und tut nichts; es kann für später stehen bleiben.
 
@@ -202,9 +220,25 @@ canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-
 .kopf.banner .kopfbild { aspect-ratio: 2.35 / 1; }
 .kopf.banner .kopfbild img { object-position: 50% 55%; }
 .banner .logo { background: rgba(255, 255, 255, .88); }
+/* Christbaumkugeln mit Lisi, Nora, Malik, Tian und Flocke hängen links im Himmel; das Logo rückt nach unten links */
+.kopf.banner .logo { top: auto; bottom: 6%; }
+.kugeln { position: absolute; left: 1.5%; top: 0; width: 35%; height: 100%; overflow: hidden; pointer-events: none; }
+.kopf.banner .kugeln img { position: absolute; width: 22%; height: auto; object-fit: contain; border-radius: 0; transform-origin: 50% 0; }
+.kugeln .k1 { left: 0%;    top: 2%; }
+.kugeln .k2 { left: 16.5%; top: -8%; }
+.kugeln .k3 { left: 33%;   top: 12%; }
+.kugeln .k4 { left: 49.5%; top: -4%; }
+.kugeln .k5 { left: 66%;   top: 8%; }
+@media (prefers-reduced-motion: no-preference) {
+  .kugeln img { animation: pendeln 5s ease-in-out infinite alternate; }
+  .kugeln .k2 { animation-delay: -1.3s; } .kugeln .k3 { animation-delay: -2.6s; }
+  .kugeln .k4 { animation-delay: -0.7s; } .kugeln .k5 { animation-delay: -3.4s; }
+}
+@keyframes pendeln { from { transform: rotate(-2.5deg); } to { transform: rotate(2.5deg); } }
 @media (max-width: 559px) {
   .kopf.banner .kopfbild { aspect-ratio: 1.6 / 1; margin-bottom: 0; }
   .kopf.banner .kopfbild img { object-position: 72% 50%; }
+  .kugeln { left: 1%; width: 42%; border-radius: 20px 0 0 0; }
 }
 
 /* „Neu bei Lisi“: Karten mit kleinem Goldrand-Schimmer */
@@ -258,14 +292,14 @@ canvas.schnee { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-
 
 ## 4. Prüfen
 
-- Desktop und Handy: Girlande oben, Banner mit allen fünf Figuren ganz sichtbar, kein Spruch, vier Kacheln.
+- Desktop und Handy: Girlande oben, Banner mit allen fünf Figuren ganz sichtbar, fünf Kugeln links im Himmel, Logo unten links, kein Spruch, vier Kacheln.
 - Kinder-News-Kachel zeigt echte Meldungen (sonst den Platzhalter „Die neuesten Kinder-News aus Luxemburg“). Falls nicht: CORS-Header für lisi.lu auf `stories.lisi.lu/neu.json` prüfen.
 - Vorschaubilder: `startseite/weihnachten/vorschau/` im Repo.
 
 ## 5. Rückbau nach den Feiertagen
 
-`<link … weihnachten.css>`, `.girlande`, `canvas.schnee` und das Skript „Weihnachten: leiser Schneefall“ entfernen; Kopfbild, Logo und Icons zurück auf die alten Dateien; `<p class="spruch" id="spruch">Hallo! Was machen wir heute?</p>` wieder ins Banner setzen. Die Kinder-News-Kachel bleibt (ihre Stile stehen dann noch in `weihnachten.css` und müssten nach `stil.css` umziehen).
+`<link … weihnachten.css>`, `.girlande`, `canvas.schnee`, `.kugeln` und das Skript „Weihnachten: leiser Schneefall“ entfernen; Kopfbild, Logo und Icons zurück auf die alten Dateien; `<p class="spruch" id="spruch">Hallo! Was machen wir heute?</p>` wieder ins Banner setzen. Die Kinder-News-Kachel bleibt (ihre Stile stehen dann noch in `weihnachten.css` und müssten nach `stil.css` umziehen).
 
 ## Noch offen
 
-- **Christbaumkugeln:** Mike wünscht fünf gemalte Kugeln (Lisi, Nora, Malik, Tian, Flocke), die links im Banner hängen, wo vorher der Spruch stand. Die Bilder werden gerade in ChatGPT erstellt; der Einbau folgt als Nachtrag.
+Nichts am Design. Fehlt nur Mikes Freigabe und das Hochladen auf den Webserver.
